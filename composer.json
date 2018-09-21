@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "Mentor Bank",
+    "description": "Senior Project",
+    "keywords": [],
     "license": "MIT",
     "type": "project",
     "require": {

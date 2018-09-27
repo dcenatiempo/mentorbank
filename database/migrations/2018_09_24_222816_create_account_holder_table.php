@@ -13,7 +13,7 @@ class CreateAccountHolderTable extends Migration
      */
     public function up()
     {
-        Schema::create('account_holder', function (Blueprint $table) {
+        Schema::create('account_holders', function (Blueprint $table) {
             $table->increments('id');
             $table->timestampsTz();
             $table->integer('pin'); // simple password - only works if their banker is logged in
@@ -31,6 +31,6 @@ class CreateAccountHolderTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('account_holder');
+        Schema::dropIfExists('account_holders');
     }
 }

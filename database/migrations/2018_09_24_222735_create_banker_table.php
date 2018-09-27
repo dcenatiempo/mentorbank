@@ -13,7 +13,7 @@ class CreateBankerTable extends Migration
      */
     public function up()
     {
-        Schema::create('banker', function (Blueprint $table) {
+        Schema::create('bankers', function (Blueprint $table) {
             $table->increments('id');
             $table->timestampsTz();
             $table->integer('user_id')->references('id')->on('users');
@@ -28,6 +28,6 @@ class CreateBankerTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('banker');
+        Schema::dropIfExists('bankers');
     }
 }

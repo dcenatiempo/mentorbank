@@ -13,7 +13,7 @@ class CreateRecurringTemplateTable extends Migration
      */
     public function up()
     {
-        Schema::create('recurring_template', function (Blueprint $table) {
+        Schema::create('recurring_templates', function (Blueprint $table) {
             $table->increments('id');
             $table->timestampsTz();
             $table->date('start_date');
@@ -31,6 +31,6 @@ class CreateRecurringTemplateTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('recurring_template');
+        Schema::dropIfExists('recurring_templates');
     }
 }

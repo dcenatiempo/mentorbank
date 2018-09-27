@@ -13,7 +13,7 @@ class CreateTransactionHistory extends Migration
      */
     public function up()
     {
-        Schema::create('transaction_history', function (Blueprint $table) {
+        Schema::create('transaction_histories', function (Blueprint $table) {
             $table->increments('id');
             $table->timestampsTz();
             $table->date('month'); // last day of the month
@@ -31,6 +31,6 @@ class CreateTransactionHistory extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transaction_history');
+        Schema::dropIfExists('transaction_histories');
     }
 }

@@ -25,6 +25,7 @@ class CreateAccountTable extends Migration
             $table->integer('overdraft_fee')->default(0); //in cents
             $table->float('credit_interest_rate', 4, 2)->default(0);
             $table->integer('bank_id')->references('id')->on('bank');
+            $table->softDeletesTz();
         });
     }
 

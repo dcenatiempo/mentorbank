@@ -17,6 +17,7 @@ class CreateBankTable extends Migration
             $table->increments('id');
             $table->timestampsTz();
             $table->string('bank_name', 64); // not null
+            $table->softDeletesTz();
         });
     }
 

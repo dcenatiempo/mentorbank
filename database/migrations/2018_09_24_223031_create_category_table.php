@@ -23,6 +23,7 @@ class CreateCategoryTable extends Migration
             $table->integer('goal_balance'); // in cents
             $table->integer('low_balance_alert'); // in cents
             $table->integer('account_id')->references('id')->on('account')->nullable();
+            $table->softDeletesTz();
         });
     }
 

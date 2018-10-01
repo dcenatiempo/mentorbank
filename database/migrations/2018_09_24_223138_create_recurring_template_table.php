@@ -19,7 +19,9 @@ class CreateRecurringTemplateTable extends Migration
             $table->date('start_date');
             $table->string('frequency', 31); // https://en.wikipedia.org/wiki/ISO_8601#Durations
             $table->string('memo', 255);
-            $table->jsonb('split'); // [{type, category, ammount}]
+            $table->enum('type', ['withdrawal', 'deposit', 'transfer']);
+            $table->jsonb('split'); // [{category, ammount}]
+            $table->integer('net_amount'); // in cents - positive=deposit/transfer, negative=withdrawal
             $table->integer('account_id')->references('id')->on('account');
         });
     }

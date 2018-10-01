@@ -17,12 +17,9 @@ class CreateCategoryTable extends Migration
             $table->increments('id');
             $table->timestampsTz();
             $table->string('name', 63);
-            $table->boolean('standard')->default(false); // standard for all accounts: General, Accrued Interest
-            $table->boolean('archived')->default(false);
+            $table->boolean('standard')->default(false); // standard for all accounts: Uncategoriezed/General, Accrued Interest
             $table->boolean('notifications')->default(true);
-            $table->integer('goal_balance'); // in cents
-            $table->integer('low_balance_alert'); // in cents
-            $table->integer('account_id')->references('id')->on('account')->nullable();
+            $table->integer('bank_id')->references('id')->on('bank')->nullable();
             $table->softDeletesTz();
         });
     }

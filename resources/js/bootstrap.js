@@ -1,6 +1,9 @@
 
-window._ = require('lodash');
+// window._ = require('lodash');
 window.Popper = require('popper.js').default;
+
+window.Vue = require('vue');
+window.Bus = new Vue();
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support

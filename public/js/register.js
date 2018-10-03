@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 39);
+/******/ 	return __webpack_require__(__webpack_require__.s = 52);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -30010,36 +30010,9 @@ module.exports = function spread(callback) {
 /* 36 */,
 /* 37 */,
 /* 38 */,
-/* 39 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(40);
-module.exports = __webpack_require__(41);
-
-
-/***/ }),
-/* 40 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__GlobalMixin__ = __webpack_require__(59);
-__webpack_require__(12);
-
-
-
-var app = new Vue({
-    el: '#app',
-    mixins: [__WEBPACK_IMPORTED_MODULE_0__GlobalMixin__["a" /* default */]]
-});
-
-/***/ }),
-/* 41 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
+/* 39 */,
+/* 40 */,
+/* 41 */,
 /* 42 */,
 /* 43 */,
 /* 44 */,
@@ -30050,8 +30023,29 @@ var app = new Vue({
 /* 49 */,
 /* 50 */,
 /* 51 */,
-/* 52 */,
-/* 53 */,
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(53);
+
+
+/***/ }),
+/* 53 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__GlobalMixin__ = __webpack_require__(59);
+__webpack_require__(12);
+
+
+
+var app = new Vue({
+    el: '#register',
+    mixins: [__WEBPACK_IMPORTED_MODULE_0__GlobalMixin__["a" /* default */]]
+});
+
+/***/ }),
 /* 54 */,
 /* 55 */,
 /* 56 */,

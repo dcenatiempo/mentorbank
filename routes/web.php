@@ -12,9 +12,15 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome', ['pageId' => 'welcome']);
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'ViewController@home');
+
+Route::middleware([])->group(function () {
+    Route::get('/profile', 'ViewController@profile');
+    Route::get('/bank', 'ViewController@bank');
+    Route::get('/account', 'ViewController@acount');
+});

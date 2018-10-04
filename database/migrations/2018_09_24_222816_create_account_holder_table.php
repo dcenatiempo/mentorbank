@@ -20,8 +20,7 @@ class CreateAccountHolderTable extends Migration
             $table->string('name', 63);
             $table->date('birthdate')->nullable();
             $table->integer('user_id')->references('id')->on('users')->nullable();
-            $table->integer('bank_id')->references('id')->on('bank');
-            $table->integer('account_id')->references('id')->on('account');
+            $table->integer('bank_id')->references('id')->on('banks');
             $table->softDeletesTz();
         });
     }

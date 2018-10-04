@@ -27,4 +27,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    // One to one
+    public function banker()        { return $this->hasOne('App\Banker'); }
+    public function accountHolder() { return $this->hasOne('App\AccountHolder'); }
 }

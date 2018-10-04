@@ -20,7 +20,7 @@ class CreateTransactionTable extends Migration
             $table->enum('type', ['withdrawal', 'deposit', 'transfer']);
             $table->jsonb('split'); // [{category, ammount}]
             $table->integer('net_amount'); // in cents - positive=deposit/transfer, negative=withdrawal
-            $table->integer('account_id')->references('id')->on('account');
+            $table->integer('account_id')->references('id')->on('accounts');
         });
     }
 

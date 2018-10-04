@@ -18,7 +18,7 @@ class CreateNotificationTable extends Migration
             $table->timestampsTz();
             $table->text('message');
             $table->boolean('has_been_read');
-            $table->integer('account_id')->references('id')->on('account');
+            $table->integer('account_id')->references('id')->on('accounts');
         });
     }
 

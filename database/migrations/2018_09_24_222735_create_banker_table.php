@@ -17,7 +17,7 @@ class CreateBankerTable extends Migration
             $table->increments('id');
             $table->timestampsTz();
             $table->integer('user_id')->references('id')->on('users');
-            $table->integer('bank_id')->references('id')->on('bank');
+            $table->integer('bank_id')->references('id')->on('banks');
         });
     }
 

@@ -20,7 +20,7 @@ class CreateTransactionHistory extends Migration
             $table->integer('ending_balance');
             $table->integer('interest_earned');
             $table->json('transactions'); // json obj of all transactions for the month
-            $table->integer('account_id')->references('id')->on('account');
+            $table->integer('account_id')->references('id')->on('accounts');
         });
     }
 

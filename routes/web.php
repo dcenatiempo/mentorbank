@@ -17,10 +17,33 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'ViewController@home');
-
-Route::middleware([])->group(function () {
+Route::middleware(['auth'])->group(function () {
+    Route::get('/home', 'ViewController@home');
     Route::get('/profile', 'ViewController@profile');
     Route::get('/bank', 'ViewController@bank');
     Route::get('/account', 'ViewController@acount');
+
+    Route::prefix('api')->group(function () {
+        
+        Route::prefix('user')->group(function () {
+            Route::get('/', 'UserController@index');
+            Route::patch('/', 'UserController@update');
+            Route::delete('/', 'UserController@delete');
+        });
+
+        Route::prefix('bank')->group(function () {
+            Route::get('/', 'BankController@index');
+            Route::put('/', 'BankController@create');
+            Route::patch('/', 'BankController@update');
+            Route::delete('/', 'BankController@delete');
+        });
+
+        Route::prefix('account')->group(function () {
+            Route::get('/', 'AccountController@index');
+            Route::put('/', 'AccountController@create');
+            Route::patch('/', 'AccountController@update');
+            Route::delete('/', 'AccountController@delete');
+        });
+
+    });
 });

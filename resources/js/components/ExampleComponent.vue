@@ -15,14 +15,33 @@
 </template>
 
 <script>
-    import {mapState} from 'vuex';
+import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
 
-    export default {
-        computed: {
-            ...mapState('user', ['name'])
-        },
-        mounted() {
-            console.log('Component mounted.')
-        }
-    }
+export default {
+    components: {},
+    props: {},
+    data() {
+        return {
+
+        };
+    },
+    computed: {
+        ...mapState('user', ['name']),
+        // ...mapGetters()
+    },
+    methods: {
+        // ...mapMutations(),
+        // ...mapActions(),
+        
+    },
+    created() {},
+    mounted() {
+        console.log('Component mounted.')
+    },
+    watch: {}
+}
 </script>
+
+<style>
+
+</style>

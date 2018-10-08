@@ -17,9 +17,17 @@ export default {
 
     created() {},
 
-    mounted() {},
+    mounted() {
+        console.log('Global Mixin Loaded');
+        let vm = this;
+        this.getUser();
 
-    methods: {},
+    },
 
-    computed: {}
+    methods: {
+        ...mapActions('user', ['getUser']),
+    },
+
+    computed: {
+    }
 }

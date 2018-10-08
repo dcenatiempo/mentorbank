@@ -14,11 +14,10 @@
                         </div>
                     @endif
 
-                    <h1>You are logged in!</h1>
-                    <h1 v-if="loading">Loading User...</h1>
-                    <new-user v-if="type == 'none'"></new-user>
-                    <banker-profile v-else-if="type == 'banker'"></banker-profile>
-                    <account-holder-profile v-else-if="type == 'account_holder'"></account-holder-profile>
+                    <h1>Hello {{ Auth::user()->name }}, You are logged in!</h1>
+                    <h1 v-if="loading">Loading Bank...</h1>
+                    <new-bank v-if="accounts.accountList.length == 0"></new-bank>
+                    <bank-dashboard v-else></bank-dashboard>
                 </div>
             </div>
         </div>

@@ -1,14 +1,20 @@
 require('./bootstrap');
 
 import GlobalMixin from './GlobalMixin';
+import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
 
-// Vue.component('example-component', require('./components/ExampleComponent.vue'));
-import ExampleComponent from './components/ExampleComponent.vue';
-console.log('pizza');
+Vue.component('new-user', require('./components/profile/NewUser.vue'));
+Vue.component('banker-profile', require('./components/profile/BankerProfile.vue'));
+Vue.component('account-holder-profile', require('./components/profile/AccountHolderProfile.vue'));
+
 const app = new Vue({
     el: '#profile',
     mixins  : [ GlobalMixin ],
-    components: {
-        'example-component': ExampleComponent
-    }
+    computed: {
+        ...mapState('user',['type', 'loading'])
+    },
+    created() {
+        // fetch user profile
+    },
+
 });

@@ -19,6 +19,7 @@ class CreateAccountHolderTable extends Migration
             $table->integer('pin'); // simple password - only works if their banker is logged in
             $table->string('name', 63);
             $table->date('birthdate')->nullable();
+            $table->enum('sex', ['m', 'f'])->nullable();
             $table->integer('user_id')->references('id')->on('users')->nullable();
             $table->integer('bank_id')->references('id')->on('banks');
             $table->softDeletesTz();

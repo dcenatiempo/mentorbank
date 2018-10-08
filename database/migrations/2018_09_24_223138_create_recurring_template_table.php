@@ -15,7 +15,7 @@ class CreateRecurringTemplateTable extends Migration
     {
         Schema::create('recurring_templates', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestampsTz();
+            $table->timestamps();
             $table->date('start_date');
             $table->string('frequency', 31); // https://en.wikipedia.org/wiki/ISO_8601#Durations
             $table->string('memo', 255);

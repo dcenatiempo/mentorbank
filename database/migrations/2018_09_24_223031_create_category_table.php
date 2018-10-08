@@ -15,10 +15,11 @@ class CreateCategoryTable extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestampsTz();
+            $table->timestamps();
             $table->string('name', 63);
             $table->boolean('standard')->default(false); // standard for all accounts: Uncategoriezed/General, Accrued Interest
             $table->boolean('notifications')->default(true);
+            $table->boolean('hidden')->default(false);
             $table->integer('bank_id')->references('id')->on('banks')->nullable();
             $table->softDeletesTz();
         });

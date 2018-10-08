@@ -15,8 +15,8 @@ class CreateBankTable extends Migration
     {
         Schema::create('banks', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestampsTz();
-            $table->string('bank_name', 64); // not null
+            $table->timestamps();
+            $table->string('name', 64); // not null
             $table->string('invite_code', 64);
             $table->softDeletesTz();
         });

@@ -15,7 +15,7 @@ class CreateAccountHolderTable extends Migration
     {
         Schema::create('account_holders', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestampsTz();
+            $table->timestamps();
             $table->integer('pin'); // simple password - only works if their banker is logged in
             $table->string('name', 63);
             $table->date('birthdate')->nullable();

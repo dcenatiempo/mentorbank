@@ -15,7 +15,7 @@ class CreateTransactionHistory extends Migration
     {
         Schema::create('transaction_histories', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestampsTz();
+            $table->timestamps();
             $table->date('month'); // last day of the month
             $table->integer('ending_balance');
             $table->integer('interest_earned');

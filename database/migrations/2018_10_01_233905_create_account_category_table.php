@@ -15,7 +15,7 @@ class CreateAccountCategoryTable extends Migration
     {
         Schema::create('account_category', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestampsTz();
+            $table->timestamps();
             $table->boolean('archived')->default(false);
             $table->boolean('notifications')->default(true);
             $table->integer('goal_balance'); // in cents

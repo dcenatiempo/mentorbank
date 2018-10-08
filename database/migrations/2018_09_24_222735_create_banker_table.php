@@ -15,7 +15,7 @@ class CreateBankerTable extends Migration
     {
         Schema::create('bankers', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestampsTz();
+            $table->timestamps();
             $table->integer('user_id')->references('id')->on('users');
             $table->integer('bank_id')->references('id')->on('banks');
         });

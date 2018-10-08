@@ -15,7 +15,7 @@ class CreateAccountTable extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestampsTz();
+            $table->timestamps();
             $table->float('interest_rate', 4, 2)->default(0);
             $table->boolean('notifications')->default(true);
             $table->integer('goal_balance');

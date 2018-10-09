@@ -12,7 +12,7 @@ class BankController extends Controller
         return $request->user()->banker->bank->toJson();
     }
 
-    function create (Request $request) {
+    function store (Request $request) {
         // TODO validate request
         // TODO check to see if user already is a banker
         // TODO check to see if user already has bank

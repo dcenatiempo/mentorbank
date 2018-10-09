@@ -33,14 +33,14 @@ Route::middleware(['auth'])->group(function () {
 
         Route::prefix('bank')->group(function () {
             Route::get('/', 'BankController@index');
-            Route::put('/', 'BankController@create');
+            Route::put('/', 'BankController@store');
             Route::patch('/', 'BankController@update');
             Route::delete('/', 'BankController@delete');
         });
 
         Route::prefix('account')->group(function () {
             Route::get('/', 'AccountController@index');
-            Route::put('/', 'AccountController@create');
+            Route::put('/', 'AccountController@store');
             Route::patch('/', 'AccountController@update');
             Route::delete('/', 'AccountController@delete');
         });

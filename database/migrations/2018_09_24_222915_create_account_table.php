@@ -16,17 +16,17 @@ class CreateAccountTable extends Migration
         Schema::create('accounts', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->float('interest_rate', 4, 2)->default(0);
+            $table->decimal('interest_rate', 4, 2)->default(1.1);
             $table->boolean('notifications')->default(true);
-            $table->integer('goal_balance');
-            $table->integer('low_balance_alert');
-            $table->integer('view'); // 0-simple, 1-intermediate, 2-advanced
+            $table->integer('goal_balance')->nullable();
+            $table->integer('low_balance_alert')->nullable();
+            $table->integer('view')->default(0); // 0-simple, 1-intermediate, 2-advanced
             $table->boolean('allow_negative_balance')->default(false);
             $table->integer('overdraft_fee')->default(0); //in cents
-            $table->float('credit_interest_rate', 4, 2)->default(0);
+            $table->decimal('credit_interest_rate', 4, 2)->default(0);
             $table->integer('bank_id')->references('id')->on('banks');
             $table->integer('account_holder_id')->references('id')->on('account_holders');
-            $table->softDeletesTz();
+            $table->softDeletes();
         });
     }
 

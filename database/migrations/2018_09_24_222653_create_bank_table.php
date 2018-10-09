@@ -18,7 +18,7 @@ class CreateBankTable extends Migration
             $table->timestamps();
             $table->string('name', 64); // not null
             $table->string('invite_code', 64);
-            $table->softDeletesTz();
+            $table->softDeletes();
         });
     }
 

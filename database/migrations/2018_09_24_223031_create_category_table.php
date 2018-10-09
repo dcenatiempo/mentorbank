@@ -21,7 +21,7 @@ class CreateCategoryTable extends Migration
             $table->boolean('notifications')->default(true);
             $table->boolean('hidden')->default(false);
             $table->integer('bank_id')->references('id')->on('banks')->nullable();
-            $table->softDeletesTz();
+            $table->softDeletes();
         });
     }
 

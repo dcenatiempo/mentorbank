@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Account extends Model
 {
+    protected $guarded = [ ];
+    protected $casts = [
+        'credit_interest_rate' => 'float',
+        'interest_rate' => 'float'
+    ];
+
     // One to one (inverse)
     public function accountHolder()     { return $this->belongsTo('App\AccountHolder'); }
     public function bank()              { return $this->belongsTo('App\Bank'); }

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class AccountHolder extends Model
 {
+    protected $fillable = ['pin'];
+
     // One to one
     public function account() { return $this->hasOne('App\Account'); }
     

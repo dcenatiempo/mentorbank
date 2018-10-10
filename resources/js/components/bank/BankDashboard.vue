@@ -16,7 +16,7 @@
         </div>
     </template>
     <hr>
-    <h2>Transactions</h2>
+    <h2>Transactions</h2> 
     <hr>
     <h2>Recurring Transactions</h2>
     <button v-on:click="showExampleModal">Open Modal</button>
@@ -43,8 +43,10 @@ export default {
         ...mapMutations('app', ['showModal', 'hideModal']),
         ...mapActions('categories', ['getAllCategories']),
         showExampleModal() {
-            console.log('open modal!!')
-            this.showModal({modalId: 'example-modal', payload: {message: "Hello World"}});
+            this.showModal({
+                modalId: 'example-modal',
+                payload: {message: "Hello World"}
+            });
         }
     },
     created() {

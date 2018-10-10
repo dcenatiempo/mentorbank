@@ -1,5 +1,5 @@
 <template>
-    <dialog :open="showModals[id]">
+    <dialog :id="id" :open="showModals[id]">
         <header>
             <span>{{modalTitle}}</span>
             <button v-on:click="handleCancel">X</button>

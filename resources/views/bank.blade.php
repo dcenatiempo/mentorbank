@@ -22,6 +22,11 @@
             </div>
         </div>
     </div>
-    <example-modal></example-modal>
 </div>
+@endsection
+
+@section('modals')
+<add-transaction-btn></add-transaction-btn>
+<example-modal></example-modal>
+<transaction-modal></transaction-modal>
 @endsection

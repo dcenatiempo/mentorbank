@@ -5,6 +5,8 @@ import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
 
 Vue.component('bank-dashboard', require('./components/bank/BankDashboard.vue'));
 Vue.component('example-modal', require('./components/modals/ExampleModal.vue'));
+Vue.component('transaction-modal', require('./components/modals/TransactionModal.vue'));
+Vue.component('add-transaction-btn', require('./components/reusable/AddTransactionBtn.vue'));
 
 const app = new Vue({
     el: '#bank',

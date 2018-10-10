@@ -3,8 +3,8 @@ require('./bootstrap');
 import GlobalMixin from './GlobalMixin';
 import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
 
-Vue.component('new-bank', require('./components/bank/NewBank.vue'));
-Vue.component('banker-profile', require('./components/bank/BankDashboard.vue'));
+Vue.component('bank-dashboard', require('./components/bank/BankDashboard.vue'));
+Vue.component('example-modal', require('./components/modals/ExampleModal.vue'));
 
 const app = new Vue({
     el: '#bank',

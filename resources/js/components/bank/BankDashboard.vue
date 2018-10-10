@@ -10,6 +10,11 @@
     </template>
     <hr>
     <h2>Categories</h2>
+    <template v-for="category in categories.categoryList">
+        <div :key="category.id">
+            <h3>{{category.name}}</h3>
+        </div>
+    </template>
     <hr>
     <h2>Transactions</h2>
     <hr>
@@ -30,15 +35,15 @@ export default {
     },
     computed: {
         ...mapState('user', ['name']),
-        ...mapState(['bank', 'accounts'])
+        ...mapState(['bank', 'accounts', 'categories'])
         // ...mapGetters()
     },
     methods: {
-        // ...mapMutations(),
-        // ...mapActions(),
-        
+        ...mapActions('categories', ['getAllCategories']),
     },
-    created() {},
+    created() {
+        this.getAllCategories();
+    },
     mounted() {
         console.log('BankDashboard.vue mounted.')
     },

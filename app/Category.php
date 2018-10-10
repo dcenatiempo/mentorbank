@@ -11,4 +11,8 @@ class Category extends Model
 
     // Many to many
     public function accounts() { return $this->belongsToMany('App\Account'); }
+
+    public static function getStandardCategories() {
+        return Category::where('standard', '=', true)->where('hidden', '=', false)->get();
+    }
 }

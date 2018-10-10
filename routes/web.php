@@ -45,7 +45,7 @@ Route::middleware(['auth'])->group(function () {
             Route::delete('/', 'AccountController@delete');
         });
 
-        Route::prefix('categories')->group(function () {
+        Route::prefix('category')->group(function () {
             Route::get('/', 'CategoryController@index');
             Route::put('/', 'CategoryController@store');
             Route::patch('/', 'CategoryController@update');

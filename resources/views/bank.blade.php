@@ -16,12 +16,12 @@
 
                     <h1>Hello {{ Auth::user()->name }}, You are logged in!</h1>
                     <h1 v-if="loading">Loading Bank...</h1>
-                    <new-bank v-if="accounts.accountList.length == 0"></new-bank>
+                    <!-- <new-bank v-if="accounts.accountList.length == 0"></new-bank> -->
                     <bank-dashboard v-else></bank-dashboard>
-                    <example-modal></example-modal>
                 </div>
             </div>
         </div>
     </div>
+    <example-modal></example-modal>
 </div>
 @endsection

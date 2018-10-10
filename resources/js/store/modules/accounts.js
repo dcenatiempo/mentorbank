@@ -28,6 +28,9 @@ const mutations = {
     },
     setAccountsLoading (state, payload) {
         state.loading = payload;
+    },
+    addAccount(state, payload) {
+        state.accountList = state.accountList.concat(payload);
     }
 };
 
@@ -39,6 +42,17 @@ const actions = {
         axios.get('/api/account')
         .then(function (response) {
             context.commit('setAccounts', response.data)
+            context.commit('setAccountsLoading', false);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    },
+    createAccount(context, payload) {
+        context.commit('setAccountsLoading', true);
+        axios.put('/api/account', payload)
+        .then(function (response) {
+            context.commit('addAccount', response.data);
             context.commit('setAccountsLoading', false);
         })
         .catch(function (error) {

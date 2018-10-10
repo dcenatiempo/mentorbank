@@ -16,23 +16,25 @@ class ViewController extends Controller
          // TODO: decide where home is
         $banker = $request->user()->banker;
         if ($banker) {
-            // return 'Banker!!!';
             return redirect('/bank');
         } else {
-            //return 'NO BANKER YET!!!';
-            return redirect('/profile');
+            return redirect('/onboarding');
         } 
     }
 
     /**
-     * Show the profile dashboard.
+     * Show the onboarding.
      *
      * @return \Illuminate\Http\Response
      */
-    public function profile()
+    public function onboarding()
     {
-        return view('profile', [
-            'pageId' => 'profile'
+        $banker = $request->user()->banker;
+        if ($banker) {
+            return redirect('/home');
+        }
+        return view('onboarding', [
+            'pageId' => 'onboarding'
         ]);
     }
 
@@ -41,8 +43,12 @@ class ViewController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function bank()
+    public function bank(Request $request)
     {
+        $banker = $request->user()->banker;
+        if (!$banker) {
+            return redirect('/onboarding');
+        }
         return view('bank', [
             'pageId' => 'bank'
         ]);
@@ -55,6 +61,10 @@ class ViewController extends Controller
      */
     public function account()
     {
+        $banker = $request->user()->banker;
+        if (!$banker) {
+            return redirect('/onboarding');
+        }
         return view('account', [
             'pageId' => 'account'
         ]);

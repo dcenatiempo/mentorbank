@@ -19,7 +19,7 @@ Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', 'ViewController@home');
-    Route::get('/profile', 'ViewController@profile');
+    Route::get('/onboarding', 'ViewController@onboarding');
     Route::get('/bank', 'ViewController@bank');
     Route::get('/account', 'ViewController@acount');
 
@@ -43,6 +43,13 @@ Route::middleware(['auth'])->group(function () {
             Route::put('/', 'AccountController@store');
             Route::patch('/', 'AccountController@update');
             Route::delete('/', 'AccountController@delete');
+        });
+
+        Route::prefix('categories')->group(function () {
+            Route::get('/', 'CategoryController@index');
+            Route::put('/', 'CategoryController@store');
+            Route::patch('/', 'CategoryController@update');
+            Route::delete('/', 'CategoryController@delete');
         });
 
     });

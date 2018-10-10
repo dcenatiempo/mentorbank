@@ -13,7 +13,7 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
     .js('resources/js/welcome.js', 'public/js')
-    .js('resources/js/profile.js', 'public/js')
+    .js('resources/js/onboarding.js', 'public/js')
     .js('resources/js/account.js', 'public/js')
     .js('resources/js/bank.js', 'public/js')
     .js('resources/js/login.js', 'public/js')

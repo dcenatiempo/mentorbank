@@ -19,12 +19,12 @@ class CategoriesTableSeeder extends Seeder
         ]);
 
         DB::table('categories')->insert([
-            'name' => 'General',
+            'name' => 'Uncategorized',
             'standard' => true
         ]);
-
+        
         DB::table('categories')->insert([
-            'name' => 'Uncategorized',
+            'name' => 'General',
             'standard' => true
         ]);
     }

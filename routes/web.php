@@ -32,25 +32,71 @@ Route::middleware(['auth'])->group(function () {
         });
 
         Route::prefix('bank')->group(function () {
-            Route::get('/', 'BankController@index');
-            Route::put('/', 'BankController@store');
-            Route::patch('/', 'BankController@update');
-            Route::delete('/', 'BankController@delete');
+            Route::get('/', 'BankController@index');        // get a bank
+            Route::put('/', 'BankController@store');        // create a bank
+            Route::patch('/', 'BankController@update');     // edit a bank
+            Route::delete('/', 'BankController@delete');    // delete a bank
+
+            Route::prefix('category')->group(function () {
+                Route::get('/', 'CategoryController@index');            // get all cats for a bank
+                Route::put('/', 'CategoryController@store');            // create a new bank cat
+                Route::patch('/{id}', 'CategoryController@update');     // edit a bank cat
+                Route::delete('/{id}', 'CategoryController@delete');    // delete a bank cat
+            });
+
+            Route::prefix('transaction')->group(function () {
+                Route::get('/', '');         // get transactions (for an bank)
+            });
+
+            Route::prefix('notification')->group(function () {
+                Route::get('/', '');         // get notifications (for a bank)
+                Route::put('/', '');         // add a notification to a bank
+                Route::patch('/{id}', '');  // edit a notification (for a bank)
+                Route::delete('/{id}', ''); // remove a notification (from a bank)
+            });
+
+            Route::prefix('recurringTemplate')->group(function () {
+                Route::get('/', '');         // get templates (for a bank)
+            });
         });
 
         Route::prefix('account')->group(function () {
-            Route::get('/', 'AccountController@index');
-            Route::put('/', 'AccountController@store');
-            Route::patch('/', 'AccountController@update');
-            Route::delete('/', 'AccountController@delete');
-        });
+            Route::get('/', 'AccountController@index');         // get all accounts (for a bank)
+            Route::put('/', 'AccountController@store');         // create an account
+            Route::get('/{id}', 'AccountController@index');     // get a single account (for a bank)
+            Route::patch('/{id}', 'AccountController@update');  // edit an account 
+            Route::delete('/{id}', 'AccountController@delete'); // delete an account
 
-        Route::prefix('category')->group(function () {
-            Route::get('/', 'CategoryController@index');
-            Route::put('/', 'CategoryController@store');
-            Route::patch('/', 'CategoryController@update');
-            Route::delete('/', 'CategoryController@delete');
-        });
+            Route::prefix('{id}')->group(function () {
+                Route::prefix('category')->group(function () {
+                    Route::get('/', '');         // get all categories (for an account)
+                    Route::get('/{id}', '');     // get a single category (for an account)
+                    Route::put('/', '');         // add a category to an account (possibly create one for the bank too)
+                    Route::patch('/{id}', '');  // edit a category (for an account)
+                    Route::delete('/{id}', ''); // remove a category (from an account)
+                });
 
+                Route::prefix('transaction')->group(function () {
+                    Route::get('/', '');         // get transactions (for an account)
+                    Route::put('/', '');         // add a transaction to an account
+                    Route::patch('/{id}', '');  // edit a transaction (for an account)
+                    Route::delete('/{id}', ''); // remove a transaction (from an account)
+                });
+
+                Route::prefix('notification')->group(function () {
+                    Route::get('/', '');         // get notifications (for an account)
+                    Route::put('/', '');         // add a notification to an account
+                    Route::patch('/{id}', '');  // edit a notification (for an account)
+                    Route::delete('/{id}', ''); // remove a notification (from an account)
+                });
+
+                Route::prefix('recurringTemplate')->group(function () {
+                    Route::get('/', '');         // get templates (for an account)
+                    Route::put('/', '');         // add a template to an account
+                    Route::patch('/{id}', '');  // edit a template (for an account)
+                    Route::delete('/{id}', ''); // remove a template (from an account)
+                });
+            });
+        });
     });
 });

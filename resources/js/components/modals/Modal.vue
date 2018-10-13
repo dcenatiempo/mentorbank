@@ -1,7 +1,7 @@
 <template>
     <dialog :id="id" :open="showModals[id]">
         <header>
-            <span>{{modalTitle}}</span>
+            <span class="title">{{modalTitle}}</span>
             <button v-on:click="handleCancel">X</button>
         </header>
         <div class="content">
@@ -66,7 +66,7 @@ export default {
         box-sizing: border-box;
         position: fixed;
         top: 16px;
-        min-width: 200px;
+        min-width: 288px;
         max-width: 400px;
         padding: 0;
         background: pink;
@@ -79,10 +79,14 @@ export default {
             justify-content: space-between;
             border-bottom: 1px solid gray;
             padding: 16px;
+
+            .title {
+                text-transform: capitalize;
+            }
         }
         .content {
             padding: 16px;
-            overflow-y: auto;
+            // overflow-y: auto;
             min-height: 100px;
             max-height: calc(100vh - 150px);
         }

@@ -3,49 +3,57 @@
         :modal-title="modalTitle"
         :click-text="clickText"
         cancel-text="Cancel"
-        @handle-modal-click="closeModal"
+        @handle-modal-click="saveTransaction"
         @handle-modal-cancel="closeModal">
     
-    <!--
-    account/account holder
-    memo
-    type (withdrawal, deposit, transfer)
-    ammount
-    category
-    {split: category/ammount}
-    -->
     <label>Account</label>
-    <account-selector></account-selector>
+    <account-selector ref="accountSelector" @select="onUpdateAccount"></account-selector>
+
+    <label>Type</label>
+    <transaction-type-selector ref="typeSelector" @select="onUpdateType"></transaction-type-selector>
 
     <label>Memo</label>
-    <input type="text">
+    <input type="text" placeholder="optional short descrition" v-model="memo">
 
-    <label>Ammount</label>
-    <input type="number">
+    <label>Amount</label>
+    <money ref="money" @change="onUpdateMoney"></money>
 
     <label>Category</label>
-    <category-selector></category-selector>
+    <category-selector ref="categorySelector" @select="onUpdateCategory"></category-selector>
 
 </modal>
 </template>
 
 <script>
-import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
+import {mapState, mapMutations} from 'vuex';
+
+import Money from '../reusable/Money.vue';
+import AccountSelector from '../reusable/AccountSelector.vue';
+import CategorySelector from '../reusable/CategorySelector.vue';
+import TransactionTypeSelector from '../reusable/TransactionTypeSelector.vue';
 import Modal from './Modal.vue';
 
 export default {
     components: {
         'modal': Modal,
+        'category-selector': CategorySelector,
+        'account-selector': AccountSelector,
+        'transaction-type-selector': TransactionTypeSelector,
+        'money': Money
     },
     props: {},
     data() {
         return {
-            id: 'transaction-modal'
+            id: 'transaction-modal',
+            account: null,
+            transactionType: null,
+            memo: '',
+            amount: 0,
+            category: null,
         };
     },
     computed: {
         ...mapState('app', ['modalPayload']),
-        // ...mapGetters()
         mode() {
             let payload = this.modalPayload[this.id];
             return payload ? payload.mode : 'add';
@@ -59,28 +67,52 @@ export default {
             return 'Close';
         },
         modalTitle() {
-            if (this.mode === 'add') {
-                return 'Add Transaction'
-            } else if (this.mode == 'edit') {
-                return 'Edit Transaction'
-            }
-            return 'Transaction';
+            return this.mode + ' transaction'
         }
     },
     methods: {
         ...mapMutations('app', ['hideModal']),
-        // ...mapActions(),
         closeModal() {
             this.hideModal(this.id);
+            this.memo = '';
+            this.$refs.money.reset();
+            this.$refs.accountSelector.reset();
+            this.$refs.categorySelector.reset();
+            this.$refs.typeSelector.reset();
+        },
+        saveTransaction() {
+            let transaction = {
+                accountId: this.account.accountId,
+                type: this.transactionType,
+                memo: this.memo,
+                ammount: this.ammount,
+                split: {
+                    categoryId: this.category.id,
+                    ammount: this.ammount
+                }
+            }
+            axios.put('/api/transaction', transaction)
+            .then( result => {
+
+            }).catch( err => {
+                console.error(err);
+            })
+        },
+        onUpdateMoney(money) {
+            this.amount = money;
+        },
+        onUpdateAccount(account) {
+            this.account = account;
+        },
+        onUpdateType(type) {
+            this.transactionType = type;
+        },
+        onUpdateCategory(cat) {
+            this.category = cat;
         }
-        
     },
-    created() {
-        
-    },
-    mounted() {
-        console.log('TransactionModal.vue mounted.')
-    },
+    created() {},
+    mounted() {},
     watch: {}
 }
 </script>

@@ -11,4 +11,5 @@ class Bank extends Model
     public function accounts()       { return $this->hasMany('App\Account'); }
     public function accountHolders() { return $this->hasMany('App\AccountHolder'); }
     public function categories()     { return $this->hasMany('App\Category'); }
+    public function transactions()    { return $this->hasManyThrough('App\Transaction', 'App\Account'); }
 }

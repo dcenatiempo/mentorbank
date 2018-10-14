@@ -26,7 +26,7 @@ const mutations = {
 const actions = {
     getAllCategories(context) {
         context.commit('setCategoryLoading', true);
-        axios.get('/api/category')
+        axios.get('/api/bank/category')
         .then(function (response) {
             context.commit('setCategories', response.data)
             context.commit('setCategoryLoading', false);

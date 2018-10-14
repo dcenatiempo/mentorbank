@@ -81,19 +81,20 @@ export default {
             this.$refs.typeSelector.reset();
         },
         saveTransaction() {
+            debugger
             let transaction = {
                 accountId: this.account.accountId,
                 type: this.transactionType,
                 memo: this.memo,
-                ammount: this.ammount,
+                amount: this.amount,
                 split: {
                     categoryId: this.category.id,
-                    ammount: this.ammount
+                    amount: this.amount
                 }
             }
-            axios.put('/api/transaction', transaction)
+            axios.post(`/api/account/${this.account.accountId}/transaction`, transaction)
             .then( result => {
-
+                console.log(result);
             }).catch( err => {
                 console.error(err);
             })

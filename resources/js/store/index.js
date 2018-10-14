@@ -4,6 +4,7 @@ import accounts from './modules/accounts';
 import app from './modules/app';
 import bank from './modules/bank';
 import categories from './modules/categories';
+import transactions from './modules/transactions';
 import user from './modules/user';
 
 Vue.use(Vuex);
@@ -14,6 +15,7 @@ export default new Vuex.Store({
         app,
         bank,
         categories,
+        transactions,
         user,
     }
 });

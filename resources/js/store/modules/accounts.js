@@ -40,23 +40,27 @@ const actions = {
     getAllBankAccounts(context) {
         context.commit('setAccountsLoading', true);
         axios.get('/api/account')
-        .then(function (response) {
+        .then((response) => {
             context.commit('setAccounts', response.data)
             context.commit('setAccountsLoading', false);
         })
-        .catch(function (error) {
+        .catch((error) => {
             console.log(error);
         });
     },
     createAccount(context, payload) {
-        context.commit('setAccountsLoading', true);
-        axios.put('/api/account', payload)
-        .then(function (response) {
-            context.commit('addAccount', response.data);
-            context.commit('setAccountsLoading', false);
-        })
-        .catch(function (error) {
-            console.log(error);
+        return new Promise((resolve, reject) => {
+            context.commit('setAccountsLoading', true);
+            axios.post('/api/account', payload)
+            .then((response) => {
+                debugger
+                context.commit('addAccount', response.data);
+                context.commit('setAccountsLoading', false);
+                resolve();
+            })
+            .catch((error) => {
+                reject(error);
+            });
         });
     }
 };

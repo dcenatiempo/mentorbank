@@ -29,4 +29,5 @@
 <add-transaction-btn></add-transaction-btn>
 <category-modal></category-modal>
 <transaction-modal></transaction-modal>
+<account-modal></account-modal>
 @endsection

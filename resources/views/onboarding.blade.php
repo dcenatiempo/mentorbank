@@ -14,11 +14,7 @@
                         </div>
                     @endif
 
-                    <h1>You are logged in!</h1>
-                    <h1 v-if="loading">Loading User...</h1>
-                    <new-user v-if="type == 'none'"></new-user>
-                    <banker-profile v-else-if="type == 'banker'"></banker-profile>
-                    <account-holder-profile v-else-if="type == 'account_holder'"></account-holder-profile>
+                    <onboarding></onboarding>
                 </div>
             </div>
         </div>

@@ -1,5 +1,5 @@
 const state = {
-    loading: false,
+    loading: true,
     id: null,
     type: '',
     name: '',

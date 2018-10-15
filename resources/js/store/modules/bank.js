@@ -1,9 +1,9 @@
 const state = {
-    loading: false,
+    loading: true,
     id: null,
     name: '',
     created_at: '',
-    updated_at: ''
+    updated_at: '',
 };
 
 
@@ -37,7 +37,7 @@ const actions = {
     createBank (context, name) {
         context.commit('setBankLoading', true);
         
-        axios.put('/api/bank', {
+        axios.post('/api/bank', {
             name: name
         })
         .then(function (response) {

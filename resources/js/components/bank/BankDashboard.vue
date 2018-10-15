@@ -16,7 +16,7 @@
         </div>
     </template>
     <hr>
-    <h2>Transactions</h2> 
+    <h2>Transactions<button v-on:click="showTransactionModal">+</button></h2> 
     <template v-for="transaction in transactions.transactionList">
         <div :key="'t-'+transaction.id">
             <h3>{{transaction.type}} ${{transaction.net_amount}}</h3>
@@ -54,11 +54,16 @@ export default {
             });
         },
         showAccountModal() {
-            alert('Account Modal Goes Here :)');
-            // this.showModal({
-            //     modalId: 'account-modal',
-            //     payload: {mode: "add"}
-            // });
+            this.showModal({
+                modalId: 'account-modal',
+                payload: {mode: "add"}
+            });
+        },
+        showTransactionModal() {
+            this.showModal({
+                modalId: 'transaction-modal',
+                payload: {mode: "add"}
+            });
         }
     },
     created() {

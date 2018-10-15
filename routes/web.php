@@ -39,8 +39,8 @@ Route::middleware(['auth'])->group(function () {
             Route::delete('/', 'BankController@delete');    // delete a bank
 
             Route::prefix('category')->group(function () {
-                Route::get('/', 'BankCategoryController@index');            // get all cats for a bank
-                // Route::put('/', 'CategoryController@store');            // create a new bank cat
+                Route::get('/', 'BankCategoryController@index');        // get all cats for a bank
+                Route::post('/', 'BankCategoryController@store');            // create a new bank cat
                 // Route::patch('/{id}', 'CategoryController@update');     // edit a bank cat
                 // Route::delete('/{id}', 'CategoryController@delete');    // delete a bank cat
             });

@@ -11,7 +11,6 @@ const getters = {
 // store.commit('mutationName', payload)
 const mutations = {
     setTransactions(state, payload) {
-        debugger
         state.transactionList = payload;
     },
     setTransactionLoading (state, payload) {

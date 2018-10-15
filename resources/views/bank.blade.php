@@ -27,6 +27,6 @@
 
 @section('modals')
 <add-transaction-btn></add-transaction-btn>
-<example-modal></example-modal>
+<category-modal></category-modal>
 <transaction-modal></transaction-modal>
 @endsection

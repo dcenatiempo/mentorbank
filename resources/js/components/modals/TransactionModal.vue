@@ -81,7 +81,6 @@ export default {
             this.$refs.typeSelector.reset();
         },
         saveTransaction() {
-            debugger
             let transaction = {
                 accountId: this.account.accountId,
                 type: this.transactionType,

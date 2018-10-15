@@ -2,14 +2,14 @@
 <div>
     <h1>{{bank.name}} Dashboard</h1>
     <hr>
-    <h2>Accounts</h2>
+    <h2>Accounts<button v-on:click="showAccountModal">+</button></h2>
     <template v-for="account in accounts.accountList">
         <div :key="account.id">
             <h3>{{account.accountHolder.name}}</h3>
         </div>
     </template>
     <hr>
-    <h2>Categories</h2>
+    <h2>Categories<button v-on:click="showCategoryModal">+</button></h2>
     <template v-for="category in categories.categoryList">
         <div :key="'c-'+category.id">
             <h3>{{category.name}}</h3>
@@ -24,7 +24,6 @@
     </template>
     <hr>
     <h2>Recurring Transactions</h2>
-    <button v-on:click="showExampleModal">Open Modal</button>
 </div>
 </template>
 
@@ -48,11 +47,18 @@ export default {
         ...mapMutations('app', ['showModal', 'hideModal']),
         ...mapActions('categories', ['getAllCategories']),
         ...mapActions('transactions', ['getAllTransactions']),
-        showExampleModal() {
+        showCategoryModal() {
             this.showModal({
-                modalId: 'example-modal',
-                payload: {message: "Hello World"}
+                modalId: 'category-modal',
+                payload: {mode: "add"}
             });
+        },
+        showAccountModal() {
+            alert('Account Modal Goes Here :)');
+            // this.showModal({
+            //     modalId: 'account-modal',
+            //     payload: {mode: "add"}
+            // });
         }
     },
     created() {

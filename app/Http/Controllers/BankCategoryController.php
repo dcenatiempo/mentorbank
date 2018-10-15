@@ -15,7 +15,7 @@ class BankCategoryController extends Controller
     public function index(Request $request)
     {
         $categories = $request->user()->banker->bank->categories;
-        $standardCategories = Category::getStandardCategories();
+        $standardCategories = Category::getGlobalCategories();
 
         return $categories->concat($standardCategories)->all();
     }
@@ -28,7 +28,17 @@ class BankCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $bank = $request->user()->banker->bank;
+        $name = $request->input('name');
+        $standard = $request->input('standard');
+
+        $category = Category::create([
+            'name' => $name,
+            'bank_id' => $bank->id,
+            'standard' => $standard
+        ]);
+
+        return Category::find($category->id);
     }
 
     /**

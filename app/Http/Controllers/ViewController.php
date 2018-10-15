@@ -27,7 +27,7 @@ class ViewController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function onboarding()
+    public function onboarding(Request $request)
     {
         $banker = $request->user()->banker;
         if ($banker) {

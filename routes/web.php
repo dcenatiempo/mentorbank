@@ -32,21 +32,17 @@ Route::middleware(['auth'])->group(function () {
         });
 
         Route::prefix('bank')->group(function () {
-            Route::get(   '/', 'BankController@index');        // get a bank
-            Route::post(  '/', 'BankController@store');       // create a bank
-            Route::put(   '/', 'BankController@update');       // edit a bank
-            Route::patch( '/', 'BankController@update');       // edit a bank
-            Route::delete('/', 'BankController@delete');    // delete a bank
+            Route::get(   '/', 'BankController@index');     // get a banks
+            Route::post(  '/', 'BankController@store');     // create a bank
+            Route::put(   '/{bank}', 'BankController@update');    // edit a bank
+            Route::patch( '/{bank}', 'BankController@update');    // edit a bank
+            Route::delete('/{bank}', 'BankController@destroy');   // delete a bank
 
             Route::prefix('category')->group(function () {
                 Route::get('/', 'BankCategoryController@index');        // get all cats for a bank
                 Route::post('/', 'BankCategoryController@store');            // create a new bank cat
                 // Route::patch('/{id}', 'CategoryController@update');     // edit a bank cat
                 // Route::delete('/{id}', 'CategoryController@delete');    // delete a bank cat
-            });
-
-            Route::prefix('transaction')->group(function () {
-                Route::get('/', 'BankTransactionController@index');         // get transactions (for an bank)
             });
 
             Route::prefix('notification')->group(function () {
@@ -59,12 +55,16 @@ Route::middleware(['auth'])->group(function () {
             Route::prefix('recurringTemplate')->group(function () {
                 // Route::get('/', '');         // get templates (for a bank)
             });
+            Route::prefix('transaction')->group(function () {
+                Route::get('/', 'BankTransactionController@index');         // get transactions (for an bank)
+            });
         });
 
         Route::prefix('account')->group(function () {
             Route::get('/', 'AccountController@index');         // get all accounts (for a bank)
-            Route::put('/', 'AccountController@store');         // create an account
-            Route::get('/{id}', 'AccountController@index');     // get a single account (for a bank)
+            Route::post('/', 'AccountController@store');        // create an account
+            Route::get('/{id}', 'AccountController@show');      // get a single account (for a bank)
+            Route::patch('/{id}', 'AccountController@update');  // edit an account
             Route::patch('/{id}', 'AccountController@update');  // edit an account 
             Route::delete('/{id}', 'AccountController@delete'); // delete an account
 

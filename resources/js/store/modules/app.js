@@ -3,12 +3,20 @@ const state = {
     vpWidth: window.innerWidth,
     vpHeight: window.innerHeight,
     showModals: {},
-    modalPayload: {}
+    modalPayload: {},
+    page: {
+        // 'dashboard', 'settings', 'profile' 'transactions', 'categories', 'notifications', 'templates'
+        bank: 'dashboard', 
+        account: 'dashboard',
+        breadcrumbs: []
+    }
     // modals
 };
 
 
 const getters = {
+    bankPage: state => state.page.bank,
+    accountPage: state => state.page.account
 };
 
 // direct mutations
@@ -24,6 +32,12 @@ const mutations = {
     hideModal(state, modalId) {
         state.showModals = Object.assign({}, state.showModals, {[modalId]: false});
         state.modalPayload = Object.assign({}, state.modalPayload, {[modalId]: null});
+    },
+    setBankPage(state, page) {
+        state.page.bank = page;
+    },
+    setAccountPage(state, page) {
+        state.page.account = page;
     }
 };
 

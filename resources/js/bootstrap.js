@@ -1,5 +1,7 @@
 console.log('Bootstrap.js Loaded')
 // window._ = require('lodash');
+window.moment = require('moment');
+
 window.Popper = require('popper.js').default;
 
 window.Vue = require('vue');

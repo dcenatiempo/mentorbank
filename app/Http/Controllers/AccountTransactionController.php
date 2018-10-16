@@ -35,6 +35,7 @@ class AccountTransactionController extends Controller
         $type = $request->input('type');
         $netAmount = $request->input('amount');
         $accountId = Route::current()->parameter('id');
+        $date = $request->input('date');
         $split = json_encode($request->input('split'));
 
         $transaction = Transaction::create([
@@ -42,7 +43,8 @@ class AccountTransactionController extends Controller
             'type' => $type,
             'net_amount' => $netAmount,
             'split' => $split,
-            'account_id' => $accountId
+            'account_id' => $accountId,
+            'date' => $date
         ]);
         
         return $transaction;

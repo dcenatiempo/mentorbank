@@ -21,6 +21,9 @@
     <label>Category</label>
     <category-selector ref="categorySelector" @select="onUpdateCategory"></category-selector>
 
+    <label>Date</label>
+    <datepicker :value="date.__d" v-model="date"></datepicker>
+
 </modal>
 </template>
 
@@ -32,6 +35,7 @@ import AccountSelector from '../reusable/AccountSelector.vue';
 import CategorySelector from '../reusable/CategorySelector.vue';
 import TransactionTypeSelector from '../reusable/TransactionTypeSelector.vue';
 import Modal from './Modal.vue';
+import Datepicker from 'vuejs-datepicker';
 
 export default {
     components: {
@@ -39,7 +43,8 @@ export default {
         'category-selector': CategorySelector,
         'account-selector': AccountSelector,
         'transaction-type-selector': TransactionTypeSelector,
-        'money': Money
+        'money': Money,
+        Datepicker
     },
     props: {},
     data() {
@@ -50,6 +55,7 @@ export default {
             memo: '',
             amount: 0,
             category: null,
+            date: moment().format()
         };
     },
     computed: {
@@ -89,7 +95,8 @@ export default {
                 split: {
                     categoryId: this.category.id,
                     amount: this.amount
-                }
+                },
+                date: this.date
             }
             axios.post(`/api/account/${this.account.accountId}/transaction`, transaction)
             .then( result => {

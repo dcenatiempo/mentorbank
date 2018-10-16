@@ -16,6 +16,7 @@ class CreateTransactionTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+            $table->date('date');
             $table->string('memo', 255);
             $table->enum('type', ['withdrawal', 'deposit', 'transfer']);
             $table->jsonb('split'); // [{category, ammount}]

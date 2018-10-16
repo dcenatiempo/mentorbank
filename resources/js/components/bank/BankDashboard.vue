@@ -9,7 +9,7 @@
         </div>
     </template>
     <hr>
-    <h2>Categories<button v-on:click="showCategoryModal">+</button></h2>
+    <h2><a href="#" v-on:click="pushPageHistory('bank|categories')">Categories</a><button v-on:click="showCategoryModal">+</button></h2>
     <template v-for="category in categories.categoryList">
         <div :key="'c-'+category.id">
             <h3>{{category.name}}</h3>
@@ -44,9 +44,10 @@ export default {
         // ...mapGetters()
     },
     methods: {
-        ...mapMutations('app', ['showModal', 'hideModal']),
+        ...mapMutations('app', ['showModal', 'hideModal', 'pushPageHistory']),
         ...mapActions('categories', ['getAllCategories']),
         ...mapActions('transactions', ['getAllTransactions']),
+        ...mapActions('app', ['changePage']),
         showCategoryModal() {
             this.showModal({
                 modalId: 'category-modal',

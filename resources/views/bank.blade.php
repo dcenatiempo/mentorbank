@@ -16,8 +16,9 @@
 
                     <h1>Hello {{ Auth::user()->name }}, You are logged in!</h1>
                     <h1 v-if="loading">Loading Bank...</h1>
-                    <bank-dashboard v-show="!loading" v-if="bankPage == 'dashboard'"></bank-dashboard>
-                    <profile v-show="!loading" v-else-if="bankPage == 'profile'"></profile>
+                    <bank-dashboard v-show="!loading" v-if="currentPage == 'bank|dashboard'"></bank-dashboard>
+                    <profile v-show="!loading" v-else-if="currentPage == 'bank|profile'"></profile>
+                    <categories v-show="!loading" v-else-if="currentPage == 'bank|categories'"></categories>
                 </div>
             </div>
         </div>

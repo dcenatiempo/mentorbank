@@ -5,6 +5,7 @@ import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
 
 Vue.component('bank-dashboard', require('./components/bank/BankDashboard.vue'));
 Vue.component('profile', require('./components/bank/Profile.vue'));
+Vue.component('categories', require('./components/bank/Categories.vue'));
 Vue.component('category-modal', require('./components/modals/CategoryModal.vue'));
 Vue.component('transaction-modal', require('./components/modals/TransactionModal.vue'));
 Vue.component('account-modal', require('./components/modals/AccountModal.vue'));
@@ -16,7 +17,7 @@ const app = new Vue({
     computed: {
         ...mapState('user',['type', 'loading']),
         ...mapState(['accounts']),
-        ...mapGetters('app', ['bankPage'])
+        ...mapGetters('app', ['currentPage'])
     },
     methods: {
         ...mapActions('accounts', ['getAllBankAccounts']),

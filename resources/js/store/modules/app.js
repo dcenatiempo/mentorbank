@@ -4,19 +4,12 @@ const state = {
     vpHeight: window.innerHeight,
     showModals: {},
     modalPayload: {},
-    page: {
-        // 'dashboard', 'settings', 'profile' 'transactions', 'categories', 'notifications', 'templates'
-        bank: 'dashboard', 
-        account: 'dashboard',
-        breadcrumbs: []
-    }
-    // modals
+    pageHistory: ['bank|dashboard']
 };
 
 
 const getters = {
-    bankPage: state => state.page.bank,
-    accountPage: state => state.page.account
+    currentPage: state => state.pageHistory[state.pageHistory.length-1]
 };
 
 // direct mutations
@@ -33,12 +26,20 @@ const mutations = {
         state.showModals = Object.assign({}, state.showModals, {[modalId]: false});
         state.modalPayload = Object.assign({}, state.modalPayload, {[modalId]: null});
     },
-    setBankPage(state, page) {
-        state.page.bank = page;
+    pushPageHistory(state, page) {
+        let newHistory = [...state.pageHistory];
+        newHistory.push(page);
+        state.pageHistory = newHistory;
     },
-    setAccountPage(state, page) {
-        state.page.account = page;
-    }
+    popPageHistory(state) {
+        if (state.pageHistory.length === 1 ) return;
+        let newHistory = [...state.pageHistory];
+        newHistory.pop();
+        state.pageHistory = newHistory;
+    },
+    resetHistory(state) {
+        state.pageHistory = [state.pageHistory[0]];
+    },
 };
 
 // async mutations

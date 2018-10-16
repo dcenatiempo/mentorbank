@@ -53,7 +53,6 @@ const actions = {
             context.commit('setAccountsLoading', true);
             axios.post('/api/account', payload)
             .then((response) => {
-                debugger
                 context.commit('addAccount', response.data);
                 context.commit('setAccountsLoading', false);
                 resolve();

@@ -19,6 +19,7 @@
                     <bank-dashboard v-show="!loading" v-if="currentPage == 'bank|dashboard'"></bank-dashboard>
                     <profile v-show="!loading" v-else-if="currentPage == 'bank|profile'"></profile>
                     <categories v-show="!loading" v-else-if="currentPage == 'bank|categories'"></categories>
+                    <transactions v-show="!loading" v-else-if="currentPage == 'bank|transactions'"></transactions>
                 </div>
             </div>
         </div>

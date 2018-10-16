@@ -1,11 +1,11 @@
 <template>
     <div class="container">
         <a v-on:click="popPageHistory">&lt;</a>
-        <h2>Category Page</h2>
+        <h2>Transaction Page</h2>
         <vuetable ref="vuetable"
             :fields="columns"
             :api-mode="false"
-            :data="categoryList"></vuetable>
+            :data="transactionList"></vuetable>
     </div>
 </template>
 
@@ -21,19 +21,19 @@ export default {
     data() {
         return {
                 columns: [ {
-                        name: 'name'
+                        name: 'date'
                     },{
-                        name: 'standard',
-                        callback: this.formatBool
+                        name: 'memo'
                     },{
-                        name: 'notifications',
-                        callback: this.formatBool
+                        name: 'net_amount'
+                    },{
+                        name: 'type'
                     }
                 ],
         };
     },
     computed: {
-        ...mapState('categories', ['categoryList', 'loading']),
+        ...mapState('transactions', ['transactionList', 'loading']),
     },
     methods: {
         ...mapMutations('app', ['popPageHistory']),
@@ -45,7 +45,7 @@ export default {
     },
     created() {},
     mounted() {
-        console.log('Categories.vue mounted.')
+        console.log('Transactions.vue mounted.')
     },
     watch: {}
 }

@@ -16,7 +16,7 @@
         </div>
     </template>
     <hr>
-    <h2>Transactions<button v-on:click="showTransactionModal">+</button></h2> 
+    <h2><a href="#" v-on:click="pushPageHistory('bank|transactions')">Transactions</a><button v-on:click="showTransactionModal">+</button></h2> 
     <template v-for="transaction in transactions.transactionList">
         <div :key="'t-'+transaction.id">
             <h3>{{transaction.type}} ${{transaction.net_amount}}</h3>

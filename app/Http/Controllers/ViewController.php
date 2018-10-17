@@ -13,12 +13,10 @@ class ViewController extends Controller
      */
     public function home(Request $request)
     {
-         // TODO: decide where home is
-        $banker = $request->user()->banker;
-        if ($banker) {
-            return redirect('/bank');
-        } else {
+        if ($this->shouldOnboard($request->user())) {
             return redirect('/onboarding');
+        } else {
+            return redirect('/bank');
         } 
     }
 
@@ -29,13 +27,13 @@ class ViewController extends Controller
      */
     public function onboarding(Request $request)
     {
-        $banker = $request->user()->banker;
-        if ($banker) {
-            return redirect('/home');
+        if ($this->shouldOnboard($request->user())) {
+            return view('onboarding', [
+                'pageId' => 'onboarding'
+            ]);
         }
-        return view('onboarding', [
-            'pageId' => 'onboarding'
-        ]);
+        return redirect('/home');
+        
     }
 
     /**
@@ -45,8 +43,7 @@ class ViewController extends Controller
      */
     public function bank(Request $request)
     {
-        $banker = $request->user()->banker;
-        if (!$banker) {
+        if ($this->shouldOnboard($request->user())) {
             return redirect('/onboarding');
         }
         return view('bank', [
@@ -59,14 +56,27 @@ class ViewController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function account()
+    public function account(Request $request)
     {
-        $banker = $request->user()->banker;
-        if (!$banker) {
+        if ($this->shouldOnboard($request->user())) {
             return redirect('/onboarding');
         }
         return view('account', [
             'pageId' => 'account'
         ]);
+    }
+
+    private function shouldOnboard($user) {
+        $onboarding = true;
+        if (!$user->banker) {
+            return $onboarding;
+        } else if (!$user->banker->bank) {
+            return $onboarding;
+        } else if (!$user->banker->bank->account) {
+            return $onboarding;
+        } else {
+            $onboarding = false;
+            return $onboarding;
+        }
     }
 }

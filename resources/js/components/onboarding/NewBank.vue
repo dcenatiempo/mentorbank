@@ -4,26 +4,16 @@
     <h2>You don't have any accounts, lets set one up!</h2>
     <form v-on:submit.prevent>
         <label for="name">Name:</label>
-        <input id="name" type="text" v-model="name"/>
-        <label for="year">Birth Year:</label>
-        <select v-model="year" id="year">
-            <template v-for="y in years">
-                <option :value="y" :key="y">{{y}}</option>
-            </template>
-        </select>
-        <label for="month">Birth Month:</label>
-        <select v-model="month" id="month">
-            <template v-for="(m, index) in months">
-                <option :value="index + 1" :key="m">{{m}}</option>
-            </template>
-        </select>
-        <fieldset>
-            <legend>Sex</legend>
-            <input type="radio" id="m" value="m" v-model="sex">
+        <input id="name" type="text" placeholder="Enter account holder's name" v-model="name"/>
+        <label for="year">Birth Month:</label>
+        <datepicker :format="'MMM yyyy'" :minimumView="'month'" :maximumView="'month'" v-model="date"></datepicker>
+        <label for="sex">Sex:</label>
+        <div class="fieldset">
+            <input type="radio" id="m" value="m" name="sex" v-model="sex">
             <label for="m">Male</label>
-            <input type="radio" id="f" value="f" v-model="sex">
+            <input type="radio" id="f" value="f" name="sex" v-model="sex">
             <label for="f">Female</label>
-        </fieldset>
+        </div>
         <button v-on:click="createNewAccount()">Submit</button>
     </form>
 </div>
@@ -31,16 +21,16 @@
 
 <script>
 import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
+import Datepicker from 'vuejs-datepicker';
 
 export default {
-    components: {},
+    components: { Datepicker },
     props: {},
     data() {
         return {
             name: '',
-            year: null,
-            month: null,
-            sex: '',
+            date: moment().subtract(5, 'year').format(),
+            sex: 'male',
             months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         };
     },
@@ -80,6 +70,27 @@ export default {
 }
 </script>
 
-<style>
+<style scoped lang="scss">
+div.fieldset {
+        display: grid;
+        grid-template-columns: min-content 1fr;
+        grid-column-gap: 16px;
+        grid-row-gap: 16px;
+        align-items: center;
+        margin-bottom: 16px;
 
+        label {
+            padding: 0;
+            margin: 0;
+        }
+        input[type=radio] {
+            width: initial;
+        }
+        input[type=text] {
+            padding: 0;
+            border: none;
+            min-height: initial;
+            width: initial;
+        }
+    }
 </style>

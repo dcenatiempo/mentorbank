@@ -3,7 +3,7 @@
         <h1>You are logged in!</h1>
         <h1 v-if="loading">Loading User...</h1>
         <new-user v-if="type == 'none'"></new-user>
-        <banker-profile v-else-if="type == 'banker'"></banker-profile>
+        <new-bank v-else-if="type == 'banker'"></new-bank>
         <account-holder-profile v-else-if="type == 'account_holder'"></account-holder-profile>
     </div>
 </template>
@@ -31,6 +31,7 @@ export default {
     computed: {
         ...mapState('user',['type', 'loading']),
         ...mapState(['bank']),
+        ...mapState('accounts', ['accountList'])
     },
     methods: {
         // ...mapMutations(),
@@ -41,7 +42,13 @@ export default {
     mounted() {
         console.log('Component mounted.')
     },
-    watch: {}
+    watch: {
+        accountList(array) {
+            if (array.length > 0) {
+                window.location.replace('/home');
+            }
+        }
+    }
 }
 </script>
 

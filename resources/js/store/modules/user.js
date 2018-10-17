@@ -1,7 +1,7 @@
 const state = {
     loading: true,
     id: null,
-    type: '',
+    type: '', // none, banker, accountHolder
     name: '',
     email: '',
     birthDate: null,
@@ -23,6 +23,9 @@ const mutations = {
     },
     setUserLoading (state, payload) {
         state.loading = payload;
+    },
+    setType (state, payload) {
+        state.type = payload;
     }
 };
 

@@ -19,7 +19,7 @@
                 v-model.trim="customBankName"
                 v-on:input="focusCustomRadio">
         </div>
-        <button v-on:click="createBank(bankName)">Submit</button>
+        <button v-on:click="handleClick">Submit</button>
     </form>
 </div>
 </template>
@@ -41,12 +41,20 @@ export default {
         ...mapGetters('user', ['firstName', 'lastName'])
     },
     methods: {
-        // ...mapMutations(),
+        ...mapMutations('user', ['setType']),
         ...mapActions('bank', ['createBank']),
         focusCustomRadio() {
             this.bankName = this.customBankName;
+        },
+        handleClick () {
+            let vm = this;
+            this.createBank(this.bankName)
+            .then( () => {
+                vm.setType('banker');
+            }).catch( err => {
+                console.error(err);
+            })
         }
-        
     },
     created() {},
     mounted() {
@@ -63,6 +71,7 @@ export default {
         grid-column-gap: 16px;
         grid-row-gap: 16px;
         align-items: center;
+        margin-bottom: 16px;
 
         label {
             padding: 0;

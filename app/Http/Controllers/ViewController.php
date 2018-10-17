@@ -72,7 +72,7 @@ class ViewController extends Controller
             return $onboarding;
         } else if (!$user->banker->bank) {
             return $onboarding;
-        } else if (!$user->banker->bank->account) {
+        } else if ($user->banker->bank->accounts->isEmpty()) {
             return $onboarding;
         } else {
             $onboarding = false;

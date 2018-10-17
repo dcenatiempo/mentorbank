@@ -35,17 +35,21 @@ const actions = {
         });
     },
     createBank (context, name) {
-        context.commit('setBankLoading', true);
+        return new Promise((resolve, reject) => {
+            context.commit('setBankLoading', true);
         
-        axios.post('/api/bank', {
-            name: name
+            axios.post('/api/bank', {
+                name: name
+            })
+            .then(function (response) {
+                context.commit('setBank', response.data)
+                resolve();
+            })
+            .catch(function (error) {
+                reject(error);
+            });
         })
-        .then(function (response) {
-            context.commit('setBank', response.data)
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+        
     }
 };
 

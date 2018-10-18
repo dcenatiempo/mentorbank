@@ -3,9 +3,37 @@ require('./bootstrap');
 import GlobalMixin from './GlobalMixin';
 import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
 
-Vue.component('bank-dashboard', require('./components/bank/BankDashboard.vue'));
-Vue.component('profile', require('./components/bank/Profile.vue'));
-Vue.component('categories', require('./components/bank/Categories.vue'));
+import VueRouter from 'vue-router';
+Vue.use(VueRouter)
+import BankDashboard from './components/bank/BankDashboard.vue';
+import Profile from'./components/bank/Profile.vue';
+import Categories from './components/bank/Categories.vue';
+import Transactions from './components/bank/Transactions.vue';
+import Accounts from './components/bank/Accounts.vue';
+
+const router = new VueRouter({
+    mode: 'history',
+    routes: [
+        {
+            path: '/bank',
+            name: 'dashboard',
+            component: BankDashboard
+        },{
+            path: '/bank/accounts',
+            name: 'accounts',
+            component: Accounts
+        },{
+            path: '/bank/transactions',
+            name: 'transactions',
+            component: Transactions
+        },{
+            path: '/bank/categories',
+            name: 'categories',
+            component: Categories
+        }
+    ]
+});
+
 Vue.component('category-modal', require('./components/modals/CategoryModal.vue'));
 Vue.component('transaction-modal', require('./components/modals/TransactionModal.vue'));
 Vue.component('account-modal', require('./components/modals/AccountModal.vue'));
@@ -13,6 +41,7 @@ Vue.component('add-transaction-btn', require('./components/reusable/AddTransacti
 
 const app = new Vue({
     el: '#bank',
+    router: router,
     mixins  : [ GlobalMixin ],
     computed: {
         ...mapState('user',['type', 'loading']),

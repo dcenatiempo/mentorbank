@@ -6,7 +6,7 @@
         <label for="name">Name:</label>
         <input id="name" type="text" placeholder="Enter account holder's name" v-model="name"/>
         <label for="year">Birth Month:</label>
-        <datepicker :format="'MMM yyyy'" :minimumView="'month'" :maximumView="'month'" v-model="date"></datepicker>
+        <datepicker :format="'MMM yyyy'" :minimumView="'month'" :maximumView="'month'" v-model="birthDate"></datepicker>
         <label for="sex">Sex:</label>
         <div class="fieldset">
             <input type="radio" id="m" value="m" name="sex" v-model="sex">
@@ -29,22 +29,13 @@ export default {
     data() {
         return {
             name: '',
-            date: moment().subtract(5, 'year').format(),
+            birthDate: moment().subtract(5, 'year').format(),
             sex: 'male',
-            months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         };
     },
     computed: {
         ...mapState(['user', 'bank']),
         // ...mapGetters()
-        years() {
-            let years = [];
-            let thisYear = new Date(Date.now()).getFullYear();
-            for (let i = 0; i<18; i++ ) {
-                years.push(thisYear--);
-            }
-            return years;
-        }
     },
     methods: {
         // ...mapMutations(),
@@ -52,8 +43,7 @@ export default {
         createNewAccount() {
             let account = {
                 name: this.name,
-                year: this.year,
-                month: this.month,
+                birthDate: this.birthDate,
                 sex: this.sex
             }
             console.dir(account)

@@ -21,6 +21,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home', 'ViewController@home');
     Route::get('/onboarding', 'ViewController@onboarding');
     Route::get('/bank', 'ViewController@bank');
+    Route::get('/bank/{any}', 'ViewController@bank')->where(['any' => '.*']);
     Route::get('/account', 'ViewController@acount');
 
     Route::prefix('api')->group(function () {

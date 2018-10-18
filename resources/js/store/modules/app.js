@@ -25,21 +25,7 @@ const mutations = {
     hideModal(state, modalId) {
         state.showModals = Object.assign({}, state.showModals, {[modalId]: false});
         state.modalPayload = Object.assign({}, state.modalPayload, {[modalId]: null});
-    },
-    pushPageHistory(state, page) {
-        let newHistory = [...state.pageHistory];
-        newHistory.push(page);
-        state.pageHistory = newHistory;
-    },
-    popPageHistory(state) {
-        if (state.pageHistory.length === 1 ) return;
-        let newHistory = [...state.pageHistory];
-        newHistory.pop();
-        state.pageHistory = newHistory;
-    },
-    resetHistory(state) {
-        state.pageHistory = [state.pageHistory[0]];
-    },
+    }
 };
 
 // async mutations

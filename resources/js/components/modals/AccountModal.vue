@@ -8,26 +8,16 @@
 
     <form v-on:submit.prevent>
         <label for="name">Name:</label>
-        <input id="name" type="text" v-model="name"/>
-        <label for="year">Birth Year:</label>
-        <select v-model="year" id="year">
-            <template v-for="y in years">
-                <option :value="y" :key="y">{{y}}</option>
-            </template>
-        </select>
-        <label for="month">Birth Month:</label>
-        <select v-model="month" id="month">
-            <template v-for="(m, index) in months">
-                <option :value="index + 1" :key="m">{{m}}</option>
-            </template>
-        </select>
-        <fieldset>
-            <legend>Sex</legend>
-            <input type="radio" id="m" value="m" v-model="sex">
+        <input id="name" type="text" placeholder="Enter account holder's name" v-model="name"/>
+        <label for="year">Birth Month:</label>
+        <datepicker :format="'MMM yyyy'" :minimumView="'month'" :maximumView="'month'" v-model="birthDate"></datepicker>
+        <label for="sex">Sex:</label>
+        <div class="fieldset">
+            <input type="radio" id="m" value="m" name="sex" v-model="sex">
             <label for="m">Male</label>
-            <input type="radio" id="f" value="f" v-model="sex">
+            <input type="radio" id="f" value="f" name="sex" v-model="sex">
             <label for="f">Female</label>
-        </fieldset>
+        </div>
     </form>
 
 </modal>
@@ -35,22 +25,22 @@
 
 <script>
 import {mapState, mapActions, mapMutations} from 'vuex';
+import Datepicker from 'vuejs-datepicker';
 
 import Modal from './Modal.vue';
 
 export default {
     components: {
         'modal': Modal,
+        Datepicker,
     },
     props: {},
     data() {
         return {
             id: 'account-modal',
             name: '',
-            year: null,
-            month: null,
             sex: '',
-            months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            birthDate: moment().subtract(5, 'year').format(),
         };
     },
     computed: {
@@ -70,14 +60,6 @@ export default {
         modalTitle() {
             return this.mode + ' account'
         },
-        years() {
-            let years = [];
-            let thisYear = new Date(Date.now()).getFullYear();
-            for (let i = 0; i<18; i++ ) {
-                years.push(thisYear--);
-            }
-            return years;
-        }
     },
     methods: {
         ...mapMutations('app', ['hideModal']),
@@ -90,8 +72,7 @@ export default {
             let vm = this;
             let account = {
                 name: this.name,
-                year: this.year,
-                month: this.month,
+                birthDate: this.birthDate,
                 sex: this.sex
             }
             console.dir(account)

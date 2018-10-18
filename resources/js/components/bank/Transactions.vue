@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <a v-on:click="popPageHistory">&lt;</a>
+        <button v-on:click="$router.go(-1)">&lt;</button>
         <h2>Transaction Page</h2>
         <vuetable ref="vuetable"
             :fields="columns"

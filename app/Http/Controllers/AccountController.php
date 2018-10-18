@@ -20,7 +20,7 @@ class AccountController extends Controller
     function store (Request $request) {
         // TODO validate request
 
-        $birth_date = Carbon::createMidnightDate($request->input('year'), $request->input('month'), 1);
+        $birth_date = $request->input('birthDate');
         $bank = $request->user()->banker->bank;
 
         // Create new accountHolder

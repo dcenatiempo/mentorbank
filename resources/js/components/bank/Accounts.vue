@@ -1,11 +1,11 @@
 <template>
     <div class="container">
         <button v-on:click="$router.go(-1)">&lt;</button>
-        <h2>Category Page</h2>
+        <h2>Account Page</h2>
         <vuetable ref="vuetable"
             :fields="columns"
             :api-mode="false"
-            :data="categoryList"></vuetable>
+            :data="accountList"></vuetable>
     </div>
 </template>
 
@@ -22,18 +22,12 @@ export default {
         return {
                 columns: [ {
                         name: 'name'
-                    },{
-                        name: 'standard',
-                        callback: this.formatBool
-                    },{
-                        name: 'notifications',
-                        callback: this.formatBool
-                    }
+                    },
                 ],
         };
     },
     computed: {
-        ...mapState('categories', ['categoryList', 'loading']),
+        ...mapState('accounts', ['accountList', 'loading']),
     },
     methods: {
         ...mapMutations('app', ['popPageHistory']),
@@ -45,7 +39,7 @@ export default {
     },
     created() {},
     mounted() {
-        console.log('Categories.vue mounted.')
+        console.log('Accounts.vue mounted.')
     },
     watch: {}
 }

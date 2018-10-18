@@ -1,17 +1,14 @@
 <template>
     <div class="container">
         <button v-on:click="$router.go(-1)">&lt;</button>
-        <h2>Profile Page</h2>
+        <h2>Bank Settings</h2>
         <ul>
             <li>
                 Name: {{name}}
             </li>
-            <li>
-                Email: {{email}}
-            </li>
-            <li>
+            <!-- <li>
                 Member Since: {{memberSince}}
-            </li>
+            </li> -->
         </ul>
     </div>
 </template>
@@ -28,7 +25,7 @@ export default {
         };
     },
     computed: {
-        ...mapState('user', ['name', 'email']),
+        ...mapState('bank', ['name']),
         ...mapGetters('user', ['memberSince'])
     },
     methods: {

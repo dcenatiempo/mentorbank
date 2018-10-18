@@ -13,8 +13,8 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    <h1>Hello {{ Auth::user()->name }}, You are logged in!</h1>
+                    
+                    <h1>Hello, <router-link to="/bank/profile">{{ Auth::user()->name }}</router-link>You are logged in!</h1>
                     <h1 v-if="loading">Loading Bank...</h1>
                     <router-view></router-view>
                 </div>

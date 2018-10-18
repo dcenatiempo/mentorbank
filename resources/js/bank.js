@@ -7,6 +7,7 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter)
 import BankDashboard from './components/bank/BankDashboard.vue';
 import Profile from'./components/bank/Profile.vue';
+import Settings from'./components/bank/Settings.vue';
 import Categories from './components/bank/Categories.vue';
 import Transactions from './components/bank/Transactions.vue';
 import Accounts from './components/bank/Accounts.vue';
@@ -30,6 +31,14 @@ const router = new VueRouter({
             path: '/bank/categories',
             name: 'categories',
             component: Categories
+        },{
+            path: '/bank/profile',
+            name: 'profile',
+            component: Profile
+        },{
+            path: '/bank/settings',
+            name: 'Settings',
+            component: Settings
         }
     ]
 });

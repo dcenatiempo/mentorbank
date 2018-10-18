@@ -1,6 +1,6 @@
 <template>
 <div>
-    <h1>{{bank.name}} Dashboard</h1>
+    <h1><router-link to="/bank/settings">{{bank.name}}</router-link> Dashboard</h1>
     <hr>
     <h2><router-link to="/bank/accounts">Accounts</router-link><button v-on:click="showAccountModal">+</button></h2>
     <template v-for="account in accounts.accountList">

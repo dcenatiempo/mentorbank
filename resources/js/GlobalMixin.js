@@ -1,12 +1,14 @@
 import store from './store';
 import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
 import DefaultHeader from './components/header/DefaultHeader.vue';
+import DefaultFooter from './components/footer/DefaultFooter.vue';
 
 export default {
     store,
 
     components: {
-        'default-header': DefaultHeader
+        DefaultHeader,
+        DefaultFooter
     },
 
     data() {
@@ -18,7 +20,6 @@ export default {
     created() {},
 
     mounted() {
-        console.log('Global Mixin Loaded');
         let vm = this;
         this.getUser();
 

@@ -3,7 +3,7 @@
         :modal-title="modalTitle"
         :click-text="clickText"
         cancel-text="Cancel"
-        @handle-modal-click="saveTransaction"
+        @handle-modal-click="saveNewTransaction"
         @handle-modal-cancel="closeModal">
     
     <label>Account</label>
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import {mapState, mapMutations} from 'vuex';
+import {mapState, mapMutations, mapActions} from 'vuex';
 
 import Money from '../reusable/Money.vue';
 import AccountSelector from '../reusable/AccountSelector.vue';
@@ -78,6 +78,7 @@ export default {
     },
     methods: {
         ...mapMutations('app', ['hideModal']),
+        ...mapActions('transactions', ['saveTransaction']),
         closeModal() {
             this.hideModal(this.id);
             this.memo = '';
@@ -86,7 +87,7 @@ export default {
             this.$refs.categorySelector.reset();
             this.$refs.typeSelector.reset();
         },
-        saveTransaction() {
+        saveNewTransaction() {
             let transaction = {
                 accountId: this.account.accountId,
                 type: this.transactionType,
@@ -98,12 +99,12 @@ export default {
                 },
                 date: this.date
             }
-            axios.post(`/api/account/${this.account.accountId}/transaction`, transaction)
-            .then( result => {
-                console.log(result);
-            }).catch( err => {
-                console.error(err);
-            })
+            this.saveTransaction(transaction)
+            .then( () => {
+                this.closeModal();
+            }).catch( () => {
+
+            });
         },
         onUpdateMoney(money) {
             this.amount = money;

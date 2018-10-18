@@ -35,6 +35,20 @@ const actions = {
             console.log(error);
         });
     },
+    saveTransaction(context, transaction) {
+        return new Promise( (resolve, reject) => {
+            context.commit('setTransactionLoading', true);
+            axios.post(`/api/account/${transaction.accountId}/transaction`, transaction)
+            .then( result => {
+                context.commit('addTransaction', result.data);
+                context.commit('setTransactionLoading', false);
+                resolve();
+            }).catch( err => {
+                console.error(err);
+                reject(err);
+            })
+        });
+    },
 };
 
 export default {

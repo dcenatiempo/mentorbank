@@ -25,6 +25,10 @@ const mutations = {
     hideModal(state, modalId) {
         state.showModals = Object.assign({}, state.showModals, {[modalId]: false});
         state.modalPayload = Object.assign({}, state.modalPayload, {[modalId]: null});
+    },
+    setSize(state, {width, height}) {
+        state.vpWidth = width;
+        state.vpHeight = height;
     }
 };
 

@@ -10,7 +10,8 @@
             <ul>
                 <li><a href="/profile">profile</a></li>
                 <li><a href="/bank">bank</a></li>
-                <li><a href="/accoun">account</a></li>
+                <li><account-icon/></li>
+                <li>{{vpWidth}}</li>
             </ul>
         </nav>
         <!-- <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
@@ -69,9 +70,11 @@
 
 <script>
 import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
+import AccountIcon from 'icons/Account';
 
 export default {
     components: {
+        'account-icon': AccountIcon
     },
     props: {},
     data() {
@@ -80,17 +83,26 @@ export default {
         };
     },
     computed: {
-        // ...mapState('user', ['name']),
+        ...mapState('app', ['vpWidth']),
         // ...mapGetters()
     },
     methods: {
-        // ...mapMutations(),
+        ...mapMutations('app', ['setSize']),
         // ...mapActions(),
+        resizeFinished() {
+            this.setSize({width: window.innerWidth, height: window.innerHeight});
+        }
         
     },
     created() {},
     mounted() {
-        console.log('DefaultHeader.vue mounted.')
+        let vm = this;
+        // this block will only run above functioin if window is done being resized
+        var doit;
+        window.onresize = function(){
+            clearTimeout(doit);
+        doit = setTimeout(vm.resizeFinished, 50);
+        };
     },
     watch: {}
 }

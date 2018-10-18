@@ -22,10 +22,17 @@ export default {
         let vm = this;
         this.getUser();
 
+        // check to if device is a touch device
+        window.addEventListener('touchstart', function onFirstTouch() {
+            vm.setTouchDevice();
+            window.removeEventListener('touchstart', onFirstTouch, false);
+        }, false);
+
     },
 
     methods: {
         ...mapActions('user', ['getUser']),
+        ...mapMutations('app', ['setTouchDevice']),
     },
 
     computed: {

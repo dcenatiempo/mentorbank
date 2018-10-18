@@ -55,7 +55,6 @@ const app = new Vue({
     computed: {
         ...mapState('user',['type', 'loading']),
         ...mapState(['accounts']),
-        ...mapGetters('app', ['currentPage'])
     },
     methods: {
         ...mapActions('accounts', ['getAllBankAccounts']),

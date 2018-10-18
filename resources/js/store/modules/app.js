@@ -4,12 +4,11 @@ const state = {
     vpHeight: window.innerHeight,
     showModals: {},
     modalPayload: {},
-    pageHistory: ['bank|dashboard']
+    isTouchDevice: false,
 };
 
 
 const getters = {
-    currentPage: state => state.pageHistory[state.pageHistory.length-1]
 };
 
 // direct mutations
@@ -29,13 +28,16 @@ const mutations = {
     setSize(state, {width, height}) {
         state.vpWidth = width;
         state.vpHeight = height;
+    },
+    setTouchDevice(state) {
+        state.isTouchDevice = true;
     }
+
 };
 
 // async mutations
 // store.dispatch('actionName', payload)
-const actions = {
-};
+const actions = {};
 
 export default {
     namespaced: true,

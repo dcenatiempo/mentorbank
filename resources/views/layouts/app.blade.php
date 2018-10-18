@@ -23,9 +23,10 @@
     <div id="{{ isset($pageId) ? $pageId : substr($_SERVER['REQUEST_URI'], 1) }}">
         <default-header></default-header>
 
-        <main class="py-4">
+        <main>
             @yield('content')
         </main>
+        <default-footer></default-footer>
         @yield('modals')
     </div>
 </body>

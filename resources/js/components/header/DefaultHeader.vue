@@ -3,13 +3,11 @@
         <div class="brand">
             <a href="/home">MentorBank</a>
         </div>
-        <div class="widgets">
-            <button>Notifications</button>
-        </div>
         <nav>
             <ul>
                 <li><a href="/profile">profile</a></li>
                 <li><a href="/bank">bank</a></li>
+                <li><bell-icon></bell-icon></li>
                 <li><router-link to="/bank/profile"><account-icon/></router-link></li>
                 <li><logout></logout></li>
             </ul>
@@ -20,11 +18,13 @@
 <script>
 import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
 import AccountIcon from 'icons/Account';
+import BellIcon from 'icons/Bell';
 import Logout from './Logout';
 
 export default {
     components: {
         AccountIcon,
+        BellIcon,
         Logout
     },
     props: {},

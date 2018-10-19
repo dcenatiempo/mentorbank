@@ -11,7 +11,7 @@
             </h2>
             <template v-for="account in accounts.accountList">
                 <div :key="account.id">
-                    <h3>{{account.accountHolder.name}}</h3>
+                    <h3>{{account.accountHolder.name}} ${{account.balance}}</h3>
                 </div>
             </template>
         </div>

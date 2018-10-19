@@ -14,10 +14,9 @@ class BankCategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $categories = $request->user()->banker->bank->categories;
-        $standardCategories = Category::getGlobalCategories();
+        $bank = $request->user()->banker->bank;
 
-        return $categories->concat($standardCategories)->all();
+        return $bank->getStandardCategories();
     }
 
     /**

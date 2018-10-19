@@ -5,7 +5,7 @@
         <vuetable ref="vuetable"
             :fields="columns"
             :api-mode="false"
-            :data="accountList"></vuetable>
+            :data="accountData"></vuetable>
     </div>
 </template>
 
@@ -20,17 +20,27 @@ export default {
     props: {},
     data() {
         return {
-                columns: [ {
-                        name: 'name'
-                    },
-                ],
+            columns: [ {
+                name: 'name'
+            },{
+                name: 'balance'
+            },
+            ],
         };
     },
     computed: {
         ...mapState('accounts', ['accountList', 'loading']),
+        accountData() {
+            return this.accountList.map( account => (
+                {
+                    'name': account.accountHolder.name,
+                    'balance': account.balance
+                }
+            ))
+        }
     },
     methods: {
-        ...mapMutations('app', ['popPageHistory']),
+        // ...mapMutations(),
         // ...mapActions(),
         formatBool (val) {
             // return val ? 'Yes' : 'No';
@@ -38,9 +48,7 @@ export default {
         }
     },
     created() {},
-    mounted() {
-        console.log('Accounts.vue mounted.')
-    },
+    mounted() {},
     watch: {}
 }
 </script>

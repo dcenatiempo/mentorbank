@@ -6,14 +6,19 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Account;
 use App\AccountHolder;
+use App\Transaction;
+use App\AccountCategory;
 
 class AccountController extends Controller
 {
     function index (Request $request) {
-        //TODO: figure out a better way...
         $accounts = $request->user()->banker->bank->accounts;
         return $accounts->map(function ($account) {
-            return collect($account)->merge(['accountHolder' => AccountHolder::find($account->id)]);
+            $accountHolder = ['accountHolder' => AccountHolder::find($account->id)];
+            $account->transactions;
+            $balance = ['balance' => $account->getBalance()];
+            $account->accountCategories;
+            return collect($account)->merge($accountHolder)->merge($balance);
         });
     }
 
@@ -22,6 +27,7 @@ class AccountController extends Controller
 
         $birth_date = $request->input('birthDate');
         $bank = $request->user()->banker->bank;
+        $standardBankCategories = $bank->getStandardCategories();
 
         // Create new accountHolder
         $accountHolder = new AccountHolder;
@@ -38,8 +44,22 @@ class AccountController extends Controller
         $account->account_holder_id = $accountHolder->id;
         $account->save();
 
+        // Create new accountCategories
+        $accountCategories = [];
+        foreach($standardBankCategories as $category) {
+            $ac = AccountCategory::create([
+                'account_id' => $account->id,
+                'category_id' => $category->id,
+            ]);
+            
+            $accountCategories[] = AccountCategory::find($ac->id);
+        }
+
+
         $account = (Account::find($account->id));
         $account->accountHolder = AccountHolder::find($accountHolder->id);
+        $account->account_categories = $accountCategories;
+        $account->balance = $account->getBalance();
         return $account;
     }
 

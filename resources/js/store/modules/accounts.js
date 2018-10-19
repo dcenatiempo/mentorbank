@@ -1,19 +1,21 @@
+const currentAccountDefault = {
+    accountHolder: {
+        accountHolderId: null,
+        name: '',
+        birthDate: ''
+    },
+    accountId: null,
+    view: '',
+    interestRate: null,
+    notifications: false,
+    goalBalance: null,
+    lowBalanceAlert: null
+};
+
 const state = {
     loading: false,
     accountList: [],
-    currentAccount: {
-        accountHolder: {
-            accountHolderId: null,
-            name: '',
-            birthDate: ''
-        },
-        accountId: null,
-        view: '',
-        interestRate: null,
-        notifications: false,
-        goalBalance: null,
-        lowBalanceAlert: null
-    }
+    currentAccount: currentAccountDefault
 };
 
 
@@ -31,6 +33,13 @@ const mutations = {
     },
     addAccount(state, payload) {
         state.accountList = state.accountList.concat(payload);
+    },
+    setCurrentById(state, id) {
+         let account = state.accountList.find( item => item.id == id);
+         state.currentAccount = account ? account : currentAccountDefault;
+    },
+    setCurrentByObj(state, payload) {
+        state.currentAccount = payload;
     }
 };
 

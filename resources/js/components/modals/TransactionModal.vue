@@ -6,23 +6,25 @@
         @handle-modal-click="saveNewTransaction"
         @handle-modal-cancel="closeModal">
     
+    <label>Date</label>
+    <datepicker :value="date.__d" v-model="date"></datepicker>
+    
     <label>Account</label>
     <account-selector ref="accountSelector" @select="onUpdateAccount"></account-selector>
 
     <label>Type</label>
     <transaction-type-selector ref="typeSelector" @select="onUpdateType"></transaction-type-selector>
 
+    <template v-if="transactionType === 'transfer'">
+        <transaction-transfer></transaction-transfer>
+    </template>
+
+    <template v-else>
+        <transaction-splitter></transaction-splitter>
+    </template>
+
     <label>Memo</label>
     <input type="text" placeholder="optional short descrition" v-model="memo">
-
-    <label>Amount</label>
-    <money ref="money" @change="onUpdateMoney"></money>
-
-    <label>Category</label>
-    <category-selector ref="categorySelector" @select="onUpdateCategory"></category-selector>
-
-    <label>Date</label>
-    <datepicker :value="date.__d" v-model="date"></datepicker>
 
 </modal>
 </template>
@@ -30,28 +32,28 @@
 <script>
 import {mapState, mapMutations, mapActions} from 'vuex';
 
-import Money from '../reusable/Money.vue';
 import AccountSelector from '../reusable/AccountSelector.vue';
-import CategorySelector from '../reusable/CategorySelector.vue';
 import TransactionTypeSelector from '../reusable/TransactionTypeSelector.vue';
+import TransactionSplitter from '../reusable/TransactionSplitter.vue';
+import TransactionTransfer from '../reusable/TransactionTransfer.vue';
 import Modal from './Modal.vue';
 import Datepicker from 'vuejs-datepicker';
 
 export default {
     components: {
-        'modal': Modal,
-        'category-selector': CategorySelector,
-        'account-selector': AccountSelector,
-        'transaction-type-selector': TransactionTypeSelector,
-        'money': Money,
-        Datepicker
+        Modal,
+        AccountSelector,
+        TransactionTypeSelector,
+        Datepicker,
+        TransactionSplitter,
+        TransactionTransfer
     },
     props: {},
     data() {
         return {
             id: 'transaction-modal',
             account: null,
-            transactionType: null,
+            transactionType: 'deposit',
             memo: '',
             amount: 0,
             category: null,
@@ -106,18 +108,12 @@ export default {
 
             });
         },
-        onUpdateMoney(money) {
-            this.amount = money;
-        },
         onUpdateAccount(account) {
             this.account = account;
         },
         onUpdateType(type) {
             this.transactionType = type;
         },
-        onUpdateCategory(cat) {
-            this.category = cat;
-        }
     },
     created() {},
     mounted() {},
@@ -125,6 +121,13 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+    .row {
+        display: flex;
+    }
+    .grid-row {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        grid-gap: .5rem;
+    }
 </style>

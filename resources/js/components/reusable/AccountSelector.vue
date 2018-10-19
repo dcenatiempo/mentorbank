@@ -29,7 +29,7 @@ export default {
     },
     computed: {
         ...mapState(['accounts']),
-        // ...mapGetters()
+        // ...mapGetters(),
         accountList() {
             return this.accounts.accountList.map(item => (
                 {
@@ -41,10 +41,11 @@ export default {
 
     },
     methods: {
-        // ...mapMutations(),
+        ...mapMutations('accounts', ['setCurrentById']),
         // ...mapActions(),
         onSelect(value) {
             this.$emit('select', value);
+            this.setCurrentById(value.accountId);
         },
         reset() {
             let val = null;
@@ -53,9 +54,7 @@ export default {
         }
     },
     created() {},
-    mounted() {
-        console.log('AccountSelector.vue mounted.')
-    },
+    mounted() {},
     watch: {}
 }
 </script>

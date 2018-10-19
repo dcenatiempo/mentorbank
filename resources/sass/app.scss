@@ -55,10 +55,6 @@ body {
   background-color: #f8fafc;
 }
 
-main {
-  padding: 2rem;
-}
-
 [tabindex="-1"]:focus {
   outline: 0 !important;
 }
@@ -579,6 +575,30 @@ input {
   background: #fff;
   font-size: 14px;
 }
+
+//**********************************************************************
+// Main Layout
+//**********************************************************************
+body > div {
+  min-height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
+
+  > header {
+    position: sticky;
+    top: 0;
+  }
+  > main {
+    padding: 2rem;
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: auto;
+  }
+  > footer {
+  
+  }
+}
+
 
 //**********************************************************************
 // Vue Multiselect

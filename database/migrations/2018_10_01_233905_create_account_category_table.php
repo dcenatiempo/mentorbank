@@ -13,13 +13,13 @@ class CreateAccountCategoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('account_category', function (Blueprint $table) {
+        Schema::create('account_categories', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
             $table->boolean('archived')->default(false);
             $table->boolean('notifications')->default(true);
-            $table->integer('goal_balance'); // in cents
-            $table->integer('low_balance_alert'); // in cents
+            $table->integer('goal_balance')->nullable(); // in cents
+            $table->integer('low_balance_alert')->default(0); // in cents
             $table->integer('account_id')->references('id')->on('accounts');
             $table->integer('category_id')->references('id')->on('categories');
         });
@@ -32,6 +32,6 @@ class CreateAccountCategoryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('account_category');
+        Schema::dropIfExists('account_categories');
     }
 }

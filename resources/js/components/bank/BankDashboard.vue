@@ -1,29 +1,44 @@
 <template>
-<div>
-    <h1><router-link to="/bank/settings">{{bank.name}}</router-link> Dashboard</h1>
-    <hr>
-    <h2><router-link to="/bank/accounts">Accounts</router-link><button v-on:click="showAccountModal">+</button></h2>
-    <template v-for="account in accounts.accountList">
-        <div :key="account.id">
-            <h3>{{account.accountHolder.name}}</h3>
+<div id="dashboard">
+
+    <h1 class="top-section"><router-link to="/bank/settings">{{bank.name}}</router-link> Dashboard</h1>
+
+    <section class="card-container">
+        <div class="card">
+            <h2 class="card-header">
+                <router-link to="/bank/accounts">Accounts</router-link>
+                <button v-on:click="showAccountModal">+</button>
+            </h2>
+            <template v-for="account in accounts.accountList">
+                <div :key="account.id">
+                    <h3>{{account.accountHolder.name}}</h3>
+                </div>
+            </template>
         </div>
-    </template>
-    <hr>
-    <h2><router-link to="/bank/categories">Categories</router-link><button v-on:click="showCategoryModal">+</button></h2>
-    <template v-for="category in categories.categoryList">
-        <div :key="'c-'+category.id">
-            <h3>{{category.name}}</h3>
+
+        <div class="card">
+            <h2 class="card-header"><router-link to="/bank/categories">Categories</router-link><button v-on:click="showCategoryModal">+</button></h2>
+            <template v-for="category in categories.categoryList">
+                <div :key="'c-'+category.id">
+                    <h3>{{category.name}}</h3>
+                </div>
+            </template>
         </div>
-    </template>
-    <hr>
-    <h2><router-link to="/bank/transactions">Transactions</router-link><button v-on:click="showTransactionModal">+</button></h2> 
-    <template v-for="transaction in transactions.transactionList">
-        <div :key="'t-'+transaction.id">
-            <h3>{{transaction.date}} {{transaction.type}} ${{transaction.net_amount}} {{accounts.accountList.find( item => item.id == transaction.account_id).accountHolder.name}}</h3>
+
+        <div class="card">
+            <h2 class="card-header"><router-link to="/bank/transactions">Transactions</router-link><button v-on:click="showTransactionModal">+</button></h2> 
+            <template v-for="transaction in transactions.transactionList">
+                <div :key="'t-'+transaction.id">
+                    <h3>{{transaction.date}} {{transaction.type}} ${{transaction.net_amount}} {{accounts.accountList.find( item => item.id == transaction.account_id).accountHolder.name}}</h3>
+                </div>
+            </template>
         </div>
-    </template>
-    <hr>
-    <h2>Recurring Transactions</h2>
+
+        <div class="card">
+            <h2 class="card-header">Recurring Transactions</h2>
+        </div>
+    </section>
+
 </div>
 </template>
 
@@ -78,6 +93,32 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+#dashboard {
+    display: grid;
+    grid-gap: 1rem;
+    
+    .top-section {
+        background: white;
+        grid-column: 1 / end;
+    }
 
+    .card-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        grid-gap: 1rem;
+
+        .card {
+            padding: 1rem;
+            background: white;
+
+            .card-header {
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+    }
+    
+}
+    
 </style>

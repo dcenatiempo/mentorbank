@@ -2,13 +2,15 @@ import store from './store';
 import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
 import DefaultHeader from './components/header/DefaultHeader.vue';
 import DefaultFooter from './components/footer/DefaultFooter.vue';
+import Overlay from './components/reusable/Overlay.vue';
 
 export default {
     store,
 
     components: {
         DefaultHeader,
-        DefaultFooter
+        DefaultFooter,
+        Overlay
     },
 
     data() {

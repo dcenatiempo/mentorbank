@@ -27,6 +27,7 @@
             @yield('content')
         </main>
         <default-footer></default-footer>
+        <overlay></overlay>
         @yield('modals')
     </div>
 </body>

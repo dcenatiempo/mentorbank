@@ -1,5 +1,5 @@
 <template>
-    <dialog :id="id" :open="showModals[id]">
+    <div class="dialog" :id="id" v-if="showModals[id]">
         <header>
             <span class="title">{{modalTitle}}</span>
             <button v-on:click="handleCancel">X</button>
@@ -11,7 +11,7 @@
             <button v-on:click="handleCancel">{{cancelText}}</button>
             <button v-on:click="handleClick">{{clickText}}</button>
         </footer>
-    </dialog>
+    </div>
 </template>
 
 <script>
@@ -62,7 +62,7 @@ export default {
 </script>
 
 <style lang="scss">
-    dialog {
+    .dialog {
         box-sizing: border-box;
         position: fixed;
         top: 16px;
@@ -71,7 +71,10 @@ export default {
         padding: 0;
         background: pink;
         border: none;
-        box-shadow: 0 0 5px 5px rgba(200, 200, 200, .5);
+        box-shadow: 0 0 5px 5px rgba(100, 100, 100, .3);
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 100;
 
         header {
             display: flex;

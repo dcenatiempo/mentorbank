@@ -55,6 +55,10 @@ body {
   background-color: #f8fafc;
 }
 
+main {
+  padding: 2rem;
+}
+
 [tabindex="-1"]:focus {
   outline: 0 !important;
 }
@@ -565,11 +569,6 @@ pre code {
   margin-left: auto;
 }
 
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-}
-
 input {
   width: 100%;
   min-height: 40px;
@@ -581,7 +580,9 @@ input {
   font-size: 14px;
 }
 
+//**********************************************************************
 // Vue Multiselect
+//**********************************************************************
 .multiselect {
   .multiselect__select {}
   .multiselect__tags {
@@ -603,5 +604,12 @@ input {
         }
       }
     }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  main {
+    padding-left: 0;
+    padding-right: 0;
   }
 }

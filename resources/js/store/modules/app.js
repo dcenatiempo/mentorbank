@@ -9,6 +9,13 @@ const state = {
 
 
 const getters = {
+    showOverlay(state) {
+        let show = false;
+        for (let modal in state.showModals) {
+            show = state.showModals[modal] ? true : show;
+        }
+        return show;
+    }
 };
 
 // direct mutations

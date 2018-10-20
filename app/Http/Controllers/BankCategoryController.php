@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\Log;
 
 class BankCategoryController extends Controller
 {
@@ -16,7 +17,11 @@ class BankCategoryController extends Controller
     {
         $bank = $request->user()->banker->bank;
 
-        return $bank->getStandardCategories();
+        $response = $bank->getStandardCategories()->filter(function ($item) {
+            return $item->hidden == false;
+        })->values();
+
+        return response($response);
     }
 
     /**

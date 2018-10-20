@@ -20,6 +20,7 @@ class CreateAccountCategoryTable extends Migration
             $table->boolean('notifications')->default(true);
             $table->integer('goal_balance')->nullable(); // in cents
             $table->integer('low_balance_alert')->default(0); // in cents
+            $table->boolean('hidden')->default(false);
             $table->integer('account_id')->references('id')->on('accounts');
             $table->integer('category_id')->references('id')->on('categories');
         });

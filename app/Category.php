@@ -23,7 +23,6 @@ class Category extends Model
     public static function getGlobalCategories() {
         return Category::
             where('standard', '=', true)
-            ->where('hidden', '=', false)
             ->where('bank_id', '=', null)
             ->get();
     }

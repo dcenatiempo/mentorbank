@@ -50,6 +50,7 @@ class AccountController extends Controller
             $ac = AccountCategory::create([
                 'account_id' => $account->id,
                 'category_id' => $category->id,
+                'hidden' => $category->hidden
             ]);
             
             $accountCategories[] = AccountCategory::find($ac->id);

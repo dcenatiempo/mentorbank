@@ -1,7 +1,7 @@
 <template>
-<footer>
-    This is the footer
-</footer>
+    <footer>
+        &#169; {{date}} Devin Cenatiempo
+    </footer>
 </template>
 
 <script>
@@ -12,7 +12,7 @@ export default {
     props: {},
     data() {
         return {
-
+            date: moment().format('MMM YYYY')
         };
     },
     computed: {
@@ -33,5 +33,9 @@ export default {
 </script>
 
 <style>
-
+    footer {
+        display: flex;
+        justify-content: center;
+        padding: 1rem;
+    }
 </style>

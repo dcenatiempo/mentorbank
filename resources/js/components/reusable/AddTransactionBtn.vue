@@ -36,13 +36,21 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang='scss' scoped>
+@import 'resources/sass/_variables.scss';
+
     button {
         position: fixed;
-        bottom: 20px;
-        right: 20px;
+        bottom: 2rem;
+        right: 2rem;
         border-radius: 50%;
-        background: rgb(103, 146, 37);
+        background: $green;
         color: white;
+        font-size: 2rem;
+        height: 3rem;
+        width: 3rem;
+        line-height: 3rem;
+        border: none;
+        box-shadow: 1px 1px 4px 1px rgba(50, 50, 50, .3);
     }
 </style>

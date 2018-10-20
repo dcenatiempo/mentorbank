@@ -64,11 +64,12 @@ export default {
 <style lang="scss">
     .dialog {
         box-sizing: border-box;
-        position: fixed;
+        position: absolute;
         top: 16px;
         min-width: 288px;
         max-width: 400px;
         padding: 0;
+        margin-bottom: 1rem;
         background: pink;
         border: none;
         box-shadow: 0 0 5px 5px rgba(100, 100, 100, .3);
@@ -91,7 +92,7 @@ export default {
             padding: 16px;
             // overflow-y: auto;
             min-height: 100px;
-            max-height: calc(100vh - 150px);
+            // max-height: calc(100vh - 150px);
         }
         footer {
             display: flex;

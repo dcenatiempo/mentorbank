@@ -1,6 +1,6 @@
 <template>
-    <div class="overlay" v-if="showOverlay">
-
+    <div class="overlay" v-show="showOverlay">
+        <slot></slot>
     </div>
 </template>
 
@@ -41,5 +41,6 @@ export default {
         bottom: 0;
         right: 0;
         left: 0;
+        overflow: auto;
     }
 </style>

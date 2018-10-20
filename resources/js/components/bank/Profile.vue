@@ -1,6 +1,5 @@
 <template>
     <div class="container">
-        <button v-on:click="$router.go(-1)">&lt;</button>
         <h2>Profile Page</h2>
         <ul>
             <li>

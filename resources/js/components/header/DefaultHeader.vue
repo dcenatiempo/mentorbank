@@ -1,12 +1,11 @@
 <template>
     <header>
+        <back-btn></back-btn>
         <div class="brand">
             <a href="/home">MentorBank</a>
         </div>
         <nav>
             <ul>
-                <li><a href="/profile">profile</a></li>
-                <li><a href="/bank">bank</a></li>
                 <li><bell-icon></bell-icon></li>
                 <li><router-link to="/bank/profile"><account-icon/></router-link></li>
                 <li><logout></logout></li>
@@ -18,6 +17,7 @@
 <script>
 import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
 import AccountIcon from 'icons/Account';
+import BackBtn from '@reusable/BackBtn';
 import BellIcon from 'icons/Bell';
 import Logout from './Logout';
 
@@ -25,6 +25,7 @@ export default {
     components: {
         AccountIcon,
         BellIcon,
+        BackBtn,
         Logout
     },
     props: {},
@@ -61,21 +62,30 @@ export default {
 
 <style lang="scss" scoped>
     header {
-        display: flex;
-        flex-flow: row nowrap;
-    }
-    nav {
-        ul {
-            display: flex;
-            flex-flow: row nowrap;
-            padding: 0;
-            margin: 0;
+        display: grid;
+        grid-template-columns: 2rem auto auto;
+        align-items: center;
+        padding: 0 1rem;
+        background: white;
 
-            li {
+        .brand {
+            display: flex;
+            justify-content: center;
+        }
+
+        nav {
+            ul {
                 display: flex;
                 flex-flow: row nowrap;
-                list-style: none;
+                justify-content: flex-end;
+                padding: 0;
+                margin: 0;
+
+                li {
+                    list-style: none;
+                }
             }
         }
     }
+    
 </style>

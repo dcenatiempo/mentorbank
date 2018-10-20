@@ -17,8 +17,8 @@
 
 <script>
 import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
-import CategorySelector from '../reusable/CategorySelector.vue';
-import Money from '../reusable/Money.vue';
+import CategorySelector from '@reusable/CategorySelector.vue';
+import Money from '@reusable/Money.vue';
 
 export default {
     components: {

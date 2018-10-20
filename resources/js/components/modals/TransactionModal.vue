@@ -32,10 +32,10 @@
 <script>
 import {mapState, mapMutations, mapActions} from 'vuex';
 
-import AccountSelector from '../reusable/AccountSelector.vue';
-import TransactionTypeSelector from '../reusable/TransactionTypeSelector.vue';
-import TransactionSplitter from '../reusable/TransactionSplitter.vue';
-import TransactionTransfer from '../reusable/TransactionTransfer.vue';
+import AccountSelector from '@reusable/AccountSelector.vue';
+import TransactionTypeSelector from '@reusable/TransactionTypeSelector.vue';
+import TransactionSplitter from '@reusable/TransactionSplitter.vue';
+import TransactionTransfer from '@reusable/TransactionTransfer.vue';
 import Modal from './Modal.vue';
 import Datepicker from 'vuejs-datepicker';
 

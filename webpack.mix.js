@@ -26,7 +26,9 @@ mix.webpackConfig({
 //      import Android from "vue-material-design-icons/Android.vue". Much better!
     resolve: {
         alias : {
-          "icons": path.resolve(__dirname, "node_modules/vue-material-design-icons")
+          "icons": path.resolve(__dirname, "node_modules/vue-material-design-icons"),
+          "@reusable": path.resolve(__dirname, "resources/js/components/reusable"),
+          "@modals": path.resolve(__dirname, "resources/js/components/modals")
         }
       }      
 });

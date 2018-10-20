@@ -43,10 +43,10 @@ const router = new VueRouter({
     ]
 });
 
-Vue.component('category-modal', require('./components/modals/CategoryModal.vue'));
-Vue.component('transaction-modal', require('./components/modals/TransactionModal.vue'));
-Vue.component('account-modal', require('./components/modals/AccountModal.vue'));
-Vue.component('add-transaction-btn', require('./components/reusable/AddTransactionBtn.vue'));
+Vue.component('category-modal', require('@modals/CategoryModal.vue'));
+Vue.component('transaction-modal', require('@modals/TransactionModal.vue'));
+Vue.component('account-modal', require('@modals/AccountModal.vue'));
+Vue.component('add-transaction-btn', require('@reusable/AddTransactionBtn.vue'));
 
 const app = new Vue({
     el: '#bank',

@@ -33,7 +33,7 @@ class AccountTransactionController extends Controller
         // TODO: Validate
         $memo = $request->input('memo');
         $type = $request->input('type');
-        $netAmount = $request->input('amount');
+        $netAmount = $request->input('net_amount');
         $accountId = Route::current()->parameter('id');
         $date = $request->input('date');
         $split = json_encode($request->input('split'));

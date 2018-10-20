@@ -1,8 +1,7 @@
 <template>
     <money
-        v-model="price"
-        v-bind="money"
-        v-on:input="changeAmount"></money>
+        v-model="dataPrice"
+        v-bind="money"></money>
 </template>
  
 <script>
@@ -10,9 +9,13 @@
     
     export default {
         components: {Money},
+        props: {
+            dataIndex: Number,
+            price: Number
+        },
         data () {
             return {
-                price: 0,
+                dataPrice: 0,
                 money: {
                     decimal: '.',
                     thousands: ',',
@@ -25,11 +28,21 @@
         },
         methods: {
             changeAmount() {
-                this.$emit('change', this.price)
+                console.log('changing amount!')
+                debugger
+                let payload = {
+                    index: this.dataIndex,
+                    price: this.dataPrice
+                };
+                this.$emit('change', payload)
             },
             reset() {
-            this.price = 0;
-        }
+            }
+        },
+        watch: {
+            // price(val) {
+            //     this.dataPrice = val;
+            // }
         }
     }
 </script>

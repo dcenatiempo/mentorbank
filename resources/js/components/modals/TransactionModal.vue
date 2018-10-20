@@ -20,7 +20,7 @@
     </template>
 
     <template v-else>
-        <transaction-splitter></transaction-splitter>
+        <transaction-splitter @split-updated="updateSplit"></transaction-splitter>
     </template>
 
     <label>Memo</label>
@@ -55,9 +55,9 @@ export default {
             account: null,
             transactionType: 'deposit',
             memo: '',
-            amount: 0,
-            category: null,
-            date: moment().format()
+            netAmount: 0,
+            date: moment().format(),
+            split: []
         };
     },
     computed: {
@@ -94,11 +94,8 @@ export default {
                 accountId: this.account.accountId,
                 type: this.transactionType,
                 memo: this.memo,
-                amount: this.amount,
-                split: {
-                    categoryId: this.category.id,
-                    amount: this.amount
-                },
+                net_amount: this.netAmount,
+                split: this.split,
                 date: this.date
             }
             this.saveTransaction(transaction)
@@ -114,6 +111,14 @@ export default {
         onUpdateType(type) {
             this.transactionType = type;
         },
+        updateSplit(split) {
+            this.split = split.map(row => ({
+                amount: row.amount,
+                category_id: row.category_id.id
+            }));
+            // remove js decimal errors with * 100 / 100
+            this.netAmount = split.reduce( (sum, row) => sum + (row.amount * 100), 0)/100;
+        }
     },
     created() {},
     mounted() {},

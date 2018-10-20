@@ -19,7 +19,7 @@ class CreateTransactionTable extends Migration
             $table->date('date');
             $table->string('memo', 255)->nullable();
             $table->enum('type', ['withdrawal', 'deposit', 'transfer']);
-            $table->jsonb('split'); // [{category, ammount}]
+            $table->jsonb('split'); // [{category, amount}]
             $table->integer('net_amount'); // in cents - positive=deposit/transfer, negative=withdrawal
             $table->integer('account_id')->references('id')->on('accounts');
         });

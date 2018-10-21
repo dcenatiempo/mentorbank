@@ -36,9 +36,7 @@ export default {
         
     },
     created() {},
-    mounted() {
-        console.log('Profile.vue mounted.')
-    },
+    mounted() {},
     watch: {}
 }
 </script>

@@ -4,13 +4,32 @@
         :click-text="clickText"
         cancel-text="Cancel"
         @handle-modal-click="saveCategory"
-        @handle-modal-cancel="closeModal">
+        @handle-modal-cancel="closeModal"
+        :disabled="disabled">
     
     <label>Name</label>
     <input type="text" placeholder="enter category name" v-model="name">
 
-    <label>Standard</label>
-    <input type="checkbox" v-model="standard">
+
+    <template v-if="accountList.length > 1">
+        <label>Standard</label>
+        <toggle-button v-model="standard"/>
+
+        <template v-if="!standard">
+            <multiselect
+                v-model="selectedAccounts"
+                :options="accountList"
+                track-by="accountId"
+                label="accountHolderName"
+                placeholder="select an account"
+                :preselect-first="true"
+                :multiple="true"
+                :allow-empty="false"
+                :hideSelected="false"
+                @select="onSelectAccount">
+            </multiselect>
+        </template>
+    </template>
 
     <!-- <label>Notifications</label>
     <input type="checkbox" v-model="notifications">
@@ -23,24 +42,31 @@
 </template>
 
 <script>
-import {mapState, mapMutations} from 'vuex';
+import {mapState, mapGetters, mapMutations, mapActions} from 'vuex';
+import ToggleButton from 'vue-js-toggle-button/src/Button';
+import Multiselect from 'vue-multiselect';
 
 import Modal from './Modal.vue';
 
 export default {
     components: {
-        'modal': Modal,
+        Modal,
+        Multiselect,
+        ToggleButton
     },
     props: {},
     data() {
         return {
             id: 'category-modal',
             name: '',
-            standard: false
+            standard: false,
+            selectedAccounts: null,
         };
     },
     computed: {
         ...mapState('app', ['modalPayload']),
+        ...mapState(['accounts']),
+        ...mapGetters('categories', ['getCategoryNames']),
         mode() {
             let payload = this.modalPayload[this.id];
             return payload ? payload.mode : 'add';
@@ -55,10 +81,25 @@ export default {
         },
         modalTitle() {
             return this.mode + ' category'
+        },
+        accountList() {
+            return this.accounts.accountList.map(item => (
+                {
+                    accountHolderName: item.accountHolder.name,
+                    accountId: item.id
+                }
+            ));
+        },
+        disabled() {
+            if (this.name.length < 1) return true;
+            if (this.getCategoryNames.includes(this.name.trim())) return true;
+            return false;
         }
     },
     methods: {
         ...mapMutations('app', ['hideModal']),
+        ...mapMutations('accounts', ['setCurrentById']),
+        ...mapActions('categories', ['createCategory']),
         closeModal() {
             this.hideModal(this.id);
             this.name = '';
@@ -69,13 +110,16 @@ export default {
                 standard: this.standard
             };
 
-            axios.post(`/api/bank/category`, category)
-            .then( result => {
-                console.log(result);
-            }).catch( err => {
-                console.error(err);
+            this.createCategory(category).then( () => {
+                this.closeModal();
+            }).catch( () => {
+
             });
-        }
+        },
+        onSelectAccount(value) {
+            let accountId = value ? value.accountId : null;
+            this.setCurrentById(accountId);
+        },
     },
     created() {},
     mounted() {},
@@ -86,3 +130,5 @@ export default {
 <style>
 
 </style>
+
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

@@ -9,7 +9,7 @@
         </div>
         <footer>
             <button v-on:click="handleCancel">{{cancelText}}</button>
-            <button v-on:click="handleClick">{{clickText}}</button>
+            <button v-on:click="handleClick" :disabled="disabled">{{clickText}}</button>
         </footer>
     </div>
 </template>
@@ -35,6 +35,10 @@ export default {
             type: String,
             default: 'Cancel'
         },
+        disabled: {
+            type: Boolean,
+            default: false
+        }
     },
     computed: {
         ...mapState('app', ['showModals', 'modalPayload']),
@@ -55,7 +59,6 @@ export default {
             },
     },
     mounted() {
-        console.log('Modal.vue mounted')
         this.registerModal(this.id);
     }
 }

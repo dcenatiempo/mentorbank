@@ -5,6 +5,7 @@ const state = {
 
 
 const getters = {
+    getCategoryNames: state => state.categoryList.map( item => item.name ),
 };
 
 // direct mutations
@@ -24,17 +25,33 @@ const mutations = {
 // async mutations
 // store.dispatch('actionName', payload)
 const actions = {
-    getAllCategories(context) {
+    fetchAllCategories(context) {
         context.commit('setCategoryLoading', true);
         axios.get('/api/bank/category')
-        .then(function (response) {
+        .then( response => {
             context.commit('setCategories', response.data)
             context.commit('setCategoryLoading', false);
         })
-        .catch(function (error) {
+        .catch( error => {
             console.log(error);
+            context.commit('setCategoryLoading', false);
         });
     },
+    createCategory(context, category) {
+        return new Promise( (resolve, reject) => {
+            context.commit('setCategoryLoading', true);
+            axios.post(`/api/bank/category`, category)
+            .then( response => {
+                context.commit('addCategory', response.data);
+                context.commit('setCategoryLoading', false);
+                resolve();
+            }).catch( err => {
+                console.error(err);
+                context.commit('setCategoryLoading', false);
+                reject();
+            });
+        });
+    }
 };
 
 export default {

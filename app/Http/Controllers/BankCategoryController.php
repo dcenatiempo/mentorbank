@@ -42,6 +42,8 @@ class BankCategoryController extends Controller
             'standard' => $standard
         ]);
 
+        // TODO: Create AccountCategory for users, if any
+
         return Category::find($category->id);
     }
 

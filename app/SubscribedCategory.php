@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AccountCategory extends Model
+class SubscribedCategory extends Model
 {
     protected $guarded = [ ];
     

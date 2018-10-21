@@ -37,11 +37,14 @@ const actions = {
             context.commit('setCategoryLoading', false);
         });
     },
-    createCategory(context, category) {
+    createCategory(context, {name, forceSubscribe, subscribedIds}) {
         return new Promise( (resolve, reject) => {
             context.commit('setCategoryLoading', true);
-            axios.post(`/api/bank/category`, category)
-            .then( response => {
+            axios.post(`/api/bank/category`, {
+                name,
+                forceSubscribe,
+                'subscribed': subscribedIds
+            }).then( response => {
                 context.commit('addCategory', response.data);
                 context.commit('setCategoryLoading', false);
                 resolve();

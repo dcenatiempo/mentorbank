@@ -13,19 +13,20 @@ class CategoriesTableSeeder extends Seeder
     {
         DB::table('categories')->insert([
             'name' => 'accrued_interest',
-            'standard' => true,
+            'is_global' => true,
             'hidden' => true,
             'notifications' => false
         ]);
 
         DB::table('categories')->insert([
             'name' => 'Uncategorized',
-            'standard' => true
+            'is_global' => true
         ]);
         
         DB::table('categories')->insert([
-            'name' => 'General',
-            'standard' => true
+            'name' => 'Savings',
+            'is_global' => true,
+            'force_subscribe' => true
         ]);
     }
 }

@@ -23,7 +23,7 @@ class Account extends Model
     public function notifications()     { return $this->hasMany('App\Notification'); }
 
     // Many to many
-    public function accountCategories()        { return $this->hasMany('App\AccountCategory'); }
+    public function subscribedCategories()        { return $this->hasMany('App\SubscribedCategory'); }
 
     public function getBalance() {
         // Get most recent history balance

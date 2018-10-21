@@ -7,7 +7,7 @@ use Carbon\Carbon;
 use App\Account;
 use App\AccountHolder;
 use App\Transaction;
-use App\AccountCategory;
+use App\SubscribedCategory;
 
 class AccountController extends Controller
 {
@@ -17,7 +17,7 @@ class AccountController extends Controller
             $accountHolder = ['accountHolder' => AccountHolder::find($account->id)];
             $account->transactions;
             $balance = ['balance' => $account->getBalance()];
-            $account->accountCategories;
+            $account->subscribedCategories;
             return collect($account)->merge($accountHolder)->merge($balance);
         });
     }
@@ -44,22 +44,21 @@ class AccountController extends Controller
         $account->account_holder_id = $accountHolder->id;
         $account->save();
 
-        // Create new accountCategories
-        $accountCategories = [];
+        // Create new subscribedCategories
+        $subscribedCategories = [];
         foreach($standardBankCategories as $category) {
-            $ac = AccountCategory::create([
+            $ac = SubscribedCategory::create([
                 'account_id' => $account->id,
-                'category_id' => $category->id,
-                'hidden' => $category->hidden
+                'category_id' => $category->id
             ]);
             
-            $accountCategories[] = AccountCategory::find($ac->id);
+            $subscribedCategories[] = SubscribedCategory::find($ac->id);
         }
 
 
         $account = (Account::find($account->id));
         $account->accountHolder = AccountHolder::find($accountHolder->id);
-        $account->account_categories = $accountCategories;
+        $account->subscribed_categories = $subscribedCategories;
         $account->balance = $account->getBalance();
         return $account;
     }

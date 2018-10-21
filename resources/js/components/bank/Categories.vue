@@ -22,7 +22,7 @@ export default {
                 columns: [ {
                         name: 'name'
                     },{
-                        name: 'standard',
+                        name: 'is_global',
                         callback: this.formatBool
                     },{
                         name: 'notifications',

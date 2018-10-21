@@ -81,7 +81,7 @@ Route::middleware(['auth'])->group(function () {
                 ***************************************************************/
                 Route::apiResources([
                     'transaction' => 'AccountTransactionController',
-                    'accountCategory' => 'AccountCategoryController',
+                    'subscribedCategory' => 'SubscribedCategoryController',
                     'notification' => 'AccountNotificationController',
                     'recurringTemplate' => 'AccountRecurringTemplateController'
                 ]);

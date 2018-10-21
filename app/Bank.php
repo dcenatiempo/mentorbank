@@ -13,12 +13,15 @@ class Bank extends Model
     public function categories()     { return $this->hasMany('App\Category'); }
     public function transactions()   { return $this->hasManyThrough('App\Transaction', 'App\Account'); }
 
-    public function getStandardCategories() {
-        $localStandard = $this->categories->where('standard', '=', true);
-        $globalStandard = Category::getGlobalCategories();
+    public function getAllCategories() {
+        $globalCats = Category::getGlobalCategories()
+            ->sortBy('id');
 
-        $bankStandard = $localStandard->concat($globalStandard);
+        $localCats = $this->categories
+            ->sortBy('name');
+        
+        $allBankCats = $globalCats->concat($localCats);
 
-        return $bankStandard;
+        return $allBankCats;
     }
 }

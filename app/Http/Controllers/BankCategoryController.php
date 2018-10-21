@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\SubscribedCategory;
 use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\Log;
 
@@ -17,7 +18,7 @@ class BankCategoryController extends Controller
     {
         $bank = $request->user()->banker->bank;
 
-        $response = $bank->getStandardCategories()->filter(function ($item) {
+        $response = $bank->getAllCategories()->filter(function ($item) {
             return $item->hidden == false;
         })->values();
 
@@ -34,15 +35,28 @@ class BankCategoryController extends Controller
     {
         $bank = $request->user()->banker->bank;
         $name = $request->input('name');
-        $standard = $request->input('standard');
+        $forceSubscribe = $request->input('forceSubscribe');
+        $subscribed = !$forceSubscribe
+            ? $request->input('subscribed')
+            : $bank->accounts->pluck('id');
 
         $category = Category::create([
             'name' => $name,
             'bank_id' => $bank->id,
-            'standard' => $standard
+            'force_subscribe' => $forceSubscribe
         ]);
 
-        // TODO: Create AccountCategory for users, if any
+        // Create SubscribedCategory for users, if any
+        if ($subscribed) {
+            foreach($subscribed as $id) {
+                $ac = SubscribedCategory::create([
+                    'account_id' => $id,
+                    'category_id' => $category->id
+                ]);
+                
+                $subscribedCategories[] = SubscribedCategory::find($ac->id);
+            }
+        }
 
         return Category::find($category->id);
     }

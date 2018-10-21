@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use App\AccountCategory;
+use App\SubscribedCategory;
 use Illuminate\Http\Request;
 
-class AccountCategoryController extends Controller
+class SubscribedCategoryController extends Controller
 {
     /**
      * Display a listing of the account category.
@@ -35,7 +35,7 @@ class AccountCategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(AccountCategory $category)
+    public function show(SubscribedCategory $category)
     {
         //
     }
@@ -47,7 +47,7 @@ class AccountCategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, AccountCategory $category)
+    public function update(Request $request, SubscribedCategory $category)
     {
         //
     }

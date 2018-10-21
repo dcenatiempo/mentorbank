@@ -17,7 +17,8 @@ class CreateCategoryTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->string('name', 63);
-            $table->boolean('standard')->default(false); // standard for all accounts: Uncategoriezed/General, Accrued Interest
+            $table->boolean('is_global')->default(false);
+            $table->boolean('force_subscribe')->default(false); // standard for all accounts: Uncategoriezed/General, Accrued Interest
             $table->boolean('notifications')->default(true);
             $table->boolean('hidden')->default(false);
             $table->integer('bank_id')->references('id')->on('banks')->nullable();

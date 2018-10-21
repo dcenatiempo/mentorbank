@@ -7,29 +7,28 @@
         @handle-modal-cancel="closeModal"
         :disabled="disabled">
     
-    <label>Name</label>
+    <label>Category Name</label>
     <input type="text" placeholder="enter category name" v-model="name">
 
 
-    <template v-if="accountList.length > 1">
-        <label>Standard</label>
-        <toggle-button v-model="standard"/>
+    <label>Standard (All accounts acutomatically subscribed to)</label>
+    <toggle-button v-model="forceSubscribe"/>
 
-        <template v-if="!standard">
-            <multiselect
-                v-model="selectedAccounts"
-                :options="accountList"
-                track-by="accountId"
-                label="accountHolderName"
-                placeholder="select an account"
-                :preselect-first="true"
-                :multiple="true"
-                :allow-empty="false"
-                :hideSelected="false"
-                @select="onSelectAccount">
-            </multiselect>
-        </template>
-    </template>
+    <multiselect
+        v-show="!forceSubscribe"
+        v-model="selectedAccounts"
+        :options="accountList"
+        track-by="accountId"
+        label="accountHolderName"
+        placeholder="select an account"
+        :preselect-first="false"
+        :multiple="true"
+        :allow-empty="true"
+        :hideSelected="false"
+        @select="onSelectAccount">
+    </multiselect>
+</modal>
+</template>
 
     <!-- <label>Notifications</label>
     <input type="checkbox" v-model="notifications">
@@ -59,7 +58,7 @@ export default {
         return {
             id: 'category-modal',
             name: '',
-            standard: false,
+            forceSubscribe: true,
             selectedAccounts: null,
         };
     },
@@ -94,6 +93,10 @@ export default {
             if (this.name.length < 1) return true;
             if (this.getCategoryNames.includes(this.name.trim())) return true;
             return false;
+        },
+        // TODO: come up with a name/concept of Banks with 1 account vs Banks with 2+ accounts 
+        isSingleAccount() {
+            return this.accountList.length === 1;
         }
     },
     methods: {
@@ -105,9 +108,19 @@ export default {
             this.name = '';
         },
         saveCategory() {
+            // determine subscribed accounts
+            let accountList = (this.forceSubscribe)
+                ? this.accountList
+                : this.selectedAccounts;
+
+            let accountIds = accountList
+                ? accountList.map(account => account.accountId): null;
+            debugger
+
             let category = {
                 name: this.name,
-                standard: this.standard
+                forceSubscribe: this.forceSubscribe,
+                subscribedIds: accountIds
             };
 
             this.createCategory(category).then( () => {
@@ -117,8 +130,8 @@ export default {
             });
         },
         onSelectAccount(value) {
-            let accountId = value ? value.accountId : null;
-            this.setCurrentById(accountId);
+            // let accountId = value ? value.accountId : null;
+            // this.setCurrentById(accountId);
         },
     },
     created() {},

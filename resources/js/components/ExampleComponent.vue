@@ -35,9 +35,7 @@ export default {
         
     },
     created() {},
-    mounted() {
-        console.log('Component mounted.')
-    },
+    mounted() {},
     watch: {}
 }
 </script>

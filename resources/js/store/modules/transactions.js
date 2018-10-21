@@ -24,7 +24,7 @@ const mutations = {
 // async mutations
 // store.dispatch('actionName', payload)
 const actions = {
-    getAllTransactions(context) {
+    fetchAllTransactions(context) {
         context.commit('setTransactionLoading', true);
         axios.get('/api/bank/transaction')
         .then(function (response) {

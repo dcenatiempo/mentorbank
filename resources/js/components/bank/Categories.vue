@@ -43,9 +43,7 @@ export default {
         }
     },
     created() {},
-    mounted() {
-        console.log('Categories.vue mounted.')
-    },
+    mounted() {},
     watch: {}
 }
 </script>

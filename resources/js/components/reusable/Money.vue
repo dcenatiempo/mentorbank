@@ -28,8 +28,6 @@
         },
         methods: {
             changeAmount() {
-                console.log('changing amount!')
-                debugger
                 let payload = {
                     index: this.dataIndex,
                     price: this.dataPrice

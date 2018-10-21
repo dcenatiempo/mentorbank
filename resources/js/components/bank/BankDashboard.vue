@@ -60,8 +60,8 @@ export default {
     },
     methods: {
         ...mapMutations('app', ['showModal', 'hideModal', 'pushPageHistory']),
-        ...mapActions('categories', ['getAllCategories']),
-        ...mapActions('transactions', ['getAllTransactions']),
+        ...mapActions('categories', ['fetchAllCategories']),
+        ...mapActions('transactions', ['fetchAllTransactions']),
         ...mapActions('app', ['changePage']),
         showCategoryModal() {
             this.showModal({
@@ -83,12 +83,10 @@ export default {
         }
     },
     created() {
-        this.getAllCategories();
-        this.getAllTransactions();
+        this.fetchAllCategories();
+        this.fetchAllTransactions();
     },
-    mounted() {
-        console.log('BankDashboard.vue mounted.')
-    },
+    mounted() {},
     watch: {}
 }
 </script>

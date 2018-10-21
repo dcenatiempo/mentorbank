@@ -23,9 +23,7 @@ export default {
         
     },
     created() {},
-    mounted() {
-        console.log('AccountHolderProfile.vue mounted.')
-    },
+    mounted() {},
     watch: {}
 }
 </script>

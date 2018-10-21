@@ -57,9 +57,7 @@ export default {
         }
     },
     created() {},
-    mounted() {
-        console.log('NewUser.vue mounted.')
-    },
+    mounted() {},
     watch: {}
 }
 </script>

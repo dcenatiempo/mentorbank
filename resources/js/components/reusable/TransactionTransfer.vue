@@ -5,30 +5,58 @@
 
     <div class="grid-row">
         <label>From</label><label>To</label>
-        <category-selector ref="fromCategorySelector" @select="onUpdateFromCategory"></category-selector>
-        <category-selector ref="toCategorySelector" @select="onUpdateToCategory"></category-selector>
+        <multiselect
+            v-model="fromSelected"
+            :options="fromCategories"
+            track-by="id"
+            label="name"
+            placeholder="select a category"
+            :allow-empty="false"
+            deselectLabel=""
+            @select="onFromSelect">
+            </multiselect>
+        <multiselect
+            v-model="toSelected"
+            :options="toCategories"
+            track-by="id"
+            label="name"
+            placeholder="select a category"
+            :allow-empty="false"
+            deselectLabel=""
+            @select="onToSelect">
+        </multiselect>
     </div>
 </div>
 </template>
 
 <script>
 import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
+import Multiselect from 'vue-multiselect';
 import CategorySelector from '@reusable/CategorySelector.vue';
 import Money from '@reusable/Money.vue';
 
 export default {
     components: {
+        Multiselect,
         CategorySelector,
         Money
     },
     props: {},
     data() {
         return {
+            fromSelected: '',
+            toSelected: ''
         };
     },
     computed: {
-        // ...mapState(),
-        // ...mapGetters()
+        ...mapState('accounts', ['currentAccount']),
+        // ...mapGetters(),
+        fromCategories() {
+            return [];
+        },
+        toCategories() {
+            return [];
+        }
     },
     methods: {
         // ...mapMutations(),
@@ -36,10 +64,10 @@ export default {
         onUpdateMoney(money) {
             // this.amount = money;
         },
-        onUpdateFromCategory(cat) {
+        onToSelect(cat) {
             // this.category = cat;
         },
-        onUpdateToCategory(cat) {
+        onFromSelect(cat) {
             // this.category = cat;
         }      
     },
@@ -60,3 +88,4 @@ export default {
         grid-gap: .5rem;
     }
 </style>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

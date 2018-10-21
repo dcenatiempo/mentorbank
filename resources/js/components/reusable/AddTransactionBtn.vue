@@ -29,9 +29,7 @@ export default {
         
     },
     created() {},
-    mounted() {
-        console.log('AddTransactionBtn.vue mounted.')
-    },
+    mounted() {},
     watch: {}
 }
 </script>

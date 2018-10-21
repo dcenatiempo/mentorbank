@@ -44,9 +44,7 @@ export default {
     created() {
         
     },
-    mounted() {
-        console.log('ExampleModal.vue mounted.')
-    },
+    mounted() {},
     watch: {}
 }
 </script>

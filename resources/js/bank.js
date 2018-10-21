@@ -57,12 +57,12 @@ const app = new Vue({
         ...mapState(['accounts']),
     },
     methods: {
-        ...mapActions('accounts', ['getAllBankAccounts']),
-        ...mapActions('bank', ['getBank']),
+        ...mapActions('accounts', ['fetchAllBankAccounts']),
+        ...mapActions('bank', ['fetchBank']),
     },
     created() {
-        this.getBank();
-        this.getAllBankAccounts();
+        this.fetchBank();
+        this.fetchAllBankAccounts();
     },
 
 });

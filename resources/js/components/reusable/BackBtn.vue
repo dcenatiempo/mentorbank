@@ -33,7 +33,7 @@ export default {
     },
     created() {},
     mounted() {
-        console.log(this.$router.currentRoute)
+        // console.log(this.$router.currentRoute)
         this.isDashboard = this.$router.currentRoute.name == 'dashboard';
     },
     watch: {

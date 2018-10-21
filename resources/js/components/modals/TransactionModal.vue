@@ -84,10 +84,10 @@ export default {
         closeModal() {
             this.hideModal(this.id);
             this.memo = '';
-            this.$refs.money.reset();
             this.$refs.accountSelector.reset();
-            this.$refs.categorySelector.reset();
             this.$refs.typeSelector.reset();
+            // TODO: reset money?
+            // TODO: reset TransactionSplitter/ TransactionTransfer?
         },
         saveNewTransaction() {
             let transaction = {

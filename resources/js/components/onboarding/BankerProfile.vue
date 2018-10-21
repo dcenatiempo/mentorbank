@@ -22,17 +22,15 @@ export default {
     },
     methods: {
         // ...mapMutations(),
-        ...mapActions('bank', ['getBank']),
-        ...mapActions('accounts', ['getAllBankAccounts']),
+        ...mapActions('bank', ['fetchBank']),
+        ...mapActions('accounts', ['fetchAllBankAccounts']),
         
     },
     created() {
-        this.getBank();
-        this.getAllBankAccounts();
+        this.fetchBank();
+        this.fetchAllBankAccounts();
     },
-    mounted() {
-        console.log('BankerProfile.vue mounted.')
-    },
+    mounted() {},
     watch: {}
 }
 </script>

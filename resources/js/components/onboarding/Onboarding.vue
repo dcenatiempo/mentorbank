@@ -39,9 +39,7 @@ export default {
         
     },
     created() {},
-    mounted() {
-        console.log('Component mounted.')
-    },
+    mounted() {},
     watch: {
         accountList(array) {
             if (array.length > 0) {

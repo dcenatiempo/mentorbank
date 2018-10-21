@@ -45,7 +45,8 @@ export default {
         // ...mapActions(),
         onSelect(value) {
             this.$emit('select', value);
-            this.setCurrentById(value.accountId);
+            let accountId = value ? value.accountId : null;
+            this.setCurrentById(accountId);
         },
         reset() {
             let val = null;

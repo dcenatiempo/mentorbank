@@ -43,9 +43,7 @@ export default {
         }
     },
     created() {},
-    mounted() {
-        console.log('Transactions.vue mounted.')
-    },
+    mounted() {},
     watch: {}
 }
 </script>

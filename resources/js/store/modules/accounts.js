@@ -46,7 +46,7 @@ const mutations = {
 // async mutations
 // store.dispatch('actionName', payload)
 const actions = {
-    getAllBankAccounts(context) {
+    fetchAllBankAccounts(context) {
         context.commit('setAccountsLoading', true);
         axios.get('/api/account')
         .then((response) => {

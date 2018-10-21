@@ -53,9 +53,7 @@ export default {
     },
     created() {
     },
-    mounted() {
-        console.log('NewBanker.vue mounted.')
-    },
+    mounted() {},
     watch: {}
 }
 </script>

@@ -25,9 +25,7 @@ export default {
         
     },
     created() {},
-    mounted() {
-        console.log('Footer mounted.')
-    },
+    mounted() {},
     watch: {}
 }
 </script>

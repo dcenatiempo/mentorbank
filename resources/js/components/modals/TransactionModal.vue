@@ -16,11 +16,13 @@
     <transaction-type-selector ref="typeSelector" @select="onUpdateType"></transaction-type-selector>
 
     <template v-if="transactionType === 'transfer'">
-        <transaction-transfer></transaction-transfer>
+        <transaction-transfer @split-updated="updateSplit">
+        </transaction-transfer>
     </template>
 
     <template v-else>
-        <transaction-splitter @split-updated="updateSplit"></transaction-splitter>
+        <transaction-splitter @split-updated="updateSplit">
+        </transaction-splitter>
     </template>
 
     <label>Memo</label>
@@ -114,7 +116,9 @@ export default {
         updateSplit(split) {
             this.split = split.map(row => ({
                 amount: row.amount,
-                category_id: row.category_id.id
+                category_id: row.category_id
+                    ? row.category_id.id
+                    : null
             }));
             // remove js decimal errors with * 100 / 100
             this.netAmount = split.reduce( (sum, row) => sum + (row.amount * 100), 0)/100;

@@ -83,9 +83,6 @@ export default {
     methods: {
         // ...mapMutations(),
         // ...mapActions(),
-        onSelectCategory(category) {
-            //change categories to choose from?
-        },
         addCategory() {
             if (this.shouldShowAdd) {
                 this.split = [...this.split].concat(Object.assign({}, this.blank));

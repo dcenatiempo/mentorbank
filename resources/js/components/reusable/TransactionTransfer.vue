@@ -1,29 +1,33 @@
 <template>
 <div>
     <label>Amount</label>
-    <money ref="money" @change="onUpdateMoney"></money>
+    <money
+        v-bind="moneyConfig"
+        v-model="transferAmount"
+        @input="updateSplit">
+    </money>
 
     <div class="grid-row">
         <label>From</label><label>To</label>
         <multiselect
-            v-model="fromSelected"
+            v-model="split[0].category_id"
             :options="fromCategories"
             track-by="id"
             label="name"
             placeholder="select a category"
             :allow-empty="false"
             deselectLabel=""
-            @select="onFromSelect">
+            @select="updateSplit">
             </multiselect>
         <multiselect
-            v-model="toSelected"
+            v-model="split[1].category_id"
             :options="toCategories"
             track-by="id"
             label="name"
             placeholder="select a category"
             :allow-empty="false"
             deselectLabel=""
-            @select="onToSelect">
+            @select="updateSplit">
         </multiselect>
     </div>
 </div>
@@ -33,7 +37,7 @@
 import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
 import Multiselect from 'vue-multiselect';
 import CategorySelector from '@reusable/CategorySelector.vue';
-import Money from '@reusable/Money.vue';
+import {Money} from 'v-money'
 
 export default {
     components: {
@@ -44,37 +48,51 @@ export default {
     props: {},
     data() {
         return {
-            fromSelected: '',
-            toSelected: ''
+            moneyConfig: {
+                decimal: '.',
+                thousands: ',',
+                prefix: '$ ',
+                suffix: '',
+                precision: 2,
+                masked: false
+            },
+            split: [{
+                category_id: null,
+                amount: 0
+            },{
+                category_id: null,
+                amount: 0
+            }],
+            transferAmount: 0,
         };
     },
     computed: {
         ...mapState('accounts', ['currentAccount']),
+        ...mapState(['categories']),
         // ...mapGetters(),
         fromCategories() {
-            return [];
+            return this.categories.categoryList;
         },
         toCategories() {
-            return [];
+            return this.categories.categoryList;
         }
     },
     methods: {
         // ...mapMutations(),
         // ...mapActions(),  
-        onUpdateMoney(money) {
-            // this.amount = money;
-        },
-        onToSelect(cat) {
-            // this.category = cat;
-        },
-        onFromSelect(cat) {
-            // this.category = cat;
-        }      
+        updateSplit() {
+            this.$emit('split-updated', this.split);
+        }  
     },
     created() {},
     mounted() {
     },
-    watch: {}
+    watch: {
+        transferAmount(amount) {
+            this.split[0].amount = amount;
+            this.split[1].amount = amount;
+        }
+    }
 }
 </script>
 

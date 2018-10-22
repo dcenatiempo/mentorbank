@@ -4,7 +4,8 @@
         :click-text="clickText"
         cancel-text="Cancel"
         @handle-modal-click="saveNewTransaction"
-        @handle-modal-cancel="closeModal">
+        @handle-modal-cancel="closeModal"
+        :disabled="disabled">
     
     <label>Date</label>
     <datepicker :value="date.__d" v-model="date"></datepicker>
@@ -78,6 +79,13 @@ export default {
         },
         modalTitle() {
             return this.mode + ' transaction'
+        },
+        disabled() {
+            if (!this.date) return true;
+            if (!this.account) return true;
+            if (!this.transactionType) return true;
+            if (this.split.find(item => item.category_id === null) !== undefined) return true;
+            return false;
         }
     },
     methods: {

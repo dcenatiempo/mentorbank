@@ -41,6 +41,13 @@ const actions = {
             axios.post(`/api/account/${transaction.accountId}/transaction`, transaction)
             .then( result => {
                 context.commit('addTransaction', result.data);
+                context.commit('accounts/changeAccountBalance', 
+                    {
+                        accountId: result.data.account_id,
+                        type: result.data.type,
+                        amount: result.data.net_amount
+                    },
+                    {root: true});
                 context.commit('setTransactionLoading', false);
                 resolve();
             }).catch( err => {

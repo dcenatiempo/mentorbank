@@ -40,6 +40,17 @@ const mutations = {
     },
     setCurrentByObj(state, payload) {
         state.currentAccount = payload;
+    },
+    changeAccountBalance(state, {accountId, type, amount}) {
+        state.accountList = state.accountList.map(account => {
+            if (account.id != accountId) return account;
+            if (type == 'deposit') {
+                account.balance += amount;
+            } else if (type == 'withdrawal') {
+                account.balance -= amount;
+            }
+            return account;
+        });
     }
 };
 

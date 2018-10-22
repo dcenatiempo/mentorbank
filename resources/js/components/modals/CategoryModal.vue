@@ -114,8 +114,8 @@ export default {
                 : this.selectedAccounts;
 
             let accountIds = accountList
-                ? accountList.map(account => account.accountId): null;
-            debugger
+                ? accountList.map(account => account.accountId)
+                : null;
 
             let category = {
                 name: this.name,

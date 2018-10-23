@@ -12,6 +12,9 @@ import Categories from './components/bank/Categories.vue';
 import Transactions from './components/bank/Transactions.vue';
 import Accounts from './components/bank/Accounts.vue';
 
+import DeleteIcon from 'icons/delete';
+Vue.component('delete-icon', DeleteIcon);
+
 const router = new VueRouter({
     mode: 'history',
     routes: [

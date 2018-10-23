@@ -11,6 +11,8 @@
 <script>
 import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
 import Vuetable from 'vuetable-2/src/components/Vuetable';
+// import DeleteIcon from 'icons/Delete';
+
 
 export default {
     components: {
@@ -20,13 +22,27 @@ export default {
     data() {
         return {
                 columns: [ {
-                        name: 'name'
+                        name: '__checkbox',
+                        title: 'Select',
+                        width: '50px'
+                    },{
+                        name: 'name',
+                        sortField: 'name'
                     },{
                         name: 'is_global',
-                        callback: this.formatBool
+                        title: 'Global',
+                        callback: this.formatBool,
+                        visible: false
                     },{
                         name: 'notifications',
                         callback: this.formatBool
+                    },{
+                        name: 'force_subscribe',
+                        title: 'Bank Global',
+                        callback: this.formatBool
+                    },{
+                        name: '__component:delete-icon',
+                        title: 'delete'
                     }
                 ],
         };

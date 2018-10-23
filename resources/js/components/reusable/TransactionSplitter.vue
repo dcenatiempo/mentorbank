@@ -49,7 +49,12 @@ export default {
         Money,
         'remove': MinusCircle
     },
-    props: {},
+    props: {
+        subedCats: {
+            type: Array,
+            default: []
+        }
+    },
     data() {
         return {
             moneyConfig: {

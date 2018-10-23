@@ -14,9 +14,11 @@
             :options="fromCategories"
             track-by="id"
             label="name"
+            :custom-label="nameWithPrice"
             placeholder="select a category"
-            :allow-empty="false"
+            selectLabel=""
             deselectLabel=""
+            :allow-empty="false"
             @select="updateSplit">
             </multiselect>
         <multiselect
@@ -24,9 +26,11 @@
             :options="toCategories"
             track-by="id"
             label="name"
+            :custom-label="nameWithPrice"
             placeholder="select a category"
-            :allow-empty="false"
+            selectLabel=""
             deselectLabel=""
+            :allow-empty="false"
             @select="updateSplit">
         </multiselect>
     </div>
@@ -45,7 +49,12 @@ export default {
         CategorySelector,
         Money
     },
-    props: {},
+    props: {
+        subedCats: {
+            type: Array,
+            default: []
+        }
+    },
     data() {
         return {
             moneyConfig: {
@@ -71,10 +80,29 @@ export default {
         ...mapState(['categories']),
         // ...mapGetters(),
         fromCategories() {
-            return this.categories.categoryList;
+            let fromCats = this.subedCats.map(cat => {
+                let category = this.categories.categoryList.find(item => item.id == cat.category_id);
+                return {
+                    'name': category.name,
+                    'id': category.id,
+                    'balance': cat.balance
+                };
+            });
+            return fromCats.filter(item => this.transferAmount <= item.balance && item.balance > 0 );
         },
         toCategories() {
-            return this.categories.categoryList;
+            let toCats = this.subedCats.map(cat => {
+                let category = this.categories.categoryList.find(item => item.id == cat.category_id);
+                return {
+                    'name': category.name,
+                    'id': category.id,
+                    'balance': cat.balance
+                };
+            });
+            if (this.split[0].category_id) {
+                return toCats.filter(item => item.id != this.split[0].category_id.id);
+            }
+            return toCats;
         }
     },
     methods: {
@@ -82,7 +110,10 @@ export default {
         // ...mapActions(),  
         updateSplit() {
             this.$emit('split-updated', this.split);
-        }  
+        },
+        nameWithPrice({name, balance}) {
+            return `${name}: $${balance}`;
+        }
     },
     created() {},
     mounted() {

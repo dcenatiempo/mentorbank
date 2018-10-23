@@ -17,12 +17,12 @@
     <transaction-type-selector ref="typeSelector" @select="onUpdateType"></transaction-type-selector>
 
     <template v-if="transactionType === 'transfer'">
-        <transaction-transfer @split-updated="updateSplit">
+        <transaction-transfer @split-updated="updateSplit" :subedCats="subedCats">
         </transaction-transfer>
     </template>
 
     <template v-else>
-        <transaction-splitter @split-updated="updateSplit">
+        <transaction-splitter @split-updated="updateSplit" :subedCats="subedCats">
         </transaction-splitter>
     </template>
 
@@ -60,7 +60,8 @@ export default {
             memo: '',
             netAmount: 0,
             date: moment().format(),
-            split: []
+            split: [],
+            subedCats: []
         };
     },
     computed: {
@@ -116,7 +117,13 @@ export default {
             });
         },
         onUpdateAccount(account) {
+            if (!account) return;
             this.account = account;
+            axios.get(`/api/account/${account.accountId}/subscribed-category`)
+            .then( res => {
+                this.subedCats = res.data;
+                this.subedCats.shift();
+            })
         },
         onUpdateType(type) {
             this.transactionType = type;
@@ -128,8 +135,12 @@ export default {
                     ? row.category_id.id
                     : null
             }));
-            // remove js decimal errors with * 100 / 100
-            this.netAmount = split.reduce( (sum, row) => sum + (row.amount * 100), 0)/100;
+            if (this.transactionType == 'transfer') {
+                this.netAmount = split[0].amount;
+            } else {
+                // remove js decimal errors with * 100 / 100
+                this.netAmount = split.reduce( (sum, row) => sum + (row.amount * 100), 0)/100;
+            }
         }
     },
     created() {},

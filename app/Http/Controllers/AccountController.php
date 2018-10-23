@@ -27,7 +27,7 @@ class AccountController extends Controller
 
         $birth_date = $request->input('birthDate');
         $bank = $request->user()->banker->bank;
-        $standardBankCategories = $bank->getStandardCategories();
+        $standardBankCategories = $bank->getAllCategories();
 
         // Create new accountHolder
         $accountHolder = new AccountHolder;

@@ -17,13 +17,11 @@ class Account extends Model
     public function bank()              { return $this->belongsTo('App\Bank'); }
 
     // One to many
-    public function transactions()      { return $this->hasMany('App\Transaction'); }
-    public function histories()         { return $this->hasMany('App\TransactionHistory'); }
-    public function recurringTemplates() { return $this->hasMany('App\RecurringTemplate'); }
-    public function notifications()     { return $this->hasMany('App\Notification'); }
-
-    // Many to many
-    public function subscribedCategories()        { return $this->hasMany('App\SubscribedCategory'); }
+    public function transactions()         { return $this->hasMany('App\Transaction'); }
+    public function histories()            { return $this->hasMany('App\TransactionHistory'); }
+    public function recurringTemplates()   { return $this->hasMany('App\RecurringTemplate'); }
+    public function notifications()        { return $this->hasMany('App\Notification'); }
+    public function subscribedCategories() { return $this->hasMany('App\SubscribedCategory'); }
 
     public function getBalance() {
         // Get most recent history balance

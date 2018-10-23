@@ -10,7 +10,7 @@ class CategoryController extends Controller
     function index (Request $request) {
         //TODO: figure out a better way...
         $categories = $request->user()->banker->bank->categories;
-        $standardCategories = Category::getStandardCategories();
+        $standardCategories = Category::getGlobalCategories();
 
         return $categories->concat($standardCategories)->all();
     }

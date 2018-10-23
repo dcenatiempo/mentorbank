@@ -81,9 +81,9 @@ Route::middleware(['auth'])->group(function () {
                 ***************************************************************/
                 Route::apiResources([
                     'transaction' => 'AccountTransactionController',
-                    'subscribedCategory' => 'SubscribedCategoryController',
+                    'subscribed-category' => 'SubscribedCategoryController',
                     'notification' => 'AccountNotificationController',
-                    'recurringTemplate' => 'AccountRecurringTemplateController'
+                    'recurring-template' => 'AccountRecurringTemplateController'
                 ]);
             });
         });

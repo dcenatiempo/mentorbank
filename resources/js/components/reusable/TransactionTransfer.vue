@@ -73,15 +73,21 @@ export default {
         ...mapState(['categories']),
         // ...mapGetters(),
         fromCategories() {
+            let categoryList = this.categories.categoryList;
+            let split = this.split;
+            let amount = this.amount;
             let fromCats = this.subedCats.map(cat => {
-                let category = this.categories.categoryList.find(item => item.id == cat.category_id);
+                let category = categoryList.find(item => item.id == cat.category_id);
                 return {
                     'name': category.name,
                     'id': category.id,
                     'balance': cat.balance
                 };
             });
-            return fromCats.filter(item => this.amount <= item.balance && item.balance > 0 );
+            if (this.split[1].category) {
+                fromCats = fromCats.filter(item => item.id != split[1].category.id);
+            }
+            return fromCats.filter(item => amount <= item.balance && item.balance > 0 );
         },
         toCategories() {
             let toCats = this.subedCats.map(cat => {
@@ -102,7 +108,11 @@ export default {
         // ...mapMutations(),
         // ...mapActions(),  
         updateSplit() {
-            this.$emit('split-updated', this.split);
+            let vm = this;
+            setTimeout( () => {
+                vm.$emit('split-updated', vm.split);
+            },0)
+            
         },
         nameWithPrice({name, balance}) {
             return `${name}: $${balance}`;
@@ -113,6 +123,8 @@ export default {
     },
     watch: {
         amount (amount) {
+            let max = this.split[0].category ? this.split[0].category.balance : amount;
+            amount = amount > max ? max : amount;
             this.split[0].amount = amount;
             this.split[1].amount = amount;
             this.updateSplit();

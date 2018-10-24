@@ -110,6 +110,7 @@ export default {
             if (!this.account) return true;
             if (!this.transactionType) return true;
             if (this.split.find(item => item.category_id === null) !== undefined) return true;
+            if (this.netAmount === 0) return true;
             return false;
         }
     },

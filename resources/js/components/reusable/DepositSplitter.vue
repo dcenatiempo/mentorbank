@@ -21,6 +21,9 @@
             placeholder="select a category"
             selectLabel=""
             deselectLabel=""
+            :disabled="isEmpty(depositCats[0][0])"
+            :preselect-first="depositCats[index].length == 1
+                && !depositCats[index][index]"
             @select="handleCatChange">
         </multiselect>
         <button class="remove-btn"
@@ -80,7 +83,7 @@ export default {
         ...mapState(['categories']),
         // ...mapGetters()
         shouldShowAdd() {
-            return this.categories.categoryList.length > this.split.length;
+            return this.formattedCats.length > this.split.length;
         },
         shouldShowRemove() {
             return this.split.length > 1;
@@ -140,6 +143,13 @@ export default {
         },
         nameWithPrice({name, balance}) {
             return `${name}: $${balance}`;
+        },
+        isEmpty(obj) {
+            for(var prop in obj) {
+                if(obj.hasOwnProperty(prop))
+                    return false;
+            }
+            return JSON.stringify(obj) === JSON.stringify({});
         }
     },
     created() {},

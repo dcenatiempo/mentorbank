@@ -21,9 +21,6 @@
         <money
             v-bind="moneyConfig"
             v-model="netAmount"></money>
-        <money
-            v-bind="moneyConfig"
-            v-model="netAmount"></money>
     </div>
 
     <template v-if="transactionType === 'transfer'">
@@ -128,12 +125,13 @@ export default {
             // TODO: reset TransactionSplitter/ TransactionTransfer?
         },
         saveNewTransaction() {
+            let split = this.split.filter(item => item.amount > 0);
             let transaction = {
                 accountId: this.account.accountId,
                 type: this.transactionType,
                 memo: this.memo,
                 net_amount: this.netAmount,
-                split: this.split,
+                split: split,
                 date: this.date
             }
             this.saveTransaction(transaction)

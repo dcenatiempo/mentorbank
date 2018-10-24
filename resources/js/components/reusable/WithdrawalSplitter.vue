@@ -10,7 +10,7 @@
         <money
             v-bind="moneyConfig"
             v-model="split[index].amount"
-            @input="updateSplit">
+            @input="handleMoneyChange($event, index)">
         </money>
         <multiselect
             v-model="split[index].category"
@@ -21,7 +21,10 @@
             placeholder="select a category"
             selectLabel=""
             deselectLabel=""
-            @select="handleCatChange">
+            :disabled="isEmpty(depositCats[0][0])"
+            :preselect-first="depositCats[index].length == 1
+                && !depositCats[index][index]"
+            @select="handleCatChange($event, index)">
         </multiselect>
         <button class="remove-btn"
             v-if="shouldShowRemove"
@@ -80,14 +83,18 @@ export default {
         ...mapState(['categories']),
         // ...mapGetters()
         shouldShowAdd() {
-            return this.categories.categoryList.length > this.split.length;
+            return this.formattedCats.length > this.split.length;
         },
         shouldShowRemove() {
             return this.split.length > 1;
         },
         formattedCats() {
             if (!this.subedCats || this.subedCats.length == 0) return [];
-            return this.subedCats.map(cat => {
+
+            // can't withdrawal from a category if it has a zero balance
+            this.subedCatsWithBalance = this.subedCats.filter(cat => cat.balance > 0);
+
+            return this.subedCatsWithBalance.map(cat => {
                 let category = this.categories.categoryList.find(item => item.id == cat.category_id);
                 return {
                     'name': category.name,
@@ -134,12 +141,28 @@ export default {
         updateSplit() {
             this.$emit('split-updated', this.split);
         },
-        handleCatChange(val) {
-            console.log(val);
+        handleCatChange(cat) {
+            console.log(cat);
+            this.updateSplit();
+        },
+        handleMoneyChange(money, i) {
+            if (!this.split[i].category) return;
+            if (money > this.split[i].category.balance) {
+                let newSplit = [...this.split];
+                newSplit[i].amount = this.split[i].category.balance;
+                this.split = newSplit;
+            }
             this.updateSplit();
         },
         nameWithPrice({name, balance}) {
             return `${name}: $${balance}`;
+        },
+        isEmpty(obj) {
+        for(var prop in obj) {
+            if(obj.hasOwnProperty(prop))
+                return false;
+            }
+            return JSON.stringify(obj) === JSON.stringify({});
         }
     },
     created() {},

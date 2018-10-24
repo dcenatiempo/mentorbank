@@ -14,16 +14,31 @@
     <account-selector ref="accountSelector" @select="onUpdateAccount"></account-selector>
 
     <label>Type</label>
-    <transaction-type-selector ref="typeSelector" @select="onUpdateType"></transaction-type-selector>
+    <div class="grid-row">
+        <transaction-type-selector
+            ref="typeSelector"
+            @select="onUpdateType"></transaction-type-selector>
+        <money
+            v-bind="moneyConfig"
+            v-model="netAmount"></money>
+        <money
+            v-bind="moneyConfig"
+            v-model="netAmount"></money>
+    </div>
 
     <template v-if="transactionType === 'transfer'">
-        <transaction-transfer @split-updated="updateSplit" :subedCats="subedCats">
+        <transaction-transfer @split-updated="updateSplit" :subedCats="subedCats" :amount="netAmount">
         </transaction-transfer>
     </template>
 
-    <template v-else>
-        <transaction-splitter @split-updated="updateSplit" :subedCats="subedCats">
-        </transaction-splitter>
+    <template v-else-if="transactionType === 'deposit'">
+        <deposit-splitter @split-updated="updateSplit" :subedCats="subedCats">
+        </deposit-splitter>
+    </template>
+
+    <template v-else-if="transactionType === 'withdrawal'">
+        <withdrawal-splitter @split-updated="updateSplit" :subedCats="subedCats">
+        </withdrawal-splitter>
     </template>
 
     <label>Memo</label>
@@ -37,10 +52,12 @@ import {mapState, mapMutations, mapActions} from 'vuex';
 
 import AccountSelector from '@reusable/AccountSelector.vue';
 import TransactionTypeSelector from '@reusable/TransactionTypeSelector.vue';
-import TransactionSplitter from '@reusable/TransactionSplitter.vue';
+import DepositSplitter from '@reusable/DepositSplitter.vue';
+import WithdrawalSplitter from '@reusable/WithdrawalSplitter.vue';
 import TransactionTransfer from '@reusable/TransactionTransfer.vue';
 import Modal from './Modal.vue';
 import Datepicker from 'vuejs-datepicker';
+import {Money} from 'v-money'
 
 export default {
     components: {
@@ -48,8 +65,10 @@ export default {
         AccountSelector,
         TransactionTypeSelector,
         Datepicker,
-        TransactionSplitter,
-        TransactionTransfer
+        DepositSplitter,
+        WithdrawalSplitter,
+        TransactionTransfer,
+        Money
     },
     props: {},
     data() {
@@ -61,7 +80,15 @@ export default {
             netAmount: 0,
             date: moment().format(),
             split: [],
-            subedCats: []
+            subedCats: [],
+            moneyConfig: {
+                decimal: '.',
+                thousands: ',',
+                prefix: '$ ',
+                suffix: '',
+                precision: 2,
+                masked: false
+            },
         };
     },
     computed: {
@@ -131,8 +158,8 @@ export default {
         updateSplit(split) {
             this.split = split.map(row => ({
                 amount: row.amount,
-                category_id: row.category_id
-                    ? row.category_id.id
+                category_id: row.category
+                    ? row.category.id
                     : null
             }));
             if (this.transactionType == 'transfer') {

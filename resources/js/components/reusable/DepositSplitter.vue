@@ -13,14 +13,15 @@
             @input="updateSplit">
         </money>
         <multiselect
-            v-model="split[index].category_id"
-            :options="categories.categoryList"
+            v-model="split[index].category"
+            :options="depositCats[index]"
             track-by="id"
             label="name"
+            :custom-label="nameWithPrice"
             placeholder="select a category"
-            :allow-empty="false"
+            selectLabel=""
             deselectLabel=""
-            @select="updateSplit">
+            @select="handleCatChange">
         </multiselect>
         <button class="remove-btn"
             v-if="shouldShowRemove"
@@ -66,13 +67,13 @@ export default {
                 masked: false
             },
             split: [{
-                category_id: { id: 2, name: "Uncategorized" },
+                category: null,
                 amount: 0
             }],
             blank: {
-                category_id: { id: 2, name: "Uncategorized" },
+                category: null,
                 amount: 0
-            },
+            }
         };
     },
     computed: {
@@ -83,7 +84,37 @@ export default {
         },
         shouldShowRemove() {
             return this.split.length > 1;
+        },
+        formattedCats() {
+            if (!this.subedCats || this.subedCats.length == 0) return [];
+            return this.subedCats.map(cat => {
+                let category = this.categories.categoryList.find(item => item.id == cat.category_id);
+                return {
+                    'name': category.name,
+                    'id': category.id,
+                    'balance': cat.balance
+                };
+            });
+        },
+        depositCats() {
+            let vm = this;
+            if (this.formattedCats.length == 0) {
+                return [[{}]];
+            } else {
+                return this.split.map((item, i) => {
+                    let takenIds = [...vm.selectedCats];
+                    takenIds.splice(i, 1);
+                    return vm.formattedCats.filter((item) => !takenIds.includes(item.id));
+                });
+            }
+        },
+        selectedCats() {
+            return this.split.reduce((array, split) => {
+                let catId = split.category ? split.category.id : null
+                return array.concat(catId);
+            }, [])
         }
+        
     },
     methods: {
         // ...mapMutations(),
@@ -102,12 +133,22 @@ export default {
         },
         updateSplit() {
             this.$emit('split-updated', this.split);
+        },
+        handleCatChange(val) {
+            console.log(val);
+            this.updateSplit();
+        },
+        nameWithPrice({name, balance}) {
+            return `${name}: $${balance}`;
         }
     },
     created() {},
     mounted() {
+        this.handleCatChange();
     },
-    watch: {}
+    watch: {
+
+    }
 }
 </script>
 

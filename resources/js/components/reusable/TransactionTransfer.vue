@@ -1,16 +1,16 @@
 <template>
 <div>
     <label>Amount</label>
-    <money
+    <!-- <money
         v-bind="moneyConfig"
         v-model="transferAmount"
         @input="updateSplit">
-    </money>
+    </money> -->
 
     <div class="grid-row">
         <label>From</label><label>To</label>
         <multiselect
-            v-model="split[0].category_id"
+            v-model="split[0].category"
             :options="fromCategories"
             track-by="id"
             label="name"
@@ -22,7 +22,7 @@
             @select="updateSplit">
             </multiselect>
         <multiselect
-            v-model="split[1].category_id"
+            v-model="split[1].category"
             :options="toCategories"
             track-by="id"
             label="name"
@@ -41,38 +41,31 @@
 import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
 import Multiselect from 'vue-multiselect';
 import CategorySelector from '@reusable/CategorySelector.vue';
-import {Money} from 'v-money'
 
 export default {
     components: {
         Multiselect,
         CategorySelector,
-        Money
     },
     props: {
         subedCats: {
             type: Array,
             default: []
+        },
+        amount: {
+            type: Number,
+            default: 0
         }
     },
     data() {
         return {
-            moneyConfig: {
-                decimal: '.',
-                thousands: ',',
-                prefix: '$ ',
-                suffix: '',
-                precision: 2,
-                masked: false
-            },
             split: [{
-                category_id: null,
+                category: null,
                 amount: 0
             },{
-                category_id: null,
+                category: null,
                 amount: 0
-            }],
-            transferAmount: 0,
+            }]
         };
     },
     computed: {
@@ -88,7 +81,7 @@ export default {
                     'balance': cat.balance
                 };
             });
-            return fromCats.filter(item => this.transferAmount <= item.balance && item.balance > 0 );
+            return fromCats.filter(item => this.amount <= item.balance && item.balance > 0 );
         },
         toCategories() {
             let toCats = this.subedCats.map(cat => {
@@ -99,8 +92,8 @@ export default {
                     'balance': cat.balance
                 };
             });
-            if (this.split[0].category_id) {
-                return toCats.filter(item => item.id != this.split[0].category_id.id);
+            if (this.split[0].category) {
+                return toCats.filter(item => item.id != this.split[0].category.id);
             }
             return toCats;
         }
@@ -119,9 +112,10 @@ export default {
     mounted() {
     },
     watch: {
-        transferAmount(amount) {
+        amount (amount) {
             this.split[0].amount = amount;
             this.split[1].amount = amount;
+            this.updateSplit();
         }
     }
 }

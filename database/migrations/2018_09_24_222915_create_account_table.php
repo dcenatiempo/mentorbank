@@ -16,7 +16,10 @@ class CreateAccountTable extends Migration
         Schema::create('accounts', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->decimal('interest_rate', 4, 2)->default(1.1);
+            $table->decimal('interest_rate', 4, 2)->default(1.1); //APR
+            // https://en.wikipedia.org/wiki/ISO_8601#Durations
+            $table->string('frequency', 31)->default('P2W'); // P1W, P2W, P3W, P4W, P1M
+            $table->integer('distribution_day')->default(1); // if W then 1-7 (1 = monday), if M then 1-31 
             $table->boolean('notifications')->default(true);
             $table->integer('goal_balance')->nullable();
             $table->integer('low_balance_alert')->nullable();

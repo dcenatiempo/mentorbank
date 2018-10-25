@@ -2,7 +2,8 @@
 <div id="dashboard">
 
     <h1 class="top-section">{{currentAccount.accountHolder.name}} Account Dashboard</h1>
-    <h2> Balance: ${{currentAccount.balance}}</h2>
+    <h2>Balance: ${{currentAccount.balance}}</h2>
+    <h2>Interest Rate: {{currentAccount.interest_rate}}%</h2>
 
     <section class="card-container">
         <div class="card">
@@ -83,19 +84,17 @@ export default {
         }
     },
     created() {
-        // this.fetchAllCategories();
-        // this.fetchAllTransactions();
-    },
-    mounted() {
+        if (this.categoryList.length == 0) {
+            this.fetchAllCategories();
+        }
         this.setCurrentById(this.$route.params.id);
         this.fetchSubscribedCats(this.$route.params.id)
             .then( () => {});
     },
+    mounted() {
+        
+    },
     watch: {
-        // $route (to, from) {
-        //     debugger
-        //     this.setCurrentById(to.params.id)
-        // }
     }
 }
 </script>

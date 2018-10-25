@@ -66,11 +66,16 @@ const app = new Vue({
     },
     methods: {
         ...mapActions('accounts', ['fetchAllBankAccounts']),
+        ...mapMutations('accounts', ['setCurrentById']),
         ...mapActions('bank', ['fetchBank']),
     },
     created() {
+        let vm = this;
         this.fetchBank();
-        this.fetchAllBankAccounts();
+        this.fetchAllBankAccounts().then( () => {
+            if (vm.$route.params.id)
+                vm.setCurrentById(vm.$route.params.id);
+        });
     },
 
 });

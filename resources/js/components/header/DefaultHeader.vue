@@ -67,6 +67,7 @@ export default {
         align-items: center;
         padding: 0 1rem;
         background: white;
+        box-shadow: 0 4px 9px -4px rgba(0,0,0,.2);
 
         .brand {
             display: flex;

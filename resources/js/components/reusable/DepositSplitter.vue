@@ -1,10 +1,10 @@
 <template>
 <div class="flex-col">
-    <div class="grid-row">
+    <div class="split-row">
         <label>Amount</label>
         <label>Category</label>
     </div>
-    <div class="grid-row"
+    <div class="split-row"
         v-for="(row, index) in split"
         :key="`split-${index}`">
         <money
@@ -168,7 +168,7 @@ export default {
     .row {
         display: flex;
     }
-    .grid-row {
+    .split-row {
         display: grid;
         grid-template-columns: 1fr 2fr min-content;
         grid-gap: .5rem;

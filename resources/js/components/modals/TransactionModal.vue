@@ -20,7 +20,8 @@
             @select="onUpdateType"></transaction-type-selector>
         <money
             v-bind="moneyConfig"
-            v-model="netAmount"></money>
+            v-model="netAmount"
+            :disabled="transactionType != 'transfer'"></money>
     </div>
 
     <template v-if="transactionType === 'transfer'">
@@ -65,7 +66,7 @@ export default {
         DepositSplitter,
         WithdrawalSplitter,
         TransactionTransfer,
-        Money
+        Money,
     },
     props: {},
     data() {
@@ -175,13 +176,23 @@ export default {
 }
 </script>
 
-<style scoped>
-    .row {
+<style lang="scss">
+#transaction-modal {
+   .row {
         display: flex;
     }
     .grid-row {
         display: grid;
-        grid-template-columns: 1fr 2fr;
+        grid-template-columns: 2fr 1fr;
         grid-gap: .5rem;
     }
+    .v-money[disabled] {
+        background: transparent;
+        border: none;
+    }
+    label {
+        margin-top: 1em;
+    }
+}
+    
 </style>

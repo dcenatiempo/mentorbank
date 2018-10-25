@@ -19,6 +19,7 @@
             selectLabel=""
             deselectLabel=""
             :allow-empty="false"
+            :disabled="fromCategories.length == 0"
             @select="updateSplit">
             </multiselect>
         <multiselect
@@ -31,6 +32,7 @@
             selectLabel=""
             deselectLabel=""
             :allow-empty="false"
+            :disabled="fromCategories.length == 0"
             @select="updateSplit">
         </multiselect>
     </div>

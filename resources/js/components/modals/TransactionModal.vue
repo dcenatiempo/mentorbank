@@ -11,7 +11,8 @@
     <datepicker :value="date.__d" v-model="date"></datepicker>
     
     <label>Account</label>
-    <account-selector ref="accountSelector" @select="onUpdateAccount"></account-selector>
+    <h3 v-if="singleAccountMode">{{currentAccount.accountHolder.name}}</h3>
+    <account-selector v-else ref="accountSelector" @select="onUpdateAccount"></account-selector>
 
     <label>Type</label>
     <div class="grid-row">
@@ -78,7 +79,6 @@ export default {
             netAmount: 0,
             date: moment().format(),
             split: [],
-            subedCats: [],
             moneyConfig: {
                 decimal: '.',
                 thousands: ',',
@@ -91,9 +91,14 @@ export default {
     },
     computed: {
         ...mapState('app', ['modalPayload']),
+        ...mapState('accounts', ['currentAccount']),
+        ...mapState({ 'subedCats': state => state.categories.currentSubscribedCats}),
         mode() {
             let payload = this.modalPayload[this.id];
             return payload ? payload.mode : 'add';
+        },
+        singleAccountMode () {
+           return this.$route.params && this.$route.params.id;
         },
         clickText() {
             if (this.mode === 'add') {
@@ -113,11 +118,13 @@ export default {
             if (this.split.find(item => item.category_id === null) !== undefined) return true;
             if (this.netAmount === 0) return true;
             return false;
-        }
+        },
+        
     },
     methods: {
         ...mapMutations('app', ['hideModal']),
         ...mapActions('transactions', ['saveTransaction']),
+        ...mapActions('categories', ['fetchSubscribedCats']),
         closeModal() {
             this.hideModal(this.id);
             this.memo = '';
@@ -146,11 +153,8 @@ export default {
         onUpdateAccount(account) {
             if (!account) return;
             this.account = account;
-            axios.get(`/api/account/${account.accountId}/subscribed-category`)
-            .then( res => {
-                this.subedCats = res.data;
-                this.subedCats.shift();
-            })
+            this.fetchSubscribedCats(account.accountId)
+            .then( () => {});
         },
         onUpdateType(type) {
             this.transactionType = type;
@@ -172,7 +176,9 @@ export default {
     },
     created() {},
     mounted() {},
-    watch: {}
+    watch: {
+
+    }
 }
 </script>
 

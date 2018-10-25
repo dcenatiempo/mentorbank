@@ -11,6 +11,7 @@ import Settings from'./components/bank/Settings.vue';
 import Categories from './components/bank/Categories.vue';
 import Transactions from './components/bank/Transactions.vue';
 import Accounts from './components/bank/Accounts.vue';
+import AccountDashboard from './components/bank/AccountDashboard.vue';
 
 import DeleteIcon from 'icons/delete';
 Vue.component('delete-icon', DeleteIcon);
@@ -42,6 +43,10 @@ const router = new VueRouter({
             path: '/bank/settings',
             name: 'Settings',
             component: Settings
+        },{
+            path: '/bank/accounts/:id',
+            name: 'account',
+            component: AccountDashboard
         }
     ]
 });

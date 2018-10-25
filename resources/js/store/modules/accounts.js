@@ -58,14 +58,18 @@ const mutations = {
 // store.dispatch('actionName', payload)
 const actions = {
     fetchAllBankAccounts(context) {
-        context.commit('setAccountsLoading', true);
-        axios.get('/api/account')
-        .then((response) => {
-            context.commit('setAccounts', response.data)
-            context.commit('setAccountsLoading', false);
-        })
-        .catch((error) => {
-            console.log(error);
+        return new Promise((resolve, reject) => {
+            context.commit('setAccountsLoading', true);
+            axios.get('/api/account')
+            .then((response) => {
+                context.commit('setAccounts', response.data)
+                context.commit('setAccountsLoading', false);
+                resolve()
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error);
+            });
         });
     },
     createAccount(context, payload) {

@@ -21,7 +21,7 @@ class Account extends Model
     public function histories()            { return $this->hasMany('App\TransactionHistory'); }
     public function recurringTemplates()   { return $this->hasMany('App\RecurringTemplate'); }
     public function notifications()        { return $this->hasMany('App\Notification'); }
-    public function subscribedCategories() { return $this->hasMany('App\SubscribedCategory'); }
+    public function subscribedCategories() { return $this->hasMany('App\SubscribedCategory')->where('category_id', '!=', 1); }
 
     public function getBalance() {
         // Get most recent history balance

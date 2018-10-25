@@ -1,32 +1,21 @@
 <template>
 <div id="dashboard">
 
-    <h1 class="top-section"><router-link to="/bank/settings">{{bank.name}}</router-link> Dashboard</h1>
+    <h1 class="top-section">{{currentAccount.accountHolder.name}} Account Dashboard</h1>
+    <h2> Balance: ${{currentAccount.balance}}</h2>
 
     <section class="card-container">
         <div class="card">
-            <h2 class="card-header">
-                <router-link to="/bank/accounts">Accounts</router-link>
-                <button v-on:click="showAccountModal">+</button>
-            </h2>
-            <template v-for="account in accounts.accountList">
-                <div :key="account.id">
-                    <h3><router-link :to="`/bank/accounts/${account.id}`">{{account.accountHolder.name}}</router-link> ${{account.balance}}</h3>
-                </div>
-            </template>
-        </div>
-
-        <div class="card">
-            <h2 class="card-header"><router-link to="/bank/categories">Categories</router-link><button v-on:click="showCategoryModal">+</button></h2>
-            <template v-for="category in categories.categoryList">
+            <h2 class="card-header"><router-link to="/account/categories">Categories</router-link><button v-on:click="showCategoryModal">+</button></h2>
+            <template v-for="category in subedCats">
                 <div :key="'c-'+category.id">
-                    <h3>{{category.name}}</h3>
+                    <h3>{{getCategoryName(category.category_id)}} ${{category.balance}}</h3>
                 </div>
             </template>
         </div>
 
-        <div class="card">
-            <h2 class="card-header"><router-link to="/bank/transactions">Recent Transactions</router-link><button v-on:click="showTransactionModal">+</button></h2> 
+       <!--  <div class="card">
+            <h2 class="card-header"><router-link to="/bank/transactions">Transactions</router-link><button v-on:click="showTransactionModal">+</button></h2> 
             <template v-for="transaction in transactions.transactionList">
                 <div :key="'t-'+transaction.id">
                     <h3>{{transaction.date}} {{transaction.type}} ${{transaction.net_amount}} {{accounts.accountList.find( item => item.id == transaction.account_id).accountHolder.name}}</h3>
@@ -37,7 +26,8 @@
         <div class="card">
             <h2 class="card-header">Recurring Transactions</h2>
         </div>
-    </section>
+        -->
+    </section> 
 
 </div>
 </template>
@@ -54,13 +44,15 @@ export default {
         };
     },
     computed: {
-        ...mapState('user', ['name']),
-        ...mapState(['bank', 'accounts', 'categories', 'transactions'])
+        ...mapState('categories', ['categoryList']),
+        ...mapState('accounts', ['currentAccount']),
+        ...mapState({ 'subedCats': state => state.categories.currentSubscribedCats}),
         // ...mapGetters()
     },
     methods: {
         ...mapMutations('app', ['showModal', 'hideModal']),
-        ...mapActions('categories', ['fetchAllCategories']),
+        ...mapMutations('accounts',['setCurrentById']),
+        ...mapActions('categories', ['fetchAllCategories', 'fetchSubscribedCats']),
         ...mapActions('transactions', ['fetchAllTransactions']),
         ...mapActions('app', ['changePage']),
         showCategoryModal() {
@@ -78,16 +70,33 @@ export default {
         showTransactionModal() {
             this.showModal({
                 modalId: 'transaction-modal',
-                payload: {mode: "add"}
+                payload: {
+                    mode: "add",
+                    account: this.$route.params.id
+                }
             });
+        },
+        getCategoryName(id) {
+            if (this.categoryList.length == 0) return '';
+            let name = this.categoryList.find( cat => cat.id == id).name;
+            return name;
         }
     },
     created() {
-        this.fetchAllCategories();
-        this.fetchAllTransactions();
+        // this.fetchAllCategories();
+        // this.fetchAllTransactions();
     },
-    mounted() {},
-    watch: {}
+    mounted() {
+        this.setCurrentById(this.$route.params.id);
+        this.fetchSubscribedCats(this.$route.params.id)
+            .then( () => {});
+    },
+    watch: {
+        // $route (to, from) {
+        //     debugger
+        //     this.setCurrentById(to.params.id)
+        // }
+    }
 }
 </script>
 

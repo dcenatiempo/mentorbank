@@ -35,7 +35,7 @@ class SubscribedCategory extends Model
                     if (isset($cats[$item->category_id])) {
                         $cats[$item->category_id] += $item->amount;
                     } else {
-                        $cats[$item->category_id] = $split[0]->amount;
+                        $cats[$item->category_id] = $item->amount;
                     }
                 }
             }
@@ -44,7 +44,7 @@ class SubscribedCategory extends Model
                     if (isset($cats[$item->category_id])) {
                         $cats[$item->category_id] -= $item->amount;
                     } else {
-                        $cats[$item->category_id] = -$split[0]->amount;
+                        $cats[$item->category_id] = -$item->amount;
                     }
                 }
             } 

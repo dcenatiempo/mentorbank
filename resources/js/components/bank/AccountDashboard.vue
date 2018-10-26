@@ -3,7 +3,22 @@
 
     <h1 class="top-section">{{currentAccount.accountHolder.name}} Account Dashboard</h1>
     <h2>Balance: ${{currentAccount.balance}}</h2>
-    <h2>Interest Rate: {{currentAccount.interest_rate}}%</h2>
+    <h2>Interest Rate: {{displayRate}}% per&nbsp
+        <select v-model="display_interval">
+            <option value="year">year</option>
+            <option value="month">month</option>
+            <option value="week">week</option>
+            <option value="day">day</option>
+        </select>
+    </h2>
+    
+    <p v-if="wOrM">Paid {{frequencyFullDescription}}</p>
+    <select v-model="frequency">
+            <option value="P1W">P1W</option>
+            <option value="P2W">P2W</option>
+            <option value="P4M">P4M</option>
+            <option value="P1M">P1M</option>
+        </select>
 
     <section class="card-container">
         <div class="card">
@@ -41,7 +56,8 @@ export default {
     props: {},
     data() {
         return {
-
+            display_interval: 'year',
+            frequency: 'P1W'
         };
     },
     computed: {
@@ -49,6 +65,31 @@ export default {
         ...mapState('accounts', ['currentAccount']),
         ...mapState({ 'subedCats': state => state.categories.currentSubscribedCats}),
         // ...mapGetters()
+        wOrM() {
+            if (!this.frequency) return null;
+            return this.frequency[2];
+        },
+        frequencyFullDescription() {
+            if (this.wOrM == 'W') {
+                // every 2 weeks on monday
+                let day = moment().isoWeekday(this.currentAccount.distribution_day).format('dddd');
+                let freq = this.frequency[1] > 1 ? this.frequency[1]  : '';
+                let s = this.frequency[1] == 1 ? '' : 's'
+                return `every ${freq} week${s} on ${day}`;
+            } else if (this.wOrM == 'M') {
+                // monthly on the 5th
+                let day = this.currentAccount.distribution_day;
+                return 'monthly on the ' + this.ordinal_suffix_of(day);
+            } else
+                return '';
+        },
+        displayRate() {
+            let divisor = 1;
+            if (this.display_interval == 'month') divisor = 12;
+            else if (this.display_interval == 'week') divisor = 52;
+            else if (this.display_interval == 'day') divisor = 365;
+            return Math.round((this.currentAccount.interest_rate * 1000  / divisor))/1000;
+        }
     },
     methods: {
         ...mapMutations('app', ['showModal', 'hideModal']),
@@ -81,6 +122,20 @@ export default {
             if (this.categoryList.length == 0) return '';
             let name = this.categoryList.find( cat => cat.id == id).name;
             return name;
+        },
+        ordinal_suffix_of(i) {
+            var j = i % 10,
+                k = i % 100;
+            if (j == 1 && k != 11) {
+                return i + "st";
+            }
+            if (j == 2 && k != 12) {
+                return i + "nd";
+            }
+            if (j == 3 && k != 13) {
+                return i + "rd";
+            }
+            return i + "th";
         }
     },
     created() {

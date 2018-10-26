@@ -7,14 +7,13 @@
         <input id="name" type="text" placeholder="Enter account holder's name" v-model="name"/>
         <label for="year">Birth Month:</label>
         <datepicker :format="'MMM yyyy'" :minimumView="'month'" :maximumView="'month'" v-model="birthDate"></datepicker>
-        <label for="sex">Sex:</label>
-        <div class="fieldset">
-            <input type="radio" id="m" value="m" name="sex" v-model="sex">
-            <label for="m">Male</label>
-            <input type="radio" id="f" value="f" name="sex" v-model="sex">
-            <label for="f">Female</label>
-        </div>
-        <button v-on:click="createNewAccount()">Submit</button>
+        <toggle-button
+            v-model="isMale"
+            :labels="{checked: 'Male', unchecked: 'Female'}"
+            :color="{checked: '#6cb2eb', unchecked: 'pink', disabled: '#CCCCCC'}"
+            :width="70"
+            :height="30"/>
+        <button class="btn-confirm" v-on:click="createNewAccount()">Submit</button>
     </form>
 </div>
 </template>
@@ -22,15 +21,19 @@
 <script>
 import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
 import Datepicker from 'vuejs-datepicker';
+import ToggleButton from 'vue-js-toggle-button/src/Button';
 
 export default {
-    components: { Datepicker },
+    components: {
+        Datepicker,
+        ToggleButton
+    },
     props: {},
     data() {
         return {
             name: '',
             birthDate: moment().subtract(5, 'year').format(),
-            sex: 'male',
+            isMale: true
         };
     },
     computed: {
@@ -44,7 +47,7 @@ export default {
             let account = {
                 name: this.name,
                 birthDate: this.birthDate,
-                sex: this.sex
+                sex: this.isMale ? 'm' : 'f'
             }
             console.dir(account)
             this.createAccount(account);

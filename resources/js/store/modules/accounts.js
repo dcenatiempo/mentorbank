@@ -9,7 +9,8 @@ const currentAccountDefault = {
     interestRate: null,
     notifications: false,
     goalBalance: null,
-    lowBalanceAlert: null
+    lowBalanceAlert: null,
+    distributionDay: null
 };
 
 const state = {
@@ -25,21 +26,29 @@ const getters = {
 // direct mutations
 // store.commit('mutationName', payload)
 const mutations = {
-    setAccounts(state, payload) {
-        state.accountList = payload;
+    setAccounts(state, accountList) {
+        state.accountList = accountList;
     },
     setAccountsLoading (state, payload) {
         state.loading = payload;
     },
-    addAccount(state, payload) {
-        state.accountList = state.accountList.concat(payload);
+    addAccount(state, account) {
+        state.accountList = state.accountList.concat(account);
+    },
+    updateAccount(state, updatedAccount) {
+        state.accountList = state.accountList.map(account => {
+            if (account.id = updatedAccount.id)
+                return updatedAccount;
+            else
+                return account;
+        })
     },
     setCurrentById(state, id) {
          let account = state.accountList.find( item => item.id == id);
          state.currentAccount = account ? account : currentAccountDefault;
     },
-    setCurrentByObj(state, payload) {
-        state.currentAccount = payload;
+    setCurrentByObj(state, account) {
+        state.currentAccount = account;
     },
     changeAccountBalance(state, {accountId, type, amount}) {
         state.accountList = state.accountList.map(account => {
@@ -62,7 +71,7 @@ const actions = {
             context.commit('setAccountsLoading', true);
             axios.get('/api/account')
             .then((response) => {
-                context.commit('setAccounts', response.data)
+                context.commit('setAccounts', response.data.data)
                 context.commit('setAccountsLoading', false);
                 resolve()
             })
@@ -77,7 +86,26 @@ const actions = {
             context.commit('setAccountsLoading', true);
             axios.post('/api/account', payload)
             .then((response) => {
-                context.commit('addAccount', response.data);
+                context.commit('addAccount', response.data.data);
+                context.commit('setAccountsLoading', false);
+                resolve();
+            })
+            .catch((error) => {
+                reject(error);
+            });
+        });
+    },
+    updateAccount(context, {accountId, data}) {
+        return new Promise((resolve, reject) => {
+            // context.commit('setAccountsLoading', true);
+            axios.patch(`/api/account/${accountId}`, {
+                'interest_rate': data.interestRate,
+                'rate_display_interval': data.rateDisplayInterval,
+                'frequency': data.frequency,
+                'distribution_day': data.distributionDay
+            }).then((response) => {
+                context.commit('updateAccount', response.data.data);
+                context.commit('setCurrentById', response.data.data)
                 context.commit('setAccountsLoading', false);
                 resolve();
             })

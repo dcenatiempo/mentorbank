@@ -10,45 +10,68 @@ class SubscribedCategory extends Model
 {
     protected $guarded = [ ];
     
-    public static function getAllCategoryBalances($accountId) {
-        // $subscribedCategories = SubscribedCategory::where('account_id', '=', $accountId)->pluck('category_id');
-        $cats = [];
+    public static function getCategoryBalance($accountId) {
+
+    }
+
+    public static function withBalances($accountId) {
+        $categories =  SubscribedCategory::where('account_id', '=', $accountId)->get();
         $transactions = Transaction::where('account_id', '=', $accountId)->get();
+
+        
+        if (!$transactions) {
+            $categories = $categories->map(function ($cat) {
+                $cat->balance = 0;
+                return $cat;
+            });
+
+            return $categories;
+        }
+
+        $balances = [];
+
+        // create an aray of balances [ category_id => balance ]
         foreach($transactions as $transaction) {
             $split = json_decode($transaction->split);
             if ($transaction->type == 'transfer') {
                 $from = $split[0]->category_id;
                 $to = $split[1]->category_id;
-                if (isset($cats[$from])) {
-                    $cats[$from] -= $split[0]->amount;
+                if (isset($balances[$from])) {
+                    $balances[$from] -= $split[0]->amount;
                 } else {
-                    $cats[$from] = 0 - $split[0]->amount;
+                    $balances[$from] = 0 - $split[0]->amount;
                 }
-                if (isset($cats[$to])) {
-                    $cats[$to] += $split[1]->amount;
+                if (isset($balances[$to])) {
+                    $balances[$to] += $split[1]->amount;
                 } else {
-                    $cats[$to] = $split[1]->amount;
+                    $balances[$to] = $split[1]->amount;
                 }
             }
             if ($transaction->type == 'deposit') {
                 foreach($split as $item) {
-                    if (isset($cats[$item->category_id])) {
-                        $cats[$item->category_id] += $item->amount;
+                    if (isset($balances[$item->category_id])) {
+                        $balances[$item->category_id] += $item->amount;
                     } else {
-                        $cats[$item->category_id] = $item->amount;
+                        $balances[$item->category_id] = $item->amount;
                     }
                 }
             }
             if ($transaction->type == 'withdrawal') {
                 foreach($split as $item) {
-                    if (isset($cats[$item->category_id])) {
-                        $cats[$item->category_id] -= $item->amount;
+                    if (isset($balances[$item->category_id])) {
+                        $balances[$item->category_id] -= $item->amount;
                     } else {
-                        $cats[$item->category_id] = -$item->amount;
+                        $balances[$item->category_id] = -$item->amount;
                     }
                 }
             } 
         }
-        return $cats;
+
+        foreach ($categories as $cat) {
+            $exists = isset($balances[$cat->category_id]);
+            $cat->balance = $exists ? $balances[$cat->category_id] : 0;
+        }
+
+        return $categories;
     }
 }

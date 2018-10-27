@@ -79,7 +79,7 @@ export default {
             let split = this.split;
             let amount = this.amount;
             let fromCats = this.subedCats.map(cat => {
-                let category = categoryList.find(item => item.id == cat.category_id);
+                let category = categoryList.find(item => item.id == cat.categoryId);
                 return {
                     'name': category.name,
                     'id': category.id,
@@ -93,7 +93,7 @@ export default {
         },
         toCategories() {
             let toCats = this.subedCats.map(cat => {
-                let category = this.categories.categoryList.find(item => item.id == cat.category_id);
+                let category = this.categories.categoryList.find(item => item.id == cat.categoryId);
                 return {
                     'name': category.name,
                     'id': category.id,

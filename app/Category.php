@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     protected $guarded = [ 'hidden', ];
-    protected $hidden = [ 'hidden', 'created_at', 'updated_at', 'deleted_at', 'bank_id'];
+    // protected $hidden = [ 'hidden', 'created_at', 'updated_at', 'deleted_at', 'bank_id'];
     
     protected $appends = ['archived'];
     public function getArchivedAttribute() {
@@ -23,7 +23,6 @@ class Category extends Model
     public static function getGlobalCategories() {
         return Category::
             where('is_global', '=', true)
-            ->where('bank_id', '=', null)
-            ->get();
+            ->where('bank_id', '=', null);
     }
 }

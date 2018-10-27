@@ -33,7 +33,7 @@ const actions = {
         context.commit('setCategoryLoading', true);
         axios.get('/api/bank/category')
         .then( response => {
-            context.commit('setCategories', response.data)
+            context.commit('setCategories', response.data.data)
             context.commit('setCategoryLoading', false);
         })
         .catch( error => {
@@ -45,8 +45,8 @@ const actions = {
         return new Promise( (resolve, reject) => {
             context.commit('setCategoryLoading', true);
             axios.get(`/api/account/${id}/subscribed-category`)
-            .then( res => {
-                context.commit('setCurrentSubscribedCats', res.data);
+            .then( response => {
+                context.commit('setCurrentSubscribedCats', response.data.data);
                 context.commit('setCategoryLoading', false);
                 resolve();
             }).catch( err => {
@@ -62,7 +62,7 @@ const actions = {
                 forceSubscribe,
                 'subscribed': subscribedIds
             }).then( response => {
-                context.commit('addCategory', response.data);
+                context.commit('addCategory', response.data.data);
                 context.commit('setCategoryLoading', false);
                 resolve();
             }).catch( err => {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Transaction;
 use Illuminate\Http\Request;
+use App\Http\Resources\Transaction as TransactionResource;
 
 class BankTransactionController extends Controller
 {
@@ -16,7 +17,7 @@ class BankTransactionController extends Controller
     {
         $transactions = $request->user()->banker->bank->transactions;
 
-        return $transactions;
+        return TransactionResource::collection($transactions);
     }
 
     /**

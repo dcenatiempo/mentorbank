@@ -95,7 +95,7 @@ export default {
             this.subedCatsWithBalance = this.subedCats.filter(cat => cat.balance > 0);
 
             return this.subedCatsWithBalance.map(cat => {
-                let category = this.categories.categoryList.find(item => item.id == cat.category_id);
+                let category = this.categories.categoryList.find(item => item.id == cat.categoryId);
                 return {
                     'name': category.name,
                     'id': category.id,

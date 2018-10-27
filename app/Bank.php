@@ -15,13 +15,25 @@ class Bank extends Model
 
     public function getAllCategories() {
         $globalCats = Category::getGlobalCategories()
-            ->sortBy('id');
+            ->orderBy('id')->get();
 
-        $localCats = $this->categories
-            ->sortBy('name');
+        $localBankCats = $this->categories()
+            ->orderBy('name')->get();
         
-        $allBankCats = $globalCats->concat($localCats);
+        $allBankCats = $globalCats->merge($localBankCats);
 
         return $allBankCats;
+    }
+
+    public function getAllVisibleCategories() {
+        return $this->getAllCategories()->filter(function ($cat) {
+            return $cat['hidden'] == false;
+        });
+    }
+
+    public function getForcedSubscribeCategories() {
+        return $this->getAllCategories()->filter(function ($cat) {
+            return $cat['force_subscribe'] == true;
+        });
     }
 }

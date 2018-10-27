@@ -28,7 +28,7 @@ const actions = {
         context.commit('setTransactionLoading', true);
         axios.get('/api/bank/transaction')
         .then(function (response) {
-            context.commit('setTransactions', response.data)
+            context.commit('setTransactions', response.data.data)
             context.commit('setTransactionLoading', false);
         })
         .catch(function (error) {
@@ -40,12 +40,12 @@ const actions = {
             context.commit('setTransactionLoading', true);
             axios.post(`/api/account/${transaction.accountId}/transaction`, transaction)
             .then( result => {
-                context.commit('addTransaction', result.data);
+                context.commit('addTransaction', result.data.data);
                 context.commit('accounts/changeAccountBalance', 
                     {
-                        accountId: result.data.account_id,
-                        type: result.data.type,
-                        amount: result.data.net_amount
+                        accountId: result.data.data.accountId,
+                        type: result.data.data.type,
+                        amount: result.data.data.netAmount
                     },
                     {root: true});
                 context.commit('setTransactionLoading', false);

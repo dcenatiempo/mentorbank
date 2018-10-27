@@ -8,18 +8,14 @@ use App\Account;
 use App\AccountHolder;
 use App\Transaction;
 use App\SubscribedCategory;
+use App\Http\Resources\Account as AccountResource;
+// use App\Http\Resources\AccountCollection as AccountCollectionResource;
 
 class AccountController extends Controller
 {
     function index (Request $request) {
-        $accounts = $request->user()->banker->bank->accounts;
-        return $accounts->map(function ($account) {
-            $accountHolder = ['accountHolder' => AccountHolder::find($account->id)];
-            $account->transactions;
-            $balance = ['balance' => $account->getBalance()];
-            $account->subscribedCategories;
-            return collect($account)->merge($accountHolder)->merge($balance);
-        });
+        return AccountResource::collection($request->user()->banker->bank->accounts);
+        // return new AccountCollectionResource($request->user()->banker->bank->accounts()->paginate(15));
     }
 
     function store (Request $request) {
@@ -27,7 +23,6 @@ class AccountController extends Controller
 
         $birth_date = $request->input('birthDate');
         $bank = $request->user()->banker->bank;
-        $standardBankCategories = $bank->getAllCategories();
 
         // Create new accountHolder
         $accountHolder = new AccountHolder;
@@ -45,26 +40,33 @@ class AccountController extends Controller
         $account->save();
 
         // Create new subscribedCategories
+        $forceSubscribeCategories = $bank->getForcedSubscribeCategories();
         $subscribedCategories = [];
-        foreach($standardBankCategories as $category) {
-            $ac = SubscribedCategory::create([
+        foreach($forceSubscribeCategories as $category) {
+            $subedCat = SubscribedCategory::create([
                 'account_id' => $account->id,
                 'category_id' => $category->id
             ]);
             
-            $subscribedCategories[] = SubscribedCategory::find($ac->id);
+            $subscribedCategories[] = SubscribedCategory::find($subedCat->id);
         }
 
 
         $account = (Account::find($account->id));
-        $account->accountHolder = AccountHolder::find($accountHolder->id);
-        $account->subscribed_categories = $subscribedCategories;
-        $account->balance = $account->getBalance();
-        return $account;
+        return new AccountResource($account);
     }
 
-    function update (Request $request) {
-        return "TODO: update account";
+    function update (Request $request, $id) {
+        
+        $account = isAuthorized($request, $id);
+        
+        if (!$account) {
+            return response("", 403);
+        }
+
+        $account->fill($request->post());
+
+        return new AccountResource(Account::find($id));
     }
 
     function delete (Request $request) {
@@ -79,5 +81,15 @@ class AccountController extends Controller
             $randstring = $randstring . $characters[rand(0, strlen($characters)-1)];
         }
         return $randstring;
+    }
+
+    function isAuthorized(Request $request, $id) {
+        $user = $request->user();
+
+        // does the account id belong to this user?
+        $account = $user->bank->accounts->first(function ($account) use ($id) {
+            return $account->id == $id;
+        });
+        return $account;
     }
 }

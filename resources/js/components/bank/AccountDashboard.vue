@@ -3,29 +3,24 @@
 
     <h1 class="top-section">{{currentAccount.accountHolder.name}} Account Dashboard</h1>
     <h2>Balance: ${{currentAccount.balance}}</h2>
-    <h2>Interest Rate: {{displayRate}}% per&nbsp
-        <select v-model="display_interval">
+    <h2>Interest Rate: {{displayRate}}% per&nbsp;
+        <select v-model="displayInterval">
             <option value="year">year</option>
             <option value="month">month</option>
             <option value="week">week</option>
             <option value="day">day</option>
         </select>
     </h2>
+    <button v-on:click="showInterestModal">Edit</button>
     
     <p v-if="wOrM">Paid {{frequencyFullDescription}}</p>
-    <select v-model="frequency">
-            <option value="P1W">P1W</option>
-            <option value="P2W">P2W</option>
-            <option value="P4M">P4M</option>
-            <option value="P1M">P1M</option>
-        </select>
 
     <section class="card-container">
         <div class="card">
             <h2 class="card-header"><router-link to="/account/categories">Categories</router-link><button v-on:click="showCategoryModal">+</button></h2>
             <template v-for="category in subedCats">
                 <div :key="'c-'+category.id">
-                    <h3>{{getCategoryName(category.category_id)}} ${{category.balance}}</h3>
+                    <h3>{{getCategoryName(category.categoryId)}} ${{category.balance}}</h3>
                 </div>
             </template>
         </div>
@@ -56,7 +51,7 @@ export default {
     props: {},
     data() {
         return {
-            display_interval: 'year',
+            displayInterval: 'year',
             frequency: 'P1W'
         };
     },
@@ -71,24 +66,25 @@ export default {
         },
         frequencyFullDescription() {
             if (this.wOrM == 'W') {
+                if (!this.currentAccount.distributionDay) return '';
                 // every 2 weeks on monday
-                let day = moment().isoWeekday(this.currentAccount.distribution_day).format('dddd');
+                let day = moment().isoWeekday(this.currentAccount.distributionDay).format('dddd');
                 let freq = this.frequency[1] > 1 ? this.frequency[1]  : '';
                 let s = this.frequency[1] == 1 ? '' : 's'
                 return `every ${freq} week${s} on ${day}`;
             } else if (this.wOrM == 'M') {
                 // monthly on the 5th
-                let day = this.currentAccount.distribution_day;
+                let day = this.currentAccount.distributionDay;
                 return 'monthly on the ' + this.ordinal_suffix_of(day);
             } else
                 return '';
         },
         displayRate() {
             let divisor = 1;
-            if (this.display_interval == 'month') divisor = 12;
-            else if (this.display_interval == 'week') divisor = 52;
-            else if (this.display_interval == 'day') divisor = 365;
-            return Math.round((this.currentAccount.interest_rate * 1000  / divisor))/1000;
+            if (this.displayInterval == 'month') divisor = 12;
+            else if (this.displayInterval == 'week') divisor = 52;
+            else if (this.displayInterval == 'day') divisor = 365;
+            return Math.round((this.currentAccount.interestRate * 1000  / divisor))/1000;
         }
     },
     methods: {
@@ -97,6 +93,18 @@ export default {
         ...mapActions('categories', ['fetchAllCategories', 'fetchSubscribedCats']),
         ...mapActions('transactions', ['fetchAllTransactions']),
         ...mapActions('app', ['changePage']),
+        showInterestModal() {
+            this.showModal({
+                modalId: 'interest-modal',
+                payload: {
+                    accountId: this.$route.params.id,
+                    interestRate: this.currentAccount.interestRate,
+                    rateDisplayInterval: this.currentAccount.rateDisplayInterval,
+                    frequency: this.currentAccount.frequency,
+                    distributionDay: this.currentAccount.distributionDay
+                }
+            });
+        },
         showCategoryModal() {
             this.showModal({
                 modalId: 'category-modal',

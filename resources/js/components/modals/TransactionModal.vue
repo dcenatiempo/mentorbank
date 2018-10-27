@@ -115,7 +115,7 @@ export default {
             if (!this.date) return true;
             if (!this.account) return true;
             if (!this.transactionType) return true;
-            if (this.split.find(item => item.category_id === null) !== undefined) return true;
+            if (this.split.find(item => item.categoryId === null) !== undefined) return true;
             if (this.netAmount === 0) return true;
             return false;
         },
@@ -128,8 +128,8 @@ export default {
         closeModal() {
             this.hideModal(this.id);
             this.memo = '';
-            this.$refs.accountSelector.reset();
-            this.$refs.typeSelector.reset();
+            // this.$refs.accountSelector.reset();
+            // this.$refs.typeSelector.reset();
             // TODO: reset money?
             // TODO: reset TransactionSplitter/ TransactionTransfer?
         },

@@ -4,7 +4,7 @@ import GlobalMixin from './GlobalMixin';
 import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
 
 import VueRouter from 'vue-router';
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 import BankDashboard from './components/bank/BankDashboard.vue';
 import Profile from'./components/bank/Profile.vue';
 import Settings from'./components/bank/Settings.vue';
@@ -54,6 +54,7 @@ const router = new VueRouter({
 Vue.component('category-modal', require('@modals/CategoryModal.vue'));
 Vue.component('transaction-modal', require('@modals/TransactionModal.vue'));
 Vue.component('account-modal', require('@modals/AccountModal.vue'));
+Vue.component('interest-modal', require('@modals/InterestModal.vue'));
 Vue.component('add-transaction-btn', require('@reusable/AddTransactionBtn.vue'));
 
 const app = new Vue({

@@ -29,7 +29,7 @@
             <h2 class="card-header"><router-link to="/bank/transactions">Recent Transactions</router-link><button v-on:click="showTransactionModal">+</button></h2> 
             <template v-for="transaction in transactions.transactionList">
                 <div :key="'t-'+transaction.id">
-                    <h3>{{transaction.date}} {{transaction.type}} ${{transaction.net_amount}} {{accounts.accountList.find( item => item.id == transaction.account_id).accountHolder.name}}</h3>
+                    <h3>{{transaction.date}} {{transaction.type}} ${{transaction.netAmount}} {{accounts.accountList.find( item => item.id == transaction.accountId).accountHolder.name}}</h3>
                 </div>
             </template>
         </div>

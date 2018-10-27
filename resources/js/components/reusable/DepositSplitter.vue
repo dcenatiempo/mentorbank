@@ -91,7 +91,7 @@ export default {
         formattedCats() {
             if (!this.subedCats || this.subedCats.length == 0) return [];
             return this.subedCats.map(cat => {
-                let category = this.categories.categoryList.find(item => item.id == cat.category_id);
+                let category = this.categories.categoryList.find(item => item.id == cat.categoryId);
                 return {
                     'name': category.name,
                     'id': category.id,

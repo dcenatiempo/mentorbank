@@ -1,23 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    <onboarding></onboarding>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+    <!-- <div v-if="loading" class="page-loader-container"><div class="loader"></div></div> -->
+    <router-view></router-view>
 @endsection

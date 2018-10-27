@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\SubscribedCategory;
 use App\Account;
+use App\Http\Resources\SubscribedCategory as SubscribedCategoryResource;
 use Illuminate\Http\Request;
 use Route;
 
@@ -18,16 +19,8 @@ class SubscribedCategoryController extends Controller
     public function index()
     {
         $accountId = Route::current()->parameter('id');
-        $categories =  Account::find($accountId)->subscribedCategories;
 
-        $balances = SubscribedCategory::getAllCategoryBalances($accountId);
-
-        foreach ($categories as $cat) {
-            $exists = isset($balances[$cat->category_id]);
-            $cat->balance = $exists ? $balances[$cat->category_id] : 0;
-        }
-        
-        return $categories;
+        return SubscribedCategoryResource::collection(SubscribedCategory::withBalances($accountId));
     }
 
     /**

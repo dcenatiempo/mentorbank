@@ -14,5 +14,6 @@
 <category-modal></category-modal>
 <transaction-modal></transaction-modal>
 <account-modal></account-modal>
+<interest-modal></interest-modal>
 
 @endsection

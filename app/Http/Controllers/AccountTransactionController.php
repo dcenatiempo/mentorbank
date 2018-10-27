@@ -6,6 +6,7 @@ use App\Transaction;
 use App\Account;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Http\Resources\Transaction as TransactionResource;
 use Route;
 
 class AccountTransactionController extends Controller
@@ -19,7 +20,8 @@ class AccountTransactionController extends Controller
     {
         // $bank = $request->user()->banker->bank;
         $accountId = Route::current()->parameter('id');
-        return Account::find($accountId)->transactions;
+        $transactions = Account::find($accountId)->transactions;
+        return TransactionResource::collection($transactions);
     }
 
     /**
@@ -47,7 +49,7 @@ class AccountTransactionController extends Controller
             'date' => $date
         ]);
         
-        return $transaction;
+        return new TransactionResource($transaction);
     }
 
     /**

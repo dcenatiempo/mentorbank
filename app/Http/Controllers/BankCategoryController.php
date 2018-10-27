@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\SubscribedCategory;
 use Illuminate\Http\Request;
+use App\Http\Resources\Category as CategoryResource;
 // use Illuminate\Support\Facades\Log;
 
 class BankCategoryController extends Controller
@@ -18,11 +19,9 @@ class BankCategoryController extends Controller
     {
         $bank = $request->user()->banker->bank;
 
-        $response = $bank->getAllCategories()->filter(function ($item) {
-            return $item->hidden == false;
-        })->values();
+        $visibleCategories = $bank->getAllVisibleCategories();
 
-        return response($response);
+        return CategoryResource::collection($visibleCategories);
     }
 
     /**

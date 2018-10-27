@@ -42,7 +42,7 @@ const actions = {
                 name: name
             })
             .then(function (response) {
-                context.commit('setBank', response.data)
+                context.commit('setBank', response.data.data)
                 resolve();
             })
             .catch(function (error) {

@@ -4,15 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Category;
+use App\Http\Resources\Category as CategoryResource;
 
 class CategoryController extends Controller
 {
     function index (Request $request) {
-        //TODO: figure out a better way...
         $categories = $request->user()->banker->bank->categories;
         $standardCategories = Category::getGlobalCategories();
 
-        return $categories->concat($standardCategories)->all();
+        return new CategoryResource($categories->concat($standardCategories)->all());
     }
 
     function store (Request $request) {

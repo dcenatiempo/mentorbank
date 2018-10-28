@@ -58,7 +58,7 @@ export default {
     computed: {
         ...mapState('categories', ['categoryList']),
         ...mapState('accounts', ['currentAccount']),
-        ...mapState({ 'subedCats': state => state.categories.currentSubscribedCats}),
+        ...mapState({ 'subedCats': state => state.accounts.currentAccount.subscribedCategories}),
         // ...mapGetters()
         wOrM() {
             if (!this.frequency) return null;
@@ -90,14 +90,14 @@ export default {
     methods: {
         ...mapMutations('app', ['showModal', 'hideModal']),
         ...mapMutations('accounts',['setCurrentById']),
-        ...mapActions('categories', ['fetchAllCategories', 'fetchSubscribedCats']),
+        ...mapActions('categories', ['fetchAllCategories']),
         ...mapActions('transactions', ['fetchAllTransactions']),
         ...mapActions('app', ['changePage']),
         showInterestModal() {
             this.showModal({
                 modalId: 'interest-modal',
                 payload: {
-                    accountId: this.$route.params.id,
+                    accountId: this.$route.params.accountId,
                     interestRate: this.currentAccount.interestRate,
                     rateDisplayInterval: this.currentAccount.rateDisplayInterval,
                     frequency: this.currentAccount.frequency,
@@ -122,7 +122,7 @@ export default {
                 modalId: 'transaction-modal',
                 payload: {
                     mode: "add",
-                    account: this.$route.params.id
+                    account: this.$route.params.accountId
                 }
             });
         },
@@ -150,9 +150,7 @@ export default {
         if (this.categoryList.length == 0) {
             this.fetchAllCategories();
         }
-        this.setCurrentById(this.$route.params.id);
-        this.fetchSubscribedCats(this.$route.params.id)
-            .then( () => {});
+        this.setCurrentById(this.$route.params.accountId);
     },
     mounted() {
         

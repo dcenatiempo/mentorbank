@@ -33,38 +33,45 @@ class SubscribedCategory extends Model
         // create an aray of balances [ category_id => balance ]
         foreach($transactions as $transaction) {
             $split = json_decode($transaction->split);
-            if ($transaction->type == 'transfer') {
-                $from = $split[0]->category_id;
-                $to = $split[1]->category_id;
-                if (isset($balances[$from])) {
-                    $balances[$from] -= $split[0]->amount;
+            foreach($split as $item) {
+                if (isset($balances[$item->category_id])) {
+                    $balances[$item->category_id] += $item->amount;
                 } else {
-                    $balances[$from] = 0 - $split[0]->amount;
-                }
-                if (isset($balances[$to])) {
-                    $balances[$to] += $split[1]->amount;
-                } else {
-                    $balances[$to] = $split[1]->amount;
+                    $balances[$item->category_id] = $item->amount;
                 }
             }
-            if ($transaction->type == 'deposit') {
-                foreach($split as $item) {
-                    if (isset($balances[$item->category_id])) {
-                        $balances[$item->category_id] += $item->amount;
-                    } else {
-                        $balances[$item->category_id] = $item->amount;
-                    }
-                }
-            }
-            if ($transaction->type == 'withdrawal') {
-                foreach($split as $item) {
-                    if (isset($balances[$item->category_id])) {
-                        $balances[$item->category_id] -= $item->amount;
-                    } else {
-                        $balances[$item->category_id] = -$item->amount;
-                    }
-                }
-            } 
+            // if ($transaction->type == 'transfer') {
+            //     $from = $split[0]->category_id;
+            //     $to = $split[1]->category_id;
+            //     if (isset($balances[$from])) {
+            //         $balances[$from] -= $split[0]->amount;
+            //     } else {
+            //         $balances[$from] = 0 - $split[0]->amount;
+            //     }
+            //     if (isset($balances[$to])) {
+            //         $balances[$to] += $split[1]->amount;
+            //     } else {
+            //         $balances[$to] = $split[1]->amount;
+            //     }
+            // }
+            // if ($transaction->type == 'deposit') {
+            //     foreach($split as $item) {
+            //         if (isset($balances[$item->category_id])) {
+            //             $balances[$item->category_id] += $item->amount;
+            //         } else {
+            //             $balances[$item->category_id] = $item->amount;
+            //         }
+            //     }
+            // }
+            // if ($transaction->type == 'withdrawal') {
+            //     foreach($split as $item) {
+            //         if (isset($balances[$item->category_id])) {
+            //             $balances[$item->category_id] -= $item->amount;
+            //         } else {
+            //             $balances[$item->category_id] = -$item->amount;
+            //         }
+            //     }
+            // } 
         }
 
         foreach ($categories as $cat) {

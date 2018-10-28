@@ -44,7 +44,7 @@ const router = new VueRouter({
             name: 'Settings',
             component: Settings
         },{
-            path: '/bank/accounts/:id',
+            path: '/bank/accounts/:accountId',
             name: 'account',
             component: AccountDashboard
         }
@@ -74,8 +74,8 @@ const app = new Vue({
         let vm = this;
         this.fetchBank();
         this.fetchAllBankAccounts().then( () => {
-            if (vm.$route.params.id)
-                vm.setCurrentById(vm.$route.params.id);
+            if (vm.$route.params.accountId)
+                vm.setCurrentById(vm.$route.params.accountId);
         });
     },
 

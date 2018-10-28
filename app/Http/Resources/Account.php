@@ -35,7 +35,7 @@ class Account extends JsonResource
 
             // data (alphabetical)            
             'allowNegativeBalance' => $this->allow_negative_balance,
-            'balance' => $this->getBalance(),
+            'balance' => round($this->getBalance(), 2),
             'creditInterestRate' => $this->credit_interest_rate,
             'distributionDay' => $this->distribution_day,
             'frequency' => $this->frequency,

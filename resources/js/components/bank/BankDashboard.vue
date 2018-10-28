@@ -60,6 +60,7 @@ export default {
     },
     methods: {
         ...mapMutations('app', ['showModal', 'hideModal']),
+        ...mapMutations('accounts',['unSetCurrent']),
         ...mapActions('categories', ['fetchAllCategories']),
         ...mapActions('transactions', ['fetchAllTransactions']),
         ...mapActions('app', ['changePage']),
@@ -86,7 +87,9 @@ export default {
         this.fetchAllCategories();
         this.fetchAllTransactions();
     },
-    mounted() {},
+    mounted() {
+        this.unSetCurrent();
+    },
     watch: {}
 }
 </script>

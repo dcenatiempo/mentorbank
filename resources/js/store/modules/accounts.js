@@ -10,7 +10,8 @@ const currentAccountDefault = {
     notifications: false,
     goalBalance: null,
     lowBalanceAlert: null,
-    distributionDay: null
+    distributionDay: null,
+    subscribedCategories: []
 };
 
 const state = {
@@ -50,6 +51,9 @@ const mutations = {
     setCurrentByObj(state, account) {
         state.currentAccount = account;
     },
+    unSetCurrent(state) {
+        state.currentAccount = currentAccountDefault;
+    },
     changeAccountBalance(state, {accountId, type, amount}) {
         state.accountList = state.accountList.map(account => {
             if (account.id != accountId) return account;
@@ -60,6 +64,27 @@ const mutations = {
             }
             return account;
         });
+    },
+    changeAccountCategoryBalance( state, {accountId, type, split}) {
+        let splitMap = {};
+        split.forEach( item => {
+            if (!(item.categoryId in splitMap)) {
+                splitMap[item.categoryId] = 0;
+            }
+            splitMap[item.categoryId] += item.amount
+        });
+
+        state.accountList = state.accountList.map(account => {
+            if (account.id == accountId) {
+                account.subscribedCategories = account.subscribedCategories.map(cat => {
+                    if (cat.categoryId in splitMap) {
+                        cat.balance += splitMap[cat.categoryId];
+                    }
+                    return cat;
+                })
+            }
+            return account;
+        })
     }
 };
 

@@ -10,7 +10,7 @@
         <money
             v-bind="moneyConfig"
             v-model="split[index].amount"
-            @input="updateSplit">
+            @input="handleMoneyChange($event, index)">
         </money>
         <multiselect
             v-model="split[index].category"
@@ -139,6 +139,15 @@ export default {
         },
         handleCatChange(val) {
             console.log(val);
+            this.updateSplit();
+        },
+        handleMoneyChange(money, i) {
+            if (!this.split[i].category) return;
+            if (money < 0 ) {
+                let newSplit = [...this.split];
+                newSplit[i].amount = Math.abs(this.split[i].amount);
+                this.split = newSplit;
+            }
             this.updateSplit();
         },
         nameWithPrice({name, balance}) {

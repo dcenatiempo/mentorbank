@@ -48,6 +48,13 @@ const actions = {
                         amount: result.data.data.netAmount
                     },
                     {root: true});
+                context.commit('accounts/changeAccountCategoryBalance', 
+                    {
+                        accountId: result.data.data.accountId,
+                        type: result.data.data.type,
+                        split: result.data.data.split
+                    },
+                    {root: true});
                 context.commit('setTransactionLoading', false);
                 resolve();
             }).catch( err => {

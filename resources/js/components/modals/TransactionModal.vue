@@ -22,6 +22,7 @@
         <money
             v-bind="moneyConfig"
             v-model="netAmount"
+            @input="handleMoneyChange"
             :disabled="transactionType != 'transfer'"></money>
     </div>
 
@@ -92,13 +93,13 @@ export default {
     computed: {
         ...mapState('app', ['modalPayload']),
         ...mapState('accounts', ['currentAccount']),
-        ...mapState({ 'subedCats': state => state.categories.currentSubscribedCats}),
+        ...mapState({ 'subedCats': state => state.accounts.currentAccount.subscribedCategories}),
         mode() {
             let payload = this.modalPayload[this.id];
             return payload ? payload.mode : 'add';
         },
         singleAccountMode () {
-           return this.$route.params && this.$route.params.id;
+           return this.$route.params && this.$route.params.accountId;
         },
         clickText() {
             if (this.mode === 'add') {
@@ -113,7 +114,7 @@ export default {
         },
         disabled() {
             if (!this.date) return true;
-            if (!this.account) return true;
+            if (!this.currentAccount.id) return true;
             if (!this.transactionType) return true;
             if (this.split.find(item => item.categoryId === null) !== undefined) return true;
             if (this.netAmount === 0) return true;
@@ -123,20 +124,38 @@ export default {
     },
     methods: {
         ...mapMutations('app', ['hideModal']),
+        ...mapMutations('accounts',['setCurrentById', 'unSetCurrent']),
         ...mapActions('transactions', ['saveTransaction']),
-        ...mapActions('categories', ['fetchSubscribedCats']),
         closeModal() {
             this.hideModal(this.id);
             this.memo = '';
+            if (!this.$route.params.accountId) {
+                    this.unSetCurrent();
+                }
             // this.$refs.accountSelector.reset();
             // this.$refs.typeSelector.reset();
             // TODO: reset money?
             // TODO: reset TransactionSplitter/ TransactionTransfer?
         },
         saveNewTransaction() {
-            let split = this.split.filter(item => item.amount > 0);
+            let vm = this;
+            let type = this.transactionType;
+
+            // format split to contain negatives for withdrawals and the 'from' portion of the split
+            let split = this.split
+                .filter(item => item.amount > 0 && item.categoryId !== null)
+                .map( (item, index) => {
+                    // if type === 'deposit' do nothing
+                    if (type === 'withdrawal') {
+                        item.amount = -item.amount
+                    } else if (type === 'transfer') {
+                        item.amount = index === 0 ? -item.amount : item.amount;
+                    }
+                    return item;
+                });
+
             let transaction = {
-                accountId: this.account.accountId,
+                accountId: this.currentAccount.id,
                 type: this.transactionType,
                 memo: this.memo,
                 net_amount: this.netAmount,
@@ -145,16 +164,15 @@ export default {
             }
             this.saveTransaction(transaction)
             .then( () => {
+                if (vm.$route.params.accountId) {
+                    vm.setCurrentById(vm.$route.params.accountId);
+                }
                 this.closeModal();
             }).catch( () => {
 
             });
         },
         onUpdateAccount(account) {
-            if (!account) return;
-            this.account = account;
-            this.fetchSubscribedCats(account.accountId)
-            .then( () => {});
         },
         onUpdateType(type) {
             this.transactionType = type;
@@ -172,7 +190,12 @@ export default {
                 // remove js decimal errors with * 100 / 100
                 this.netAmount = split.reduce( (sum, row) => sum + (row.amount * 100), 0)/100;
             }
-        }
+        },
+        handleMoneyChange(money) {
+            if (money < 0 || money === -0) {
+                this.netAmount = Math.abs(this.netAmount);
+            }
+        },
     },
     created() {},
     mounted() {},

@@ -44,9 +44,9 @@ export default {
         ...mapMutations('accounts', ['setCurrentById']),
         // ...mapActions(),
         onSelect(value) {
-            this.$emit('select', value);
             let accountId = value ? value.accountId : null;
             this.setCurrentById(accountId);
+            this.$emit('select', value);
         },
         reset() {
             let val = null;

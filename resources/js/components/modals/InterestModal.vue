@@ -57,7 +57,7 @@ export default {
         ...mapState('app', ['modalPayload']),
         // ...mapState('accounts', ['currentAccount']),
         singleAccountMode () {
-           return this.$route.params && this.$route.params.id;
+           return this.$route.params && this.$route.params.accountId;
         },
         disabled() {
             return false;
@@ -93,7 +93,6 @@ export default {
     methods: {
         ...mapMutations('app', ['hideModal']),
         ...mapActions('transactions', ['saveTransaction']),
-        ...mapActions('categories', ['fetchSubscribedCats']),
         closeModal() {
             this.hideModal(this.id);
         },
@@ -127,12 +126,8 @@ export default {
                 return i + "rd";
             }
             return i + "th";
-        }
+        },
         // onUpdateAccount(account) {
-        //     if (!account) return;
-        //     this.account = account;
-        //     this.fetchSubscribedCats(account.accountId)
-        //     .then( () => {});
         // },
     },
     created() {},

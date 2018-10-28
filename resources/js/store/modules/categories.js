@@ -41,6 +41,7 @@ const actions = {
             context.commit('setCategoryLoading', false);
         });
     },
+    // TODO: possibly remove this...
     fetchSubscribedCats(context, id) {
         return new Promise( (resolve, reject) => {
             context.commit('setCategoryLoading', true);

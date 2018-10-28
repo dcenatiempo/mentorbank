@@ -151,6 +151,10 @@ export default {
                 let newSplit = [...this.split];
                 newSplit[i].amount = this.split[i].category.balance;
                 this.split = newSplit;
+            } else if (money < 0 ) {
+                let newSplit = [...this.split];
+                newSplit[i].amount = Math.abs(this.split[i].amount);
+                this.split = newSplit;
             }
             this.updateSplit();
         },

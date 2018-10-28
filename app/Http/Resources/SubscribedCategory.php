@@ -28,8 +28,7 @@ class SubscribedCategory extends JsonResource
             'goalBalance' => $this->goal_balance,
             'lowBalanceAlert' => $this->low_balance_alert,
             'notifications' => $this->notifications,
-            'balance' => $this->balance ? $this->balance : 0
-
+            'balance' => $this->balance ? round($this->balance, 2) : 0
         ];
     }
 }

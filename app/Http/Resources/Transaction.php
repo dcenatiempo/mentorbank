@@ -27,8 +27,17 @@ class Transaction extends JsonResource
             'date' => $this->date,
             'memo' => $this->memo,
             'netAmount' => $this->net_amount,
-            'split' => $this->split,
+            'split' => $this->formatSplit($this->split),
             'type' => $this->type
         ];
+    }
+
+    private function formatSplit(String $split) {
+        return collect(json_decode($split))->map(function ($item) {
+            return [
+                'amount' => $item->amount,
+                'categoryId' => $item->category_id 
+            ];
+        });
     }
 }

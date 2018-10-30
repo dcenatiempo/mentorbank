@@ -39,26 +39,48 @@ Route::middleware(['auth'])->group(function () {
             Route::patch( '/{bank}', 'BankController@update');    // edit a bank
             Route::delete('/{bank}', 'BankController@destroy');   // delete a bank
 
-            Route::prefix('category')->group(function () {
-                Route::get('/', 'BankCategoryController@index');        // get all cats for a bank
-                Route::post('/', 'BankCategoryController@store');            // create a new bank cat
-                // Route::patch('/{id}', 'CategoryController@update');     // edit a bank cat
-                // Route::delete('/{id}', 'CategoryController@delete');    // delete a bank cat
-            });
+            /************************************************************
+            Verb	    URI	                    Action	    Route Name
+            ----        ---                     ------      ----------
+            GET	        /things	                index	    things.index
+            POST	    /things	                store	    things.store
+            GET	        /things/{id}	        show	    things.show
+            PUT/PATCH   /things/{id}	        update	    things.update
+            DELETE	    /things/{id}	        destroy	    things.destroy
+            ***************************************************************/
+            Route::apiResources([
+                'category' => 'BankCategoryController',
+                'transaction' => 'BankTransactionController',
+                'subscribed-category' => 'BankSubscribedCategoryController',
+                'notification' => 'BankNotificationController',
+                'recurring-template' => 'BankRecurringTemplateController'
+            ]);
+            
+            // Route::prefix('category')->group(function () {
+            //     Route::get('/', 'BankCategoryController@index');        // get all cats for a bank
+            //     Route::post('/', 'BankCategoryController@store');            // create a new bank cat
+            //     // Route::patch('/{id}', 'CategoryController@update');     // edit a bank cat
+            //     // Route::delete('/{id}', 'CategoryController@delete');    // delete a bank cat
+            // });
 
-            Route::prefix('notification')->group(function () {
-                // Route::get('/', '');         // get notifications (for a bank)
-                // Route::put('/', '');         // add a notification to a bank
-                // Route::patch('/{id}', '');  // edit a notification (for a bank)
-                // Route::delete('/{id}', ''); // remove a notification (from a bank)
-            });
+            // Route::prefix('notification')->group(function () {
+            //     // Route::get('/', '');         // get notifications (for a bank)
+            //     // Route::put('/', '');         // add a notification to a bank
+            //     // Route::patch('/{id}', '');  // edit a notification (for a bank)
+            //     // Route::delete('/{id}', ''); // remove a notification (from a bank)
+            // });
 
-            Route::prefix('recurringTemplate')->group(function () {
-                // Route::get('/', '');         // get templates (for a bank)
-            });
-            Route::prefix('transaction')->group(function () {
-                Route::get('/', 'BankTransactionController@index');         // get transactions (for an bank)
-            });
+            // Route::prefix('recurringTemplate')->group(function () {
+            //     // Route::get('/', '');         // get templates (for a bank)
+            // });
+
+            // Route::prefix('transaction')->group(function () {
+            //     Route::get('/', 'BankTransactionController@index');         // get transactions (for an bank)
+            // });
+
+            // Route::prefix('subscribedCategory')->group(function () {
+            //     Route::get('/', 'BankTransactionController@index');         // get transactions (for an bank)
+            // });
         });
 
         Route::prefix('account')->group(function () {
@@ -81,7 +103,7 @@ Route::middleware(['auth'])->group(function () {
                 ***************************************************************/
                 Route::apiResources([
                     'transaction' => 'AccountTransactionController',
-                    'subscribed-category' => 'SubscribedCategoryController',
+                    'subscribed-category' => 'AccountSubscribedCategoryController',
                     'notification' => 'AccountNotificationController',
                     'recurring-template' => 'AccountRecurringTemplateController'
                 ]);

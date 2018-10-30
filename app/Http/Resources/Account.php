@@ -19,7 +19,7 @@ class Account extends JsonResource
      */
     public function toArray($request)
     {
-        $subedCats = SubscribedCategory::withBalances($this->id);
+        $subedCats = SubscribedCategory::accountCatsWithBalances($this->id);
 
         // return parent::toArray($request);
         return [

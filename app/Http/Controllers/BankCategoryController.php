@@ -57,7 +57,7 @@ class BankCategoryController extends Controller
             }
         }
 
-        return Category::find($category->id);
+        return new CategoryResource(Category::find($category->id));
     }
 
     /**

@@ -5,16 +5,23 @@ use DB;
 use App\Transaction;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Resources\SubscribedCategory as SubscribedCategoryResource;
 
 class SubscribedCategory extends Model
 {
     protected $guarded = [ ];
     
-    public static function getCategoryBalance($accountId) {
-
+    public static function bankCatsWithBalances($bankId) {
+        $accountIds = Bank::find($bankId)->accounts->pluck('id');
+        $categories = [];
+        foreach($accountIds as $id) {
+            $categories[$id] = SubscribedCategoryResource::collection(self::accountCatsWithBalances($id));
+        }
+        
+        return $categories;
     }
 
-    public static function withBalances($accountId) {
+    public static function accountCatsWithBalances($accountId) {
         $categories =  SubscribedCategory::where('account_id', '=', $accountId)->get();
         $transactions = Transaction::where('account_id', '=', $accountId)->get();
 

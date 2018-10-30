@@ -65,7 +65,7 @@ const mutations = {
             return account;
         });
     },
-    changeAccountCategoryBalance( state, {accountId, type, split}) {
+    changeAccountCategoryBalance(state, {accountId, type, split}) {
         let splitMap = {};
         split.forEach( item => {
             if (!(item.categoryId in splitMap)) {
@@ -74,7 +74,7 @@ const mutations = {
             splitMap[item.categoryId] += item.amount
         });
 
-        state.accountList = state.accountList.map(account => {
+        state.accountList = state.accountList.map( account => {
             if (account.id == accountId) {
                 account.subscribedCategories = account.subscribedCategories.map(cat => {
                     if (cat.categoryId in splitMap) {
@@ -83,6 +83,13 @@ const mutations = {
                     return cat;
                 })
             }
+            return account;
+        })
+    },
+    setSubscribedCats(state, payload) {
+        state.accountList = state.accountList.map( account => {
+            debugger
+            account.subscribedCategories = payload[account.id];
             return account;
         })
     }

@@ -9,7 +9,7 @@ use App\Http\Resources\SubscribedCategory as SubscribedCategoryResource;
 use Illuminate\Http\Request;
 use Route;
 
-class SubscribedCategoryController extends Controller
+class AccountSubscribedCategoryController extends Controller
 {
     /**
      * Display a listing of the account category.
@@ -20,7 +20,7 @@ class SubscribedCategoryController extends Controller
     {
         $accountId = Route::current()->parameter('id');
 
-        return SubscribedCategoryResource::collection(SubscribedCategory::withBalances($accountId));
+        return SubscribedCategoryResource::collection(SubscribedCategory::accountCatsWithBalances($accountId));
     }
 
     /**

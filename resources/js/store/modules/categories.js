@@ -41,13 +41,26 @@ const actions = {
             context.commit('setCategoryLoading', false);
         });
     },
-    // TODO: possibly remove this...
-    fetchSubscribedCats(context, id) {
+    // fetchAccountSubscribedCats(context, id) {
+    //     return new Promise( (resolve, reject) => {
+    //         context.commit('setCategoryLoading', true);
+    //         axios.get(`/api/account/${id}/subscribed-category`)
+    //         .then( response => {
+    //             context.commit('setCurrentSubscribedCats', response.data.data);
+    //             context.commit('setCategoryLoading', false);
+    //             resolve();
+    //         }).catch( err => {
+    //             reject(err);
+    //         })
+    //     });
+    // },
+    fetchBankSubscribedCats(context, subscribedIds) {
         return new Promise( (resolve, reject) => {
             context.commit('setCategoryLoading', true);
-            axios.get(`/api/account/${id}/subscribed-category`)
+            axios.get(`/api/bank/subscribed-category`)
             .then( response => {
-                context.commit('setCurrentSubscribedCats', response.data.data);
+                debugger
+                context.commit('accounts/setSubscribedCats', response.data, {root: true});
                 context.commit('setCategoryLoading', false);
                 resolve();
             }).catch( err => {
@@ -63,7 +76,15 @@ const actions = {
                 forceSubscribe,
                 'subscribed': subscribedIds
             }).then( response => {
+                
+                // append new category to vuex state
                 context.commit('addCategory', response.data.data);
+                
+                // fetch updated subscribed categories
+                if (subscribedIds.length > 0) {
+                    context.dispatch('fetchBankSubscribedCats', subscribedIds);
+                }
+
                 context.commit('setCategoryLoading', false);
                 resolve();
             }).catch( err => {

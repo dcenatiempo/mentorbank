@@ -59,7 +59,6 @@ const actions = {
             context.commit('setCategoryLoading', true);
             axios.get(`/api/bank/subscribed-category`)
             .then( response => {
-                debugger
                 context.commit('accounts/setSubscribedCats', response.data, {root: true});
                 context.commit('setCategoryLoading', false);
                 resolve();

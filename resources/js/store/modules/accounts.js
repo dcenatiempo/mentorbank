@@ -88,7 +88,6 @@ const mutations = {
     },
     setSubscribedCats(state, payload) {
         state.accountList = state.accountList.map( account => {
-            debugger
             account.subscribedCategories = payload[account.id];
             return account;
         })

@@ -23,7 +23,7 @@ class Account extends Model
     public function notifications()        { return $this->hasMany('App\Notification'); }
     public function subscribedCategories() { return $this->hasMany('App\SubscribedCategory')->where('category_id', '!=', 1); }
 
-    public function getBalance() {
+    public function calculateBalance() {
         // Get most recent history balance
         $history = $this->getMostRecentHistory();
         $historyBalance = $history ? $history->ending_balance : 0;
@@ -42,10 +42,6 @@ class Account extends Model
 
         // Grand Total
         return $historyBalance + $transactionSum;
-    }
-
-    public function getCategoryBalances() {
-        // TODO: returns an array/object? of category balances for a single account
     }
 
     public function getMostRecentHistory() {

@@ -16,6 +16,9 @@ class CreateAccountTable extends Migration
         Schema::create('accounts', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+            $table->decimal('balance', 15, 2)->default(0);
+            $table->integer('monthly_transactions')->default(0); //total number of transactions
+            $table->integer('total_transactions')->default(0); //total number of transactions
             $table->decimal('interest_rate', 4, 2)->default(10); //APR
             $table->enum('rate_display_interval', ['year', 'month', 'week', 'day'])->default('month'); //APR
 

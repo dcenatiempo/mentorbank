@@ -138,7 +138,6 @@ export default {
             this.$emit('split-updated', this.split);
         },
         handleCatChange(val) {
-            console.log(val);
             this.updateSplit();
         },
         handleMoneyChange(money, i) {

@@ -19,8 +19,6 @@ class Account extends JsonResource
      */
     public function toArray($request)
     {
-        $subedCats = SubscribedCategory::accountCatsWithBalances($this->id);
-
         // return parent::toArray($request);
         return [
             // keys
@@ -35,7 +33,9 @@ class Account extends JsonResource
 
             // data (alphabetical)            
             'allowNegativeBalance' => $this->allow_negative_balance,
-            'balance' => round($this->getBalance(), 2),
+            'balance' => round($this->balance, 2),
+            'monthlyTransactions' => $this->monthly_transactions,
+            'totalTransactions' => $this->total_transactions,
             'creditInterestRate' => $this->credit_interest_rate,
             'distributionDay' => $this->distribution_day,
             'frequency' => $this->frequency,
@@ -49,7 +49,7 @@ class Account extends JsonResource
 
             // Related resources
             'accountHolder' => new AccountHolderResource($this->accountHolder),
-            'subscribedCategories' => SubscribedCategoryResource::collection($subedCats),
+            'subscribedCategories' => SubscribedCategoryResource::collection($this->subscribedCategories),
             'transactions' => TransactionResource::collection($this->transactions),
             'histories' => TransactionHistoryResource::collection($this->histories),
         ];

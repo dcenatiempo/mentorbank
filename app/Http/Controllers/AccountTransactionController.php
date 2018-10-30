@@ -48,6 +48,10 @@ class AccountTransactionController extends Controller
             'account_id' => $accountId,
             'date' => $date
         ]);
+
+        $transaction = Transaction::find($transaction->id);
+        
+        $transaction->updateBalances();
         
         return new TransactionResource($transaction);
     }

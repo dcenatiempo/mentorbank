@@ -17,6 +17,9 @@ class CreateSubscribedCategoryTable extends Migration
         Schema::create('subscribed_categories', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+            $table->decimal('balance', 15, 2)->default(0);
+            $table->integer('total_transactions')->default(0);
+            $table->integer('monthly_transactions')->default(0);
             $table->boolean('notifications')->default(true);
             $table->integer('goal_balance')->nullable(); // in cents
             $table->integer('low_balance_alert')->default(0); // in cents

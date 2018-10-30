@@ -26,7 +26,7 @@ class Transaction extends JsonResource
             // data (alphabetical)  
             'date' => $this->date,
             'memo' => $this->memo,
-            'netAmount' => $this->net_amount,
+            'netAmount' => round($this->net_amount, 2),
             'split' => $this->formatSplit($this->split),
             'type' => $this->type
         ];

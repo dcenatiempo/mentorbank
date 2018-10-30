@@ -20,7 +20,7 @@ class AccountSubscribedCategoryController extends Controller
     {
         $accountId = Route::current()->parameter('id');
 
-        return SubscribedCategoryResource::collection(SubscribedCategory::accountCatsWithBalances($accountId));
+        return SubscribedCategoryResource::collection(Account::find($accountId)->subscribedCategories);
     }
 
     /**

@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Bank;
 use App\Banker;
+use App\Http\Resources\Bank as BankResource;
 
 class BankController extends Controller
 {
     function index (Request $request) {
-        return $request->user()->banker->bank->toJson();
+        $bank = $request->user()->banker->bank;
+
+        return new BankResource($bank);
     }
 
     function store (Request $request) {

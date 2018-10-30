@@ -28,7 +28,7 @@ const actions = {
         context.commit('setBankLoading', true);
         axios.get('/api/bank')
         .then(function (response) {
-            context.commit('setBank', response.data)
+            context.commit('setBank', response.data.data)
         })
         .catch(function (error) {
             console.log(error);

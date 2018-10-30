@@ -18,9 +18,10 @@ class AccountTransactionController extends Controller
      */
     public function index(Request $request)
     {
-        // $bank = $request->user()->banker->bank;
         $accountId = Route::current()->parameter('id');
+
         $transactions = Account::find($accountId)->transactions;
+        
         return TransactionResource::collection($transactions);
     }
 

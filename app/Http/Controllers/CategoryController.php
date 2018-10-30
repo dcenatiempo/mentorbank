@@ -9,10 +9,12 @@ use App\Http\Resources\Category as CategoryResource;
 class CategoryController extends Controller
 {
     function index (Request $request) {
-        $categories = $request->user()->banker->bank->categories;
-        $standardCategories = Category::getGlobalCategories();
+        $bankCategories = $request->user()->banker->bank->categories;
+        $globalCategories = Category::getGlobalCategories();
 
-        return new CategoryResource($categories->concat($standardCategories)->all());
+        $allBankCats = $bankaCtegories->concat($globalCategories)->all();
+
+        return new CategoryResource($allBankCats);
     }
 
     function store (Request $request) {

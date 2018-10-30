@@ -14,7 +14,9 @@ use App\Http\Resources\Account as AccountResource;
 class AccountController extends Controller
 {
     function index (Request $request) {
-        return AccountResource::collection($request->user()->banker->bank->accounts);
+        $accounts = $request->user()->banker->bank->accounts;
+        
+        return AccountResource::collection($accounts);
         // return new AccountCollectionResource($request->user()->banker->bank->accounts()->paginate(15));
     }
 

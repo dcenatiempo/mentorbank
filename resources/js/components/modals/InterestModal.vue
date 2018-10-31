@@ -7,26 +7,47 @@
         @handle-modal-cancel="closeModal"
         :disabled="disabled">
         
-    <!-- <label>Account</label>
-    <h3 v-if="singleAccountMode">{{currentAccount.accountHolder.name}}</h3>
-    <account-selector v-else ref="accountSelector" @select="onUpdateAccount"></account-selector> -->
-
-    <h2>Interest Rate: {{displayRate}}% per&nbsp;
-        <select v-model="rateDisplayInterval">
-            <option value="year">year</option>
-            <option value="month">month</option>
-            <option value="week">week</option>
-            <option value="day">day</option>
-        </select>
-    </h2>
-    
-    <p v-if="wOrM">Paid {{frequencyFullDescription}}</p>
-    <select v-model="frequency">
-        <option value="P1W">P1W</option>
-        <option value="P2W">P2W</option>
-        <option value="P4M">P4M</option>
-        <option value="P1M">P1M</option>
+    <input type="number" min="0" max="1000" step=".1" v-model="interestRate"/>
+    <span>% per</span>
+    <select v-model="rateDisplayInterval">
+        <option value="year">year</option>
+        <option value="month">month</option>
+        <option value="week">week</option>
+        <option value="day">day</option>
     </select>
+
+    <span>Paid every:</span>
+    <input
+        type="number"
+        step="1"
+        min="1"
+        :max="frequency.unit === 'W' ? 4 : 2"
+        v-model="frequency.time"/>
+    <select v-model="frequency.unit">
+        <option value="M">month{{frequency.time == 1 ? '' : 's'}}</option>
+        <option value="W">week{{frequency.time == 1 ? '' : 's'}}</option>
+    </select>
+
+    <template v-if="frequency.unit == 'W'">
+        <span>on</span>
+        <select v-model="distributionDay">
+            <option value="1">Monday</option>
+            <option value="2">Tuesday</option>
+            <option value="3">Wednesday</option>
+            <option value="4">Thursday</option>
+            <option value="5">Friday</option>
+            <option value="6">Saturday</option>
+            <option value="7">Sunday</option>
+        </select>
+    </template>
+    <template v-if="frequency.unit == 'M'">
+        <span>on the</span>
+        <select v-model="distributionDay">
+            <option v-for="n in 31"
+                :value="n"
+                :key="n">{{ordinal_suffix_of(n)}}</option>
+        </select>
+    </template>
 </modal>
 </template>
 
@@ -49,7 +70,10 @@ export default {
             accountId: null,
             interestRate: null,
             rateDisplayInterval: null,
-            frequency: null,
+            frequency: {
+                time: null,
+                unit: null
+            },
             distributionDay: null
         };
     },
@@ -92,17 +116,19 @@ export default {
     },
     methods: {
         ...mapMutations('app', ['hideModal']),
+        ...mapActions('accounts',['updateAccount']),
         ...mapActions('transactions', ['saveTransaction']),
         closeModal() {
             this.hideModal(this.id);
         },
         saveInterest() {
+            let f = this.frequency;
             let payload = {
                 accountId: this.accountId,
                 data: {
                     interestRate: this.interestRate,
                     rateDisplayInterval: this.rateDisplayInterval,
-                    frequency: this.frequency,
+                    frequency: `P${f.time}${f.unit}`,
                     distributionDay: this.distributionDay
                 }
             }
@@ -138,7 +164,8 @@ export default {
             this.accountId = payload["interest-modal"].accountId;
             this.interestRate = payload["interest-modal"].interestRate;
             this.rateDisplayInterval= payload["interest-modal"].rateDisplayInterval;
-            this.frequency= payload["interest-modal"].frequency;
+            this.frequency.time= payload["interest-modal"].frequency.split('')[1];
+            this.frequency.unit= payload["interest-modal"].frequency.split('')[2];
             this.distributionDay= payload["interest-modal"].distributionDay;
         }
     }
@@ -147,6 +174,16 @@ export default {
 
 <style lang="scss">
 #interest-modal {
+    .content {
+        display: flex;
+        flex-flow: row wrap;
+        align-items: baseline;
 
+        input {
+            flex-shrink: 1;
+            flex-basis: 50px;
+            text-align: right;
+        }
+    }
 }
 </style>

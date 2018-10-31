@@ -60,13 +60,13 @@ class AccountController extends Controller
 
     function update (Request $request, $id) {
         
-        $account = isAuthorized($request, $id);
+        $account = $this->isAuthorized($request, $id);
         
         if (!$account) {
             return response("", 403);
         }
 
-        $account->fill($request->post());
+        $account->update($request->post());
 
         return new AccountResource(Account::find($id));
     }
@@ -89,9 +89,7 @@ class AccountController extends Controller
         $user = $request->user();
 
         // does the account id belong to this user?
-        $account = $user->bank->accounts->first(function ($account) use ($id) {
-            return $account->id == $id;
-        });
+        $account = $user->banker->bank->accounts->firstWhere('id', $id);
         return $account;
     }
 }

@@ -4,7 +4,7 @@
     <h1 class="top-section">{{currentAccount.accountHolder.name}} Account Dashboard</h1>
     <h2>Balance: ${{currentAccount.balance}}</h2>
     <h2>Interest Rate: {{displayRate}}% per&nbsp;
-        <select v-model="displayInterval">
+        <select v-model="currentAccount.rateDisplayInterval">
             <option value="year">year</option>
             <option value="month">month</option>
             <option value="week">week</option>
@@ -65,16 +65,18 @@ export default {
             return this.frequency[2];
         },
         frequencyFullDescription() {
+            let frequency = this.currentAccount.frequency;
+            let distributionDay = this.currentAccount.distributionDay;
             if (this.wOrM == 'W') {
-                if (!this.currentAccount.distributionDay) return '';
+                if (!distributionDay) return '';
                 // every 2 weeks on monday
-                let day = moment().isoWeekday(this.currentAccount.distributionDay).format('dddd');
-                let freq = this.frequency[1] > 1 ? this.frequency[1]  : '';
-                let s = this.frequency[1] == 1 ? '' : 's'
+                let day = moment().isoWeekday(distributionDay).format('dddd');
+                let freq = frequency[1] > 1 ? frequency[1]  : '';
+                let s = frequency[1] == 1 ? '' : 's'
                 return `every ${freq} week${s} on ${day}`;
             } else if (this.wOrM == 'M') {
                 // monthly on the 5th
-                let day = this.currentAccount.distributionDay;
+                let day = distributionDay;
                 return 'monthly on the ' + this.ordinal_suffix_of(day);
             } else
                 return '';

@@ -136,7 +136,7 @@ const actions = {
                 'distribution_day': data.distributionDay
             }).then((response) => {
                 context.commit('updateAccount', response.data.data);
-                context.commit('setCurrentById', response.data.data)
+                context.commit('setCurrentByObj', response.data.data);
                 context.commit('setAccountsLoading', false);
                 resolve();
             })

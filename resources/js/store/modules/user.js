@@ -36,7 +36,7 @@ const actions = {
         context.commit('setUserLoading',true);
         axios.get('/api/user')
             .then(function (response) {
-                context.commit('setUser', response.data);
+                context.commit('setUser', response.data.data);
             })
             .catch(function (error) {
                 console.log(error);

@@ -38,7 +38,7 @@ const mutations = {
     },
     updateAccount(state, updatedAccount) {
         state.accountList = state.accountList.map(account => {
-            if (account.id = updatedAccount.id)
+            if (account.id == updatedAccount.id)
                 return updatedAccount;
             else
                 return account;
@@ -131,7 +131,7 @@ const actions = {
             // context.commit('setAccountsLoading', true);
             axios.patch(`/api/account/${accountId}`, {
                 'interest_rate': data.interestRate,
-                'rate_display_interval': data.rateDisplayInterval,
+                'rate_interval': data.rateInterval,
                 'frequency': data.frequency,
                 'distribution_day': data.distributionDay
             }).then((response) => {

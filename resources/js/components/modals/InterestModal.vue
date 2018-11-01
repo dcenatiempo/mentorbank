@@ -9,7 +9,7 @@
         
     <input type="number" min="0" max="1000" step=".1" v-model="interestRate"/>
     <span>% per</span>
-    <select v-model="rateDisplayInterval">
+    <select v-model="rateInterval">
         <option value="year">year</option>
         <option value="month">month</option>
         <option value="week">week</option>
@@ -69,7 +69,7 @@ export default {
             mode: 'update',
             accountId: null,
             interestRate: null,
-            rateDisplayInterval: null,
+            rateInterval: null,
             frequency: {
                 time: null,
                 unit: null
@@ -92,9 +92,9 @@ export default {
         },
         displayRate() {
             let divisor = 1;
-            if (this.rateDisplayInterval == 'month') divisor = 12;
-            else if (this.rateDisplayInterval == 'week') divisor = 52;
-            else if (this.rateDisplayInterval == 'day') divisor = 365;
+            if (this.rateInterval == 'month') divisor = 12;
+            else if (this.rateInterval == 'week') divisor = 52;
+            else if (this.rateInterval == 'day') divisor = 365;
             return Math.round((this.interestRate * 1000  / divisor))/1000;
         },
         frequencyFullDescription() {
@@ -127,7 +127,7 @@ export default {
                 accountId: this.accountId,
                 data: {
                     interestRate: this.interestRate,
-                    rateDisplayInterval: this.rateDisplayInterval,
+                    rateInterval: this.rateInterval,
                     frequency: `P${f.time}${f.unit}`,
                     distributionDay: this.distributionDay
                 }
@@ -163,7 +163,7 @@ export default {
             if(!payload["interest-modal"]) return;
             this.accountId = payload["interest-modal"].accountId;
             this.interestRate = payload["interest-modal"].interestRate;
-            this.rateDisplayInterval= payload["interest-modal"].rateDisplayInterval;
+            this.rateInterval= payload["interest-modal"].rateInterval;
             this.frequency.time= payload["interest-modal"].frequency.split('')[1];
             this.frequency.unit= payload["interest-modal"].frequency.split('')[2];
             this.distributionDay= payload["interest-modal"].distributionDay;

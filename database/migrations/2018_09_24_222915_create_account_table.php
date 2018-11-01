@@ -20,7 +20,7 @@ class CreateAccountTable extends Migration
             $table->integer('monthly_transactions')->default(0); //total number of transactions
             $table->integer('total_transactions')->default(0); //total number of transactions
             $table->decimal('interest_rate', 4, 2)->default(10); //APR
-            $table->enum('rate_display_interval', ['year', 'month', 'week', 'day'])->default('month'); //APR
+            $table->enum('rate_interval', ['year', 'month', 'week', 'day'])->default('month'); //APR
 
             // https://en.wikipedia.org/wiki/ISO_8601#Durations
             $table->string('frequency', 31)->default('P2W'); // P1W, P2W, P3W, P4W, P1M

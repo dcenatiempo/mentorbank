@@ -44,7 +44,7 @@ class Account extends JsonResource
             'lowBalanceAlert' => $this->low_balance_alert,
             'notifications' => $this->notifications,
             'overdraftFee' => $this->overdraft_fee,
-            'rateDisplayInterval' => $this->rate_display_interval,
+            'rateInterval' => $this->rate_interval,
             'view' => $this->view,
 
             // Related resources

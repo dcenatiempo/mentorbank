@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTransactionTable extends Migration
+class CreateInterestTransactionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreateTransactionTable extends Migration
      */
     public function up()
     {
-        Schema::create('transactions', function (Blueprint $table) {
+        Schema::create('interest_transactions', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->date('date');
-            $table->string('memo', 255)->nullable();
-            $table->enum('type', ['withdrawal', 'deposit', 'transfer']);
-            $table->jsonb('split'); // [{category, amount}]
-            $table->decimal('net_amount', 15, 2);
+            $table->decimal('amount', 15, 2);
+            $table->integer('category_id');
             $table->integer('account_id')->references('id')->on('accounts');
         });
     }
@@ -32,6 +29,6 @@ class CreateTransactionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transactions');
+        Schema::dropIfExists('interest_transactions');
     }
 }

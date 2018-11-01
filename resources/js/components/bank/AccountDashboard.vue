@@ -3,17 +3,10 @@
 
     <h1 class="top-section">{{currentAccount.accountHolder.name}} Account Dashboard</h1>
     <h2>Balance: ${{currentAccount.balance}}</h2>
-    <h2>Interest Rate: {{displayRate}}% per&nbsp;
-        <select v-model="currentAccount.rateDisplayInterval">
-            <option value="year">year</option>
-            <option value="month">month</option>
-            <option value="week">week</option>
-            <option value="day">day</option>
-        </select>
-    </h2>
-    <button v-on:click="showInterestModal">Edit</button>
-    
+    <h2>Interest Rate: {{currentAccount.interestRate}}% per {{currentAccount.rateInterval}}</h2>
     <p v-if="wOrM">Paid {{frequencyFullDescription}}</p>
+    <button v-on:click="showInterestModal">Edit</button>
+
 
     <section class="card-container">
         <div class="card">
@@ -51,8 +44,6 @@ export default {
     props: {},
     data() {
         return {
-            displayInterval: 'year',
-            frequency: 'P1W'
         };
     },
     computed: {
@@ -61,8 +52,8 @@ export default {
         ...mapState({ 'subedCats': state => state.accounts.currentAccount.subscribedCategories}),
         // ...mapGetters()
         wOrM() {
-            if (!this.frequency) return null;
-            return this.frequency[2];
+            if (!this.currentAccount.frequency) return null;
+            return this.currentAccount.frequency[2];
         },
         frequencyFullDescription() {
             let frequency = this.currentAccount.frequency;
@@ -81,13 +72,13 @@ export default {
             } else
                 return '';
         },
-        displayRate() {
-            let divisor = 1;
-            if (this.displayInterval == 'month') divisor = 12;
-            else if (this.displayInterval == 'week') divisor = 52;
-            else if (this.displayInterval == 'day') divisor = 365;
-            return Math.round((this.currentAccount.interestRate * 1000  / divisor))/1000;
-        }
+        // displayRate() {
+        //     let divisor = 1;
+        //     if (this.currentAccount.rateInterval == 'month') divisor = 12;
+        //     else if (this.currentAccount.rateInterval == 'week') divisor = 52;
+        //     else if (this.currentAccount.rateInterval == 'day') divisor = 365;
+        //     return Math.round((this.currentAccount.interestRate * 1000  / divisor))/1000;
+        // }
     },
     methods: {
         ...mapMutations('app', ['showModal', 'hideModal']),
@@ -101,7 +92,7 @@ export default {
                 payload: {
                     accountId: this.$route.params.accountId,
                     interestRate: this.currentAccount.interestRate,
-                    rateDisplayInterval: this.currentAccount.rateDisplayInterval,
+                    rateInterval: this.currentAccount.rateInterval,
                     frequency: this.currentAccount.frequency,
                     distributionDay: this.currentAccount.distributionDay
                 }

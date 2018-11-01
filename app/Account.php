@@ -53,6 +53,24 @@ class Account extends Model
         return $histories[0];
     }
 
+    public function scopeCanAccrueInterest($query) {
+        return $query->where('balance', '>', 0)
+                     ->where('interest_rate', '>', 0);
+    }
 
+    public function calculateDailyRate() {
+        $rateMap = [
+            'year' => 365,
+            'month' => 12,
+            'week' => 7,
+            'day' => 1
+        ];
+
+        return $this->interest_rate / $rateMap[$this->rate_interval] / 100;
+    }
+
+    public function getDailyAccruedInterest() {
+        return round($this->calculateDailyRate() * $this->balance, 2);
+    }
     
 }

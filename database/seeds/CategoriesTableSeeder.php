@@ -15,6 +15,7 @@ class CategoriesTableSeeder extends Seeder
             'name' => 'accrued_interest',
             'is_global' => true,
             'hidden' => true,
+            'force_subscribe' => true,
             'notifications' => false
         ]);
 

@@ -18,10 +18,11 @@ class Account extends Model
 
     // One to many
     public function transactions()         { return $this->hasMany('App\Transaction'); }
+    public function interestTransactions() { return $this->hasMany('App\InterestTransaction'); }
     public function histories()            { return $this->hasMany('App\TransactionHistory'); }
     public function recurringTemplates()   { return $this->hasMany('App\RecurringTemplate'); }
     public function notifications()        { return $this->hasMany('App\Notification'); }
-    public function subscribedCategories() { return $this->hasMany('App\SubscribedCategory')->where('category_id', '!=', 1); }
+    public function subscribedCategories() { return $this->hasMany('App\SubscribedCategory'); } //->where('category_id', '!=', 1); }
 
     public function calculateBalance() {
         // Get most recent history balance

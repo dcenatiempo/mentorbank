@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Bank;
 use App\InterestTransaction;
+use Carbon\Carbon;
 
 class AccrueInterest extends Command
 {
@@ -78,12 +79,20 @@ class AccrueInterest extends Command
                 $todaysAccruedInterest = $account->getDailyAccruedInterest();
 
                 $this->info($todaysAccruedInterest);
-                //TODO: what to do with the interest???
+                
                 InterestTransaction::create([
                     'amount' => $todaysAccruedInterest,
                     'category_id' => 1,
                     'account_id' => $account->id
                 ]);
+
+                $accruedInterest = $account->subscribedCategories()->where('category_id', '=', 1)->first();
+
+                $accruedInterest->balance += $todaysAccruedInterest;
+                $accruedInterest->total_transactions++;
+                $accruedInterest->monthly_transactions++;
+                $accruedInterest->updated_at = Carbon::now();
+                $accruedInterest->save();
             }
             
         }

@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import {mapState, mapMutations, mapActions} from 'vuex';
+import {mapState, mapGetters, mapMutations, mapActions} from 'vuex';
 
 import AccountSelector from '@reusable/AccountSelector.vue';
 import TransactionTypeSelector from '@reusable/TransactionTypeSelector.vue';
@@ -93,7 +93,8 @@ export default {
     computed: {
         ...mapState('app', ['modalPayload']),
         ...mapState('accounts', ['currentAccount']),
-        ...mapState({ 'subedCats': state => state.accounts.currentAccount.subscribedCategories}),
+        ...mapGetters('accounts', { 'subedCats': 'accountSubedCats'}),
+        // ...mapState({ 'subedCats': state => state.accounts.currentAccount.subscribedCategories}),
         mode() {
             let payload = this.modalPayload[this.id];
             return payload ? payload.mode : 'add';

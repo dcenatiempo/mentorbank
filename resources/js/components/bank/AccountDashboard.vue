@@ -49,7 +49,7 @@ export default {
     computed: {
         ...mapState('categories', ['categoryList']),
         ...mapState('accounts', ['currentAccount']),
-        ...mapState({ 'subedCats': state => state.accounts.currentAccount.subscribedCategories}),
+        ...mapGetters('accounts', { 'subedCats': 'accountSubedCats'}),
         // ...mapGetters()
         wOrM() {
             if (!this.currentAccount.frequency) return null;

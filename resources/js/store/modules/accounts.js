@@ -22,10 +22,10 @@ const state = {
 
 
 const getters = {
-    accountSubedCats: state => state.currentAccount.subscribedCategories.filter(cat => cat.id !== 1),
-    accountInterestCat: state => state.currentAccount.subscribedCategories.find(cat => cat.id === 1),
-    bankSubedCats: state => state.accountList.map(account => account.subscribedCategories.filter(cat => cat.id !== 1)),
-    bankInterestCats: state => state.accountList.map(account => account.subscribedCategories.find(cat => cat.id === 1))
+    accountSubedCats: state => state.currentAccount.subscribedCategories.filter(cat => cat.categoryId !== 1),
+    accountInterestCat: state => state.currentAccount.subscribedCategories.find(cat => cat.categoryId === 1),
+    bankSubedCats: state => state.accountList.map(account => account.subscribedCategories.filter(cat => cat.categoryId !== 1)),
+    bankInterestCats: state => state.accountList.map(account => account.subscribedCategories.find(cat => cat.categoryId === 1))
 };
 
 // direct mutations

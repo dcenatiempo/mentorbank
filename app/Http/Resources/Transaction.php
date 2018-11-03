@@ -32,11 +32,11 @@ class Transaction extends JsonResource
         ];
     }
 
-    private function formatSplit(String $split) {
-        return collect(json_decode($split))->map(function ($item) {
+    private function formatSplit($split) {
+        return collect($split)->map(function ($item) {
             return [
-                'amount' => $item->amount,
-                'categoryId' => $item->category_id 
+                'amount' => $item['amount'],
+                'categoryId' => $item['category_id']
             ];
         });
     }

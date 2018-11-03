@@ -44,7 +44,7 @@ class AccountTransactionController extends Controller
             'memo' => $memo,
             'type' => $type,
             'net_amount' => $netAmount,
-            'split' => $split,
+            'split' => json_decode($split),
             'account_id' => $accountId,
             'date' => $date
         ]);

@@ -20,4 +20,8 @@ class SubscribedCategory extends Model
         
         return $categories;
     }
+
+    public function scopeInterestOnly($query) {
+        return $query->where('category_id', '=', 1);
+    }
 }

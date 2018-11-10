@@ -34,7 +34,7 @@ class CreateAccountTable extends Migration
             $table->string('frequency', 31)->default('P2W'); // P1W, P2W, P3W, P4W, P1M 
             $table->integer('distribution_day')->default(1); // if W then 1-7 (1 = monday), if M then 1-31
             $table->date('last_distribution')->default(Carbon::now());
-            $table->date('next_distribution')->default(Carbon::now());
+            $table->date('next_distribution')->default(Carbon::now()->addWeeks(2));
 
             // Negative: TODO - I have no plans to implement this yet...
             $table->boolean('allow_negative_balance')->default(false);

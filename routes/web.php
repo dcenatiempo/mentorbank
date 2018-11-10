@@ -97,9 +97,9 @@ Route::middleware(['auth'])->group(function () {
                 ----        ---                     ------      ----------
                 GET	        /things	                index	    things.index
                 POST	    /things	                store	    things.store
-                GET	        /things/{id}	        show	    things.show
-                PUT/PATCH   /things/{id}	        update	    things.update
-                DELETE	    /things/{id}	        destroy	    things.destroy
+                GET	        /things/{thing}	        show	    things.show
+                PUT/PATCH   /things/{thing}	        update	    things.update
+                DELETE	    /things/{thing}	        destroy	    things.destroy
                 ***************************************************************/
                 Route::apiResources([
                     'transaction' => 'AccountTransactionController',

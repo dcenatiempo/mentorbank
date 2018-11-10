@@ -2,15 +2,39 @@
 
 namespace App;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
+use Carbon\CarbonInterval;
 
 class Account extends Model
 {
-    protected $guarded = [ ];
+    protected $fillable = [
+        'allow_negative_balance',
+        'balance',
+        'credit_interest_rate',
+        'distribution_day',
+        'frequency',
+        'goal_balance',
+        'interest_rate',
+        'last_distribution',
+        'low_balance_alert',
+        'monthly_transactions',
+        'next_distribution',
+        'notifications',
+        'overdraft_fee',
+        'rate_interval',
+        'total_transactions',
+        'view'
+    ];
+
     protected $casts = [
         'credit_interest_rate' => 'float',
-        'interest_rate' => 'float'
+        'interest_rate' => 'float',
+        'distribution_day' => 'int'
     ];
+
+    protected $dates = ['next_distribution', 'last_distribution'];
 
     // One to one (inverse)
     public function accountHolder()     { return $this->belongsTo('App\AccountHolder'); }
@@ -73,5 +97,34 @@ class Account extends Model
     public function getDailyAccruedInterest() {
         return round($this->calculateDailyRate() * $this->balance, 2);
     }
-    
+
+    public function calculateNextDistribution($today) {
+        $isWeek = 'W' == $this->frequency[2];
+
+        if ($isWeek) {
+            $interval = CarbonInterval::create($this->frequency);
+            $dif = $this->distribution_day - ($this->last_distribution->dayOfWeek);
+            
+            $nextDistribution = $this->last_distribution->addDays($dif)->add($interval);
+
+            while($nextDistribution <= $today) {
+                $nextDistribution->add($interval);
+            }
+
+        } else { // isMonth
+            $interval = $this->frequency[1];
+            
+            $nextDistribution = $this->last_distribution->addMonthsNoOverflow($interval);
+            
+            while($nextDistribution <= $today) {
+                $nextDistribution->addMonthsNoOverflow(1);
+            }
+
+            $nextDistribution->day = $nextDistribution->daysInMonth < $this->distribution_day
+                ? $nextDistribution->daysInMonth
+                : $this->distribution_day;
+        }
+        
+        return $nextDistribution;
+    }
 }

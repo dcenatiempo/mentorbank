@@ -134,10 +134,10 @@ const actions = {
         return new Promise((resolve, reject) => {
             // context.commit('setAccountsLoading', true);
             axios.patch(`/api/account/${accountId}`, {
-                'interest_rate': data.interestRate,
+                'interest_rate': Number(data.interestRate),
                 'rate_interval': data.rateInterval,
                 'frequency': data.frequency,
-                'distribution_day': data.distributionDay
+                'distribution_day': parseInt(data.distributionDay)
             }).then((response) => {
                 context.commit('updateAccount', response.data.data);
                 context.commit('setCurrentByObj', response.data.data);

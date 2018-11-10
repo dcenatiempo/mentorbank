@@ -34,17 +34,19 @@ class Account extends JsonResource
             // data (alphabetical)            
             'allowNegativeBalance' => $this->allow_negative_balance,
             'balance' => round($this->balance, 2),
-            'monthlyTransactions' => $this->monthly_transactions,
-            'totalTransactions' => $this->total_transactions,
             'creditInterestRate' => $this->credit_interest_rate,
             'distributionDay' => $this->distribution_day,
             'frequency' => $this->frequency,
             'goalBalance' => $this->goal_balance,
             'interestRate' => $this->interest_rate,
+            'lastDistribution' => $this->last_distribution,
             'lowBalanceAlert' => $this->low_balance_alert,
+            'monthlyTransactions' => $this->monthly_transactions,
+            'nextDistribution' => $this->next_distribution,
             'notifications' => $this->notifications,
             'overdraftFee' => $this->overdraft_fee,
             'rateInterval' => $this->rate_interval,
+            'totalTransactions' => $this->total_transactions,
             'view' => $this->view,
 
             // Related resources

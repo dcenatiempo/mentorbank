@@ -11,6 +11,9 @@ class Transaction extends Model
     protected $casts = [
         'split' => 'array'
    ];
+
+//    protected $dates = ['date'];
+
     // Many to one
     public function account() { return $this->belongsTo('App\Account'); }
 

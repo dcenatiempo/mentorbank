@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Account;
 use App\AccountHolder;
 use App\Transaction;
 use App\SubscribedCategory;
 use App\Http\Resources\Account as AccountResource;
+use Carbon\Carbon;
 // use App\Http\Resources\AccountCollection as AccountCollectionResource;
 
 class AccountController extends Controller
@@ -59,15 +61,15 @@ class AccountController extends Controller
 
     function update (Request $request, $id) {
         
-        $account = $this->isAuthorized($request, $id);
-        
-        if (!$account) {
-            return response("", 403);
-        }
+        $account = Account::find($id);
 
-        $account->update($request->post());
+        // for some reason $account->update() is not working :(
+        $account->fill($request->all());
+        $account->next_distribution = $account->calculateNextDistribution(Carbon::now());
 
-        return new AccountResource(Account::find($id));
+        $account->save();
+
+        return new AccountResource($account);
     }
 
     function delete (Request $request) {
@@ -88,7 +90,7 @@ class AccountController extends Controller
         $user = $request->user();
 
         // does the account id belong to this user?
-        $account = $user->banker->bank->accounts->firstWhere('id', $id);
+        $account = $user->banker->bank->accounts()->where('id', $id)->first();
         return $account;
     }
 }

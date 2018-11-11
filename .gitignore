@@ -16,3 +16,4 @@ yarn-error.log
 /public/js
 mix-manifest.json
 app.css
+yarn.lock

@@ -28,7 +28,8 @@ mix.webpackConfig({
         alias : {
           "icons": path.resolve(__dirname, "node_modules/vue-material-design-icons"),
           "@reusable": path.resolve(__dirname, "resources/js/components/reusable"),
-          "@modals": path.resolve(__dirname, "resources/js/components/modals")
+          "@modals": path.resolve(__dirname, "resources/js/components/modals"),
+          "@components": path.resolve(__dirname, "resources/js/components")
         }
       }      
 });

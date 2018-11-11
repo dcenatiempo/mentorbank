@@ -2,7 +2,7 @@
 <div id="dashboard">
 
     <h1 class="top-section">{{currentAccount.accountHolder.name}} Account Dashboard</h1>
-    <h2>Balance: ${{currentAccount.balance}}</h2>
+    <h2>Balance: <currency :amount="currentAccount.balance"></currency></h2>
     <h2>Interest Rate: {{currentAccount.interestRate}}% per {{currentAccount.rateInterval}}</h2>
     <p v-if="wOrM">Paid {{frequencyFullDescription}}</p>
     <button v-on:click="showInterestModal">Edit</button>
@@ -13,7 +13,7 @@
             <h2 class="card-header"><router-link to="/account/categories">Categories</router-link><button v-on:click="showCategoryModal">+</button></h2>
             <template v-for="category in subedCats">
                 <div :key="'c-'+category.id">
-                    <h3>{{getCategoryName(category.categoryId)}} ${{category.balance}}</h3>
+                    <h3>{{getCategoryName(category.categoryId)}} <currency :amount="category.balance"></currency></h3>
                 </div>
             </template>
         </div>
@@ -38,9 +38,10 @@
 
 <script>
 import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
+import Currency from '@reusable/Currency';
 
 export default {
-    components: {},
+    components: { Currency },
     props: {},
     data() {
         return {

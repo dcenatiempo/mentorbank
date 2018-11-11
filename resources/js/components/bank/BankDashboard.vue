@@ -11,7 +11,7 @@
             </h2>
             <template v-for="account in accounts.accountList">
                 <div :key="account.id">
-                    <h3><router-link :to="`/bank/accounts/${account.id}`">{{account.accountHolder.name}}</router-link> ${{account.balance}}</h3>
+                    <h3><router-link :to="`/bank/accounts/${account.id}`">{{account.accountHolder.name}}</router-link> <currency :amount="account.balance"></currency></h3>
                 </div>
             </template>
         </div>
@@ -29,7 +29,7 @@
             <h2 class="card-header"><router-link to="/bank/transactions">Recent Transactions</router-link><button v-on:click="showTransactionModal">+</button></h2> 
             <template v-for="transaction in transactions.transactionList">
                 <div :key="'t-'+transaction.id">
-                    <h3>{{transaction.date}} {{transaction.type}} ${{transaction.netAmount}} {{accounts.accountList.find( item => item.id == transaction.accountId).accountHolder.name}}</h3>
+                    <h3>{{transaction.date}} {{transaction.type}} <currency :amount="transaction.netAmount"></currency> {{accounts.accountList.find( item => item.id == transaction.accountId).accountHolder.name}}</h3>
                 </div>
             </template>
         </div>
@@ -44,9 +44,10 @@
 
 <script>
 import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
+import Currency from '@reusable/Currency';
 
 export default {
-    components: {},
+    components: { Currency },
     props: {},
     data() {
         return {

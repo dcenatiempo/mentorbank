@@ -1,11 +1,21 @@
 <?php
-$url = parse_url(env("DATABASE_URL"));
+$host = '127.0.0.1';
+$username = 'postgres';
+$password = '';
+$database = 'mentorbank';
+$port = 5432;
 
-$host = $url["host"];
-$username = $url["user"];
-$password = $url["pass"];
-$database = substr($url["path"], 1);
-$port = $url["port"];
+
+if (env("DATABASE_URL")) {
+    $url = parse_url(env("DATABASE_URL"));
+
+    $host = $url["host"];
+    $username = $url["user"];
+    $password = $url["pass"];
+    $database = substr($url["path"], 1);
+    $port = $url["port"];
+}
+
 
 return [
 

@@ -1,16 +1,22 @@
 <template>
 <div id="dashboard">
 
-    <h1 class="top-section">{{currentAccount.accountHolder.name}} Account Dashboard</h1>
-    <h2>Balance: <currency :amount="currentAccount.balance"></currency></h2>
-    <h2>Interest Rate: {{currentAccount.interestRate}}% per {{currentAccount.rateInterval}}</h2>
-    <p v-if="wOrM">Paid {{frequencyFullDescription}}</p>
-    <button v-on:click="showInterestModal">Edit</button>
-
+    <h1 class="top-section">{{currentAccount.accountHolder.name}}'s Account Dashboard</h1>
 
     <section class="card-container">
+
         <div class="card">
-            <h2 class="card-header"><router-link to="/account/categories">Categories</router-link><button v-on:click="showCategoryModal">+</button></h2>
+            <h2>Balance: <currency :amount="currentAccount.balance"></currency></h2>
+            <h2>Interest Rate: {{currentAccount.interestRate}}% per {{currentAccount.rateInterval}}</h2>
+            <div class="row">
+                <span v-if="wOrM">Paid {{frequencyFullDescription}}</span>
+                <button v-on:click="showInterestModal" class="btn-icon"><edit></edit></button>
+            </div>
+            
+        </div>
+
+        <div class="card">
+            <h2 class="card-header"><router-link to="/account/categories">Categories</router-link><button v-on:click="showCategoryModal" class="btn-icon">+</button></h2>
             <template v-for="category in subedCats">
                 <div :key="'c-'+category.id">
                     <h3>{{getCategoryName(category.categoryId)}} <currency :amount="category.balance"></currency></h3>
@@ -18,15 +24,18 @@
             </template>
         </div>
 
-       <!--  <div class="card">
-            <h2 class="card-header"><router-link to="/bank/transactions">Transactions</router-link><button v-on:click="showTransactionModal">+</button></h2> 
+       <!--
+       <div class="card">
+            <h2 class="card-header"><router-link to="/bank/transactions">Recent Transactions</router-link><button v-on:click="showTransactionModal">+</button></h2> 
             <template v-for="transaction in transactions.transactionList">
                 <div :key="'t-'+transaction.id">
                     <h3>{{transaction.date}} {{transaction.type}} ${{transaction.net_amount}} {{accounts.accountList.find( item => item.id == transaction.account_id).accountHolder.name}}</h3>
                 </div>
             </template>
         </div>
+        -->
 
+        <!--
         <div class="card">
             <h2 class="card-header">Recurring Transactions</h2>
         </div>
@@ -39,9 +48,13 @@
 <script>
 import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
 import Currency from '@reusable/Currency';
+import Pencil from 'icons/pencil';
 
 export default {
-    components: { Currency },
+    components: {
+        Currency,
+        'edit': Pencil
+    },
     props: {},
     data() {
         return {
@@ -159,9 +172,15 @@ export default {
     display: grid;
     grid-gap: 1rem;
     
+    .row {
+        display: flex;
+        align-content: center;
+    }
+
     .top-section {
         background: white;
         grid-column: 1 / end;
+        padding: 1rem;
     }
 
     .card-container {

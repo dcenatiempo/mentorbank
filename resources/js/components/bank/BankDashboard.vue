@@ -7,9 +7,12 @@
         <div class="card">
             <h2 class="card-header">
                 <router-link to="/bank/accounts">Accounts</router-link>
-                <button v-on:click="showAccountModal">+</button>
+                <button v-on:click="showAccountModal" class="btn-icon">+</button>
             </h2>
-            <template v-for="account in accounts.accountList">
+            <template v-if="accounts.loading">
+                <div class="loader"></div>
+            </template>
+            <template v-else v-for="account in accounts.accountList">
                 <div :key="account.id">
                     <h3><router-link :to="`/bank/accounts/${account.id}`">{{account.accountHolder.name}}</router-link> <currency :amount="account.balance"></currency></h3>
                 </div>
@@ -17,7 +20,7 @@
         </div>
 
         <div class="card">
-            <h2 class="card-header"><router-link to="/bank/categories">Categories</router-link><button v-on:click="showCategoryModal">+</button></h2>
+            <h2 class="card-header"><router-link to="/bank/categories">Categories</router-link><button v-on:click="showCategoryModal" class="btn-icon">+</button></h2>
             <template v-for="category in categories.categoryList">
                 <div :key="'c-'+category.id">
                     <h3>{{category.name}}</h3>
@@ -26,8 +29,11 @@
         </div>
 
         <div class="card">
-            <h2 class="card-header"><router-link to="/bank/transactions">Recent Transactions</router-link><button v-on:click="showTransactionModal">+</button></h2> 
-            <template v-for="transaction in transactions.transactionList">
+            <h2 class="card-header"><router-link to="/bank/transactions">Recent Transactions</router-link></h2> 
+            <template v-if="accounts.loading">
+                <div class="loader"></div>
+            </template>
+            <template v-else v-for="transaction in transactions.transactionList">
                 <div :key="'t-'+transaction.id">
                     <h3>{{transaction.date}} {{transaction.type}} <currency :amount="transaction.netAmount"></currency> {{accounts.accountList.find( item => item.id == transaction.accountId).accountHolder.name}}</h3>
                 </div>
@@ -103,6 +109,7 @@ export default {
     .top-section {
         background: white;
         grid-column: 1 / end;
+        padding: 1rem;
     }
 
     .card-container {

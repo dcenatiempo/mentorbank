@@ -11,12 +11,12 @@
         <input id="name" type="text" placeholder="Enter account holder's name" v-model="name"/>
         <label for="year">Birth Month:</label>
         <datepicker :format="'MMM yyyy'" :minimumView="'month'" :maximumView="'month'" v-model="birthDate"></datepicker>
-        <label for="sex">Sex:</label>
-        <div class="fieldset">
-            <input type="radio" id="m" value="m" name="sex" v-model="sex">
-            <label for="m">Male</label>
-            <input type="radio" id="f" value="f" name="sex" v-model="sex">
-            <label for="f">Female</label>
+        <toggle-button
+            v-model="isMale"
+            :labels="{checked: 'Male', unchecked: 'Female'}"
+            :color="{checked: '#6cb2eb', unchecked: 'pink', disabled: '#CCCCCC'}"
+            :width="70"
+            :height="30"/>
         </div>
     </form>
 
@@ -26,6 +26,7 @@
 <script>
 import {mapState, mapActions, mapMutations} from 'vuex';
 import Datepicker from 'vuejs-datepicker';
+import ToggleButton from 'vue-js-toggle-button/src/Button';
 
 import Modal from './Modal.vue';
 
@@ -33,13 +34,14 @@ export default {
     components: {
         'modal': Modal,
         Datepicker,
+        ToggleButton
     },
     props: {},
     data() {
         return {
             id: 'account-modal',
             name: '',
-            sex: '',
+            isMale: true,
             birthDate: moment().subtract(5, 'year').format(),
         };
     },
@@ -73,7 +75,7 @@ export default {
             let account = {
                 name: this.name,
                 birthDate: this.birthDate,
-                sex: this.sex
+                sex: this.isMale ? 'm' : 'f'
             }
             console.dir(account)
             this.createAccount(account)

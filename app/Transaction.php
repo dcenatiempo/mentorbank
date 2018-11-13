@@ -12,7 +12,7 @@ class Transaction extends Model
         'split' => 'array'
    ];
 
-//    protected $dates = ['date'];
+   protected $dates = ['date'];
 
     // Many to one
     public function account() { return $this->belongsTo('App\Account'); }

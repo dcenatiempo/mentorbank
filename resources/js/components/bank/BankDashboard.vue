@@ -29,19 +29,38 @@
         </div>
 
         <div class="card">
-            <h2 class="card-header"><router-link to="/bank/transactions">Recent Transactions</router-link></h2> 
+            <h2 class="card-header">Recent Transactions</h2> 
             <template v-if="accounts.loading">
                 <div class="loader"></div>
             </template>
-            <template v-else v-for="transaction in transactions.transactionList">
-                <div :key="'t-'+transaction.id">
-                    <h3>{{transaction.date}} {{transaction.type}} <currency :amount="transaction.netAmount"></currency> {{accounts.accountList.find( item => item.id == transaction.accountId).accountHolder.name}}</h3>
-                </div>
-            </template>
+
+            <table v-else>
+                <template class="transaction-grid"  v-for="transaction in transactions.transactionList.slice(0, 10)">
+                    <tr :key="'t-'+transaction.id" class="row">
+                        <td>{{moment(transaction.createdAt.date).format('ddd, MMM DD')}}</td>
+                        <td>
+                            {{accounts.accountList.find( item => item.id == transaction.accountId).accountHolder.name}}
+                        </td>
+                        <td>
+                            <transfer v-if="transaction.type == 'transfer'" class="transfer"></transfer>
+                            <deposit v-else-if="transaction.type == 'deposit'" class="deposit"></deposit>
+                            <withdrawal v-else-if="transaction.type == 'withdrawal'" class="withdrawal"></withdrawal>
+                        </td>
+                        <td class="align-right">
+                            <currency :amount="transaction.netAmount"></currency>
+                        </td>
+                        <!-- <td>
+                            <button v-on:click="editTransaction" class="btn-icon"><edit></edit></button>
+                        </td> -->
+                    </tr>
+                </template>
+            </table>
+
         </div>
 
         <div class="card">
             <h2 class="card-header">Recurring Transactions</h2>
+            <p>Coming Soon!</p>
         </div>
     </section>
 
@@ -51,9 +70,19 @@
 <script>
 import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
 import Currency from '@reusable/Currency';
+import BankTransfer from 'icons/BankTransfer';
+import BankTransferIn from 'icons/BankTransferIn';
+import BankTransferOut from 'icons/BankTransferOut';
+import Pencil from 'icons/pencil';
 
 export default {
-    components: { Currency },
+    components: {
+        Currency,
+        'transfer': BankTransfer,
+        'deposit': BankTransferIn,
+        'withdrawal': BankTransferOut,
+        'edit': Pencil
+    },
     props: {},
     data() {
         return {
@@ -71,6 +100,9 @@ export default {
         ...mapActions('categories', ['fetchAllCategories']),
         ...mapActions('transactions', ['fetchAllTransactions']),
         ...mapActions('app', ['changePage']),
+        moment(d) {
+            return moment(d);
+        },
         showCategoryModal() {
             this.showModal({
                 modalId: 'category-modal',
@@ -102,6 +134,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import 'resources/sass/variables';
+
 #dashboard {
     display: grid;
     grid-gap: 1rem;
@@ -110,6 +144,16 @@ export default {
         background: white;
         grid-column: 1 / end;
         padding: 1rem;
+    }
+
+    .transfer {
+        color: $purple;
+    }
+    .deposit {
+        color: $green;
+    }
+    .withdrawal {
+        color: $red;
     }
 
     .card-container {
@@ -126,6 +170,21 @@ export default {
                 justify-content: space-between;
             }
         }
+    }
+
+    table {
+        width: 100%;
+
+        tr:nth-child(even) {
+            background-color: $lightgray;
+        }
+
+        td {
+            &.align-right {
+                text-align: right;
+            }
+        }
+
     }
     
 }

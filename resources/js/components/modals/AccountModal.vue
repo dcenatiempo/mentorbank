@@ -17,7 +17,6 @@
             :color="{checked: '#6cb2eb', unchecked: 'pink', disabled: '#CCCCCC'}"
             :width="70"
             :height="30"/>
-        </div>
     </form>
 
 </modal>

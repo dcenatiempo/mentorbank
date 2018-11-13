@@ -17,7 +17,7 @@ class BankTransactionController extends Controller
      */
     public function index(Request $request)
     {
-        $transactions = $request->user()->banker->bank->transactions;
+        $transactions = $request->user()->banker->bank->transactions()->orderby('created_at', 'desc')->get();
 
         return TransactionResource::collection($transactions);
     }

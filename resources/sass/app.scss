@@ -617,14 +617,25 @@ body > div {
   }
 }
 
-
 .btn-warning,
 .btn-cancel,
 .btn-confirm {
   padding: .5em 1em;
   border: none;
   border-radius: 3px;
-  transition: all 100ms;
+  transition: all 150ms;
+}
+
+.btn-warning,
+.btn-confirm {
+
+  &:hover:not([disabled]) {
+    opacity: .8;
+  }
+
+  &[disabled] {
+    background: $gray;
+  }
 }
 
 .btn-warning {
@@ -639,6 +650,7 @@ body > div {
   &:hover {
     background: $red;
     color: white;
+    opacity: 1;
   }
 }
 

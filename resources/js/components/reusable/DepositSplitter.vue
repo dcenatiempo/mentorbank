@@ -1,17 +1,12 @@
 <template>
 <div class="flex-col">
     <div class="split-row">
-        <label>Amount</label>
         <label>Category</label>
+        <label>Amount</label>
     </div>
     <div class="split-row"
         v-for="(row, index) in split"
         :key="`split-${index}`">
-        <money
-            v-bind="moneyConfig"
-            v-model="split[index].amount"
-            @input="handleMoneyChange($event, index)">
-        </money>
         <multiselect
             v-model="split[index].category"
             :options="depositCats[index]"
@@ -26,7 +21,12 @@
                 && !depositCats[index][index]"
             @select="handleCatChange">
         </multiselect>
-        <button class="remove-btn"
+        <money
+            v-bind="moneyConfig"
+            v-model="split[index].amount"
+            @input="handleMoneyChange($event, index)">
+        </money>
+        <button class="remove-btn btn-icon"
             v-if="shouldShowRemove"
             v-on:click="removeCategory(index)">
             <remove></remove>
@@ -178,13 +178,12 @@ export default {
     }
     .split-row {
         display: grid;
-        grid-template-columns: 1fr 2fr min-content;
+        grid-template-columns: 2fr 1fr min-content;
         grid-gap: .5rem;
-        align-items: flex-start;
     }
     .flex-col {
-        display: flex;
-        flex-flow: column nowrap;
+        display: grid;
+        grid-row-gap: .5rem;
     }
     .remove-btn {
         background: transparent;

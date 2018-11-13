@@ -8,11 +8,18 @@
         :disabled="disabled">
     
     <label>Category Name</label>
-    <input type="text" placeholder="enter category name" v-model="name">
+    <input type="text" placeholder="enter unique category name" v-model="name">
 
 
-    <label>Standard (All accounts acutomatically subscribed to)</label>
-    <toggle-button v-model="forceSubscribe"/>
+    <div class="row">
+        <label>Account Holders</label>
+        <toggle-button
+            v-model="forceSubscribe"
+            :labels="{checked: 'All', unchecked: 'Pick'}"
+            :color="{checked: '#41b883', unchecked: '#CCCCCC', disabled: '#CCCCCC'}"
+            :width="70"
+            :height="30"/>
+    </div>
 
     <multiselect
         v-show="!forceSubscribe"
@@ -20,15 +27,13 @@
         :options="accountList"
         track-by="accountId"
         label="accountHolderName"
-        placeholder="select an account"
+        placeholder="select account(s)"
         :preselect-first="false"
         :multiple="true"
         :allow-empty="true"
         :hideSelected="false"
         @select="onSelectAccount">
     </multiselect>
-</modal>
-</template>
 
     <!-- <label>Notifications</label>
     <input type="checkbox" v-model="notifications">
@@ -91,7 +96,7 @@ export default {
         },
         disabled() {
             if (this.name.length < 1) return true;
-            if (this.getCategoryNames.includes(this.name.trim())) return true;
+            if (this.getCategoryNames.map(name => name.toLowerCase()).includes(this.name.trim().toLowerCase())) return true;
             return false;
         },
         // TODO: come up with a name/concept of Banks with 1 account vs Banks with 2+ accounts 
@@ -140,8 +145,16 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss">
+    #category-modal {
+        .content {
+            .row {
+                display: flex;
+                align-items: center;
+                justify-content: space-between
+            }
+        }
+    }
 </style>
 
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

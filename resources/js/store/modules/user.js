@@ -5,14 +5,14 @@ const state = {
     name: '',
     email: '',
     birthDate: null,
-    created_at: null
+    createdAt: null
 };
 
 
 const getters = {
     firstName: state => state.name.split(' ')[0],
     lastName: state => state.name.split(' ')[1] ? state.name.split(' ')[1] : '',
-    memberSince: state => moment(state.created_at).fromNow()
+    memberSince: state => moment(state.createdAt.date).fromNow()
 };
 
 // direct mutations

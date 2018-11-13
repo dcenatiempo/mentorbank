@@ -161,7 +161,7 @@ export default {
                 memo: this.memo,
                 net_amount: this.netAmount,
                 split: split,
-                date: this.date
+                date: moment.now()
             }
             this.saveTransaction(transaction)
             .then( () => {

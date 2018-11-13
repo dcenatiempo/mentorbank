@@ -17,7 +17,7 @@ const mutations = {
         state.loading = payload;
     },
     addTransaction(state, payload) {
-        state.transactionList = state.transactionList.concat(payload);
+        state.transactionList = [payload].concat(state.transactionList);
     }
 };
 

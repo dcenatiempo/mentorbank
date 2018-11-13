@@ -597,7 +597,7 @@ body > div > main {
   border: none;
   background: transparent;
   cursor: pointer;
-  color: #d1d7df;
+  color: #e6e9f0;
   -webkit-transition: color 100ms;
   transition: color 100ms;
 }
@@ -612,8 +612,18 @@ body > div > main {
   padding: .5em 1em;
   border: none;
   border-radius: 3px;
-  -webkit-transition: all 100ms;
-  transition: all 100ms;
+  -webkit-transition: all 150ms;
+  transition: all 150ms;
+}
+
+.btn-warning:hover:not([disabled]),
+.btn-confirm:hover:not([disabled]) {
+  opacity: .8;
+}
+
+.btn-warning[disabled],
+.btn-confirm[disabled] {
+  background: #a0a5af;
 }
 
 .btn-warning {
@@ -629,6 +639,7 @@ body > div > main {
 .btn-cancel:hover {
   background: #ff6a6a;
   color: white;
+  opacity: 1;
 }
 
 .btn-confirm {

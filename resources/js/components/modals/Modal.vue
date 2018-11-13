@@ -67,6 +67,8 @@ export default {
 </script>
 
 <style lang="scss">
+    @import 'resources/sass/variables';
+
     .dialog {
         box-sizing: border-box;
         position: absolute;
@@ -87,7 +89,7 @@ export default {
             display: flex;
             flex-flow: row nowrap;
             justify-content: space-between;
-            border-bottom: 1px solid gray;
+            border-bottom: 1px solid $lightgray;
             padding: 16px;
 
             .title {
@@ -105,7 +107,7 @@ export default {
             display: flex;
             flex-flow: row nowrap;
             justify-content: space-around;
-            border-top: 1px solid gray;
+            border-top: 1px solid $lightgray;
             padding: 16px;
         }
     }

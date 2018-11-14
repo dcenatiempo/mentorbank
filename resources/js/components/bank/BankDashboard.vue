@@ -28,35 +28,9 @@
             </template>
         </div>
 
-        <div class="card">
-            <h2 class="card-header">Recent Transactions</h2> 
-            <template v-if="accounts.loading">
-                <div class="loader"></div>
-            </template>
-
-            <table v-else>
-                <template class="transaction-grid"  v-for="transaction in transactions.transactionList.slice(0, 10)">
-                    <tr :key="'t-'+transaction.id" class="row">
-                        <td>{{moment(transaction.createdAt.date).format('ddd, MMM DD')}}</td>
-                        <td>
-                            {{accounts.accountList.find( item => item.id == transaction.accountId).accountHolder.name}}
-                        </td>
-                        <td>
-                            <transfer v-if="transaction.type == 'transfer'" class="transfer"></transfer>
-                            <deposit v-else-if="transaction.type == 'deposit'" class="deposit"></deposit>
-                            <withdrawal v-else-if="transaction.type == 'withdrawal'" class="withdrawal"></withdrawal>
-                        </td>
-                        <td class="align-right">
-                            <currency :amount="transaction.netAmount"></currency>
-                        </td>
-                        <!-- <td>
-                            <button v-on:click="editTransaction" class="btn-icon"><edit></edit></button>
-                        </td> -->
-                    </tr>
-                </template>
-            </table>
-
-        </div>
+        <recent-transactions
+            :transaction-list="transactions.transactionList"
+            context="bank"></recent-transactions>
 
         <div class="card">
             <h2 class="card-header">Recurring Transactions</h2>
@@ -70,6 +44,7 @@
 <script>
 import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
 import Currency from '@reusable/Currency';
+import RecentTransactions from '@reusable/RecentTransactions';
 import BankTransfer from 'icons/BankTransfer';
 import BankTransferIn from 'icons/BankTransferIn';
 import BankTransferOut from 'icons/BankTransferOut';
@@ -78,6 +53,7 @@ import Pencil from 'icons/pencil';
 export default {
     components: {
         Currency,
+        RecentTransactions,
         'transfer': BankTransfer,
         'deposit': BankTransferIn,
         'withdrawal': BankTransferOut,
@@ -144,16 +120,6 @@ export default {
         background: white;
         grid-column: 1 / end;
         padding: 1rem;
-    }
-
-    .transfer {
-        color: $purple;
-    }
-    .deposit {
-        color: $green;
-    }
-    .withdrawal {
-        color: $red;
     }
 
     .card-container {

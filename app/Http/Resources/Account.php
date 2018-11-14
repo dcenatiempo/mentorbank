@@ -52,7 +52,7 @@ class Account extends JsonResource
             // Related resources
             'accountHolder' => new AccountHolderResource($this->accountHolder),
             'subscribedCategories' => SubscribedCategoryResource::collection($this->subscribedCategories),
-            'transactions' => TransactionResource::collection($this->transactions),
+            'transactions' => TransactionResource::collection($this->transactions()->orderby('created_at', 'desc')->get()),
             'histories' => TransactionHistoryResource::collection($this->histories),
         ];
     }

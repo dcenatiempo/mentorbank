@@ -16,7 +16,7 @@
         </div>
 
         <div class="card">
-            <h2 class="card-header"><router-link to="/account/categories">Categories</router-link><button v-on:click="showCategoryModal" class="btn-icon">+</button></h2>
+            <h2 class="card-header">Categories<button v-on:click="showCategoryModal" class="btn-icon">+</button></h2>
             <template v-for="category in subedCats">
                 <div :key="'c-'+category.id">
                     <h3>{{getCategoryName(category.categoryId)}} <currency :amount="category.balance"></currency></h3>
@@ -24,16 +24,14 @@
             </template>
         </div>
 
-       <!--
+        <recent-transactions
+            :transaction-list="currentAccount.transactions"
+            context="account"></recent-transactions>
+
        <div class="card">
-            <h2 class="card-header"><router-link to="/bank/transactions">Recent Transactions</router-link><button v-on:click="showTransactionModal">+</button></h2> 
-            <template v-for="transaction in transactions.transactionList">
-                <div :key="'t-'+transaction.id">
-                    <h3>{{transaction.date}} {{transaction.type}} ${{transaction.net_amount}} {{accounts.accountList.find( item => item.id == transaction.account_id).accountHolder.name}}</h3>
-                </div>
-            </template>
+            <h2 class="card-header">Recurring Transactions</h2>
+            <p>Coming Soon!</p>
         </div>
-        -->
 
         <!--
         <div class="card">
@@ -48,11 +46,13 @@
 <script>
 import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
 import Currency from '@reusable/Currency';
+import RecentTransactions from '@reusable/RecentTransactions';
 import Pencil from 'icons/pencil';
 
 export default {
     components: {
         Currency,
+        RecentTransactions,
         'edit': Pencil
     },
     props: {},

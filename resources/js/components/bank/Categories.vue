@@ -11,38 +11,37 @@
 <script>
 import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
 import Vuetable from 'vuetable-2/src/components/Vuetable';
-// import DeleteIcon from 'icons/Delete';
+import VuetableFieldActions from '@reusable/VuetableFieldActions';
 
 
 export default {
+
     components: {
-        Vuetable
+        Vuetable,
+        VuetableFieldActions
     },
     props: {},
     data() {
         return {
-                columns: [ {
-                        name: '__checkbox',
-                        title: 'Select',
-                        width: '50px'
-                    },{
+                columns: [
+                    {
                         name: 'name',
                         sortField: 'name'
                     },{
-                        name: 'is_global',
-                        title: 'Global',
-                        callback: this.formatBool,
-                        visible: false
-                    },{
                         name: 'notifications',
-                        callback: this.formatBool
+                        formatter: this.formatBool
                     },{
-                        name: 'force_subscribe',
-                        title: 'Bank Global',
-                        callback: this.formatBool
+                        name: 'forceSubscribe',
+                        title: 'AutoSub',
+                        formatter: this.formatBool
                     },{
-                        name: '__component:delete-icon',
-                        title: 'delete'
+                        name: 'subscribedCount',
+                        title: '# of Accounts'
+                    },{
+                        name: 'deletedAt',
+                        title: 'Archived'
+                    },{
+                        name: VuetableFieldActions,
                     }
                 ],
         };
@@ -51,15 +50,19 @@ export default {
         ...mapState('categories', ['categoryList', 'loading']),
     },
     methods: {
-        ...mapMutations('app', ['popPageHistory']),
-        // ...mapActions(),
+        ...mapActions('categories', ['fetchAllCategories']),
         formatBool (val) {
-            // return val ? 'Yes' : 'No';
-            return val ? `<input type="checkbox" checked disabled>` : `<input type="checkbox" disabled>`;
+            return val === true ? '✔' : '';
+            // return val ? `<input type="checkbox" checked disabled>` : `<input type="checkbox" disabled>`;
         }
     },
-    created() {},
-    mounted() {},
+    created() {
+        if (0 == this.categoryList.length) {
+            this.fetchAllCategories();
+        }
+    },
+    mounted() {
+    },
     watch: {}
 }
 </script>

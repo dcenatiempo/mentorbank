@@ -29,7 +29,7 @@
         track-by="accountId"
         label="accountHolderName"
         placeholder="select account(s)"
-        :preselect-first="false"
+        :preselect-first="isSingleAccount"
         :multiple="true"
         :allow-empty="true"
         :hideSelected="false"
@@ -64,7 +64,7 @@ export default {
         return {
             id: 'category-modal',
             name: '',
-            forceSubscribe: true,
+            forceSubscribe: false,
             selectedAccounts: null,
         };
     },
@@ -75,6 +75,10 @@ export default {
         mode() {
             let payload = this.modalPayload[this.id];
             return payload ? payload.mode : 'add';
+        },
+        category() {
+            let payload = this.modalPayload[this.id];
+            return payload ? payload.category : null;
         },
         clickText() {
             if (this.mode === 'add') {
@@ -97,21 +101,27 @@ export default {
         },
         disabled() {
             if (this.name.length < 1) return true;
-            if (this.getCategoryNames.map(name => name.toLowerCase()).includes(this.name.trim().toLowerCase())) return true;
+
+            let catNames = this.category
+                ? this.getCategoryNames.filter(name => name != this.category.name)
+                : this.getCategoryNames;
+            if (catNames.map(name => name.toLowerCase()).includes(this.name.trim().toLowerCase())) return true;
+
             return false;
         },
         // TODO: come up with a name/concept of Banks with 1 account vs Banks with 2+ accounts 
         isSingleAccount() {
             return this.accountList.length === 1;
-        }
+        },
+
     },
     methods: {
         ...mapMutations('app', ['hideModal']),
         ...mapMutations('accounts', ['setCurrentById']),
-        ...mapActions('categories', ['createCategory']),
+        ...mapActions('categories', ['createCategory', 'updateCategory', 'fetchBankSubscribedCats']),
         closeModal() {
             this.hideModal(this.id);
-            this.name = '';
+            this.reset();
         },
         saveCategory() {
             // determine subscribed accounts
@@ -128,21 +138,53 @@ export default {
                 forceSubscribe: this.forceSubscribe,
                 subscribedIds: accountIds
             };
-
-            this.createCategory(category).then( () => {
-                this.closeModal();
-            }).catch( () => {
-
-            });
+            if ('edit' == this.mode) {
+                category.id = this.category.id;
+                this.updateCategory(category).then( () => {
+                    this.closeModal();
+                }).catch( () => {});
+            } else if ('add' == this.mode) {
+                this.createCategory(category).then( () => {
+                    this.closeModal();
+                }).cat
+            }
+            
         },
         onSelectAccount(value) {
             // let accountId = value ? value.accountId : null;
             // this.setCurrentById(accountId);
         },
+        reset() {
+            this.name = '';
+            this.forceSubscribe = true;
+            this.selectedAccounts = null;
+        },
+        getSubedAccounts(catId) {
+            
+            // get the subbed accounts for the "edit" modal
+            return this.accounts.accountList.reduce((array, item) => {
+                if (item.subscribedCategories.find(cat => cat.categoryId == catId)) {
+                    array.push({
+                        accountHolderName: item.accountHolder.name,
+                        accountId: item.id
+                    });
+                }
+                return array;
+            }, []);
+        }
     },
     created() {},
     mounted() {},
-    watch: {}
+    watch: {
+        category(cat) {
+            if (!cat) return;
+
+            // if cat, then it must be an "edit" modal
+            this.name = cat.name;
+            this.forceSubscribe = cat.forceSubscribe;
+            this.selectedAccounts = this.getSubedAccounts(cat.id);
+        }
+    }
 }
 </script>
 

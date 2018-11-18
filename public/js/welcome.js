@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 273);
+/******/ 	return __webpack_require__(__webpack_require__.s = 274);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -31363,6 +31363,14 @@ var mutations = {
             account.subscribedCategories = payload[account.id];
             return account;
         });
+    },
+    addTransaction: function addTransaction(state, payload) {
+        state.accountList = state.accountList.map(function (account) {
+            if (account.id == payload.accountId) {
+                account.transactions = [payload].concat(account.transactions);
+            }
+            return account;
+        });
     }
 };
 
@@ -31558,6 +31566,8 @@ var actions = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 var state = {
     loading: false,
     categoryList: [],
@@ -31583,6 +31593,19 @@ var mutations = {
     },
     addCategory: function addCategory(state, payload) {
         state.categoryList = state.categoryList.concat(payload);
+    },
+    updateCategory: function updateCategory(state, updatedCat) {
+        state.categoryList = state.categoryList.map(function (cat) {
+            return cat.id == updatedCat.id ? updatedCat : cat;
+        });
+    },
+    deleteCategory: function deleteCategory(state, id) {
+        var newCatList = [].concat(_toConsumableArray(state.categoryList));
+        var i = newCatList.findIndex(function (cat) {
+            return cat.id == id;
+        });
+        newCatList.splice(i, 1);
+        state.categoryList = newCatList;
     },
     setCurrentSubscribedCats: function setCurrentSubscribedCats(state, payload) {
         state.currentSubscribedCats = payload;
@@ -31637,7 +31660,7 @@ var actions = {
             context.commit('setCategoryLoading', true);
             axios.post('/api/bank/category', {
                 name: name,
-                forceSubscribe: forceSubscribe,
+                'force_subscribe': forceSubscribe,
                 'subscribed': subscribedIds
             }).then(function (response) {
 
@@ -31645,7 +31668,7 @@ var actions = {
                 context.commit('addCategory', response.data.data);
 
                 // fetch updated subscribed categories
-                if (subscribedIds.length > 0) {
+                if (subscribedIds && subscribedIds.length > 0) {
                     context.dispatch('fetchBankSubscribedCats', subscribedIds);
                 }
 
@@ -31655,6 +31678,51 @@ var actions = {
                 console.error(err);
                 context.commit('setCategoryLoading', false);
                 reject();
+            });
+        });
+    },
+    updateCategory: function updateCategory(context, _ref2) {
+        var id = _ref2.id,
+            name = _ref2.name,
+            forceSubscribe = _ref2.forceSubscribe,
+            subscribedIds = _ref2.subscribedIds;
+
+        return new Promise(function (resolve, reject) {
+            context.commit('setCategoryLoading', true);
+            axios.put('/api/bank/category/' + id, {
+                name: name,
+                'force_subscribe': forceSubscribe,
+                'subscribed': subscribedIds
+            }).then(function (response) {
+
+                // append new category to vuex state
+                context.commit('updateCategory', response.data.data);
+
+                // fetch updated subscribed categories
+                context.dispatch('fetchBankSubscribedCats', subscribedIds);
+
+                // fetch updated transactions
+                context.dispatch('transactions/fetchAllTransactions', null, { root: true });
+
+                context.commit('setCategoryLoading', false);
+                resolve();
+            }).catch(function (err) {
+                console.error(err);
+                context.commit('setCategoryLoading', false);
+                reject();
+            });
+        });
+    },
+    deleteCategory: function deleteCategory(context, id) {
+        return new Promise(function (resolve, reject) {
+            context.commit('setCategoryLoading', true);
+            axios.delete('/api/bank/category/' + id).then(function (response) {
+                context.commit('deleteCategory', id);
+
+                // fetch updated transactions
+                if (response.data.refetchTransactions == true) {
+                    context.dispatch('transactions/fetchAllTransactions', null, { root: true });
+                }
             });
         });
     }
@@ -31675,6 +31743,7 @@ var actions = {
 "use strict";
 var state = {
     loading: false,
+    hasBeenLoaded: false,
     transactionList: []
 };
 
@@ -31689,6 +31758,9 @@ var mutations = {
     setTransactionLoading: function setTransactionLoading(state, payload) {
         state.loading = payload;
     },
+    setHasBeenLoaded: function setHasBeenLoaded(state, payload) {
+        state.hasBeenLoaded = payload;
+    },
     addTransaction: function addTransaction(state, payload) {
         state.transactionList = [payload].concat(state.transactionList);
     }
@@ -31697,7 +31769,8 @@ var mutations = {
 // async mutations
 // store.dispatch('actionName', payload)
 var actions = {
-    fetchAllTransactions: function fetchAllTransactions(context) {
+    fetchAllTransactions: function fetchAllTransactions(context, payload) {
+        context.commit('setHasBeenLoaded', true);
         context.commit('setTransactionLoading', true);
         axios.get('/api/bank/transaction').then(function (response) {
             context.commit('setTransactions', response.data.data);
@@ -31711,6 +31784,7 @@ var actions = {
             context.commit('setTransactionLoading', true);
             axios.post('/api/account/' + transaction.accountId + '/transaction', transaction).then(function (result) {
                 context.commit('addTransaction', result.data.data);
+                context.commit('accounts/addTransaction', result.data.data, { root: true });
                 context.commit('accounts/changeAccountBalance', {
                     accountId: result.data.data.accountId,
                     type: result.data.data.type,
@@ -31751,7 +31825,7 @@ var state = {
     name: '',
     email: '',
     birthDate: null,
-    createdAt: null
+    createdAt: { date: null }
 };
 
 var getters = {
@@ -33401,14 +33475,15 @@ if (false) {
 /* 270 */,
 /* 271 */,
 /* 272 */,
-/* 273 */
+/* 273 */,
+/* 274 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(274);
+module.exports = __webpack_require__(275);
 
 
 /***/ }),
-/* 274 */
+/* 275 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

@@ -5,7 +5,7 @@ const state = {
     name: '',
     email: '',
     birthDate: null,
-    createdAt: null
+    createdAt: {date: null}
 };
 
 

@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 275);
+/******/ 	return __webpack_require__(__webpack_require__.s = 276);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -31363,6 +31363,14 @@ var mutations = {
             account.subscribedCategories = payload[account.id];
             return account;
         });
+    },
+    addTransaction: function addTransaction(state, payload) {
+        state.accountList = state.accountList.map(function (account) {
+            if (account.id == payload.accountId) {
+                account.transactions = [payload].concat(account.transactions);
+            }
+            return account;
+        });
     }
 };
 
@@ -31558,6 +31566,8 @@ var actions = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 var state = {
     loading: false,
     categoryList: [],
@@ -31583,6 +31593,19 @@ var mutations = {
     },
     addCategory: function addCategory(state, payload) {
         state.categoryList = state.categoryList.concat(payload);
+    },
+    updateCategory: function updateCategory(state, updatedCat) {
+        state.categoryList = state.categoryList.map(function (cat) {
+            return cat.id == updatedCat.id ? updatedCat : cat;
+        });
+    },
+    deleteCategory: function deleteCategory(state, id) {
+        var newCatList = [].concat(_toConsumableArray(state.categoryList));
+        var i = newCatList.findIndex(function (cat) {
+            return cat.id == id;
+        });
+        newCatList.splice(i, 1);
+        state.categoryList = newCatList;
     },
     setCurrentSubscribedCats: function setCurrentSubscribedCats(state, payload) {
         state.currentSubscribedCats = payload;
@@ -31637,7 +31660,7 @@ var actions = {
             context.commit('setCategoryLoading', true);
             axios.post('/api/bank/category', {
                 name: name,
-                forceSubscribe: forceSubscribe,
+                'force_subscribe': forceSubscribe,
                 'subscribed': subscribedIds
             }).then(function (response) {
 
@@ -31645,7 +31668,7 @@ var actions = {
                 context.commit('addCategory', response.data.data);
 
                 // fetch updated subscribed categories
-                if (subscribedIds.length > 0) {
+                if (subscribedIds && subscribedIds.length > 0) {
                     context.dispatch('fetchBankSubscribedCats', subscribedIds);
                 }
 
@@ -31655,6 +31678,51 @@ var actions = {
                 console.error(err);
                 context.commit('setCategoryLoading', false);
                 reject();
+            });
+        });
+    },
+    updateCategory: function updateCategory(context, _ref2) {
+        var id = _ref2.id,
+            name = _ref2.name,
+            forceSubscribe = _ref2.forceSubscribe,
+            subscribedIds = _ref2.subscribedIds;
+
+        return new Promise(function (resolve, reject) {
+            context.commit('setCategoryLoading', true);
+            axios.put('/api/bank/category/' + id, {
+                name: name,
+                'force_subscribe': forceSubscribe,
+                'subscribed': subscribedIds
+            }).then(function (response) {
+
+                // append new category to vuex state
+                context.commit('updateCategory', response.data.data);
+
+                // fetch updated subscribed categories
+                context.dispatch('fetchBankSubscribedCats', subscribedIds);
+
+                // fetch updated transactions
+                context.dispatch('transactions/fetchAllTransactions', null, { root: true });
+
+                context.commit('setCategoryLoading', false);
+                resolve();
+            }).catch(function (err) {
+                console.error(err);
+                context.commit('setCategoryLoading', false);
+                reject();
+            });
+        });
+    },
+    deleteCategory: function deleteCategory(context, id) {
+        return new Promise(function (resolve, reject) {
+            context.commit('setCategoryLoading', true);
+            axios.delete('/api/bank/category/' + id).then(function (response) {
+                context.commit('deleteCategory', id);
+
+                // fetch updated transactions
+                if (response.data.refetchTransactions == true) {
+                    context.dispatch('transactions/fetchAllTransactions', null, { root: true });
+                }
             });
         });
     }
@@ -31675,6 +31743,7 @@ var actions = {
 "use strict";
 var state = {
     loading: false,
+    hasBeenLoaded: false,
     transactionList: []
 };
 
@@ -31689,6 +31758,9 @@ var mutations = {
     setTransactionLoading: function setTransactionLoading(state, payload) {
         state.loading = payload;
     },
+    setHasBeenLoaded: function setHasBeenLoaded(state, payload) {
+        state.hasBeenLoaded = payload;
+    },
     addTransaction: function addTransaction(state, payload) {
         state.transactionList = [payload].concat(state.transactionList);
     }
@@ -31697,7 +31769,8 @@ var mutations = {
 // async mutations
 // store.dispatch('actionName', payload)
 var actions = {
-    fetchAllTransactions: function fetchAllTransactions(context) {
+    fetchAllTransactions: function fetchAllTransactions(context, payload) {
+        context.commit('setHasBeenLoaded', true);
         context.commit('setTransactionLoading', true);
         axios.get('/api/bank/transaction').then(function (response) {
             context.commit('setTransactions', response.data.data);
@@ -31711,6 +31784,7 @@ var actions = {
             context.commit('setTransactionLoading', true);
             axios.post('/api/account/' + transaction.accountId + '/transaction', transaction).then(function (result) {
                 context.commit('addTransaction', result.data.data);
+                context.commit('accounts/addTransaction', result.data.data, { root: true });
                 context.commit('accounts/changeAccountBalance', {
                     accountId: result.data.data.accountId,
                     type: result.data.data.type,
@@ -31751,7 +31825,7 @@ var state = {
     name: '',
     email: '',
     birthDate: null,
-    createdAt: null
+    createdAt: { date: null }
 };
 
 var getters = {
@@ -37716,14 +37790,15 @@ if (false) {
 /* 272 */,
 /* 273 */,
 /* 274 */,
-/* 275 */
+/* 275 */,
+/* 276 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(276);
+module.exports = __webpack_require__(277);
 
 
 /***/ }),
-/* 276 */
+/* 277 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -37731,7 +37806,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__GlobalMixin__ = __webpack_require__(162);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_router__ = __webpack_require__(229);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_onboarding_Onboarding_vue__ = __webpack_require__(277);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_onboarding_Onboarding_vue__ = __webpack_require__(278);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_onboarding_Onboarding_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_onboarding_Onboarding_vue__);
 __webpack_require__(138);
 
@@ -37761,19 +37836,19 @@ var app = new Vue({
 });
 
 /***/ }),
-/* 277 */
+/* 278 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(278)
+  __webpack_require__(279)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(280)
+var __vue_script__ = __webpack_require__(281)
 /* template */
-var __vue_template__ = __webpack_require__(301)
+var __vue_template__ = __webpack_require__(302)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -37812,13 +37887,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 278 */
+/* 279 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(279);
+var content = __webpack_require__(280);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -37838,7 +37913,7 @@ if(false) {
 }
 
 /***/ }),
-/* 279 */
+/* 280 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(4)(false);
@@ -37852,19 +37927,19 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 
 /***/ }),
-/* 280 */
+/* 281 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__NewUser_vue__ = __webpack_require__(281);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__NewUser_vue__ = __webpack_require__(282);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__NewUser_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__NewUser_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__BankerProfile_vue__ = __webpack_require__(286);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__BankerProfile_vue__ = __webpack_require__(287);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__BankerProfile_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__BankerProfile_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AccountHolderProfile_vue__ = __webpack_require__(291);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AccountHolderProfile_vue__ = __webpack_require__(292);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AccountHolderProfile_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__AccountHolderProfile_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__NewBank_vue__ = __webpack_require__(296);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__NewBank_vue__ = __webpack_require__(297);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__NewBank_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__NewBank_vue__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -37916,19 +37991,19 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 });
 
 /***/ }),
-/* 281 */
+/* 282 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(282)
+  __webpack_require__(283)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(284)
+var __vue_script__ = __webpack_require__(285)
 /* template */
-var __vue_template__ = __webpack_require__(285)
+var __vue_template__ = __webpack_require__(286)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -37967,13 +38042,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 282 */
+/* 283 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(283);
+var content = __webpack_require__(284);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -37993,7 +38068,7 @@ if(false) {
 }
 
 /***/ }),
-/* 283 */
+/* 284 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(4)(false);
@@ -38007,7 +38082,7 @@ exports.push([module.i, "\ndiv.fieldset[data-v-6153a382] {\n  display: grid;\n  
 
 
 /***/ }),
-/* 284 */
+/* 285 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -38075,7 +38150,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 });
 
 /***/ }),
-/* 285 */
+/* 286 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -38255,19 +38330,19 @@ if (false) {
 }
 
 /***/ }),
-/* 286 */
+/* 287 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(287)
+  __webpack_require__(288)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(289)
+var __vue_script__ = __webpack_require__(290)
 /* template */
-var __vue_template__ = __webpack_require__(290)
+var __vue_template__ = __webpack_require__(291)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -38306,13 +38381,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 287 */
+/* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(288);
+var content = __webpack_require__(289);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -38332,7 +38407,7 @@ if(false) {
 }
 
 /***/ }),
-/* 288 */
+/* 289 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(4)(false);
@@ -38346,7 +38421,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 
 /***/ }),
-/* 289 */
+/* 290 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -38380,7 +38455,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 }), _defineProperty(_computed$props$data$, 'mounted', function mounted() {}), _defineProperty(_computed$props$data$, 'watch', {}), _computed$props$data$);
 
 /***/ }),
-/* 290 */
+/* 291 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -38404,19 +38479,19 @@ if (false) {
 }
 
 /***/ }),
-/* 291 */
+/* 292 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(292)
+  __webpack_require__(293)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(294)
+var __vue_script__ = __webpack_require__(295)
 /* template */
-var __vue_template__ = __webpack_require__(295)
+var __vue_template__ = __webpack_require__(296)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -38455,13 +38530,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 292 */
+/* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(293);
+var content = __webpack_require__(294);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -38481,7 +38556,7 @@ if(false) {
 }
 
 /***/ }),
-/* 293 */
+/* 294 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(4)(false);
@@ -38495,7 +38570,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 
 /***/ }),
-/* 294 */
+/* 295 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -38531,7 +38606,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 295 */
+/* 296 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -38551,19 +38626,19 @@ if (false) {
 }
 
 /***/ }),
-/* 296 */
+/* 297 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(297)
+  __webpack_require__(298)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(299)
+var __vue_script__ = __webpack_require__(300)
 /* template */
-var __vue_template__ = __webpack_require__(300)
+var __vue_template__ = __webpack_require__(301)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -38602,13 +38677,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 297 */
+/* 298 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(298);
+var content = __webpack_require__(299);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -38628,7 +38703,7 @@ if(false) {
 }
 
 /***/ }),
-/* 298 */
+/* 299 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(4)(false);
@@ -38642,7 +38717,7 @@ exports.push([module.i, "\ndiv.fieldset[data-v-02661d73] {\n  display: grid;\n  
 
 
 /***/ }),
-/* 299 */
+/* 300 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -38711,7 +38786,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 });
 
 /***/ }),
-/* 300 */
+/* 301 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -38825,7 +38900,7 @@ if (false) {
 }
 
 /***/ }),
-/* 301 */
+/* 302 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {

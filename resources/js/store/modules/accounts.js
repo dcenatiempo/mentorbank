@@ -94,7 +94,15 @@ const mutations = {
         state.accountList = state.accountList.map( account => {
             account.subscribedCategories = payload[account.id];
             return account;
-        })
+        });
+    },
+    addTransaction(state, payload) {
+        state.accountList = state.accountList.map( account => {
+            if (account.id == payload.accountId) {
+                account.transactions = [payload].concat(account.transactions);    
+            }
+            return account;
+        });
     }
 };
 

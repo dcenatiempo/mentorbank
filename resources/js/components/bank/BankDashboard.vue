@@ -99,8 +99,12 @@ export default {
         }
     },
     created() {
-        this.fetchAllCategories();
-        this.fetchAllTransactions();
+        if (0 == this.categories.categoryList.length) {
+            this.fetchAllCategories();
+        }
+        if (false == this.transactions.hasBeenLoaded) {
+            this.fetchAllTransactions();
+        }
     },
     mounted() {
         this.unSetCurrent();

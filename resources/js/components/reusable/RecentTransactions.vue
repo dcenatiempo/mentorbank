@@ -54,7 +54,7 @@ export default {
     props: {
         transactionList: {
             type: Array,
-            default: []
+            default: () => []
         },
         context: {
             type: String,

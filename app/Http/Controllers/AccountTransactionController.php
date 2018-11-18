@@ -9,6 +9,8 @@ use App\Http\Resources\Transaction as TransactionResource;
 use Carbon\Carbon;
 use Route;
 
+use Illuminate\Support\Facades\Log;
+
 class AccountTransactionController extends Controller
 {
     /**
@@ -38,7 +40,7 @@ class AccountTransactionController extends Controller
         $type = $request->input('type');
         $netAmount = $request->input('net_amount');
         $accountId = Route::current()->parameter('id');
-        $date = Carbon::create($request->input('date'));
+        $date = Carbon::createFromTimestampMs($request->input('date'));
         $split = json_encode($request->input('split'));
 
         $transaction = Transaction::create([
@@ -50,10 +52,6 @@ class AccountTransactionController extends Controller
             'date' => $date
         ]);
 
-        $transaction = Transaction::find($transaction->id);
-        
-        $transaction->updateBalances();
-        
         return new TransactionResource($transaction);
     }
 

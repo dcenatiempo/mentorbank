@@ -1,8 +1,8 @@
 const state = {
     loading: false,
+    hasBeenLoaded: false,
     transactionList: []
 };
-
 
 const getters = {
 };
@@ -16,6 +16,9 @@ const mutations = {
     setTransactionLoading (state, payload) {
         state.loading = payload;
     },
+    setHasBeenLoaded (state, payload) {
+        state.hasBeenLoaded = payload;
+    },
     addTransaction(state, payload) {
         state.transactionList = [payload].concat(state.transactionList);
     }
@@ -24,7 +27,8 @@ const mutations = {
 // async mutations
 // store.dispatch('actionName', payload)
 const actions = {
-    fetchAllTransactions(context) {
+    fetchAllTransactions(context, payload) {
+        context.commit('setHasBeenLoaded', true);
         context.commit('setTransactionLoading', true);
         axios.get('/api/bank/transaction')
         .then(function (response) {
@@ -41,6 +45,7 @@ const actions = {
             axios.post(`/api/account/${transaction.accountId}/transaction`, transaction)
             .then( result => {
                 context.commit('addTransaction', result.data.data);
+                context.commit('accounts/addTransaction', result.data.data, {root: true});
                 context.commit('accounts/changeAccountBalance', 
                     {
                         accountId: result.data.data.accountId,

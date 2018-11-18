@@ -17,19 +17,21 @@ class Category extends JsonResource
         return [
             // keys
             'id' => $this->id,
-            'bankId' => $this->bank_id,
+            // 'bankId' => $this->bank_id,
 
             // timestamps
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at,
-            'deletedAt' => $this->deleted_at,
+            // 'createdAt' => $this->created_at,
+            // 'updatedAt' => $this->updated_at,
+            // 'deletedAt' => $this->deleted_at,
 
             // data (alphabetical)
-            'forceSubcribe' => $this->force_subscribe,
+            'archived' => $this->archived,
+            'forceSubscribe' => $this->force_subscribe,
             'hidden' => $this->hidden,
             'notifications' => $this->notifications,
             'name' => $this->name,
-            'isGlobal' =>$this->is_global
+            'isGlobal' => $this->is_global,
+            'subscribedCount' => $this->subscribed_count
         ];
 
     }

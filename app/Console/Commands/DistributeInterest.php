@@ -96,9 +96,6 @@ class DistributeInterest extends Command
                         'account_id' => $account->id,
                         'date' => Carbon::now()
                     ]);
-
-                    // deposit SubscribedCategory and Account balance
-                    $transaction->updateBalances();
                     
                     // deduct interest: InterestTransaction
                     InterestTransaction::create([

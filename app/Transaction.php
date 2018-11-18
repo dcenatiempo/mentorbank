@@ -17,6 +17,25 @@ class Transaction extends Model
     // Many to one
     public function account() { return $this->belongsTo('App\Account'); }
 
+        public static function boot() {
+            parent::boot();
+
+            static::created(function($transaction)
+            {
+                $transaction->updateBalances();
+            });
+
+            // static::updating(function($transaction)
+            // {
+            //     //
+            // });
+
+            // static::deleting(function($transaction)
+            // {
+            //     //
+            // });
+    }
+
     public function updateBalances() {
         $split = $this->split;
 
@@ -27,7 +46,8 @@ class Transaction extends Model
             $account->balance += $this->net_amount;
         } else if ($this->type == 'withdrawal') {
             $account->balance -= $this->net_amount;
-        } // if transfer, do nothing
+        } // else if transfer, do nothing
+
         $account->monthly_transactions++;
         $account->total_transactions++;
         $account->save();
@@ -37,10 +57,12 @@ class Transaction extends Model
             $subedCat = SubscribedCategory::where('account_id', '=', $this->account_id)
                     ->where('category_id', '=', $item['category_id'])
                     ->first();
-            $subedCat->balance += $item['amount'];
-            $subedCat->monthly_transactions++;
-            $subedCat->total_transactions++;
-            $subedCat->save();
+            if ($subedCat) {
+                $subedCat->balance += $item['amount'];
+                $subedCat->monthly_transactions++;
+                $subedCat->total_transactions++;
+                $subedCat->save();
+            }
         }
     }
 }

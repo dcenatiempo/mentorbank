@@ -115,7 +115,7 @@ export default {
             if (payload.accountHolder) {
                 this.name = payload.accountHolder.name;
                 this.isMale = 'm' == payload.accountHolder.sex ? true : false;
-                this.birthdate = moment.utc(payload.accountHolder.birthdate).format('ddd, MMM DD');
+                this.birthdate = moment.utc(payload.accountHolder.birthdate).format('YYYY-MM-DD');
                 this.pin = payload.accountHolder.pin;
                 this.acccountHolderId = payload.accountHolder.id;
             }

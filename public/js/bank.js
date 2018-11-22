@@ -50828,7 +50828,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             if (_payload.accountHolder) {
                 this.name = _payload.accountHolder.name;
                 this.isMale = 'm' == _payload.accountHolder.sex ? true : false;
-                this.birthdate = moment.utc(_payload.accountHolder.birthdate).format('ddd, MMM DD');
+                this.birthdate = moment.utc(_payload.accountHolder.birthdate).format('YYYY-MM-DD');
                 this.pin = _payload.accountHolder.pin;
                 this.acccountHolderId = _payload.accountHolder.id;
             }

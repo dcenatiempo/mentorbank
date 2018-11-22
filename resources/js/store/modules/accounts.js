@@ -2,7 +2,9 @@ const currentAccountDefault = {
     accountHolder: {
         accountHolderId: null,
         name: '',
-        birthDate: ''
+        birthDate: '',
+        sex: '',
+        pin: ''
     },
     accountId: null,
     view: '',
@@ -46,6 +48,13 @@ const mutations = {
                 return updatedAccount;
             else
                 return account;
+        })
+    },
+    updateAccountHolder(state, updatedAccountHolder) {
+        state.accountList = state.accountList.map(account => {
+            if (account.accountHolder.id == updatedAccountHolder.id)
+                account.accountHolder = updatedAccountHolder;
+            return account;
         })
     },
     setCurrentById(state, id) {
@@ -124,6 +133,22 @@ const actions = {
             });
         });
     },
+    fetchBankAccount(context, accountId) {
+        return new Promise((resolve, reject) => {
+            context.commit('setAccountsLoading', true);
+            axios.get(`/api/account/${accountId}`)
+            .then((response) => {
+                context.commit('setAccounts', [response.data.data]);
+                context.commit('setCurrentByObj', response.data.data);
+                context.commit('setAccountsLoading', false);
+                resolve()
+            })
+            .catch((error) => {
+                console.log(error);
+                reject(error);
+            });
+        });
+    },
     createAccount(context, payload) {
         return new Promise((resolve, reject) => {
             context.commit('setAccountsLoading', true);
@@ -156,7 +181,21 @@ const actions = {
                 reject(error);
             });
         });
-    }
+    },
+    updateAccountHolder(context, data) {
+        return new Promise((resolve, reject) => {
+            context.commit('setAccountsLoading', true);
+            axios.put(`/api/account-holder/${data.id}`, data)
+            .then((response) => {
+                context.commit('updateAccountHolder', response.data.data);
+                context.commit('setAccountsLoading', false);
+                resolve();
+            })
+            .catch((error) => {
+                reject(error);
+            });
+        });
+    },
 };
 
 export default {

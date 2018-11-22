@@ -1,8 +1,9 @@
 {
     "/js/bank.js": "/js/bank.js",
-    "/js/onboarding.js": "/js/onboarding.js",
-    "/js/welcome.js": "/js/welcome.js",
     "/js/account.js": "/js/account.js",
+    "/js/onboarding.js": "/js/onboarding.js",
+    "/js/portal.js": "/js/portal.js",
+    "/js/welcome.js": "/js/welcome.js",
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
     "/js/register.js": "/js/register.js",

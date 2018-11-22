@@ -1,6 +1,9 @@
 <template>
     <div class="container">
-        <h2>Category Page</h2>
+        <h2>
+            Category Page
+            <button v-on:click="showCategoryModal" class="btn-icon">+</button>
+        </h2>
         <vuetable ref="vuetable"
             :fields="columns"
             :api-mode="false"
@@ -29,17 +32,19 @@ export default {
                         sortField: 'name'
                     },{
                         name: 'notifications',
-                        formatter: this.formatBool
+                        formatter: this.formatBool,
+                        visible: false
                     },{
                         name: 'forceSubscribe',
-                        title: 'AutoSub',
+                        title: 'Auto-sub',
                         formatter: this.formatBool
                     },{
                         name: 'subscribedCount',
                         title: '# of Accounts'
                     },{
                         name: 'deletedAt',
-                        title: 'Archived'
+                        title: 'Archived',
+                        visible: false
                     },{
                         name: VuetableFieldActions,
                     }
@@ -51,10 +56,17 @@ export default {
     },
     methods: {
         ...mapActions('categories', ['fetchAllCategories']),
+         ...mapMutations('app', ['showModal', 'hideModal']),
         formatBool (val) {
             return val === true ? '✔' : '';
             // return val ? `<input type="checkbox" checked disabled>` : `<input type="checkbox" disabled>`;
-        }
+        },
+        showCategoryModal() {
+            this.showModal({
+                modalId: 'category-modal',
+                payload: {mode: "add"}
+            });
+        },
     },
     created() {
         if (0 == this.categoryList.length) {
@@ -67,6 +79,12 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss">
+    .vuetable-td-forceSubscribe {
+        color: green;
+        text-align: center;
+    }
+    .vuetable-td-subscribedCount {
+        text-align: center;
+    }
 </style>

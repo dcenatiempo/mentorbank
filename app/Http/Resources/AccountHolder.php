@@ -28,7 +28,7 @@ class AccountHolder extends JsonResource
             // data (alphabetical)            
             'pin' => $this->pin,
             'name' => $this->name,
-            'birthday' => $this->birthday,
+            'birthdate' => $this->birthdate,
             'sex' => $this->sex,
         ];
     }

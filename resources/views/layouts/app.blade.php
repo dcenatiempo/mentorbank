@@ -21,7 +21,12 @@
 </head>
 <body>
     <div id="{{ isset($pageId) ? $pageId : substr($_SERVER['REQUEST_URI'], 1) }}">
-        <default-header></default-header>
+        <default-header
+            :logged-in="{{ Auth::check() ? 'true' : 'false'}}"
+            :portal="{{ Session::has('portal') ? 'true' : 'false' }}"
+            :account-id="{{ Session::has('account_id') ? Session::get('account_id') : 0 }}"
+            page-id="{{ isset($pageId) ? $pageId : substr($_SERVER['REQUEST_URI'], 1) }}">
+        </default-header>
 
         <main>
             @yield('content')

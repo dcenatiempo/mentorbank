@@ -21,10 +21,17 @@ class AccountController extends Controller
         // return new AccountCollectionResource($request->user()->banker->bank->accounts()->paginate(15));
     }
 
+    public function show($id, Request $request)
+    {
+        $account = Account::find($id);
+
+        return new AccountResource($account);
+    }
+
     function store (Request $request) {
         // TODO validate request
-
-        $birth_date = $request->input('birthDate');
+// dd($request->all());
+        $birthdate = $request->input('birthdate');
         $bank = $request->user()->banker->bank;
 
         // Create new accountHolder
@@ -32,7 +39,7 @@ class AccountController extends Controller
         $accountHolder->pin = $this->createRandomPin(4);
         $accountHolder->bank_id = $bank->id;
         $accountHolder->name = $request->input('name');
-        $accountHolder->birthdate = $birth_date;
+        $accountHolder->birthdate = $birthdate;
         $accountHolder->sex = $request->input('sex');
         $accountHolder->save();
         
@@ -63,7 +70,6 @@ class AccountController extends Controller
         
         $account = Account::find($id);
 
-        // for some reason $account->update() is not working :(
         $account->fill($request->all());
         $account->next_distribution = $account->calculateNextDistribution(Carbon::now());
 

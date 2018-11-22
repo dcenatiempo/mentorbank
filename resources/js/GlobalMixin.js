@@ -23,7 +23,9 @@ export default {
 
     mounted() {
         let vm = this;
-        this.getUser();
+
+        if (this.isLoggedIn)
+            this.getUser();
 
         // check to if device is a touch device
         window.addEventListener('touchstart', function onFirstTouch() {
@@ -39,5 +41,6 @@ export default {
     },
 
     computed: {
+        ...mapState('app', ['isLoggedIn']),
     }
 }

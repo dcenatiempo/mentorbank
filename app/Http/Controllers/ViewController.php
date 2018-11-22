@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ViewController extends Controller
 {
@@ -15,9 +16,27 @@ class ViewController extends Controller
     {
         if ($this->shouldOnboard($request->user())) {
             return redirect('/onboarding');
-        } else {
-            return redirect('/bank');
-        } 
+        }
+        if ($request->session()->exists('portal')) {
+            if ($request->session()->exists('account_id')) {
+                return redirect('/account');
+            }
+            return redirect('/portal');
+        }
+        return redirect('/bank');
+    }
+
+    public function portal(Request $request)
+    {
+        // if ($this->shouldOnboard($request->user())) {
+        //     return redirect('/onboarding');
+        // } else {
+            $request->session()->put('portal', true);
+            $request->session()->put('account_id', null);
+            return view('portal', [
+                'pageId' => 'portal'
+            ]);
+        // }
     }
 
     /**
@@ -32,6 +51,9 @@ class ViewController extends Controller
                 'pageId' => 'onboarding'
             ]);
         }
+        if ($request->session()->exists('portal')) {
+            return redirect('/portal');
+        }
         return redirect('/home');
         
     }
@@ -43,6 +65,9 @@ class ViewController extends Controller
      */
     public function bank(Request $request)
     {
+        if ($request->session()->exists('portal')) {
+            return redirect('/portal');
+        }
         if ($this->shouldOnboard($request->user())) {
             return redirect('/onboarding');
         }
@@ -60,6 +85,14 @@ class ViewController extends Controller
     {
         if ($this->shouldOnboard($request->user())) {
             return redirect('/onboarding');
+        }
+        if (!$request->session()->exists('portal')) {
+            return redirect('/home');
+        } else {
+            if (!$request->session()->has('account_id')) {
+                return redirect('/portal');
+            }
+            
         }
         return view('account', [
             'pageId' => 'account'
@@ -79,4 +112,5 @@ class ViewController extends Controller
             return $onboarding;
         }
     }
+
 }

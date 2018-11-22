@@ -1,47 +1,15 @@
 <template>
 <div id="dashboard">
 
-    <h1 class="top-section">
-        {{currentAccount.accountHolder.name}}'s Account Dashboard
-        <button v-on:click="showAccountModal" class="btn-icon"><edit></edit></button>
-    </h1>
+    <h1 class="top-section">{{currentAccount.accountHolder.name}}'s Account</h1>
+    
+    <simple-view v-if="0 == currentAccount.view"></simple-view>
 
-    <section class="card-container">
+    <intermediate-view v-else-if="1 == currentAccount.view"></intermediate-view>
 
-        <div class="card">
-            <h2>Balance: <currency :amount="currentAccount.balance"></currency></h2>
-            <h2>Interest Rate: {{currentAccount.interestRate}}% per {{currentAccount.rateInterval}}</h2>
-            <div class="row">
-                <span v-if="wOrM">Paid {{frequencyFullDescription}}</span>
-                <button v-on:click="showInterestModal" class="btn-icon"><edit></edit></button>
-            </div>
-            
-        </div>
+    <advanced-view v-else-if="2 == currentAccount.view"></advanced-view>
 
-        <div class="card">
-            <h2 class="card-header">Categories<button v-on:click="showCategoryModal" class="btn-icon">+</button></h2>
-            <template v-for="category in subedCats">
-                <div :key="'c-'+category.id">
-                    <h3>{{getCategoryName(category.categoryId)}} <currency :amount="category.balance"></currency></h3>
-                </div>
-            </template>
-        </div>
-
-        <recent-transactions
-            :transaction-list="currentAccount.transactions"
-            context="account"></recent-transactions>
-
-       <div class="card">
-            <h2 class="card-header">Recurring Transactions</h2>
-            <p>Coming Soon!</p>
-        </div>
-
-        <!--
-        <div class="card">
-            <h2 class="card-header">Recurring Transactions</h2>
-        </div>
-        -->
-    </section> 
+    <h1 v-else>no view!</h1>
 
 </div>
 </template>
@@ -51,14 +19,22 @@ import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
 import Currency from '@reusable/Currency';
 import RecentTransactions from '@reusable/RecentTransactions';
 import Pencil from 'icons/pencil';
+import SimpleView from './SimpleView';
+import IntermediateView from './IntermediateView';
+import AdvancedView from './AdvancedView';
 
 export default {
     components: {
+        SimpleView,
+        IntermediateView,
+        AdvancedView,
         Currency,
         RecentTransactions,
         'edit': Pencil
     },
-    props: {},
+    props: {
+        accountId: Number
+    },
     data() {
         return {
         };
@@ -100,9 +76,9 @@ export default {
     methods: {
         ...mapMutations('app', ['showModal', 'hideModal']),
         ...mapMutations('accounts',['setCurrentById']),
+        ...mapActions('accounts', ['fetchBankAccount']),
         ...mapActions('categories', ['fetchAllCategories']),
         ...mapActions('transactions', ['fetchAllTransactions']),
-        ...mapActions('app', ['changePage']),
         showInterestModal() {
             this.showModal({
                 modalId: 'interest-modal',
@@ -118,19 +94,13 @@ export default {
         showCategoryModal() {
             this.showModal({
                 modalId: 'category-modal',
-                payload: {
-                    mode: "add",
-                    currentAccount: this.currentAccount
-                }
+                payload: {mode: "add"}
             });
         },
         showAccountModal() {
             this.showModal({
                 modalId: 'account-modal',
-                payload: {
-                    mode: "edit",
-                    accountHolder: this.currentAccount.accountHolder
-                }
+                payload: {mode: "add"}
             });
         },
         showTransactionModal() {
@@ -163,10 +133,9 @@ export default {
         }
     },
     created() {
-        if (this.categoryList.length == 0) {
-            this.fetchAllCategories();
+        if (!this.currentAccount.id) {
+            this.fetchBankAccount(this.accountId)
         }
-        this.setCurrentById(this.$route.params.accountId);
     },
     mounted() {
         

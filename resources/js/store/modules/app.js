@@ -5,6 +5,7 @@ const state = {
     showModals: {},
     modalPayload: {},
     isTouchDevice: false,
+    isLoggedIn: false
 };
 
 
@@ -38,6 +39,9 @@ const mutations = {
     },
     setTouchDevice(state) {
         state.isTouchDevice = true;
+    },
+    setIsLoggedIn(state, payload) {
+        state.isLoggedIn = payload
     }
 
 };

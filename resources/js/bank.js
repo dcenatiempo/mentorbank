@@ -5,6 +5,7 @@ import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
 
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
+import BankPortal from './components/bank/BankPortal.vue';
 import BankDashboard from './components/bank/BankDashboard.vue';
 import Profile from'./components/bank/Profile.vue';
 import Settings from'./components/bank/Settings.vue';
@@ -20,6 +21,10 @@ const router = new VueRouter({
     mode: 'history',
     routes: [
         {
+            path: '/bank/portal',
+            name: 'portal',
+            component: BankPortal
+        },{
             path: '/bank',
             name: 'dashboard',
             component: BankDashboard

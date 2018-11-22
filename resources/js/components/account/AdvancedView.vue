@@ -1,10 +1,4 @@
 <template>
-<div id="dashboard">
-
-    <h1 class="top-section">
-        {{currentAccount.accountHolder.name}}'s Account Dashboard
-        <button v-on:click="showAccountModal" class="btn-icon"><edit></edit></button>
-    </h1>
 
     <section class="card-container">
 
@@ -43,7 +37,6 @@
         -->
     </section> 
 
-</div>
 </template>
 
 <script>
@@ -58,7 +51,9 @@ export default {
         RecentTransactions,
         'edit': Pencil
     },
-    props: {},
+    props: {
+        accountId: Number
+    },
     data() {
         return {
         };
@@ -100,6 +95,7 @@ export default {
     methods: {
         ...mapMutations('app', ['showModal', 'hideModal']),
         ...mapMutations('accounts',['setCurrentById']),
+        ...mapActions('accounts', ['fetchBankAccount']),
         ...mapActions('categories', ['fetchAllCategories']),
         ...mapActions('transactions', ['fetchAllTransactions']),
         ...mapActions('app', ['changePage']),
@@ -118,19 +114,13 @@ export default {
         showCategoryModal() {
             this.showModal({
                 modalId: 'category-modal',
-                payload: {
-                    mode: "add",
-                    currentAccount: this.currentAccount
-                }
+                payload: {mode: "add"}
             });
         },
         showAccountModal() {
             this.showModal({
                 modalId: 'account-modal',
-                payload: {
-                    mode: "edit",
-                    accountHolder: this.currentAccount.accountHolder
-                }
+                payload: {mode: "add"}
             });
         },
         showTransactionModal() {
@@ -163,10 +153,13 @@ export default {
         }
     },
     created() {
-        if (this.categoryList.length == 0) {
-            this.fetchAllCategories();
+        // if (this.categoryList.length == 0) {
+        //     this.fetchAllCategories();
+        // }
+        // TODO
+        if (!this.currentAccount.id) {
+            this.fetchBankAccount(this.accountId)
         }
-        this.setCurrentById(this.$route.params.accountId);
     },
     mounted() {
         

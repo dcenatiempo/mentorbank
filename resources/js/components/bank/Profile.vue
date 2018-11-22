@@ -9,6 +9,9 @@
                 Email: {{email}}
             </li>
             <li>
+                Portal Pin: {{pin}}
+            </li>
+            <li>
                 Member Since: {{memberSince}}
             </li>
         </ul>
@@ -27,7 +30,7 @@ export default {
         };
     },
     computed: {
-        ...mapState('user', ['name', 'email']),
+        ...mapState('user', ['name', 'email', 'pin']),
         ...mapGetters('user', ['memberSince'])
     },
     methods: {

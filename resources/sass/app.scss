@@ -669,8 +669,9 @@ body > div {
 //**********************************************************************
 // Vue Multiselect
 //**********************************************************************
-.multiselect {
-  .multiselect__select {}
+div.multiselect {
+  .multiselect__select {
+  }
   .multiselect__tags {
     box-sizing: content-box;
     min-height: 34px;
@@ -687,6 +688,29 @@ body > div {
 
         .multiselect__option {
           text-transform: capitalize;
+        }
+      }
+    }
+  }
+}
+div.multiselect--disabled {
+  
+  .multiselect__select {
+    background: #fff;
+  }
+  
+  .multiselect__tags {
+    
+    .multiselect__single {
+    }
+  }
+  .multiselect__content-wrapper {
+    
+    .multiselect__content {
+
+      .multiselect__element {
+
+        .multiselect__option {
         }
       }
     }

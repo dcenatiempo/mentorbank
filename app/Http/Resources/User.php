@@ -26,7 +26,8 @@ class User extends JsonResource
             'email' => $this->email,
             'emailVerifiedAt' => $this->email_verified_at,
             'name' => $this->name,
-            'type' => $this->type
+            'type' => $this->type,
+            'pin' => $this->banker->pin
             // 'rememberToken' => $this->remember_token
         ];
     }

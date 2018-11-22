@@ -33,6 +33,7 @@
         :multiple="true"
         :allow-empty="true"
         :hideSelected="false"
+        :value="preselectedAccount"
         @select="onSelectAccount">
     </multiselect>
 
@@ -66,19 +67,17 @@ export default {
             name: '',
             forceSubscribe: false,
             selectedAccounts: null,
+            mode: 'add',
+            category: null,
         };
     },
     computed: {
         ...mapState('app', ['modalPayload']),
         ...mapState(['accounts']),
         ...mapGetters('categories', ['getCategoryNames']),
-        mode() {
+        payload() {
             let payload = this.modalPayload[this.id];
-            return payload ? payload.mode : 'add';
-        },
-        category() {
-            let payload = this.modalPayload[this.id];
-            return payload ? payload.category : null;
+            return payload ? payload : null;
         },
         clickText() {
             if (this.mode === 'add') {
@@ -113,6 +112,15 @@ export default {
         isSingleAccount() {
             return this.accountList.length === 1;
         },
+        preselectedAccount() {
+            if (this.accounts.currentAccount.accountHolder.id) {
+                return [{
+                    accountHolderName: this.accounts.currentAccount.accountHolder.id,
+                    accountId: this.accounts.currentAccount.accountHolder.name,
+
+                }]
+            }
+        }
 
     },
     methods: {
@@ -146,7 +154,7 @@ export default {
             } else if ('add' == this.mode) {
                 this.createCategory(category).then( () => {
                     this.closeModal();
-                }).cat
+                })
             }
             
         },
@@ -176,13 +184,27 @@ export default {
     created() {},
     mounted() {},
     watch: {
-        category(cat) {
-            if (!cat) return;
+        payload (payload) {
+            if (!payload) return;
 
-            // if cat, then it must be an "edit" modal
-            this.name = cat.name;
-            this.forceSubscribe = cat.forceSubscribe;
-            this.selectedAccounts = this.getSubedAccounts(cat.id);
+            this.selectedAccounts = payload.currentAccount
+                ? [{
+                    accountHolderName: payload.currentAccount.accountHolder.name,
+                    accountId: payload.currentAccount.id
+                }]
+                : [];
+
+            this.mode = payload.mode ? payload.mode : 'add';
+
+            this.forceSubscribe =  payload.currentAccount ? false : true;
+
+            this.category = payload.category ? payload.category : null;
+
+            if (this.category) {
+                this.name = this.category.name;
+                this.forceSubscribe = this.category.forceSubscribe;
+                this.selectedAccounts = this.getSubedAccounts(this.category.id);
+            }
         }
     }
 }

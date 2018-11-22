@@ -18,19 +18,32 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/portal','ViewController@portal');
+    Route::post('/portal/logout','ViewController@portal');
     Route::get('/home', 'ViewController@home');
     Route::get('/onboarding', 'ViewController@onboarding');
     Route::get('/bank', 'ViewController@bank');
     Route::get('/bank/{any}', 'ViewController@bank')->where(['any' => '.*']);
-    Route::get('/account', 'ViewController@acount');
+    Route::get('/account', 'ViewController@account');
+    Route::get('/account/{any}', 'ViewController@account')->where(['any' => '.*']);
 
     Route::prefix('api')->group(function () {
         
+        // loging in through portal
+        Route::prefix('portal')->group(function () {
+            Route::post('/bank', 'PortalController@bank');
+            Route::post('/account', 'PortalController@account');
+        });
+
         Route::prefix('user')->group(function () {
             Route::get('/', 'UserController@index');
             Route::patch('/', 'UserController@update');
             Route::delete('/', 'UserController@delete');
         });
+
+        Route::apiResources([
+            'account-holder' => 'AccountHolderController'
+        ]);
 
         Route::prefix('bank')->group(function () {
             Route::get(   '/', 'BankController@index');     // get a banks
@@ -53,7 +66,7 @@ Route::middleware(['auth'])->group(function () {
                 'transaction' => 'BankTransactionController',
                 'subscribed-category' => 'BankSubscribedCategoryController',
                 'notification' => 'BankNotificationController',
-                'recurring-template' => 'BankRecurringTemplateController'
+                'recurring-template' => 'BankRecurringTemplateController',
             ]);
             
             // Route::prefix('category')->group(function () {
@@ -102,6 +115,7 @@ Route::middleware(['auth'])->group(function () {
                 DELETE	    /things/{thing}	        destroy	    things.destroy
                 ***************************************************************/
                 Route::apiResources([
+                    'account-holder' => 'AccountHolderController',
                     'transaction' => 'AccountTransactionController',
                     'subscribed-category' => 'AccountSubscribedCategoryController',
                     'notification' => 'AccountNotificationController',

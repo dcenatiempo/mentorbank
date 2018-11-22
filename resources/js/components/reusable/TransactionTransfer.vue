@@ -1,6 +1,6 @@
 <template>
 <div>
-    <label>Amount</label>
+    <!-- <label>Amount</label> -->
     <!-- <money
         v-bind="moneyConfig"
         v-model="transferAmount"
@@ -143,6 +143,7 @@ export default {
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-gap: .5rem;
+        align-items: flex-start;
     }
 </style>
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

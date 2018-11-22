@@ -10,7 +10,7 @@
         <table v-else>
             <template class="transaction-grid"  v-for="transaction in transactionList.slice(0, 10)">
                 <tr :key="'t-'+transaction.id">
-                    <td>{{moment(transaction.createdAt.date).format('ddd, MMM DD')}}</td>
+                    <td>{{moment(transaction.createdAt.date)}}</td>
                     <td v-if="'bank' == context">
                         {{accounts.accountList.find( item => item.id == transaction.accountId).accountHolder.name}}
                     </td>
@@ -73,7 +73,7 @@ export default {
     methods: {
         ...mapMutations('app', ['showModal', 'hideModal']),
         moment(d) {
-            return moment(d);
+            return moment.utc(d).local().format('ddd, MMM DD');
         },
         showTransactionModal() {
             this.showModal({

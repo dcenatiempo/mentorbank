@@ -651,18 +651,22 @@ body > div > main {
   text-align: right;
 }
 
-.multiselect .multiselect__tags {
+div.multiselect .multiselect__tags {
   -webkit-box-sizing: content-box;
           box-sizing: content-box;
   min-height: 34px;
 }
 
-.multiselect .multiselect__tags .multiselect__single {
+div.multiselect .multiselect__tags .multiselect__single {
   text-transform: capitalize;
 }
 
-.multiselect .multiselect__content-wrapper .multiselect__content .multiselect__element .multiselect__option {
+div.multiselect .multiselect__content-wrapper .multiselect__content .multiselect__element .multiselect__option {
   text-transform: capitalize;
+}
+
+div.multiselect--disabled .multiselect__select {
+  background: #fff;
 }
 
 @media only screen and (max-width: 768px) {

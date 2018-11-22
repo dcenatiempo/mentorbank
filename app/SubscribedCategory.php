@@ -23,17 +23,17 @@ class SubscribedCategory extends Model
 
         static::creating(function($subedCat)
         {
-            Log::debug('In subedCat create boot');
+            // Log::debug('In subedCat create boot');
         });
 
         static::updating(function($subedCat)
         {
-            Log::debug('In subedCat update boot');
+            // Log::debug('In subedCat update boot');
         });
 
         static::deleting(function($subedCat)
         {
-            Log::debug('In subedCat delete boot');
+            // Log::debug('In subedCat delete boot');
 
             // If a subscribed category that is being deleted has a balance,
             // then transfer that balance to 'Uncategorized' before deleting

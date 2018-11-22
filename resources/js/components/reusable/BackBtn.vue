@@ -1,6 +1,6 @@
 <template>
-    <a disabled="!isDashboard" v-on:click.prevent="goBack">
-        <back-icon v-show="!isDashboard"></back-icon>
+    <a class="back" :disabled="disabled || isDashboard" v-on:click.prevent="goBack">
+        <back-icon v-show="!disabled && !isDashboard"></back-icon>
     </a>
 </template>
 
@@ -12,7 +12,12 @@ export default {
     components: {
         BackIcon,
     },
-    props: {},
+    props: {
+        disabled: {
+            type: Boolean,
+            default: false
+        }
+    },
     data() {
         return {
             isDashboard: null,
@@ -34,7 +39,7 @@ export default {
     created() {},
     mounted() {
         // console.log(this.$router.currentRoute)
-        this.isDashboard = this.$router.currentRoute.name == 'dashboard';
+        this.isDashboard = this.$router && this.$router.currentRoute.name == 'dashboard';
     },
     watch: {
         '$route' (to, from) {

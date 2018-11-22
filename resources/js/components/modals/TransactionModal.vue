@@ -7,14 +7,18 @@
         @handle-modal-cancel="closeModal"
         :disabled="disabled">
     
-    <label>Date</label>
-    <datepicker :value="date.__d" v-model="date"></datepicker>
+    <!-- <label>Date</label>
+    <datepicker :value="date.__d" v-model="date"></datepicker> -->
     
     <label>Account</label>
     <h3 v-if="singleAccountMode">{{currentAccount.accountHolder.name}}</h3>
     <account-selector v-else ref="accountSelector" @select="onUpdateAccount"></account-selector>
 
-    <label>Type</label>
+    <div class="grid-row">
+        <label>Type</label>
+        <label v-if="transactionType === 'transfer'">Amount</label>
+        <label v-else>Total</label>
+    </div>
     <div class="grid-row">
         <transaction-type-selector
             ref="typeSelector"

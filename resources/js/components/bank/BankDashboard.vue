@@ -7,7 +7,7 @@
         <div class="card">
             <h2 class="card-header">
                 <router-link to="/bank/accounts">Accounts</router-link>
-                <button v-on:click="showAccountModal" class="btn-icon">+</button>
+                <button v-on:click="showAccountHolderModal" class="btn-icon">+</button>
             </h2>
             <template v-if="accounts.loading">
                 <div class="loader"></div>
@@ -75,7 +75,6 @@ export default {
         ...mapMutations('accounts',['unSetCurrent']),
         ...mapActions('categories', ['fetchAllCategories']),
         ...mapActions('transactions', ['fetchAllTransactions']),
-        ...mapActions('app', ['changePage']),
         moment(d) {
             return moment(d);
         },
@@ -85,7 +84,7 @@ export default {
                 payload: {mode: "add"}
             });
         },
-        showAccountModal() {
+        showAccountHolderModal() {
             this.showModal({
                 modalId: 'account-modal',
                 payload: {mode: "add"}

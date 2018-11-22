@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\AccountHolder;
 use Illuminate\Http\Request;
-use App\Http\Resources\AccountHOlder as AccountHolderResource;
+use App\Http\Resources\AccountHolder as AccountHolderResource;
 
 class AccountHolderController extends Controller
 {

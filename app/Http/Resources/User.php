@@ -14,6 +14,7 @@ class User extends JsonResource
      */
     public function toArray($request)
     {
+        $banker = $this->banker;
         return [
             // keys
             'id' => $this->id,
@@ -27,7 +28,7 @@ class User extends JsonResource
             'emailVerifiedAt' => $this->email_verified_at,
             'name' => $this->name,
             'type' => $this->type,
-            'pin' => $this->banker->pin
+            'pin' => $banker ? $banker->pin : null
             // 'rememberToken' => $this->remember_token
         ];
     }

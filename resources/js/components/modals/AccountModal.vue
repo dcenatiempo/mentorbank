@@ -10,7 +10,7 @@
         <label for="name">Name:</label>
         <input id="name" type="text" placeholder="Account holder's name" v-model="name"/>
         <label for="year">Birth Month:</label>
-        <datepicker :format="'MMM yyyy'" :minimumView="'month'" :maximumView="'month'" v-model="momentBirthdate"></datepicker>
+        <datepicker :format="'MMM yyyy'" :minimumView="'month'" :maximumView="'month'" v-model="birthdate"></datepicker>
         <label for="name">Sex:</label>
         <div><toggle-button
             v-model="isMale"
@@ -43,6 +43,7 @@ export default {
     data() {
         return {
             id: 'account-modal',
+            mode: 'add',
             name: '',
             isMale: true,
             birthdate: moment().subtract(5, 'year').format("YYYY-MM-DD"),
@@ -51,14 +52,6 @@ export default {
     },
     computed: {
         ...mapState('app', ['modalPayload']),
-        mode() {
-            let payload = this.modalPayload[this.id];
-            return payload ? payload.mode : 'add';
-        },
-        accountHolder() {
-            let payload = this.modalPayload[this.id];
-            return payload ? payload.accountHolder : null;
-        },
         clickText() {
             if (this.mode === 'add') {
                 return 'Add New'
@@ -70,9 +63,10 @@ export default {
         modalTitle() {
             return this.mode + ' account'
         },
-        momentBirthdate() {
-            return moment.utc(this.birthdate).format('ddd, MMM DD');
-        }
+        payload() {
+            let payload = this.modalPayload[this.id];
+            return payload ? payload : null;
+        },
     },
     methods: {
         ...mapMutations('app', ['hideModal']),
@@ -91,14 +85,13 @@ export default {
             let vm = this;
             let accountHolder = {
                 name: this.name,
-                birthdate: moment(this.birthdate).format("YYYY-MM-DD"),
+                birthdate: moment.utc(this.birthdate).format("YYYY-MM-DD"),
                 sex: this.isMale ? 'm' : 'f',
                 pin: this.pin
             }
 
             if ('edit' == this.mode) {
-                accountHolder.bankId = this.accountHolder.bankId;
-                accountHolder.id = this.accountHolder.id;
+                accountHolder.id = this.acccountHolderId;
                 this.updateAccountHolder(accountHolder)
                     .then( () => vm.closeModal())
                     .catch( () => {});
@@ -114,15 +107,19 @@ export default {
     created() {},
     mounted() {},
     watch: {
-        accountHolder(accountHolder) {
-            if (!accountHolder) return;
+        payload (payload) {
+            if (!payload) return;
 
-            // if accountHolder, then it must be an "edit" modal
-            this.name = accountHolder.name;
-            this.isMale = 'm' == accountHolder.sex ? true : false;
-            this.birthdate = accountHolder.birthdate;
-            this.pin = accountHolder.pin
-        }
+            this.mode = payload.mode ? payload.mode : 'add';
+
+            if (payload.accountHolder) {
+                this.name = payload.accountHolder.name;
+                this.isMale = 'm' == payload.accountHolder.sex ? true : false;
+                this.birthdate = moment.utc(payload.accountHolder.birthdate).format('ddd, MMM DD');
+                this.pin = payload.accountHolder.pin;
+                this.acccountHolderId = payload.accountHolder.id;
+            }
+        },
     }
 }
 </script>

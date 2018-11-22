@@ -50758,6 +50758,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     data: function data() {
         return {
             id: 'account-modal',
+            mode: 'add',
             name: '',
             isMale: true,
             birthdate: moment().subtract(5, 'year').format("YYYY-MM-DD"),
@@ -50766,14 +50767,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     },
 
     computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('app', ['modalPayload']), {
-        mode: function mode() {
-            var payload = this.modalPayload[this.id];
-            return payload ? payload.mode : 'add';
-        },
-        accountHolder: function accountHolder() {
-            var payload = this.modalPayload[this.id];
-            return payload ? payload.accountHolder : null;
-        },
         clickText: function clickText() {
             if (this.mode === 'add') {
                 return 'Add New';
@@ -50785,8 +50778,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         modalTitle: function modalTitle() {
             return this.mode + ' account';
         },
-        momentBirthdate: function momentBirthdate() {
-            return moment.utc(this.birthdate).format('ddd, MMM DD');
+        payload: function payload() {
+            var payload = this.modalPayload[this.id];
+            return payload ? payload : null;
         }
     }),
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapMutations */])('app', ['hideModal']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])('accounts', ['createAccount', 'updateAccountHolder']), {
@@ -50804,14 +50798,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             var vm = this;
             var accountHolder = {
                 name: this.name,
-                birthdate: moment(this.birthdate).format("YYYY-MM-DD"),
+                birthdate: moment.utc(this.birthdate).format("YYYY-MM-DD"),
                 sex: this.isMale ? 'm' : 'f',
                 pin: this.pin
             };
 
             if ('edit' == this.mode) {
-                accountHolder.bankId = this.accountHolder.bankId;
-                accountHolder.id = this.accountHolder.id;
+                accountHolder.id = this.acccountHolderId;
                 this.updateAccountHolder(accountHolder).then(function () {
                     return vm.closeModal();
                 }).catch(function () {});
@@ -50827,14 +50820,18 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     mounted: function mounted() {},
 
     watch: {
-        accountHolder: function accountHolder(_accountHolder) {
-            if (!_accountHolder) return;
+        payload: function payload(_payload) {
+            if (!_payload) return;
 
-            // if accountHolder, then it must be an "edit" modal
-            this.name = _accountHolder.name;
-            this.isMale = 'm' == _accountHolder.sex ? true : false;
-            this.birthdate = _accountHolder.birthdate;
-            this.pin = _accountHolder.pin;
+            this.mode = _payload.mode ? _payload.mode : 'add';
+
+            if (_payload.accountHolder) {
+                this.name = _payload.accountHolder.name;
+                this.isMale = 'm' == _payload.accountHolder.sex ? true : false;
+                this.birthdate = moment.utc(_payload.accountHolder.birthdate).format('ddd, MMM DD');
+                this.pin = _payload.accountHolder.pin;
+                this.acccountHolderId = _payload.accountHolder.id;
+            }
         }
     }
 });
@@ -50908,11 +50905,11 @@ var render = function() {
               maximumView: "month"
             },
             model: {
-              value: _vm.momentBirthdate,
+              value: _vm.birthdate,
               callback: function($$v) {
-                _vm.momentBirthdate = $$v
+                _vm.birthdate = $$v
               },
-              expression: "momentBirthdate"
+              expression: "birthdate"
             }
           }),
           _vm._v(" "),

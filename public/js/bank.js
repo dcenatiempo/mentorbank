@@ -50615,13 +50615,13 @@ if (false) {
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(581)
+  __webpack_require__(555)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(557)
 /* template */
-var __vue_template__ = __webpack_require__(583)
+var __vue_template__ = __webpack_require__(558)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -50660,8 +50660,46 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 555 */,
-/* 556 */,
+/* 555 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(556);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("2db114dd", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-0a5d3e2e\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AccountModal.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-0a5d3e2e\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AccountModal.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 556 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\nform[data-v-0a5d3e2e] {\n  display: grid;\n  grid-template-columns: -webkit-max-content 1fr;\n  grid-template-columns: max-content 1fr;\n  grid-column-gap: 1rem;\n}\nform label[data-v-0a5d3e2e] {\n    text-align: right;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
 /* 557 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -50802,7 +50840,157 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 });
 
 /***/ }),
-/* 558 */,
+/* 558 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "modal",
+    {
+      attrs: {
+        id: _vm.id,
+        "modal-title": _vm.modalTitle,
+        "click-text": _vm.clickText,
+        "cancel-text": "Cancel"
+      },
+      on: {
+        "handle-modal-click": _vm.saveAccount,
+        "handle-modal-cancel": _vm.closeModal
+      }
+    },
+    [
+      _c(
+        "form",
+        {
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+            }
+          }
+        },
+        [
+          _c("label", { attrs: { for: "name" } }, [_vm._v("Name:")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.name,
+                expression: "name"
+              }
+            ],
+            attrs: {
+              id: "name",
+              type: "text",
+              placeholder: "Account holder's name"
+            },
+            domProps: { value: _vm.name },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.name = $event.target.value
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("label", { attrs: { for: "year" } }, [_vm._v("Birth Month:")]),
+          _vm._v(" "),
+          _c("datepicker", {
+            attrs: {
+              format: "MMM yyyy",
+              minimumView: "month",
+              maximumView: "month"
+            },
+            model: {
+              value: _vm.momentBirthdate,
+              callback: function($$v) {
+                _vm.momentBirthdate = $$v
+              },
+              expression: "momentBirthdate"
+            }
+          }),
+          _vm._v(" "),
+          _c("label", { attrs: { for: "name" } }, [_vm._v("Sex:")]),
+          _vm._v(" "),
+          _c(
+            "div",
+            [
+              _c("toggle-button", {
+                attrs: {
+                  labels: { checked: "Male", unchecked: "Female" },
+                  color: {
+                    checked: "#6cb2eb",
+                    unchecked: "pink",
+                    disabled: "#CCCCCC"
+                  },
+                  width: 70,
+                  height: 30
+                },
+                model: {
+                  value: _vm.isMale,
+                  callback: function($$v) {
+                    _vm.isMale = $$v
+                  },
+                  expression: "isMale"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          "edit" == _vm.mode
+            ? _c("label", { attrs: { for: "name" } }, [_vm._v("Pin:")])
+            : _vm._e(),
+          _vm._v(" "),
+          "edit" == _vm.mode
+            ? _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.pin,
+                    expression: "pin"
+                  }
+                ],
+                attrs: {
+                  id: "name",
+                  type: "text",
+                  placeholder: "Enter account holder's pin"
+                },
+                domProps: { value: _vm.pin },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.pin = $event.target.value
+                  }
+                }
+              })
+            : _vm._e()
+        ],
+        1
+      )
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-0a5d3e2e", module.exports)
+  }
+}
+
+/***/ }),
 /* 559 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -51626,206 +51814,6 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-35ef6a66", module.exports)
-  }
-}
-
-/***/ }),
-/* 572 */,
-/* 573 */,
-/* 574 */,
-/* 575 */,
-/* 576 */,
-/* 577 */,
-/* 578 */,
-/* 579 */,
-/* 580 */,
-/* 581 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(582);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(3)("2db114dd", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-0a5d3e2e\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AccountModal.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-0a5d3e2e\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AccountModal.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 582 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(2)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\nform[data-v-0a5d3e2e] {\n  display: grid;\n  grid-template-columns: -webkit-max-content 1fr;\n  grid-template-columns: max-content 1fr;\n  grid-column-gap: 1rem;\n}\nform label[data-v-0a5d3e2e] {\n    text-align: right;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 583 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "modal",
-    {
-      attrs: {
-        id: _vm.id,
-        "modal-title": _vm.modalTitle,
-        "click-text": _vm.clickText,
-        "cancel-text": "Cancel"
-      },
-      on: {
-        "handle-modal-click": _vm.saveAccount,
-        "handle-modal-cancel": _vm.closeModal
-      }
-    },
-    [
-      _c(
-        "form",
-        {
-          on: {
-            submit: function($event) {
-              $event.preventDefault()
-            }
-          }
-        },
-        [
-          _c("label", { attrs: { for: "name" } }, [_vm._v("Name:")]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.name,
-                expression: "name"
-              }
-            ],
-            attrs: {
-              id: "name",
-              type: "text",
-              placeholder: "Account holder's name"
-            },
-            domProps: { value: _vm.name },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.name = $event.target.value
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c("label", { attrs: { for: "year" } }, [_vm._v("Birth Month:")]),
-          _vm._v(" "),
-          _c("datepicker", {
-            attrs: {
-              format: "MMM yyyy",
-              minimumView: "month",
-              maximumView: "month"
-            },
-            model: {
-              value: _vm.momentBirthdate,
-              callback: function($$v) {
-                _vm.momentBirthdate = $$v
-              },
-              expression: "momentBirthdate"
-            }
-          }),
-          _vm._v(" "),
-          _c("label", { attrs: { for: "name" } }, [_vm._v("Sex:")]),
-          _vm._v(" "),
-          _c(
-            "div",
-            [
-              _c("toggle-button", {
-                attrs: {
-                  labels: { checked: "Male", unchecked: "Female" },
-                  color: {
-                    checked: "#6cb2eb",
-                    unchecked: "pink",
-                    disabled: "#CCCCCC"
-                  },
-                  width: 70,
-                  height: 30
-                },
-                model: {
-                  value: _vm.isMale,
-                  callback: function($$v) {
-                    _vm.isMale = $$v
-                  },
-                  expression: "isMale"
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          "edit" == _vm.mode
-            ? _c("label", { attrs: { for: "name" } }, [_vm._v("Pin:")])
-            : _vm._e(),
-          _vm._v(" "),
-          "edit" == _vm.mode
-            ? _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.pin,
-                    expression: "pin"
-                  }
-                ],
-                attrs: {
-                  id: "name",
-                  type: "text",
-                  placeholder: "Enter account holder's pin"
-                },
-                domProps: { value: _vm.pin },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.pin = $event.target.value
-                  }
-                }
-              })
-            : _vm._e()
-        ],
-        1
-      )
-    ]
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-0a5d3e2e", module.exports)
   }
 }
 

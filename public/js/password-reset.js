@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 572);
+/******/ 	return __webpack_require__(__webpack_require__.s = 576);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -33956,14 +33956,18 @@ if (false) {
 /* 569 */,
 /* 570 */,
 /* 571 */,
-/* 572 */
+/* 572 */,
+/* 573 */,
+/* 574 */,
+/* 575 */,
+/* 576 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(573);
+module.exports = __webpack_require__(577);
 
 
 /***/ }),
-/* 573 */
+/* 577 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -33974,7 +33978,7 @@ __webpack_require__(143);
 
 
 var app = new Vue({
-    el: '#login',
+    el: '#password-reset',
     mixins: [__WEBPACK_IMPORTED_MODULE_0__GlobalMixin__["a" /* default */]]
 });
 

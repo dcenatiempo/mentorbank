@@ -2,7 +2,7 @@
 
     <header v-if="!loggedIn">
         <div class="brand">
-            <a href="/">MentorBank</a>
+            <a href="/">KidBank</a>
         </div>
         <nav>
             <ul>

@@ -10,7 +10,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/' . (isset($pageId) ? $pageId : substr($_SERVER['REQUEST_URI'], 1)) . '.js') }}" defer></script>
+    <script src="{{ asset('js/' . (isset($pageId) ? $pageId : str_replace('/', '-', substr($_SERVER['REQUEST_URI'], 1))) . '.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -18,28 +18,55 @@
 
     <!-- Styles -->
     <style>
-        html, body {
-            background-color: #fff;
-            color: #636b6f;
-            font-family: 'Nunito', sans-serif;
-            font-weight: 200;
-            height: 100vh;
-            margin: 0;
-        }
-
         .content {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        .card {
+            max-width: 400px;
+            margin: auto;
+        }
+        .card-header {
+            font-size: 2em;
+        }
+        button[type=submit] {
+            margin-top: 1rem;
+            margin-left: auto;
+            display: block;
+        }
+        .form-check {
+            display: flex;
+            align-items: center;
+        }
+        .flex-row {
+            display: flex;
+        }
+        #welcome .content {
             text-align: center;
         }
+        #welcome .subtitle {
+            padding-bottom: 2rem;
+            font-size: 1.1rem;
+            color: gray;
+        }
 
-        .title {
-            font-size: 84px;
+        #welcome .title {
+            font-size: 24vw;
+        }
+        @media screen and (min-width: 480px) {
+            #welcome .title {
+                font-size: 115px;
+            }
+        }
+        #welcome a.btn {
+            margin-top: 2rem;
         }
 
     </style>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="{{ isset($pageId) ? $pageId : substr($_SERVER['REQUEST_URI'], 1) }}">
+    <div id="{{ isset($pageId) ? $pageId : str_replace('/', '-', substr($_SERVER['REQUEST_URI'], 1)) }}">
 
         <default-header
             :logged-in="{{ Auth::check() ? 'true' : 'false'}}"

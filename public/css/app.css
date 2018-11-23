@@ -267,6 +267,9 @@ input[type="checkbox"] {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   padding: 0;
+  width: initial;
+  margin-left: .5rem;
+  margin-right: .5rem;
 }
 
 input[type="date"],
@@ -645,6 +648,10 @@ body > div > main {
 .btn-confirm {
   background: #41b883;
   color: white;
+}
+
+.invalid-feedback {
+  color: #ff6a6a;
 }
 
 .v-money {

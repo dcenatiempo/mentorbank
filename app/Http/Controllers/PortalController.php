@@ -8,7 +8,7 @@ class PortalController extends Controller
 {
     public function bank(Request $request) {
         if ($request->get('pin') == $request->user()->banker->pin) {
-            $request->session()->forget('portal', 'account_id');
+            $request->session()->forget(['portal', 'account_id']);
             return response(['sucess' => 'logging in as banker'], 200);
         }
         return response(['error' => 'wrong pin'], 400);

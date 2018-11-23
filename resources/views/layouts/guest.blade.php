@@ -10,7 +10,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/' . (isset($pageId) ? $pageId : str_replace('/', '-', substr($_SERVER['REQUEST_URI'], 1))) . '.js') }}" defer></script>
+    <script src="{{ mix('js/' . (isset($pageId) ? $pageId : str_replace('/', '-', substr($_SERVER['REQUEST_URI'], 1))) . '.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">

@@ -20,7 +20,8 @@ mix.js('resources/js/app.js', 'public/js')
     .js('resources/js/register.js', 'public/js')
     .js('resources/js/password-reset.js', 'public/js')
     .js('resources/js/portal.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+    .sass('resources/sass/app.scss', 'public/css')
+    .version();
 
 mix.webpackConfig({
 //     This will give you much shorter and more readable imports, like

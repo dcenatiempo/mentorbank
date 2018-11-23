@@ -25,7 +25,10 @@
                     @select="onSelectAccount">
                 </multiselect>
                 <input type="text" placeholder="enter pin" v-model="pin">
-                <button class="btn-confirm" v-on:click.prevent="checkPin">Login</button>
+                <div class="row">
+                    <span v-if="error" class="invalid-feedback">{{error}}</span>
+                    <button class="btn-confirm" v-on:click.prevent="checkPin">Login</button>
+                </div>
             </form>
         </div>
 
@@ -46,7 +49,8 @@ export default {
     data() {
         return {
             selectedAccount: null,
-            pin: ''
+            pin: '',
+            error: ''
         };
     },
     computed: {
@@ -83,17 +87,14 @@ export default {
         checkPin() {
             let id = this.selectedAccount.accountId;
             let pin = this.pin;
-            if (0 == id) {
-                axios.post('/api/portal/bank', {id, pin})
-                .then( response => {
-                    window.location.replace('/home')
-                });
-            } else {
-                axios.post('/api/portal/account', {id, pin})
-                .then( response => {
-                    window.location.replace('/home')
-                });
-            }
+            let route = 0 == id ? 'bank' : 'account';
+            axios.post(`/api/portal/${route}`, {id, pin})
+            .then( response => {
+                window.location.replace('/home')
+            })
+            .catch(err => {
+                this.error = err.response.data.error;
+            });
         }
     },
     created() {
@@ -147,6 +148,17 @@ export default {
             }
         }
 
+    }
+
+    form {
+        .row {
+            display: flex;
+        }
+        button {
+            align-self: flex-end;
+            margin-top: 1rem;
+            margin-left: auto;
+        }
     }
     
 }

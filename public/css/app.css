@@ -600,7 +600,7 @@ body > div > main {
   border: none;
   background: transparent;
   cursor: pointer;
-  color: #e6e9f0;
+  color: #a0a5af;
   -webkit-transition: color 100ms;
   transition: color 100ms;
 }

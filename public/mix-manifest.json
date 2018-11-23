@@ -1,12 +1,12 @@
 {
-    "/js/bank.js": "/js/bank.js?id=947eadcea908463fc4e2",
-    "/js/account.js": "/js/account.js?id=a2d16d3df33f78bf9605",
-    "/js/onboarding.js": "/js/onboarding.js?id=a577392b0ac59f1fa0bf",
-    "/js/portal.js": "/js/portal.js?id=6bea7820e480c9d5fbe2",
-    "/js/welcome.js": "/js/welcome.js?id=4d542e196d1b7b1153e9",
-    "/js/app.js": "/js/app.js?id=2b8080bea1964f2f373e",
-    "/css/app.css": "/css/app.css?id=eb52d77b473c084c337d",
-    "/js/register.js": "/js/register.js?id=d063257e96805b322150",
-    "/js/password-reset.js": "/js/password-reset.js?id=fe8cf471023ccbeb2cde",
-    "/js/login.js": "/js/login.js?id=8cf5afd52bc09209f793"
+    "/js/bank.js": "/js/bank.js?id=323a383b1cb70f56e191",
+    "/js/account.js": "/js/account.js?id=5850fba869fafc282d11",
+    "/js/onboarding.js": "/js/onboarding.js?id=103ac33731b39869af6d",
+    "/js/portal.js": "/js/portal.js?id=56515ec959d7ed58f490",
+    "/js/welcome.js": "/js/welcome.js?id=b612a281d435924fd97d",
+    "/js/app.js": "/js/app.js?id=f311dab98e30a863f69e",
+    "/css/app.css": "/css/app.css?id=64be8faa402366c5c21e",
+    "/js/register.js": "/js/register.js?id=4d2b5e278579ddbb4249",
+    "/js/password-reset.js": "/js/password-reset.js?id=e3af5e57b57ec9960927",
+    "/js/login.js": "/js/login.js?id=014da5e377f615f57050"
 }

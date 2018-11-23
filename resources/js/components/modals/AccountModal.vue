@@ -10,7 +10,7 @@
         <label for="name">Name:</label>
         <input id="name" type="text" placeholder="Account holder's name" v-model="name"/>
         <label for="year">Birth Month:</label>
-        <datepicker :format="'MMM yyyy'" :minimumView="'month'" :maximumView="'month'" v-model="birthdate"></datepicker>
+        <datepicker :format="'MMM yyyy'" :minimumView="'month'" :maximumView="'month'" v-model="birthdate" use-utc="true"></datepicker>
         <label for="name">Sex:</label>
         <div><toggle-button
             v-model="isMale"

@@ -1633,6 +1633,75 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./node_modules/vue-dropdowns/Dropdown.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            selectedOption: {
+                name: ''
+            },
+            showMenu: false,
+            placeholderText: 'Please select an item'
+        };
+    },
+
+    props: {
+        options: {
+            type: [Array, Object]
+        },
+        selected: {},
+        placeholder: [String]
+    },
+
+    mounted: function mounted() {
+        this.selectedOption = this.selected;
+        if (this.placeholder) {
+            this.placeholderText = this.placeholder;
+        }
+    },
+
+
+    methods: {
+        updateOption: function updateOption(option) {
+            this.selectedOption = option;
+            this.showMenu = false;
+            this.$emit('updateOption', this.selectedOption);
+        },
+        toggleMenu: function toggleMenu() {
+            this.showMenu = !this.showMenu;
+        }
+    }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./node_modules/vue-js-toggle-button/src/Button.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -5031,6 +5100,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Modal_vue__ = __webpack_require__("./resources/js/components/modals/Modal.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Modal_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_dropdowns__ = __webpack_require__("./node_modules/vue-dropdowns/Dropdown.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_dropdowns___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue_dropdowns__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -5086,6 +5157,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+
 
 
 
@@ -5095,7 +5169,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     components: {
-        Modal: __WEBPACK_IMPORTED_MODULE_1__Modal_vue___default.a
+        Modal: __WEBPACK_IMPORTED_MODULE_1__Modal_vue___default.a,
+        Dropdown: __WEBPACK_IMPORTED_MODULE_2_vue_dropdowns___default.a
     },
     props: {},
     data: function data() {
@@ -5109,7 +5184,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 time: null,
                 unit: null
             },
-            distributionDay: null
+            distributionDay: null,
+            weekOptions: [{ name: 'Monday', value: 1 }, { name: 'Tuesday', value: 2 }, { name: 'Wednesday', value: 3 }, { name: 'Thursday', value: 4 }, { name: 'Friday', value: 5 }, { name: 'Saturday', value: 6 }, { name: 'Sunday', value: 7 }],
+            object: {
+                name: 'Object Name'
+            }
         };
     },
 
@@ -5121,28 +5200,37 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         disabled: function disabled() {
             return false;
         },
-        wOrM: function wOrM() {
-            if (!this.frequency) return null;
-            return this.frequency[2];
-        },
         displayRate: function displayRate() {
             var divisor = 1;
             if (this.rateInterval == 'month') divisor = 12;else if (this.rateInterval == 'week') divisor = 52;else if (this.rateInterval == 'day') divisor = 365;
             return Math.round(this.interestRate * 1000 / divisor) / 1000;
         },
         frequencyFullDescription: function frequencyFullDescription() {
-            if (this.wOrM == 'W') {
+            if (this.frequency.unit == 'W') {
                 if (!this.distributionDay) return '';
                 // every 2 weeks on monday
-                var day = moment().isoWeekday(this.distributionDay).format('dddd');
-                var freq = this.frequency[1] > 1 ? this.frequency[1] : '';
-                var s = this.frequency[1] == 1 ? '' : 's';
-                return 'every ' + freq + ' week' + s + ' on ' + day;
-            } else if (this.wOrM == 'M') {
+                var day = moment().weekday(this.distributionDay).format('dddd');
+                var freq = this.frequency.time > 1 ? ' ' + this.frequency.time + ' ' : ' ';
+                var s = freq >= 2 ? 's' : '';
+                return 'every' + freq + 'week' + s + ' on ' + day;
+            } else if (this.frequency.unit == 'M') {
                 // monthly on the 5th
                 var _day = this.distributionDay;
                 return 'monthly on the ' + this.ordinal_suffix_of(_day);
             } else return '';
+        },
+        monthOptions: function monthOptions() {
+            var options = [];
+            for (var day = 1; day <= 31; day++) {
+                options.push({
+                    name: this.ordinal_suffix_of(day),
+                    value: day
+                });
+            }
+            return options;
+        },
+        distributionDayOptions: function distributionDayOptions() {
+            return 'W' == this.frequency.unit ? this.weekOptions : this.monthOptions;
         }
     }),
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapMutations */])('app', ['hideModal']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])('accounts', ['updateAccount']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])('transactions', ['saveTransaction']), {
@@ -5179,6 +5267,18 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 return i + "rd";
             }
             return i + "th";
+        },
+
+        // onUpdateAccount(account) {
+        // },
+        selectRateInterval: function selectRateInterval(val) {
+            this.rateInterval = val;
+        },
+        selectDistributionDay: function selectDistributionDay(val) {
+            this.distributionDay = val;
+        },
+        selectFreqUnit: function selectFreqUnit(val) {
+            this.frequency.unit = val;
         }
     }),
     created: function created() {},
@@ -5193,6 +5293,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.frequency.time = payload["interest-modal"].frequency.split('')[1];
             this.frequency.unit = payload["interest-modal"].frequency.split('')[2];
             this.distributionDay = payload["interest-modal"].distributionDay;
+        },
+
+        'frequency.unit': function frequencyUnit(unit) {
+            if ('M' == unit) {
+                this.frequency.time = 1;
+            } else if ('W' == unit) {
+                var day = this.distributionDay;
+                this.distributionDay = day > 7 ? 1 : day;
+            }
         }
     }
 });
@@ -8511,6 +8620,21 @@ exports.push([module.i, "\n.dialog {\n  -webkit-box-sizing: border-box;\n       
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-35a4e70c\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./node_modules/vue-dropdowns/Dropdown.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.btn-group {\n  min-width: 160px;\n  height: 40px;\n  position: relative;\n  margin: 10px 1px;\n  display: inline-block;\n  vertical-align: middle;\n}\n.btn-group a:hover {\n  text-decoration: none;\n}\n.dropdown-toggle {\n  color: #636b6f;\n  min-width: 160px;\n  padding: 10px;\n  text-transform: none;\n  font-weight: 300;\n  margin-bottom: 7px;\n  border: 0;\n  background-image: -webkit-gradient(linear, left top, left bottom, from(#009688), to(#009688)), -webkit-gradient(linear, left top, left bottom, from(#D2D2D2), to(#D2D2D2));\n  background-image: linear-gradient(#009688, #009688), linear-gradient(#D2D2D2, #D2D2D2);\n  background-size: 0 2px, 100% 1px;\n  background-repeat: no-repeat;\n  background-position: center bottom, center calc(100% - 1px);\n  background-color: transparent;\n  -webkit-transition: background 0s ease-out;\n  transition: background 0s ease-out;\n  float: none;\n  -webkit-box-shadow: none;\n          box-shadow: none;\n  border-radius: 0;\n}\n.dropdown-toggle:hover {\n  background: #e1e1e1;\n  cursor: pointer;\n}\n.dropdown-menu {\n  position: absolute;\n  top: 100%;\n  left: 0;\n  z-index: 1000;\n  float: left;\n  min-width: 160px;\n  padding: 5px 0;\n  margin: 2px 0 0;\n  list-style: none;\n  font-size: 14px;\n  text-align: left;\n  background-color: #fff;\n  border: 1px solid #ccc;\n  border-radius: 4px;\n  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);\n          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);\n  background-clip: padding-box;\n}\n.dropdown-menu > li > a {\n  padding: 10px 30px;\n  display: block;\n  clear: both;\n  font-weight: normal;\n  line-height: 1.6;\n  color: #333333;\n  white-space: nowrap;\n  text-decoration: none;\n}\n.dropdown-menu > li > a:hover {\n  background: #efefef;\n  color: #409FCB;\n}\n.dropdown-menu > li {\n  overflow: hidden;\n  width: 100%;\n  position: relative;\n  margin: 0;\n}\n.caret {\n  display: relative;\n  width: 0;\n  position: relative;\n  top: 10px;\n  height: 0;\n  margin-left: 2px;\n  vertical-align: middle;\n  border-top: 4px dashed;\n  border-top: 4px solid \\9;\n  border-right: 4px solid transparent;\n  border-left: 4px solid transparent;\n  float: right;\n}\nli {\n    list-style: none;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-35ef6a66\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/components/reusable/AddTransactionBtn.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8909,7 +9033,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n#interest-modal .content {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n      -ms-flex-flow: row wrap;\n          flex-flow: row wrap;\n  -webkit-box-align: baseline;\n      -ms-flex-align: baseline;\n          align-items: baseline;\n}\n#interest-modal .content input {\n    -ms-flex-negative: 1;\n        flex-shrink: 1;\n    -ms-flex-preferred-size: 50px;\n        flex-basis: 50px;\n    text-align: right;\n}\n", ""]);
+exports.push([module.i, "\n#interest-modal .content .group {\n  margin: 1rem 0;\n}\n#interest-modal .content .row {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n      -ms-flex-flow: row wrap;\n          flex-flow: row wrap;\n  -webkit-box-align: baseline;\n      -ms-flex-align: baseline;\n          align-items: baseline;\n  margin-bottom: .5rem;\n}\n#interest-modal .content input {\n  -ms-flex-negative: 1;\n      flex-shrink: 1;\n  text-align: right;\n  padding-right: 4px;\n}\n#interest-modal .content input.interest {\n    -ms-flex-preferred-size: 55px;\n        flex-basis: 55px;\n}\n#interest-modal .content input.interval {\n    -ms-flex-preferred-size: 35px;\n        flex-basis: 35px;\n}\n", ""]);
 
 // exports
 
@@ -26241,6 +26365,58 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/vue-dropdowns/Dropdown.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-35a4e70c\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./node_modules/vue-dropdowns/Dropdown.vue")
+}
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./node_modules/vue-dropdowns/Dropdown.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-35a4e70c\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./node_modules/vue-dropdowns/Dropdown.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "node_modules/vue-dropdowns/Dropdown.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-35a4e70c", Component.options)
+  } else {
+    hotAPI.reload("data-v-35a4e70c", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-js-toggle-button/src/Button.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26870,7 +27046,8 @@ var render = function() {
             attrs: {
               format: "MMM yyyy",
               minimumView: "month",
-              maximumView: "month"
+              maximumView: "month",
+              "use-utc": "true"
             },
             model: {
               value: _vm.birthdate,
@@ -27876,6 +28053,92 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-2f3d3ca2", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-35a4e70c\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./node_modules/vue-dropdowns/Dropdown.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "btn-group" }, [
+    _vm.selectedOption.name !== undefined
+      ? _c(
+          "li",
+          {
+            staticClass: "dropdown-toggle",
+            on: {
+              click: function($event) {
+                _vm.toggleMenu()
+              }
+            }
+          },
+          [
+            _vm._v("\n      " + _vm._s(_vm.selectedOption.name) + "\n      "),
+            _c("span", { staticClass: "caret" })
+          ]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.selectedOption.name === undefined
+      ? _c(
+          "li",
+          {
+            staticClass: "dropdown-toggle",
+            on: {
+              click: function($event) {
+                _vm.toggleMenu()
+              }
+            }
+          },
+          [
+            _vm._v("\n      " + _vm._s(_vm.placeholderText) + "\n      "),
+            _c("span", { staticClass: "caret" })
+          ]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.showMenu
+      ? _c(
+          "ul",
+          { staticClass: "dropdown-menu" },
+          _vm._l(_vm.options, function(option) {
+            return _c("li", [
+              _c(
+                "a",
+                {
+                  attrs: { href: "javascript:void(0)" },
+                  on: {
+                    click: function($event) {
+                      _vm.updateOption(option)
+                    }
+                  }
+                },
+                [
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(option.name) +
+                      "\n            "
+                  )
+                ]
+              )
+            ])
+          })
+        )
+      : _vm._e()
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-35a4e70c", module.exports)
   }
 }
 
@@ -29641,226 +29904,195 @@ var render = function() {
       }
     },
     [
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.interestRate,
-            expression: "interestRate"
-          }
-        ],
-        attrs: { type: "number", min: "0", max: "1000", step: ".1" },
-        domProps: { value: _vm.interestRate },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
+      _c("div", { staticClass: "group" }, [
+        _c("h4", [_vm._v("Interest Rate:")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.interestRate,
+                expression: "interestRate"
+              }
+            ],
+            staticClass: "interest",
+            attrs: { type: "number", min: "0", max: "1000", step: ".1" },
+            domProps: { value: _vm.interestRate },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.interestRate = $event.target.value
+              }
             }
-            _vm.interestRate = $event.target.value
-          }
-        }
-      }),
-      _vm._v(" "),
-      _c("span", [_vm._v("% per")]),
-      _vm._v(" "),
-      _c(
-        "select",
-        {
-          directives: [
+          }),
+          _vm._v(" "),
+          _c("span", [_vm._v("% ")]),
+          _vm._v(" "),
+          _c("span", [_vm._v("per: ")]),
+          _vm._v(" "),
+          _c(
+            "select",
             {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.rateInterval,
-              expression: "rateInterval"
-            }
-          ],
-          on: {
-            change: function($event) {
-              var $$selectedVal = Array.prototype.filter
-                .call($event.target.options, function(o) {
-                  return o.selected
-                })
-                .map(function(o) {
-                  var val = "_value" in o ? o._value : o.value
-                  return val
-                })
-              _vm.rateInterval = $event.target.multiple
-                ? $$selectedVal
-                : $$selectedVal[0]
-            }
-          }
-        },
-        [
-          _c("option", { attrs: { value: "year" } }, [_vm._v("year")]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "month" } }, [_vm._v("month")]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "week" } }, [_vm._v("week")]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "day" } }, [_vm._v("day")])
-        ]
-      ),
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.rateInterval,
+                  expression: "rateInterval"
+                }
+              ],
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.rateInterval = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                }
+              }
+            },
+            [
+              _c("option", { attrs: { value: "year" } }, [_vm._v("year")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "month" } }, [_vm._v("month")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "week" } }, [_vm._v("week")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "day" } }, [_vm._v("day")])
+            ]
+          )
+        ])
+      ]),
       _vm._v(" "),
-      _c("span", [_vm._v("Paid every:")]),
-      _vm._v(" "),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.frequency.time,
-            expression: "frequency.time"
-          }
-        ],
-        attrs: {
-          type: "number",
-          step: "1",
-          min: "1",
-          max: _vm.frequency.unit === "W" ? 4 : 2
-        },
-        domProps: { value: _vm.frequency.time },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
+      _c("div", { staticClass: "group" }, [
+        _c("h4", [_vm._v("Distribution Schedule:")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("span", [_vm._v("Paid every: ")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.frequency.time,
+                expression: "frequency.time"
+              }
+            ],
+            staticClass: "interval",
+            attrs: {
+              type: "number",
+              step: "1",
+              min: "1",
+              max: _vm.frequency.unit === "W" ? 4 : 2
+            },
+            domProps: { value: _vm.frequency.time },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.frequency, "time", $event.target.value)
+              }
             }
-            _vm.$set(_vm.frequency, "time", $event.target.value)
-          }
-        }
-      }),
-      _vm._v(" "),
-      _c(
-        "select",
-        {
-          directives: [
+          }),
+          _vm._v(" "),
+          _c(
+            "select",
             {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.frequency.unit,
-              expression: "frequency.unit"
-            }
-          ],
-          on: {
-            change: function($event) {
-              var $$selectedVal = Array.prototype.filter
-                .call($event.target.options, function(o) {
-                  return o.selected
-                })
-                .map(function(o) {
-                  var val = "_value" in o ? o._value : o.value
-                  return val
-                })
-              _vm.$set(
-                _vm.frequency,
-                "unit",
-                $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.frequency.unit,
+                  expression: "frequency.unit"
+                }
+              ],
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.frequency,
+                    "unit",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
+              }
+            },
+            [
+              _c("option", { attrs: { value: "M" } }, [
+                _vm._v("month" + _vm._s(_vm.frequency.time == 1 ? "" : "s"))
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "W" } }, [
+                _vm._v("week" + _vm._s(_vm.frequency.time == 1 ? "" : "s"))
+              ])
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _vm.frequency.unit == "W" ? _c("span", [_vm._v("On ")]) : _vm._e(),
+          _vm._v(" "),
+          _vm.frequency.unit == "M"
+            ? _c("span", [_vm._v("On the ")])
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.distributionDay,
+                  expression: "distributionDay"
+                }
+              ],
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.distributionDay = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                }
+              }
+            },
+            _vm._l(_vm.distributionDayOptions, function(option) {
+              return _c(
+                "option",
+                { key: option.value, domProps: { value: option.value } },
+                [_vm._v(_vm._s(option.name))]
               )
-            }
-          }
-        },
-        [
-          _c("option", { attrs: { value: "M" } }, [
-            _vm._v("month" + _vm._s(_vm.frequency.time == 1 ? "" : "s"))
-          ]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "W" } }, [
-            _vm._v("week" + _vm._s(_vm.frequency.time == 1 ? "" : "s"))
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _vm.frequency.unit == "W"
-        ? [
-            _c("span", [_vm._v("on")]),
-            _vm._v(" "),
-            _c(
-              "select",
-              {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.distributionDay,
-                    expression: "distributionDay"
-                  }
-                ],
-                on: {
-                  change: function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.distributionDay = $event.target.multiple
-                      ? $$selectedVal
-                      : $$selectedVal[0]
-                  }
-                }
-              },
-              [
-                _c("option", { attrs: { value: "1" } }, [_vm._v("Monday")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "2" } }, [_vm._v("Tuesday")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "3" } }, [_vm._v("Wednesday")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "4" } }, [_vm._v("Thursday")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "5" } }, [_vm._v("Friday")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "6" } }, [_vm._v("Saturday")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "7" } }, [_vm._v("Sunday")])
-              ]
-            )
-          ]
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.frequency.unit == "M"
-        ? [
-            _c("span", [_vm._v("on the")]),
-            _vm._v(" "),
-            _c(
-              "select",
-              {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.distributionDay,
-                    expression: "distributionDay"
-                  }
-                ],
-                on: {
-                  change: function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.distributionDay = $event.target.multiple
-                      ? $$selectedVal
-                      : $$selectedVal[0]
-                  }
-                }
-              },
-              _vm._l(31, function(n) {
-                return _c("option", { key: n, domProps: { value: n } }, [
-                  _vm._v(_vm._s(_vm.ordinal_suffix_of(n)))
-                ])
-              })
-            )
-          ]
-        : _vm._e()
-    ],
-    2
+            })
+          )
+        ])
+      ])
+    ]
   )
 }
 var staticRenderFns = []
@@ -33328,6 +33560,33 @@ if(false) {
  if(!content.locals) {
    module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2c7ec46f\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Modal.vue", function() {
      var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2c7ec46f\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Modal.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-35a4e70c\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./node_modules/vue-dropdowns/Dropdown.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-35a4e70c\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./node_modules/vue-dropdowns/Dropdown.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("295af766", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../css-loader/index.js!../vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-35a4e70c\",\"scoped\":false,\"hasInlineConfig\":true}!../vue-loader/lib/selector.js?type=styles&index=0!./Dropdown.vue", function() {
+     var newContent = require("!!../css-loader/index.js!../vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-35a4e70c\",\"scoped\":false,\"hasInlineConfig\":true}!../vue-loader/lib/selector.js?type=styles&index=0!./Dropdown.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });

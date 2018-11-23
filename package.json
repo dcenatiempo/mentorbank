@@ -28,5 +28,7 @@
         "vuetable-2": "next",
         "vuex": "^3.0.1"
     },
-    "dependencies": {}
+    "dependencies": {
+        "vue-dropdowns": "^1.0.6"
+    }
 }

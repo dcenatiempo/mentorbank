@@ -66,17 +66,17 @@ export default {
 }
 
 .bar1, .bar2, .bar3 {
-    width: 35px;
-    height: 5px;
+    width: 24px;
+    height: 3px;
     background-color: $black;
-    margin: 6px 0;
+    margin: 5px 0;
     transition: 0.4s;
     border-radius: 2px;
 }
 
 /* Rotate first bar */
 .expanded .bar1 {
-    transform: rotate(-45deg) translate(-8.5px, 6px) ;
+    transform: rotate(-45deg) translate(-3.5px, 6px) ;
 }
 
 /* Fade out the second bar */
@@ -86,6 +86,6 @@ export default {
 
 /* Rotate last bar */
 .expanded .bar3 {
-  transform: rotate(45deg) translate(-8px, -8px) ;
+  transform: rotate(45deg) translate(-5px, -8px) ;
 }
 </style>

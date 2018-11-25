@@ -39,33 +39,29 @@ class AccountSubscribedCategoryController extends Controller
     /**
      * Display the specified account category.
      *
-     * @param  \App\Category  $category
+     * @param  \App\SubscribedCategory  $subscribedCategory
      * @return \Illuminate\Http\Response
      */
-    public function show(SubscribedCategory $category)
+    public function show(SubscribedCategory $subscribedCategory)
     {
         //
     }
 
-    /**
-     * Update the specified account category in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, SubscribedCategory $category)
+
+    public function update(Request $request, $accountId, SubscribedCategory $subscribedCategory)
     {
-        //
+        $subscribedCategory->update($request->all());
+
+        return new SubscribedCategoryResource($subscribedCategory);
     }
 
     /**
      * Remove the specified account category from storage.
      *
-     * @param  \App\Category  $category
+     * @param  \App\SubscribedCategory  $subscribedCategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(SubscribedsCategory $subscribedCategory)
     {
         //
     }

@@ -57,6 +57,7 @@ const router = new VueRouter({
 });
 
 Vue.component('category-modal', require('@modals/CategoryModal.vue'));
+Vue.component('account-category-modal', require('@modals/AccountCategoryModal.vue'));
 Vue.component('transaction-modal', require('@modals/TransactionModal.vue'));
 Vue.component('account-modal', require('@modals/AccountModal.vue'));
 Vue.component('interest-modal', require('@modals/InterestModal.vue'));

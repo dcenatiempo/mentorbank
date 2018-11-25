@@ -20,11 +20,13 @@
 
         <div class="card">
             <h2 class="card-header">Categories<button v-on:click="showCategoryModal" class="btn-icon">+</button></h2>
-            <template v-for="category in subedCats">
-                <div :key="'c-'+category.id">
-                    <h3>{{getCategoryName(category.categoryId)}} <currency :amount="category.balance"></currency></h3>
-                </div>
-            </template>
+            <div class="category-grid">
+                <template v-for="category in subedCats">
+                <button :key="'c-'+category.id" v-on:click="showAccountCategoryModal(category)" class="cat-name btn-link">{{getCategoryName(category.categoryId)}}</button>
+                <currency :key="'c-'+category.id" :amount="category.balance"></currency>
+                <goal-meter :key="'c-'+category.id" :goal="category.goalBalance" :balance="category.balance"></goal-meter>
+                </template>
+            </div>
         </div>
 
         <recent-transactions
@@ -50,12 +52,14 @@
 import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
 import Currency from '@reusable/Currency';
 import RecentTransactions from '@reusable/RecentTransactions';
+import GoalMeter from '@reusable/GoalMeter';
 import Pencil from 'icons/pencil';
 
 export default {
     components: {
         Currency,
         RecentTransactions,
+        GoalMeter,
         'edit': Pencil
     },
     props: {},
@@ -124,6 +128,16 @@ export default {
                 }
             });
         },
+        showAccountCategoryModal(subCat) {
+            this.showModal({
+                modalId: 'account-category-modal',
+                payload: {
+                    mode: "edit",
+                    subscribedCategory: subCat,
+                    category: this.categoryList.find(cat => cat.id == subCat.categoryId)
+                }
+            });
+        },
         showAccountModal() {
             this.showModal({
                 modalId: 'account-modal',
@@ -184,6 +198,23 @@ export default {
     .row {
         display: flex;
         align-content: center;
+    }
+    .category-grid {
+        display: grid;
+        grid-template-columns: minmax(auto, max-content) max-content minmax(80px, 1fr);
+        font-size: 1.8em;
+        justify-items: end;
+        align-items: center;
+        grid-column-gap: .5rem;
+
+        .cat-name {
+            max-width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            justify-self: start;
+            text-align: left
+        }
     }
 
     .top-section {

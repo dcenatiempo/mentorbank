@@ -142,6 +142,18 @@ const actions = {
                 }
             });
         })
+    },
+    updateSubscribedCategory(context, {accountId, subscribedCategory}) {
+        return new Promise( (resolve, reject) => {
+            let id = subscribedCategory.id;
+            axios.put(`/api/account/${accountId}/subscribed-category/${id}`, subscribedCategory)
+                .then( response => {
+                    context.commit('accounts/setSubscribedCat', response.data.data, {root: true});
+                    resolve();
+                }).catch( err => {
+                    reject();
+                });
+        });
     }
 };
 

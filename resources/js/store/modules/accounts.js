@@ -99,9 +99,22 @@ const mutations = {
             return account;
         })
     },
-    setSubscribedCats(state, payload) {
+    setSubscribedCats(state, mappedCats) {
         state.accountList = state.accountList.map( account => {
-            account.subscribedCategories = payload[account.id];
+            account.subscribedCategories = mappedCats[account.id];
+            return account;
+        });
+    },
+    setSubscribedCat(state, payload) {
+        state.accountList = state.accountList.map( account => {
+            if (account.id == payload.accountId) {
+                account.subscribedCategories = account.subscribedCategories.map(subCat => {
+                    if (subCat.id == payload.id) {
+                        return payload;
+                    }
+                    return subCat;
+                });
+            }
             return account;
         });
     },

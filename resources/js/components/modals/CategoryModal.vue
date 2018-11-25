@@ -1,5 +1,4 @@
 <template>
-<!-- TODO: different behavior for bank vs account -->
 <modal  :id="id"
         :modal-title="modalTitle"
         :click-text="clickText"

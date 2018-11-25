@@ -11,6 +11,7 @@
 @section('modals')
 
 <category-modal></category-modal>
+<account-category-modal></account-category-modal>
 <transaction-modal></transaction-modal>
 <account-modal></account-modal>
 <interest-modal></interest-modal>

@@ -596,6 +596,12 @@ body > div > main {
       flex-basis: auto;
 }
 
+.btn-link {
+  color: #3490dc;
+  background: transparent;
+  border: none;
+}
+
 .btn-icon {
   border: none;
   background: transparent;

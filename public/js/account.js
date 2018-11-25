@@ -36114,9 +36114,22 @@ var mutations = {
             return account;
         });
     },
-    setSubscribedCats: function setSubscribedCats(state, payload) {
+    setSubscribedCats: function setSubscribedCats(state, mappedCats) {
         state.accountList = state.accountList.map(function (account) {
-            account.subscribedCategories = payload[account.id];
+            account.subscribedCategories = mappedCats[account.id];
+            return account;
+        });
+    },
+    setSubscribedCat: function setSubscribedCat(state, payload) {
+        state.accountList = state.accountList.map(function (account) {
+            if (account.id == payload.accountId) {
+                account.subscribedCategories = account.subscribedCategories.map(function (subCat) {
+                    if (subCat.id == payload.id) {
+                        return payload;
+                    }
+                    return subCat;
+                });
+            }
             return account;
         });
     },
@@ -36512,6 +36525,20 @@ var actions = {
                 if (response.data.refetchTransactions == true) {
                     context.dispatch('transactions/fetchAllTransactions', null, { root: true });
                 }
+            });
+        });
+    },
+    updateSubscribedCategory: function updateSubscribedCategory(context, _ref3) {
+        var accountId = _ref3.accountId,
+            subscribedCategory = _ref3.subscribedCategory;
+
+        return new Promise(function (resolve, reject) {
+            var id = subscribedCategory.id;
+            axios.put('/api/account/' + accountId + '/subscribed-category/' + id, subscribedCategory).then(function (response) {
+                context.commit('accounts/setSubscribedCat', response.data.data, { root: true });
+                resolve();
+            }).catch(function (err) {
+                reject();
             });
         });
     }

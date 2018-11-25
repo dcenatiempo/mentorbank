@@ -22,9 +22,9 @@
             <h2 class="card-header">Categories<button v-on:click="showCategoryModal" class="btn-icon">+</button></h2>
             <div class="category-grid">
                 <template v-for="category in subedCats">
-                <button :key="'c-'+category.id" v-on:click="showAccountCategoryModal(category)" class="cat-name btn-link">{{getCategoryName(category.categoryId)}}</button>
-                <currency :key="'c-'+category.id" :amount="category.balance"></currency>
-                <goal-meter :key="'c-'+category.id" :goal="category.goalBalance" :balance="category.balance"></goal-meter>
+                <button :key="'sc1-'+category.id" v-on:click="showAccountCategoryModal(category)" class="cat-name btn-link">{{getCategoryName(category.categoryId)}}</button>
+                <currency :key="'sc2-'+category.id" :amount="category.balance"></currency>
+                <goal-meter :key="'sc3-'+category.id" :goal="category.goalBalance" :balance="category.balance"></goal-meter>
                 </template>
             </div>
         </div>

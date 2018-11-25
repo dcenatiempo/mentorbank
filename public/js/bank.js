@@ -27755,7 +27755,7 @@ var render = function() {
                   _c(
                     "button",
                     {
-                      key: "c-" + category.id,
+                      key: "sc1-" + category.id,
                       staticClass: "cat-name btn-link",
                       on: {
                         click: function($event) {
@@ -27767,12 +27767,12 @@ var render = function() {
                   ),
                   _vm._v(" "),
                   _c("currency", {
-                    key: "c-" + category.id,
+                    key: "sc2-" + category.id,
                     attrs: { amount: category.balance }
                   }),
                   _vm._v(" "),
                   _c("goal-meter", {
-                    key: "c-" + category.id,
+                    key: "sc3-" + category.id,
                     attrs: {
                       goal: category.goalBalance,
                       balance: category.balance

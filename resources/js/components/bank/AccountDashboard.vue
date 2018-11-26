@@ -18,16 +18,7 @@
             
         </div>
 
-        <div class="card">
-            <h2 class="card-header">Categories<button v-on:click="showCategoryModal" class="btn-icon">+</button></h2>
-            <div class="category-grid">
-                <template v-for="category in subedCats">
-                <button :key="'sc1-'+category.id" v-on:click="showAccountCategoryModal(category)" class="cat-name btn-link">{{getCategoryName(category.categoryId)}}</button>
-                <currency :key="'sc2-'+category.id" :amount="category.balance"></currency>
-                <goal-meter :key="'sc3-'+category.id" :goal="category.goalBalance" :balance="category.balance"></goal-meter>
-                </template>
-            </div>
-        </div>
+        <subscribed-categories></subscribed-categories>
 
         <recent-transactions
             :transaction-list="currentAccount.transactions"
@@ -52,6 +43,7 @@
 import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
 import Currency from '@reusable/Currency';
 import RecentTransactions from '@reusable/RecentTransactions';
+import SubscribedCategories from '@reusable/SubscribedCategories';
 import GoalMeter from '@reusable/GoalMeter';
 import Pencil from 'icons/pencil';
 
@@ -59,6 +51,7 @@ export default {
     components: {
         Currency,
         RecentTransactions,
+        SubscribedCategories,
         GoalMeter,
         'edit': Pencil
     },
@@ -68,10 +61,7 @@ export default {
         };
     },
     computed: {
-        ...mapState('categories', ['categoryList']),
         ...mapState('accounts', ['currentAccount']),
-        ...mapGetters('accounts', { 'subedCats': 'accountSubedCats'}),
-        // ...mapGetters()
         wOrM() {
             if (!this.currentAccount.frequency) return null;
             return this.currentAccount.frequency[2];
@@ -106,7 +96,6 @@ export default {
         ...mapMutations('accounts',['setCurrentById']),
         ...mapActions('categories', ['fetchAllCategories']),
         ...mapActions('transactions', ['fetchAllTransactions']),
-        ...mapActions('app', ['changePage']),
         showInterestModal() {
             this.showModal({
                 modalId: 'interest-modal',
@@ -128,16 +117,6 @@ export default {
                 }
             });
         },
-        showAccountCategoryModal(subCat) {
-            this.showModal({
-                modalId: 'account-category-modal',
-                payload: {
-                    mode: "edit",
-                    subscribedCategory: subCat,
-                    category: this.categoryList.find(cat => cat.id == subCat.categoryId)
-                }
-            });
-        },
         showAccountModal() {
             this.showModal({
                 modalId: 'account-modal',
@@ -156,11 +135,6 @@ export default {
                 }
             });
         },
-        getCategoryName(id) {
-            if (this.categoryList.length == 0) return '';
-            let name = this.categoryList.find( cat => cat.id == id).name;
-            return name;
-        },
         ordinal_suffix_of(i) {
             var j = i % 10,
                 k = i % 100;
@@ -177,9 +151,6 @@ export default {
         }
     },
     created() {
-        if (this.categoryList.length == 0) {
-            this.fetchAllCategories();
-        }
         this.setCurrentById(this.$route.params.accountId);
     },
     mounted() {

@@ -2071,6 +2071,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         if (!this.currentAccount.id) {
             this.fetchBankAccount(this.accountId);
         }
+        if (0 == this.categoryList.length) {
+            this.fetchAllCategories();
+        }
     },
     mounted: function mounted() {},
 

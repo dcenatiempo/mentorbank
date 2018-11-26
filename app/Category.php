@@ -19,6 +19,9 @@ class Category extends Model
     }
 
     public function getSubscribedCountAttribute() {
+        if ($this->is_global) {
+            return null;
+        }
         return $this->subscribedCategories()->count();
     }
 

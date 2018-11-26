@@ -25,6 +25,7 @@ export default {
     },
     props: {},
     data() {
+        let vm = this;
         return {
                 columns: [
                     {
@@ -40,7 +41,13 @@ export default {
                         formatter: this.formatBool
                     },{
                         name: 'subscribedCount',
-                        title: '# of Accounts'
+                        title: '# of Accounts',
+                        formatter(val) {
+                            if (null == val) {
+                                return vm.accountListCount
+                            }
+                            return val;
+                        }
                     },{
                         name: 'deletedAt',
                         title: 'Archived',
@@ -53,6 +60,7 @@ export default {
     },
     computed: {
         ...mapState('categories', ['categoryList', 'loading']),
+        ...mapGetters('accounts', ['accountListCount'])
     },
     methods: {
         ...mapActions('categories', ['fetchAllCategories']),

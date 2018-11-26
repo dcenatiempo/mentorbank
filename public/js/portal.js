@@ -34142,6 +34142,9 @@ var getters = {
                 return cat.categoryId === 1;
             });
         });
+    },
+    accountListCount: function accountListCount(state) {
+        return state.accountList.length;
     }
 };
 

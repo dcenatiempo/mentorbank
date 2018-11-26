@@ -4254,6 +4254,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     },
     props: {},
     data: function data() {
+        var vm = this;
         return {
             columns: [{
                 name: 'name',
@@ -4268,7 +4269,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 formatter: this.formatBool
             }, {
                 name: 'subscribedCount',
-                title: '# of Accounts'
+                title: '# of Accounts',
+                formatter: function formatter(val) {
+                    if (null == val) {
+                        return vm.accountListCount;
+                    }
+                    return val;
+                }
             }, {
                 name: 'deletedAt',
                 title: 'Archived',
@@ -4279,7 +4286,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         };
     },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('categories', ['categoryList', 'loading'])),
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('categories', ['categoryList', 'loading']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapGetters */])('accounts', ['accountListCount'])),
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])('categories', ['fetchAllCategories']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapMutations */])('app', ['showModal', 'hideModal']), {
         formatBool: function formatBool(val) {
             return val === true ? '✔' : '';
@@ -53011,6 +53018,9 @@ var getters = {
                 return cat.categoryId === 1;
             });
         });
+    },
+    accountListCount: function accountListCount(state) {
+        return state.accountList.length;
     }
 };
 

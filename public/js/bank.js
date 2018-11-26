@@ -6410,6 +6410,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -9054,7 +9055,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.goal-meter {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  height: 1.5rem;\n  width: 100%;\n  border-radius: 1rem;\n  overflow: hidden;\n  max-width: 100%;\n}\n.goal-meter .left, .goal-meter .right {\n    height: 100%;\n}\n.goal-meter .left {\n    background: #41b883;\n}\n.goal-meter .right {\n    background: #e6e9f0;\n}\n", ""]);
+exports.push([module.i, "\n.goal-meter {\n  position: relative;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  height: 1.5rem;\n  width: 100%;\n  border-radius: 1rem;\n  overflow: hidden;\n  max-width: 100%;\n}\n.goal-meter .label {\n    position: absolute;\n    left: 50%;\n    -webkit-transform: translate(-50%);\n            transform: translate(-50%);\n    font-size: 1rem;\n}\n.goal-meter .left, .goal-meter .right {\n    height: 100%;\n}\n.goal-meter .left {\n    background: #41b883;\n}\n.goal-meter .right {\n    background: #e6e9f0;\n}\n", ""]);
 
 // exports
 
@@ -28370,6 +28371,10 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _vm.goal > 0
     ? _c("div", { staticClass: "goal-meter" }, [
+        _c("span", { staticClass: "label" }, [
+          _vm._v(_vm._s(_vm.percent) + "%")
+        ]),
+        _vm._v(" "),
         _c("div", {
           staticClass: "left",
           style: "width: " + _vm.percent + "%"

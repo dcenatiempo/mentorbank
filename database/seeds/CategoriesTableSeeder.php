@@ -20,7 +20,7 @@ class CategoriesTableSeeder extends Seeder
         ]);
 
         DB::table('categories')->insert([
-            'name' => 'Uncategorized',
+            'name' => 'General',
             'is_global' => true,
             'force_subscribe' => true
         ]);

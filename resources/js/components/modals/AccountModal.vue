@@ -136,3 +136,9 @@ form {
 }
 
 </style>
+
+<style>
+    .vdp-datepicker__calendar {
+        left: -116px;
+    }
+</style>

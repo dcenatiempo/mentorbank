@@ -6,12 +6,12 @@
         <label for="name">Name:</label>
         <input id="name" type="text" placeholder="Enter account holder's name" v-model="name"/>
         <label for="year">Birth Month:</label>
-        <datepicker :format="'MMM yyyy'" :minimumView="'month'" :maximumView="'month'" v-model="birthDate" :use-utc="true"></datepicker>
+        <datepicker :format="'MMM yyyy'" :minimumView="'month'" :maximumView="'month'" v-model="birthdate" :use-utc="true"></datepicker>
         <toggle-button
             v-model="isMale"
             :labels="{checked: 'Male', unchecked: 'Female'}"
             :color="{checked: '#6cb2eb', unchecked: 'pink', disabled: '#CCCCCC'}"
-            :width="70"
+            :width="75"
             :height="30"/>
         <button class="btn-confirm" v-on:click="createNewAccount()">Submit</button>
     </form>
@@ -32,7 +32,7 @@ export default {
     data() {
         return {
             name: '',
-            birthDate: moment().subtract(5, 'year').format(),
+            birthdate: moment().subtract(5, 'year').format(),
             isMale: true
         };
     },
@@ -46,7 +46,7 @@ export default {
         createNewAccount() {
             let account = {
                 name: this.name,
-                birthDate: this.birthDate,
+                birthdate: moment.utc(this.birthdate).format("YYYY-MM-DD"),
                 sex: this.isMale ? 'm' : 'f'
             }
             console.dir(account)
@@ -62,7 +62,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-div.fieldset {
+    div.fieldset {
         display: grid;
         grid-template-columns: min-content 1fr;
         grid-column-gap: 16px;
@@ -83,5 +83,9 @@ div.fieldset {
             min-height: initial;
             width: initial;
         }
+    }
+    button {
+        display: block;
+        margin-left: auto;
     }
 </style>

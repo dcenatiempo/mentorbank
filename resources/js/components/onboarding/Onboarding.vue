@@ -1,6 +1,5 @@
 <template>
-    <div class="container">
-        <h1>You are logged in!</h1>
+    <div class="container card">
         <h1 v-if="loading">Loading User...</h1>
         <new-user v-if="type == 'none'"></new-user>
         <new-bank v-else-if="type == 'banker'"></new-bank>
@@ -51,5 +50,4 @@ export default {
 </script>
 
 <style>
-
 </style>

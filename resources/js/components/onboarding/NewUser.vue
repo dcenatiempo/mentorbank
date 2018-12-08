@@ -19,7 +19,7 @@
                 v-model.trim="customBankName"
                 v-on:input="focusCustomRadio">
         </div>
-        <button v-on:click="handleClick">Submit</button>
+        <button v-on:click="handleClick" class="btn-confirm">Submit</button>
     </form>
 </div>
 </template>
@@ -67,7 +67,7 @@ export default {
         display: grid;
         grid-template-columns: min-content 1fr;
         grid-column-gap: 16px;
-        grid-row-gap: 16px;
+        grid-row-gap: 1vw;
         align-items: center;
         margin-bottom: 16px;
 
@@ -84,6 +84,9 @@ export default {
             min-height: initial;
             width: initial;
         }
-        
+    }
+    button {
+        display: block;
+        margin-left: auto;
     }
 </style>

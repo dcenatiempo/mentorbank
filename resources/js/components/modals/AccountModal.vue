@@ -16,7 +16,7 @@
             v-model="isMale"
             :labels="{checked: 'Male', unchecked: 'Female'}"
             :color="{checked: '#6cb2eb', unchecked: 'pink', disabled: '#CCCCCC'}"
-            :width="70"
+            :width="75"
             :height="30"/>
             </div>
         <label v-if="'edit' == mode" for="name">Pin:</label>

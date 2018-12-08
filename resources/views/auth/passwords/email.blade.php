@@ -1,5 +1,13 @@
 @extends('layouts.guest')
 
+@section('main-script')
+<script src="{{ mix('js/auth.js') }}" defer></script>
+@endsection
+
+@section('id')
+<div id="auth">
+@endsection
+
 @section('content')
 <div class="container">
     <div class="card">

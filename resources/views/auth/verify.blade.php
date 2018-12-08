@@ -1,5 +1,13 @@
 @extends('layouts.app')
 
+@section('main-script')
+<script src="{{ mix('js/auth.js') }}" defer></script>
+@endsection
+
+@section('id')
+<div id="auth">
+@endsection
+
 @section('content')
 <div class="content">
     <div class="card">

@@ -1,5 +1,13 @@
 @extends('layouts.guest')
 
+@section('main-script')
+<script src="{{ mix('js/auth.js') }}" defer></script>
+@endsection
+
+@section('id')
+<div id="auth">
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -51,7 +59,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-confirm">
                                     {{ __('Reset Password') }}
                                 </button>
                             </div>

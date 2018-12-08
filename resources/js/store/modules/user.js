@@ -12,7 +12,7 @@ const state = {
 const getters = {
     firstName: state => state.name.split(' ')[0],
     lastName: state => state.name.split(' ')[1] ? state.name.split(' ')[1] : '',
-    memberSince: state => moment(state.createdAt.date).fromNow()
+    memberSince: state => moment.utc(state.createdAt.date).fromNow()
 };
 
 // direct mutations

@@ -2,7 +2,7 @@
     <header>
         <!-- <back-btn></back-btn> -->
         <div class="brand">
-            <a href="/home">MentorBank</a>
+            <a href="/home">KidBank</a>
         </div>
         <nav>
             <ul>

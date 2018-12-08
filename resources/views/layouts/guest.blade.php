@@ -10,7 +10,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ mix('js/' . (isset($pageId) ? $pageId : str_replace('/', '-', substr($_SERVER['REQUEST_URI'], 1))) . '.js') }}" defer></script>
+    @yield('main-script')
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -66,7 +66,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="{{ isset($pageId) ? $pageId : str_replace('/', '-', substr($_SERVER['REQUEST_URI'], 1)) }}">
+    @yield('id')
 
         <default-header
             :logged-in="{{ Auth::check() ? 'true' : 'false'}}"

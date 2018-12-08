@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -21001,7 +21001,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "brand" }, [
-      _c("a", { attrs: { href: "/home" } }, [_vm._v("MentorBank")])
+      _c("a", { attrs: { href: "/home" } }, [_vm._v("KidBank")])
     ])
   }
 ]
@@ -35302,7 +35302,7 @@ var getters = {
         return state.name.split(' ')[1] ? state.name.split(' ')[1] : '';
     },
     memberSince: function memberSince(state) {
-        return moment(state.createdAt.date).fromNow();
+        return moment.utc(state.createdAt.date).fromNow();
     }
 };
 
@@ -35343,7 +35343,7 @@ var actions = {
 
 /***/ }),
 
-/***/ 9:
+/***/ 6:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__("./resources/js/portal.js");

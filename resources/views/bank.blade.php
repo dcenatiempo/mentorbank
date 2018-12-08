@@ -1,5 +1,13 @@
 @extends('layouts.app')
 
+@section('main-script')
+<script src="{{ mix('js/bank.js') }}" defer></script>
+@endsection
+
+@section('id')
+<div id="bank">
+@endsection
+
 @section('content')
         
         <!-- <div v-if="loading" class="page-loader-container"><div class="loader"></div></div> -->

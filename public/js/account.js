@@ -22195,7 +22195,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "brand" }, [
-      _c("a", { attrs: { href: "/home" } }, [_vm._v("MentorBank")])
+      _c("a", { attrs: { href: "/home" } }, [_vm._v("KidBank")])
     ])
   }
 ]
@@ -37199,7 +37199,7 @@ var getters = {
         return state.name.split(' ')[1] ? state.name.split(' ')[1] : '';
     },
     memberSince: function memberSince(state) {
-        return moment(state.createdAt.date).fromNow();
+        return moment.utc(state.createdAt.date).fromNow();
     }
 };
 

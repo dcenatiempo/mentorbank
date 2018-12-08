@@ -92,13 +92,18 @@ export default {
             box-shadow: -4px 4px 9px -4px rgba(0, 0, 0, 0.2);
             flex-flow: column nowrap;
             justify-content: flex-start;
+            white-space: nowrap;
+            padding-top: 1rem;
+
+            li {
+                margin-bottom: 1.5rem;
+            }
         }
 
         &.expanded {
             width: 100vw;
             ul {
-                padding-top: 1rem;
-                width: 100px;
+                width: 220px;
             }
         }
     }

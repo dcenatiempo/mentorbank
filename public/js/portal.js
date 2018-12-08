@@ -1675,6 +1675,48 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./node_modules/vue-material-design-icons/AccountConvert.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "AccountConvertIcon",
+  props: {
+    title: {
+      type: String,
+      default: "Account Convert icon"
+    },
+    decorative: {
+      type: Boolean,
+      default: false
+    },
+    fillColor: {
+      type: String,
+      default: "currentColor"
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./node_modules/vue-material-design-icons/ArrowLeft.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1745,6 +1787,90 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     title: {
       type: String,
       default: "Bell icon"
+    },
+    decorative: {
+      type: Boolean,
+      default: false
+    },
+    fillColor: {
+      type: String,
+      default: "currentColor"
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./node_modules/vue-material-design-icons/Login.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "LoginIcon",
+  props: {
+    title: {
+      type: String,
+      default: "Login icon"
+    },
+    decorative: {
+      type: Boolean,
+      default: false
+    },
+    fillColor: {
+      type: String,
+      default: "currentColor"
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./node_modules/vue-material-design-icons/Logout.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "LogoutIcon",
+  props: {
+    title: {
+      type: String,
+      default: "Logout icon"
     },
     decorative: {
       type: Boolean,
@@ -2017,20 +2143,24 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_icons_Account__ = __webpack_require__("./node_modules/vue-material-design-icons/Account.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_icons_Account___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_icons_Account__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__reusable_BackBtn__ = __webpack_require__("./resources/js/components/reusable/BackBtn.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__reusable_BackBtn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__reusable_BackBtn__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_icons_Bell__ = __webpack_require__("./node_modules/vue-material-design-icons/Bell.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_icons_Bell___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_icons_Bell__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Logout__ = __webpack_require__("./resources/js/components/header/Logout.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Logout___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__Logout__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__PortalLogout__ = __webpack_require__("./resources/js/components/header/PortalLogout.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__PortalLogout___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__PortalLogout__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__HeaderNavigation__ = __webpack_require__("./resources/js/components/header/HeaderNavigation.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__HeaderNavigation___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__HeaderNavigation__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Hamburger__ = __webpack_require__("./resources/js/components/header/Hamburger.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Hamburger___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__Hamburger__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_icons_Login__ = __webpack_require__("./node_modules/vue-material-design-icons/Login.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_icons_Login___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_icons_Login__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_icons_Account__ = __webpack_require__("./node_modules/vue-material-design-icons/Account.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_icons_Account___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_icons_Account__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_icons_AccountConvert__ = __webpack_require__("./node_modules/vue-material-design-icons/AccountConvert.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_icons_AccountConvert___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_icons_AccountConvert__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__reusable_BackBtn__ = __webpack_require__("./resources/js/components/reusable/BackBtn.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__reusable_BackBtn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__reusable_BackBtn__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_icons_Bell__ = __webpack_require__("./node_modules/vue-material-design-icons/Bell.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_icons_Bell___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_icons_Bell__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Logout__ = __webpack_require__("./resources/js/components/header/Logout.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Logout___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__Logout__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__PortalLogout__ = __webpack_require__("./resources/js/components/header/PortalLogout.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__PortalLogout___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__PortalLogout__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__HeaderNavigation__ = __webpack_require__("./resources/js/components/header/HeaderNavigation.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__HeaderNavigation___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__HeaderNavigation__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__Hamburger__ = __webpack_require__("./resources/js/components/header/Hamburger.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__Hamburger___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__Hamburger__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -2088,15 +2218,19 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
     components: {
-        AccountIcon: __WEBPACK_IMPORTED_MODULE_1_icons_Account___default.a,
-        BellIcon: __WEBPACK_IMPORTED_MODULE_3_icons_Bell___default.a,
-        BackBtn: __WEBPACK_IMPORTED_MODULE_2__reusable_BackBtn___default.a,
-        Logout: __WEBPACK_IMPORTED_MODULE_4__Logout___default.a,
-        PortalLogout: __WEBPACK_IMPORTED_MODULE_5__PortalLogout___default.a,
-        HeaderNavigation: __WEBPACK_IMPORTED_MODULE_6__HeaderNavigation___default.a,
-        Hamburger: __WEBPACK_IMPORTED_MODULE_7__Hamburger___default.a
+        LoginIcon: __WEBPACK_IMPORTED_MODULE_1_icons_Login___default.a,
+        AccountIcon: __WEBPACK_IMPORTED_MODULE_2_icons_Account___default.a,
+        AccountConvertIcon: __WEBPACK_IMPORTED_MODULE_3_icons_AccountConvert___default.a,
+        BellIcon: __WEBPACK_IMPORTED_MODULE_5_icons_Bell___default.a,
+        BackBtn: __WEBPACK_IMPORTED_MODULE_4__reusable_BackBtn___default.a,
+        Logout: __WEBPACK_IMPORTED_MODULE_6__Logout___default.a,
+        PortalLogout: __WEBPACK_IMPORTED_MODULE_7__PortalLogout___default.a,
+        HeaderNavigation: __WEBPACK_IMPORTED_MODULE_8__HeaderNavigation___default.a,
+        Hamburger: __WEBPACK_IMPORTED_MODULE_9__Hamburger___default.a
     },
     props: {
         loggedIn: {
@@ -2283,6 +2417,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_icons_Logout__ = __webpack_require__("./node_modules/vue-material-design-icons/Logout.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_icons_Logout___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_icons_Logout__);
+//
 //
 //
 //
@@ -2293,7 +2430,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+    components: {
+        LogoutIcon: __WEBPACK_IMPORTED_MODULE_0_icons_Logout___default.a
+    },
+    props: {
+        compact: Boolean
+    },
     data: function data() {
         return {
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
@@ -2314,6 +2459,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_icons_AccountConvert__ = __webpack_require__("./node_modules/vue-material-design-icons/AccountConvert.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_icons_AccountConvert___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_icons_AccountConvert__);
+//
 //
 //
 //
@@ -2324,7 +2472,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+    components: {
+        AccountConvertIcon: __WEBPACK_IMPORTED_MODULE_0_icons_AccountConvert___default.a
+    },
+    props: {
+        compact: Boolean
+    },
     data: function data() {
         return {
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
@@ -2449,7 +2605,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\nheader {\n  z-index: 1;\n  display: grid;\n  grid-template-columns: 30px -webkit-min-content 1fr;\n  grid-template-columns: 30px min-content 1fr;\n  grid-template-areas: \"back brand nav\";\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  justify-items: start;\n  padding: 0 1rem;\n  background: white;\n  -webkit-box-shadow: 0 4px 9px -4px rgba(0, 0, 0, 0.2);\n          box-shadow: 0 4px 9px -4px rgba(0, 0, 0, 0.2);\n}\nheader .back {\n    grid-area: back;\n}\nheader .brand {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    grid-area: brand;\n}\nheader nav {\n    grid-area: nav;\n    justify-self: end;\n}\nheader .hamburger {\n    grid-area: nav;\n    justify-self: end;\n}\n", ""]);
+exports.push([module.i, "\nheader {\n  z-index: 1;\n  display: grid;\n  grid-template-columns: 30px -webkit-min-content 1fr;\n  grid-template-columns: 30px min-content 1fr;\n  grid-template-areas: \"back brand nav\";\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  justify-items: start;\n  padding: 0 1rem;\n  background: white;\n  -webkit-box-shadow: 0 4px 9px -4px rgba(0, 0, 0, 0.2);\n          box-shadow: 0 4px 9px -4px rgba(0, 0, 0, 0.2);\n}\nheader .back {\n    grid-area: back;\n}\nheader .brand {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    grid-area: brand;\n}\nheader nav {\n    grid-area: nav;\n    justify-self: end;\n}\nheader .hamburger {\n    grid-area: nav;\n    justify-self: end;\n}\nheader li a span {\n    margin-right: 1rem;\n}\n", ""]);
 
 // exports
 
@@ -2479,7 +2635,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\nnav {\n  overflow-x: hidden;\n}\nnav ul {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    position: relative;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-flow: row nowrap;\n            flex-flow: row nowrap;\n    -webkit-box-pack: end;\n        -ms-flex-pack: end;\n            justify-content: flex-end;\n    padding: 0;\n    margin: 0;\n    width: 100%;\n}\nnav ul li {\n      list-style: none;\n}\nnav ul li a {\n        color: #636b6f;\n        padding: 0 1rem;\n        font-size: 12px;\n        font-weight: 600;\n        letter-spacing: .1rem;\n        text-decoration: none;\n        text-transform: uppercase;\n}\nnav.compact {\n  position: absolute;\n  top: 3rem;\n  right: -1rem;\n  background: transparent;\n  width: 0;\n  height: calc(100vh - 3rem);\n  -webkit-transition: width ease 300ms;\n  transition: width ease 300ms;\n}\nnav.compact ul {\n    position: absolute;\n    right: 0;\n    width: 0;\n    -webkit-transition: width ease 300ms;\n    transition: width ease 300ms;\n    height: 100%;\n    background: white;\n    -webkit-box-shadow: -4px 4px 9px -4px rgba(0, 0, 0, 0.2);\n            box-shadow: -4px 4px 9px -4px rgba(0, 0, 0, 0.2);\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-flow: column nowrap;\n            flex-flow: column nowrap;\n    -webkit-box-pack: start;\n        -ms-flex-pack: start;\n            justify-content: flex-start;\n}\nnav.compact.expanded {\n    width: 100vw;\n}\nnav.compact.expanded ul {\n      padding-top: 1rem;\n      width: 100px;\n}\n", ""]);
+exports.push([module.i, "\nnav {\n  overflow-x: hidden;\n}\nnav ul {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    position: relative;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-flow: row nowrap;\n            flex-flow: row nowrap;\n    -webkit-box-pack: end;\n        -ms-flex-pack: end;\n            justify-content: flex-end;\n    padding: 0;\n    margin: 0;\n    width: 100%;\n}\nnav ul li {\n      list-style: none;\n}\nnav ul li a {\n        color: #636b6f;\n        padding: 0 1rem;\n        font-size: 12px;\n        font-weight: 600;\n        letter-spacing: .1rem;\n        text-decoration: none;\n        text-transform: uppercase;\n}\nnav.compact {\n  position: absolute;\n  top: 3rem;\n  right: -1rem;\n  background: transparent;\n  width: 0;\n  height: calc(100vh - 3rem);\n  -webkit-transition: width ease 300ms;\n  transition: width ease 300ms;\n}\nnav.compact ul {\n    position: absolute;\n    right: 0;\n    width: 0;\n    -webkit-transition: width ease 300ms;\n    transition: width ease 300ms;\n    height: 100%;\n    background: white;\n    -webkit-box-shadow: -4px 4px 9px -4px rgba(0, 0, 0, 0.2);\n            box-shadow: -4px 4px 9px -4px rgba(0, 0, 0, 0.2);\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-flow: column nowrap;\n            flex-flow: column nowrap;\n    -webkit-box-pack: start;\n        -ms-flex-pack: start;\n            justify-content: flex-start;\n    white-space: nowrap;\n    padding-top: 1rem;\n}\nnav.compact ul li {\n      margin-bottom: 1.5rem;\n}\nnav.compact.expanded {\n    width: 100vw;\n}\nnav.compact.expanded ul {\n      width: 220px;\n}\n", ""]);
 
 // exports
 
@@ -2494,7 +2650,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -2539,7 +2695,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -20071,11 +20227,23 @@ var render = function() {
               ])
             : "welcome" == _vm.pageId
               ? _c("ul", [
-                  _c("li", [_c("logout")], 1),
-                  _vm._v(" "),
                   _c("li", [
-                    _c("a", { attrs: { href: "/portal" } }, [_vm._v("Portal")])
-                  ])
+                    _c(
+                      "a",
+                      { attrs: { href: "/portal" } },
+                      [
+                        _vm.compact ? _c("account-convert-icon") : _vm._e(),
+                        _vm._v(" Account")
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "li",
+                    [_c("logout", { attrs: { compact: _vm.compact } })],
+                    1
+                  )
                 ])
               : [
                   "/bank" == _vm.homeRoute
@@ -20086,28 +20254,65 @@ var render = function() {
                             _c(
                               "router-link",
                               { attrs: { to: "/bank/profile" } },
-                              [_c("account-icon")],
+                              [
+                                _vm.compact ? _c("account-icon") : _vm._e(),
+                                _vm._v("Profile")
+                              ],
                               1
                             )
                           ],
                           1
                         ),
                         _vm._v(" "),
-                        _c("li", [_c("logout")], 1),
-                        _vm._v(" "),
                         _c("li", [
-                          _c("a", { attrs: { href: "/portal" } }, [
-                            _vm._v("Portal")
-                          ])
-                        ])
+                          _c(
+                            "a",
+                            { attrs: { href: "/portal" } },
+                            [
+                              _vm.compact
+                                ? _c("account-convert-icon")
+                                : _vm._e(),
+                              _vm._v("Switch Account")
+                            ],
+                            1
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "li",
+                          [_c("logout", { attrs: { compact: _vm.compact } })],
+                          1
+                        )
                       ])
                     : "/account" == _vm.homeRoute
                       ? _c("ul", [
                           _vm.accountId
-                            ? _c("li", [_c("portal-logout")], 1)
-                            : _c("li", [_c("logout")], 1)
+                            ? _c(
+                                "li",
+                                [
+                                  _c("portal-logout", {
+                                    attrs: { compact: _vm.compact }
+                                  })
+                                ],
+                                1
+                              )
+                            : _c(
+                                "li",
+                                [
+                                  _c("logout", {
+                                    attrs: { compact: _vm.compact }
+                                  })
+                                ],
+                                1
+                              )
                         ])
-                      : _c("ul", [_c("li", [_c("logout")], 1)])
+                      : _c("ul", [
+                          _c(
+                            "li",
+                            [_c("logout", { attrs: { compact: _vm.compact } })],
+                            1
+                          )
+                        ])
                 ]
         ],
         2
@@ -20151,6 +20356,61 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-10448b1a", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-19eb3726\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./node_modules/vue-material-design-icons/Login.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "span",
+    {
+      staticClass: "material-design-icon login-icon",
+      attrs: {
+        "aria-hidden": _vm.decorative,
+        "aria-label": _vm.title,
+        role: "img"
+      }
+    },
+    [
+      _c(
+        "svg",
+        {
+          staticClass: "material-design-icon__svg",
+          attrs: {
+            fill: _vm.fillColor,
+            width: "24",
+            height: "24",
+            viewBox: "0 0 24 24"
+          }
+        },
+        [
+          _c("title", [_vm._v(_vm._s(_vm.title))]),
+          _vm._v(" "),
+          _c("path", {
+            attrs: {
+              d:
+                "M10,17.25V14H3V10H10V6.75L15.25,12L10,17.25M8,2H17C18.1,2 19,2.9 19,4V20C19,21.1 18.1,22 17,22H8C6.9,22 6,21.1 6,20V16H8V20H17V4H8V8H6V4C6,2.9 6.9,2 8,2Z"
+            }
+          })
+        ]
+      )
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-19eb3726", module.exports)
   }
 }
 
@@ -20259,6 +20519,7 @@ var render = function() {
       }
     },
     [
+      _vm.compact ? _c("logout-icon") : _vm._e(),
       _vm._v("\n    Logout\n    "),
       _c(
         "form",
@@ -20273,7 +20534,8 @@ var render = function() {
           })
         ]
       )
-    ]
+    ],
+    1
   )
 }
 var staticRenderFns = []
@@ -20324,6 +20586,61 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-5700a49c", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-59f918f2\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./node_modules/vue-material-design-icons/AccountConvert.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "span",
+    {
+      staticClass: "material-design-icon account-convert-icon",
+      attrs: {
+        "aria-hidden": _vm.decorative,
+        "aria-label": _vm.title,
+        role: "img"
+      }
+    },
+    [
+      _c(
+        "svg",
+        {
+          staticClass: "material-design-icon__svg",
+          attrs: {
+            fill: _vm.fillColor,
+            width: "24",
+            height: "24",
+            viewBox: "0 0 24 24"
+          }
+        },
+        [
+          _c("title", [_vm._v(_vm._s(_vm.title))]),
+          _vm._v(" "),
+          _c("path", {
+            attrs: {
+              d:
+                "M7.5,21.5L8.85,20.16L12.66,23.97L12,24C5.71,24 0.56,19.16 0.05,13H1.55C1.91,16.76 4.25,19.94 7.5,21.5M16.5,2.5L15.15,3.84L11.34,0.03L12,0C18.29,0 23.44,4.84 23.95,11H22.45C22.09,7.24 19.75,4.07 16.5,2.5M6,17C6,15 10,13.9 12,13.9C14,13.9 18,15 18,17V18H6V17M15,9C15,10.66 13.66,12 12,12C10.34,12 9,10.66 9,9C9,7.34 10.34,6 12,6C13.66,6 15,7.34 15,9Z"
+            }
+          })
+        ]
+      )
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-59f918f2", module.exports)
   }
 }
 
@@ -20449,7 +20766,8 @@ var render = function() {
       }
     },
     [
-      _vm._v("\n    Portal Logout\n    "),
+      _vm.compact ? _c("account-convert-icon") : _vm._e(),
+      _vm._v("\n    Switch Account\n    "),
       _c(
         "form",
         {
@@ -20463,7 +20781,8 @@ var render = function() {
           })
         ]
       )
-    ]
+    ],
+    1
   )
 }
 var staticRenderFns = []
@@ -20473,6 +20792,61 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-7e62f906", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-89599c94\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./node_modules/vue-material-design-icons/Logout.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "span",
+    {
+      staticClass: "material-design-icon logout-icon",
+      attrs: {
+        "aria-hidden": _vm.decorative,
+        "aria-label": _vm.title,
+        role: "img"
+      }
+    },
+    [
+      _c(
+        "svg",
+        {
+          staticClass: "material-design-icon__svg",
+          attrs: {
+            fill: _vm.fillColor,
+            width: "24",
+            height: "24",
+            viewBox: "0 0 24 24"
+          }
+        },
+        [
+          _c("title", [_vm._v(_vm._s(_vm.title))]),
+          _vm._v(" "),
+          _c("path", {
+            attrs: {
+              d:
+                "M17,17.25V14H10V10H17V6.75L22.25,12L17,17.25M13,2C14.1,2 15,2.9 15,4V8H13V4H4V20H13V16H15V20C15,21.1 14.1,22 13,22H4C2.9,22 2,21.1 2,20V4C2,2.9 2.9,2 4,2H13Z"
+            }
+          })
+        ]
+      )
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-89599c94", module.exports)
   }
 }
 
@@ -20760,6 +21134,54 @@ module.exports = Component.exports
 
 /***/ }),
 
+/***/ "./node_modules/vue-material-design-icons/AccountConvert.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./node_modules/vue-material-design-icons/AccountConvert.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-59f918f2\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./node_modules/vue-material-design-icons/AccountConvert.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "node_modules/vue-material-design-icons/AccountConvert.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-59f918f2", Component.options)
+  } else {
+    hotAPI.reload("data-v-59f918f2", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-material-design-icons/ArrowLeft.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20845,6 +21267,102 @@ if (false) {(function () {
     hotAPI.createRecord("data-v-2f3d3ca2", Component.options)
   } else {
     hotAPI.reload("data-v-2f3d3ca2", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-material-design-icons/Login.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./node_modules/vue-material-design-icons/Login.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-19eb3726\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./node_modules/vue-material-design-icons/Login.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "node_modules/vue-material-design-icons/Login.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-19eb3726", Component.options)
+  } else {
+    hotAPI.reload("data-v-19eb3726", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-material-design-icons/Logout.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./node_modules/vue-material-design-icons/Logout.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-89599c94\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./node_modules/vue-material-design-icons/Logout.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "node_modules/vue-material-design-icons/Logout.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-89599c94", Component.options)
+  } else {
+    hotAPI.reload("data-v-89599c94", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true

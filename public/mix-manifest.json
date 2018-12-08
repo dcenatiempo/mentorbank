@@ -1,12 +1,12 @@
 {
-    "/js/bank.js": "/js/bank.js?id=94a625f76ec06431e456",
-    "/js/account.js": "/js/account.js?id=9c338a530cc60455c640",
-    "/js/onboarding.js": "/js/onboarding.js?id=203cdd72ff505c0aa9b0",
-    "/js/portal.js": "/js/portal.js?id=add8a8bae7298a8b2519",
-    "/js/welcome.js": "/js/welcome.js?id=33a1ede21d3543f6852d",
-    "/js/app.js": "/js/app.js?id=393f0c81d6a41d33cfaa",
+    "/js/bank.js": "/js/bank.js?id=a7a14ff3f2ddcf78e036",
+    "/js/account.js": "/js/account.js?id=540cb7a2d3713fdb187b",
+    "/js/onboarding.js": "/js/onboarding.js?id=8c1c48003418b784b0ee",
+    "/js/portal.js": "/js/portal.js?id=cff983dd899ef892480e",
+    "/js/welcome.js": "/js/welcome.js?id=f47d387f47fc4fd0a4ba",
+    "/js/app.js": "/js/app.js?id=4492ef2e0a02d922d33c",
     "/css/app.css": "/css/app.css?id=478c976b0285c4267bcb",
-    "/js/register.js": "/js/register.js?id=3c8440b1a9947916c5f8",
-    "/js/password-reset.js": "/js/password-reset.js?id=fe55cb6d2da9d5bf5dc2",
-    "/js/login.js": "/js/login.js?id=b56d60260e51ee0b88ed"
+    "/js/register.js": "/js/register.js?id=e39bacd7e4b0111126f4",
+    "/js/password-reset.js": "/js/password-reset.js?id=49ceee32661e6d28e26d",
+    "/js/login.js": "/js/login.js?id=35244f69b06c5728503e"
 }

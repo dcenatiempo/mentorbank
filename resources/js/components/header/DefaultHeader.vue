@@ -12,27 +12,27 @@
             </ul>
 
             <ul v-else-if="'welcome' == pageId">
-                <li><logout></logout></li>
-                <li><a href="/portal">Portal</a></li>
+                <li><a href="/portal"><account-convert-icon v-if="compact"></account-convert-icon> Account</a></li>
+                <li><logout :compact="compact"></logout></li>
             </ul>
 
             <template v-else>
                 <ul v-if="'/bank' == homeRoute">
                     <!-- <li><bell-icon></bell-icon></li> -->
-                    <li><router-link to="/bank/profile"><account-icon/></router-link></li>
-                    <li><logout></logout></li>
-                    <li><a href="/portal">Portal</a></li>
+                    <li><router-link to="/bank/profile"><account-icon v-if="compact"/>Profile</router-link></li>
+                    <li><a href="/portal"><account-convert-icon v-if="compact"/>Switch Account</a></li>
+                    <li><logout :compact="compact"/></li>
                 </ul>
 
                 <ul v-else-if="'/account' == homeRoute">
                     <!-- <li><bell-icon></bell-icon></li>
                     <li><router-link to="/bank/profile"><account-icon/></router-link></li> -->
-                    <li v-if="accountId"><portal-logout></portal-logout></li>
-                    <li v-else><logout></logout></li>
+                    <li v-if="accountId"><portal-logout :compact="compact"/></li>
+                    <li v-else><logout :compact="compact"/></li>
                 </ul>
 
                 <ul v-else>
-                    <li><logout></logout></li>
+                    <li><logout :compact="compact"></logout></li>
                     <!-- <li><a href="/portal">Portal</a></li> -->
                 </ul>
             </template>
@@ -45,7 +45,9 @@
 
 <script>
 import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
+import LoginIcon from 'icons/Login';
 import AccountIcon from 'icons/Account';
+import AccountConvertIcon from 'icons/AccountConvert';
 import BackBtn from '@reusable/BackBtn';
 import BellIcon from 'icons/Bell';
 import Logout from './Logout';
@@ -55,7 +57,9 @@ import Hamburger from './Hamburger';
 
 export default {
     components: {
+        LoginIcon,
         AccountIcon,
+        AccountConvertIcon,
         BellIcon,
         BackBtn,
         Logout,
@@ -170,6 +174,9 @@ export default {
         .hamburger {
             grid-area: nav;
             justify-self: end;
+        }
+        li a span {
+            margin-right: 1rem;
         }
     }
     

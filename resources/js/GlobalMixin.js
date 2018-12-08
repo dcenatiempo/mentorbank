@@ -1,7 +1,7 @@
 import store from './store';
 import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
-import DefaultHeader from './components/header/DefaultHeader.vue';
-import DefaultFooter from './components/footer/DefaultFooter.vue';
+import DefaultHeader from '@components/header/DefaultHeader.vue';
+import DefaultFooter from '@components/footer/DefaultFooter.vue';
 import Overlay from '@reusable/Overlay.vue';
 
 export default {

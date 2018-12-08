@@ -36,7 +36,7 @@ class AccountController extends Controller
 
         // Create new accountHolder
         $accountHolder = new AccountHolder;
-        $accountHolder->pin = $this->createRandomPin(4);
+        $accountHolder->pin = $request->input('pin') ? $request->input('pin') : $this->createRandomPin(4);
         $accountHolder->bank_id = $bank->id;
         $accountHolder->name = $request->input('name');
         $accountHolder->birthdate = $birthdate;

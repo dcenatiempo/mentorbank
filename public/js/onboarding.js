@@ -2225,6 +2225,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -2254,6 +2259,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             type: Boolean,
             default: false
         },
+        verified: {
+            type: Boolean,
+            default: false
+        },
         portal: {
             type: Boolean,
             default: false
@@ -2278,12 +2287,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         homeRoute: function homeRoute() {
             var route = void 0;
 
-            if (!this.loggedIn) route = '/';else if ('onboarding' == this.pageId) route = '/onboarding';else if (this.portal == false) route = '/bank';else if (this.accountId == 0) route = '/';else route = '/account';
+            if (!this.loggedIn) route = '/';else if ('email-verify' == this.pageId) route = '/';else if ('onboarding' == this.pageId) route = '/onboarding';else if (this.portal == false) route = '/bank';else if (this.accountId == 0) route = '/';else route = '/account';
 
             return route;
         },
         disabled: function disabled() {
-            if ('welcome' == this.pageId) return true;
+            if ('welcome' == this.pageId || 'email-verify' == this.pageId) return true;
             return '/bank' == this.homeRoute ? false : true;
         },
         compact: function compact() {
@@ -2616,6 +2625,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -2631,11 +2644,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         return {
             name: '',
             birthdate: moment().subtract(5, 'year').format(),
-            isMale: true
+            isMale: true,
+            pin: ''
         };
     },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])(['user', 'bank'])),
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])(['bank'])),
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])('accounts', ['createAccount']), {
         createNewAccount: function createNewAccount() {
             var account = {
@@ -2643,7 +2657,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 birthdate: moment.utc(this.birthdate).format("YYYY-MM-DD"),
                 sex: this.isMale ? 'm' : 'f'
             };
-            console.dir(account);
+            if (this.pin.length > 0) {
+                account.pin = this.pin;
+            }
             this.createAccount(account);
         }
     }),
@@ -2897,7 +2913,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\ndiv.fieldset[data-v-02661d73] {\n  display: grid;\n  grid-template-columns: -webkit-min-content 1fr;\n  grid-template-columns: min-content 1fr;\n  grid-column-gap: 16px;\n  grid-row-gap: 16px;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin-bottom: 16px;\n}\ndiv.fieldset label[data-v-02661d73] {\n    padding: 0;\n    margin: 0;\n}\ndiv.fieldset input[type=radio][data-v-02661d73] {\n    width: initial;\n}\ndiv.fieldset input[type=text][data-v-02661d73] {\n    padding: 0;\n    border: none;\n    min-height: initial;\n    width: initial;\n}\nbutton[data-v-02661d73] {\n  display: block;\n  margin-left: auto;\n}\n", ""]);
+exports.push([module.i, "\ndiv.fieldset[data-v-02661d73] {\n  display: grid;\n  grid-template-columns: -webkit-min-content 1fr;\n  grid-template-columns: min-content 1fr;\n  grid-column-gap: 16px;\n  grid-row-gap: 16px;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin-bottom: 16px;\n}\ndiv.fieldset label[data-v-02661d73] {\n    padding: 0;\n    margin: 0;\n}\ndiv.fieldset input[type=radio][data-v-02661d73] {\n    width: initial;\n}\ndiv.fieldset input[type=text][data-v-02661d73] {\n    padding: 0;\n    border: none;\n    min-height: initial;\n    width: initial;\n}\nbutton[data-v-02661d73] {\n  display: block;\n  margin-left: auto;\n  grid-column: 2 / 3;\n  margin-top: 1rem;\n}\nform[data-v-02661d73] {\n  display: grid;\n  grid-template-columns: -webkit-max-content 1fr;\n  grid-template-columns: max-content 1fr;\n  grid-column-gap: 1rem;\n}\nform label[data-v-02661d73] {\n    text-align: right;\n}\n", ""]);
 
 // exports
 
@@ -20646,23 +20662,54 @@ var render = function() {
           }
         }),
         _vm._v(" "),
-        _c("toggle-button", {
-          attrs: {
-            labels: { checked: "Male", unchecked: "Female" },
-            color: {
-              checked: "#6cb2eb",
-              unchecked: "pink",
-              disabled: "#CCCCCC"
-            },
-            width: 75,
-            height: 30
-          },
-          model: {
-            value: _vm.isMale,
-            callback: function($$v) {
-              _vm.isMale = $$v
-            },
-            expression: "isMale"
+        _c("label", { attrs: { for: "name" } }, [_vm._v("Sex:")]),
+        _vm._v(" "),
+        _c(
+          "div",
+          [
+            _c("toggle-button", {
+              attrs: {
+                labels: { checked: "Male", unchecked: "Female" },
+                color: {
+                  checked: "#6cb2eb",
+                  unchecked: "pink",
+                  disabled: "#CCCCCC"
+                },
+                width: 75,
+                height: 30
+              },
+              model: {
+                value: _vm.isMale,
+                callback: function($$v) {
+                  _vm.isMale = $$v
+                },
+                expression: "isMale"
+              }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("label", { attrs: { for: "name" } }, [_vm._v("Pin:")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.pin,
+              expression: "pin"
+            }
+          ],
+          attrs: { id: "name", type: "text", placeholder: "4+ characters" },
+          domProps: { value: _vm.pin },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.pin = $event.target.value
+            }
           }
         }),
         _vm._v(" "),
@@ -20676,7 +20723,7 @@ var render = function() {
               }
             }
           },
-          [_vm._v("Submit")]
+          [_vm._v("Create Account")]
         )
       ],
       1
@@ -20730,95 +20777,107 @@ var render = function() {
                   ])
                 ])
               ])
-            : "welcome" == _vm.pageId
+            : !_vm.verified
               ? _c("ul", [
-                  _c("li", [
-                    _c(
-                      "a",
-                      { attrs: { href: "/portal" } },
-                      [
-                        _vm.compact ? _c("account-convert-icon") : _vm._e(),
-                        _vm._v(" Account")
-                      ],
-                      1
-                    )
-                  ]),
-                  _vm._v(" "),
                   _c(
                     "li",
                     [_c("logout", { attrs: { compact: _vm.compact } })],
                     1
                   )
                 ])
-              : [
-                  "/bank" == _vm.homeRoute
-                    ? _c("ul", [
-                        _c(
-                          "li",
-                          [
+              : "welcome" == _vm.pageId
+                ? _c("ul", [
+                    _c("li", [
+                      _c(
+                        "a",
+                        { attrs: { href: "/portal" } },
+                        [
+                          _vm.compact ? _c("account-convert-icon") : _vm._e(),
+                          _vm._v(" Switch Account")
+                        ],
+                        1
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "li",
+                      [_c("logout", { attrs: { compact: _vm.compact } })],
+                      1
+                    )
+                  ])
+                : [
+                    "/bank" == _vm.homeRoute
+                      ? _c("ul", [
+                          _c(
+                            "li",
+                            [
+                              _c(
+                                "router-link",
+                                { attrs: { to: "/bank/profile" } },
+                                [
+                                  _vm.compact ? _c("account-icon") : _vm._e(),
+                                  _vm._v("Profile")
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("li", [
                             _c(
-                              "router-link",
-                              { attrs: { to: "/bank/profile" } },
+                              "a",
+                              { attrs: { href: "/portal" } },
                               [
-                                _vm.compact ? _c("account-icon") : _vm._e(),
-                                _vm._v("Profile")
+                                _vm.compact
+                                  ? _c("account-convert-icon")
+                                  : _vm._e(),
+                                _vm._v("Switch Account")
                               ],
                               1
                             )
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c("li", [
-                          _c(
-                            "a",
-                            { attrs: { href: "/portal" } },
-                            [
-                              _vm.compact
-                                ? _c("account-convert-icon")
-                                : _vm._e(),
-                              _vm._v("Switch Account")
-                            ],
-                            1
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "li",
-                          [_c("logout", { attrs: { compact: _vm.compact } })],
-                          1
-                        )
-                      ])
-                    : "/account" == _vm.homeRoute
-                      ? _c("ul", [
-                          _vm.accountId
-                            ? _c(
-                                "li",
-                                [
-                                  _c("portal-logout", {
-                                    attrs: { compact: _vm.compact }
-                                  })
-                                ],
-                                1
-                              )
-                            : _c(
-                                "li",
-                                [
-                                  _c("logout", {
-                                    attrs: { compact: _vm.compact }
-                                  })
-                                ],
-                                1
-                              )
-                        ])
-                      : _c("ul", [
+                          ]),
+                          _vm._v(" "),
                           _c(
                             "li",
                             [_c("logout", { attrs: { compact: _vm.compact } })],
                             1
                           )
                         ])
-                ]
+                      : "/account" == _vm.homeRoute
+                        ? _c("ul", [
+                            _vm.accountId
+                              ? _c(
+                                  "li",
+                                  [
+                                    _c("portal-logout", {
+                                      attrs: { compact: _vm.compact }
+                                    })
+                                  ],
+                                  1
+                                )
+                              : _c(
+                                  "li",
+                                  [
+                                    _c("logout", {
+                                      attrs: { compact: _vm.compact }
+                                    })
+                                  ],
+                                  1
+                                )
+                          ])
+                        : _c("ul", [
+                            _c(
+                              "li",
+                              [
+                                _c("logout", {
+                                  attrs: { compact: _vm.compact }
+                                })
+                              ],
+                              1
+                            )
+                          ])
+                  ]
         ],
         2
       ),
@@ -21651,15 +21710,15 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
-    { staticClass: "container card" },
+    "section",
+    { staticClass: "card-container single" },
     [
       _vm.loading ? _c("h1", [_vm._v("Loading User...")]) : _vm._e(),
       _vm._v(" "),
       _vm.type == "none"
-        ? _c("new-user")
+        ? _c("new-user", { staticClass: "card" })
         : _vm.type == "banker"
-          ? _c("new-bank")
+          ? _c("new-bank", { staticClass: "card" })
           : _vm.type == "account_holder"
             ? _c("account-holder-profile")
             : _vm._e()

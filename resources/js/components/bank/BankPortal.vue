@@ -3,7 +3,7 @@
 
     <h1 class="top-section">{{bank.name}} Portal</h1>
 
-    <section class="card-container">
+    <section class="card-container single">
         <div class="card">
             <h2 class="card-header">
                 Choose Account
@@ -117,22 +117,6 @@ export default {
         background: white;
         grid-column: 1 / end;
         padding: 1rem;
-    }
-
-    .card-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-        grid-gap: 1rem;
-
-        .card {
-            padding: 1rem;
-            background: white;
-
-            .card-header {
-                display: flex;
-                justify-content: space-between;
-            }
-        }
     }
 
     table {

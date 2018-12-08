@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -1997,6 +1997,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -2026,6 +2031,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             type: Boolean,
             default: false
         },
+        verified: {
+            type: Boolean,
+            default: false
+        },
         portal: {
             type: Boolean,
             default: false
@@ -2050,12 +2059,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         homeRoute: function homeRoute() {
             var route = void 0;
 
-            if (!this.loggedIn) route = '/';else if ('onboarding' == this.pageId) route = '/onboarding';else if (this.portal == false) route = '/bank';else if (this.accountId == 0) route = '/';else route = '/account';
+            if (!this.loggedIn) route = '/';else if ('email-verify' == this.pageId) route = '/';else if ('onboarding' == this.pageId) route = '/onboarding';else if (this.portal == false) route = '/bank';else if (this.accountId == 0) route = '/';else route = '/account';
 
             return route;
         },
         disabled: function disabled() {
-            if ('welcome' == this.pageId) return true;
+            if ('welcome' == this.pageId || 'email-verify' == this.pageId) return true;
             return '/bank' == this.homeRoute ? false : true;
         },
         compact: function compact() {
@@ -19969,95 +19978,107 @@ var render = function() {
                   ])
                 ])
               ])
-            : "welcome" == _vm.pageId
+            : !_vm.verified
               ? _c("ul", [
-                  _c("li", [
-                    _c(
-                      "a",
-                      { attrs: { href: "/portal" } },
-                      [
-                        _vm.compact ? _c("account-convert-icon") : _vm._e(),
-                        _vm._v(" Account")
-                      ],
-                      1
-                    )
-                  ]),
-                  _vm._v(" "),
                   _c(
                     "li",
                     [_c("logout", { attrs: { compact: _vm.compact } })],
                     1
                   )
                 ])
-              : [
-                  "/bank" == _vm.homeRoute
-                    ? _c("ul", [
-                        _c(
-                          "li",
-                          [
+              : "welcome" == _vm.pageId
+                ? _c("ul", [
+                    _c("li", [
+                      _c(
+                        "a",
+                        { attrs: { href: "/portal" } },
+                        [
+                          _vm.compact ? _c("account-convert-icon") : _vm._e(),
+                          _vm._v(" Switch Account")
+                        ],
+                        1
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "li",
+                      [_c("logout", { attrs: { compact: _vm.compact } })],
+                      1
+                    )
+                  ])
+                : [
+                    "/bank" == _vm.homeRoute
+                      ? _c("ul", [
+                          _c(
+                            "li",
+                            [
+                              _c(
+                                "router-link",
+                                { attrs: { to: "/bank/profile" } },
+                                [
+                                  _vm.compact ? _c("account-icon") : _vm._e(),
+                                  _vm._v("Profile")
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("li", [
                             _c(
-                              "router-link",
-                              { attrs: { to: "/bank/profile" } },
+                              "a",
+                              { attrs: { href: "/portal" } },
                               [
-                                _vm.compact ? _c("account-icon") : _vm._e(),
-                                _vm._v("Profile")
+                                _vm.compact
+                                  ? _c("account-convert-icon")
+                                  : _vm._e(),
+                                _vm._v("Switch Account")
                               ],
                               1
                             )
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c("li", [
-                          _c(
-                            "a",
-                            { attrs: { href: "/portal" } },
-                            [
-                              _vm.compact
-                                ? _c("account-convert-icon")
-                                : _vm._e(),
-                              _vm._v("Switch Account")
-                            ],
-                            1
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "li",
-                          [_c("logout", { attrs: { compact: _vm.compact } })],
-                          1
-                        )
-                      ])
-                    : "/account" == _vm.homeRoute
-                      ? _c("ul", [
-                          _vm.accountId
-                            ? _c(
-                                "li",
-                                [
-                                  _c("portal-logout", {
-                                    attrs: { compact: _vm.compact }
-                                  })
-                                ],
-                                1
-                              )
-                            : _c(
-                                "li",
-                                [
-                                  _c("logout", {
-                                    attrs: { compact: _vm.compact }
-                                  })
-                                ],
-                                1
-                              )
-                        ])
-                      : _c("ul", [
+                          ]),
+                          _vm._v(" "),
                           _c(
                             "li",
                             [_c("logout", { attrs: { compact: _vm.compact } })],
                             1
                           )
                         ])
-                ]
+                      : "/account" == _vm.homeRoute
+                        ? _c("ul", [
+                            _vm.accountId
+                              ? _c(
+                                  "li",
+                                  [
+                                    _c("portal-logout", {
+                                      attrs: { compact: _vm.compact }
+                                    })
+                                  ],
+                                  1
+                                )
+                              : _c(
+                                  "li",
+                                  [
+                                    _c("logout", {
+                                      attrs: { compact: _vm.compact }
+                                    })
+                                  ],
+                                  1
+                                )
+                          ])
+                        : _c("ul", [
+                            _c(
+                              "li",
+                              [
+                                _c("logout", {
+                                  attrs: { compact: _vm.compact }
+                                })
+                              ],
+                              1
+                            )
+                          ])
+                  ]
         ],
         2
       ),
@@ -34713,7 +34734,7 @@ var actions = {
 
 /***/ }),
 
-/***/ 7:
+/***/ 8:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__("./resources/js/password-reset.js");

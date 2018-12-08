@@ -11,8 +11,13 @@
                 <li><a href="/register">Register</a></li>
             </ul>
 
+            <ul v-else-if="!verified">
+                <!-- <li><a href="/portal"><account-convert-icon v-if="compact"></account-convert-icon> Account</a></li> -->
+                <li><logout :compact="compact"></logout></li>
+            </ul>
+
             <ul v-else-if="'welcome' == pageId">
-                <li><a href="/portal"><account-convert-icon v-if="compact"></account-convert-icon> Account</a></li>
+                <li><a href="/portal"><account-convert-icon v-if="compact"></account-convert-icon> Switch Account</a></li>
                 <li><logout :compact="compact"></logout></li>
             </ul>
 
@@ -72,6 +77,10 @@ export default {
             type: Boolean,
             default: false
         },
+        verified: {
+            type: Boolean,
+            default: false
+        },
         portal: {
             type: Boolean,
             default: false
@@ -98,6 +107,8 @@ export default {
 
             if (!this.loggedIn)
                 route = '/';
+            else if ('email-verify' == this.pageId)
+                route = '/';
             else if ('onboarding' == this.pageId)
                 route = '/onboarding'
             else if (this.portal == false)
@@ -110,7 +121,7 @@ export default {
             return route;
         },
         disabled() {
-            if ('welcome' == this.pageId)
+            if ('welcome' == this.pageId || 'email-verify' == this.pageId)
                 return true;
             return '/bank' == this.homeRoute ? false : true;
         },

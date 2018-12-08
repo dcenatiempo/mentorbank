@@ -18,6 +18,7 @@ mix.js('resources/js/app.js', 'public/js')
     .js('resources/js/bank.js', 'public/js')
     .js('resources/js/login.js', 'public/js')
     .js('resources/js/register.js', 'public/js')
+    .js('resources/js/email-verify.js', 'public/js')
     .js('resources/js/password-reset.js', 'public/js')
     .js('resources/js/portal.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
@@ -30,9 +31,10 @@ mix.webpackConfig({
     resolve: {
         alias : {
           "icons": path.resolve(__dirname, "node_modules/vue-material-design-icons"),
+          "@components": path.resolve(__dirname, "resources/js/components"),
           "@reusable": path.resolve(__dirname, "resources/js/components/reusable"),
           "@modals": path.resolve(__dirname, "resources/js/components/modals"),
-          "@components": path.resolve(__dirname, "resources/js/components")
+          "@forms": path.resolve(__dirname, "resources/js/components/forms"),
         }
       }      
 });

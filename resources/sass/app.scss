@@ -575,6 +575,27 @@ pre code {
   }
 }
 
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-gap: 1rem;
+
+  &.single {
+    display: flex;
+    justify-content: center;
+  }
+
+  .card {
+      padding: 1rem;
+      background: white;
+
+      .card-header {
+          display: flex;
+          justify-content: space-between;
+      }
+  }
+}
+
 
 input {
   width: 100%;
@@ -741,6 +762,15 @@ div.multiselect--disabled {
     padding-left: 0;
     padding-right: 0;
     padding: 0 0;
+    
+    .card-container {
+
+      &.single {}
+
+      .card {
+        flex-grow: 1;
+      }
+    }
   }
 }
 

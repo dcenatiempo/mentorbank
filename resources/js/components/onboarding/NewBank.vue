@@ -7,13 +7,17 @@
         <input id="name" type="text" placeholder="Enter account holder's name" v-model="name"/>
         <label for="year">Birth Month:</label>
         <datepicker :format="'MMM yyyy'" :minimumView="'month'" :maximumView="'month'" v-model="birthdate" :use-utc="true"></datepicker>
-        <toggle-button
+        <label for="name">Sex:</label>
+        <div><toggle-button
             v-model="isMale"
             :labels="{checked: 'Male', unchecked: 'Female'}"
             :color="{checked: '#6cb2eb', unchecked: 'pink', disabled: '#CCCCCC'}"
             :width="75"
             :height="30"/>
-        <button class="btn-confirm" v-on:click="createNewAccount()">Submit</button>
+        </div>
+        <label for="name">Pin:</label>
+        <input id="name" type="text" placeholder="4+ characters" v-model="pin"/>
+        <button class="btn-confirm" v-on:click="createNewAccount()">Create Account</button>
     </form>
 </div>
 </template>
@@ -33,29 +37,29 @@ export default {
         return {
             name: '',
             birthdate: moment().subtract(5, 'year').format(),
-            isMale: true
+            isMale: true,
+            pin: ''
         };
     },
     computed: {
-        ...mapState(['user', 'bank']),
-        // ...mapGetters()
+        ...mapState(['bank']),
     },
     methods: {
-        // ...mapMutations(),
         ...mapActions('accounts', ['createAccount']),
         createNewAccount() {
             let account = {
                 name: this.name,
                 birthdate: moment.utc(this.birthdate).format("YYYY-MM-DD"),
-                sex: this.isMale ? 'm' : 'f'
+                sex: this.isMale ? 'm' : 'f',
             }
-            console.dir(account)
+            if (this.pin.length > 0) {
+                account.pin = this.pin
+            }
             this.createAccount(account);
         },
         
     },
-    created() {
-    },
+    created() {},
     mounted() {},
     watch: {}
 }
@@ -87,5 +91,16 @@ export default {
     button {
         display: block;
         margin-left: auto;
+        grid-column: 2 / 3;
+        margin-top: 1rem;
     }
+    form {
+        display: grid;
+        grid-template-columns: max-content 1fr;
+        grid-column-gap: 1rem;
+
+    label {
+        text-align: right;
+    }
+}
 </style>

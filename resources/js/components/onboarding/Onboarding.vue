@@ -1,10 +1,10 @@
 <template>
-    <div class="container card">
+    <section class="card-container single">
         <h1 v-if="loading">Loading User...</h1>
-        <new-user v-if="type == 'none'"></new-user>
-        <new-bank v-else-if="type == 'banker'"></new-bank>
+        <new-user v-if="type == 'none'" class="card"></new-user>
+        <new-bank v-else-if="type == 'banker'" class="card"></new-bank>
         <account-holder-profile v-else-if="type == 'account_holder'"></account-holder-profile>
-    </div>
+    </section>
 </template>
 
 <script>

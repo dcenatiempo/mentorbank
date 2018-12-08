@@ -70,6 +70,7 @@
 
         <default-header
             :logged-in="{{ Auth::check() ? 'true' : 'false'}}"
+            :verified="{{ Auth::check() && Auth::user()->email_verified_at === null ? 'false' : 'true' }}"
             :portal="{{ Session::has('portal') ? 'true' : 'false' }}"
             :account-id="{{ Session::has('account_id') ? Session::get('account_id') : 0 }}"
             page-id="{{ isset($pageId) ? $pageId : substr($_SERVER['REQUEST_URI'], 1) }}">

@@ -18,9 +18,9 @@
             :color="{checked: '#6cb2eb', unchecked: 'pink', disabled: '#CCCCCC'}"
             :width="75"
             :height="30"/>
-            </div>
-        <label v-if="'edit' == mode" for="name">Pin:</label>
-        <input  v-if="'edit' == mode" id="name" type="text" placeholder="Enter account holder's pin" v-model="pin"/>
+        </div>
+        <label for="name">Pin:</label>
+        <input id="name" type="text" placeholder="4+ character pin" v-model="pin"/>
     </form>
 
 </modal>

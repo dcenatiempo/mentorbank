@@ -21,5 +21,7 @@ class TrustProxies extends Middleware
      */
     protected $headers = Request::HEADER_X_FORWARDED_AWS_ELB;
 
-    // See: https://devcenter.heroku.com/articles/getting-started-with-laravel
+    //  For details see:
+    //  https://devcenter.heroku.com/articles/getting-started-with-laravel
+    //  https://laravel.com/docs/5.7/requests#configuring-trusted-proxies
 }

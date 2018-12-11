@@ -4141,6 +4141,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -6702,6 +6706,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
 
 
 
@@ -6734,7 +6741,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         return {};
     },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])(['accounts'])),
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])(['accounts']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('categories', ['categoryList'])),
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapMutations */])('app', ['showModal', 'hideModal']), {
         moment: function (_moment) {
             function moment(_x) {
@@ -6754,6 +6761,23 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 modalId: 'transaction-modal',
                 payload: { mode: "add" }
             });
+        },
+        getCategories: function getCategories(t) {
+            var _this = this;
+
+            return t.split.reduce(function (list, item) {
+                var cat = _this.categoryList.find(function (cat) {
+                    return cat.id == item.categoryId;
+                });
+                if (cat) {
+                    if ('deposit' == t.type && 0 == list.length || 'transfer' == t.type && list.length > 0) {
+                        if ('transfer' == t.type) list += ', ';
+                        list += 'To: ';
+                    } else if (('transfer' == t.type || 'withdrawal' == t.type) && 0 == list.length) list += 'From: ';else if (list.length > 0) list += ', ';
+                    list += cat.name;
+                }
+                return list;
+            }, '');
         }
     }),
     watch: {}
@@ -9370,7 +9394,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n#recent-transactions .transfer {\n  color: #9561e2;\n}\n#recent-transactions .deposit {\n  color: #41b883;\n}\n#recent-transactions .withdrawal {\n  color: #ff6a6a;\n}\n#recent-transactions table {\n  width: 100%;\n}\n#recent-transactions table tr:nth-child(even) {\n    background-color: #e6e9f0;\n}\n#recent-transactions table td.align-right {\n    text-align: right;\n}\n", ""]);
+exports.push([module.i, "\n#recent-transactions .transfer {\n  color: #9561e2;\n}\n#recent-transactions .deposit {\n  color: #41b883;\n}\n#recent-transactions .withdrawal {\n  color: #ff6a6a;\n}\n#recent-transactions table {\n  width: 100%;\n}\n#recent-transactions table tr {\n    display: grid;\n    grid-template-columns: 1fr -webkit-min-content 90px;\n    grid-template-columns: 1fr min-content 90px;\n    padding: 0 0.5rem;\n}\n#recent-transactions table tr:nth-child(even) {\n      background-color: #e6e9f0;\n}\n#recent-transactions table tr td.date {\n      grid-column: 1/2;\n      font-size: .8em;\n      color: gray;\n}\n#recent-transactions table tr td.details {\n      grid-column: 1/2;\n}\n#recent-transactions table tr td.type {\n      grid-column: 2/3;\n      grid-row: 1/3;\n      justify-self: end;\n      -ms-flex-item-align: center;\n          align-self: center;\n}\n#recent-transactions table tr td.amount {\n      grid-column: 3/4;\n      grid-row: 1/3;\n      justify-self: end;\n      -ms-flex-item-align: center;\n          align-self: center;\n}\n", ""]);
 
 // exports
 
@@ -9700,7 +9724,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n#dashboard {\n  display: grid;\n  grid-gap: 1rem;\n}\n#dashboard .top-section {\n    background: white;\n    grid-column: 1 / end;\n    padding: 1rem;\n}\n#dashboard .card-container {\n    display: grid;\n    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));\n    grid-gap: 1rem;\n}\n#dashboard .card-container .card {\n      padding: 1rem;\n      background: white;\n}\n#dashboard .card-container .card .card-header {\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-pack: justify;\n            -ms-flex-pack: justify;\n                justify-content: space-between;\n}\n#dashboard table {\n    width: 100%;\n}\n#dashboard table tr:nth-child(even) {\n      background-color: #e6e9f0;\n}\n#dashboard table td.align-right {\n      text-align: right;\n}\n", ""]);
+exports.push([module.i, "\n#dashboard {\n  display: grid;\n  grid-gap: 1rem;\n}\n#dashboard .top-section {\n    background: white;\n    grid-column: 1 / end;\n    padding: 1rem;\n}\n#dashboard .account-grid {\n    display: grid;\n    grid-template-columns: 1fr -webkit-min-content;\n    grid-template-columns: 1fr min-content;\n}\n#dashboard .account-grid .currency {\n      justify-self: end;\n}\n#dashboard .account-grid a {\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n}\n#dashboard .account-grid > * {\n      font-size: 1.5rem;\n}\n#dashboard .card-container {\n    display: grid;\n    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));\n    grid-gap: 1rem;\n}\n#dashboard .card-container .card {\n      padding: 1rem;\n      background: white;\n}\n#dashboard .card-container .card .card-header {\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-pack: justify;\n            -ms-flex-pack: justify;\n                justify-content: space-between;\n}\n#dashboard table {\n    width: 100%;\n}\n#dashboard table tr:nth-child(even) {\n      background-color: #e6e9f0;\n}\n#dashboard table td.align-right {\n      text-align: right;\n}\n", ""]);
 
 // exports
 
@@ -29226,26 +29250,44 @@ var render = function() {
               _vm._l(_vm.transactionList.slice(0, 10), function(transaction) {
                 return [
                   _c("tr", { key: "t-" + transaction.id }, [
-                    _c("td", [
-                      _vm._v(_vm._s(_vm.moment(transaction.createdAt.date)))
+                    _c("td", { staticClass: "date" }, [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(_vm.moment(transaction.createdAt.date)) +
+                          "\n                "
+                      )
                     ]),
                     _vm._v(" "),
-                    "bank" == _vm.context
-                      ? _c("td", [
-                          _vm._v(
-                            "\n                    " +
-                              _vm._s(
-                                _vm.accounts.accountList.find(function(item) {
-                                  return item.id == transaction.accountId
-                                }).accountHolder.name
-                              ) +
-                              "\n                "
-                          )
-                        ])
-                      : _vm._e(),
+                    _c("td", { staticClass: "details" }, [
+                      "bank" == _vm.context
+                        ? _c("span", { staticClass: "name" }, [
+                            _vm._v(
+                              "\n                        " +
+                                _vm._s(
+                                  _vm.accounts.accountList.find(function(item) {
+                                    return item.id == transaction.accountId
+                                  }).accountHolder.name
+                                ) +
+                                "\n                    "
+                            )
+                          ])
+                        : "account" == _vm.context
+                          ? _c("span", { staticClass: "categories" }, [
+                              _vm._v(_vm._s(_vm.getCategories(transaction)))
+                            ])
+                          : _vm._e(),
+                      _vm._v(" "),
+                      transaction.memo
+                        ? _c("span", { staticClass: "memo" }, [
+                            _c("br"),
+                            _vm._v(_vm._s(transaction.memo))
+                          ])
+                        : _vm._e()
+                    ]),
                     _vm._v(" "),
                     _c(
                       "td",
+                      { staticClass: "type" },
                       [
                         transaction.type == "transfer"
                           ? _c("transfer", { staticClass: "transfer" })
@@ -29260,7 +29302,7 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "td",
-                      { staticClass: "align-right" },
+                      { staticClass: "amount" },
                       [
                         _c("currency", {
                           attrs: { amount: transaction.netAmount }
@@ -30799,54 +30841,54 @@ var render = function() {
       "section",
       { staticClass: "card-container" },
       [
-        _c(
-          "div",
-          { staticClass: "card" },
-          [
-            _c(
-              "h2",
-              { staticClass: "card-header" },
-              [
-                _c("router-link", { attrs: { to: "/bank/accounts" } }, [
-                  _vm._v("Accounts")
-                ]),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn-icon",
-                    on: { click: _vm.showAccountHolderModal }
-                  },
-                  [_vm._v("+")]
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _vm.accounts.loading
-              ? [_c("div", { staticClass: "loader" })]
-              : _vm._l(_vm.accounts.accountList, function(account) {
-                  return [
-                    _c("div", { key: account.id }, [
+        _c("div", { staticClass: "card" }, [
+          _c(
+            "h2",
+            { staticClass: "card-header" },
+            [
+              _c("router-link", { attrs: { to: "/bank/accounts" } }, [
+                _vm._v("Accounts")
+              ]),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn-icon",
+                  on: { click: _vm.showAccountHolderModal }
+                },
+                [_vm._v("+")]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _vm.accounts.loading
+            ? _c("div", { staticClass: "loader" })
+            : _c(
+                "div",
+                { staticClass: "account-grid" },
+                [
+                  _vm._l(_vm.accounts.accountList, function(account) {
+                    return [
                       _c(
-                        "h3",
-                        [
-                          _c(
-                            "router-link",
-                            { attrs: { to: "/bank/accounts/" + account.id } },
-                            [_vm._v(_vm._s(account.accountHolder.name))]
-                          ),
-                          _vm._v(" "),
-                          _c("currency", { attrs: { amount: account.balance } })
-                        ],
-                        1
-                      )
-                    ])
-                  ]
-                })
-          ],
-          2
-        ),
+                        "router-link",
+                        {
+                          key: "account-link-" + account.id,
+                          attrs: { to: "/bank/accounts/" + account.id }
+                        },
+                        [_vm._v(_vm._s(account.accountHolder.name))]
+                      ),
+                      _vm._v(" "),
+                      _c("currency", {
+                        key: "account-balance-" + account.id,
+                        attrs: { amount: account.balance }
+                      })
+                    ]
+                  })
+                ],
+                2
+              )
+        ]),
         _vm._v(" "),
         _c(
           "div",

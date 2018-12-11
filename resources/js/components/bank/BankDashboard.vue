@@ -9,14 +9,18 @@
                 <router-link to="/bank/accounts">Accounts</router-link>
                 <button v-on:click="showAccountHolderModal" class="btn-icon">+</button>
             </h2>
-            <template v-if="accounts.loading">
-                <div class="loader"></div>
-            </template>
-            <template v-else v-for="account in accounts.accountList">
-                <div :key="account.id">
-                    <h3><router-link :to="`/bank/accounts/${account.id}`">{{account.accountHolder.name}}</router-link> <currency :amount="account.balance"></currency></h3>
-                </div>
-            </template>
+            <div v-if="accounts.loading"
+                class="loader"></div>
+            <div v-else class="account-grid">
+                <template v-for="account in accounts.accountList">
+                    <router-link
+                        :to="`/bank/accounts/${account.id}`"
+                        :key="'account-link-' + account.id">{{account.accountHolder.name}}</router-link>
+                    <currency
+                        :amount="account.balance"
+                        :key="'account-balance-' + account.id" />
+                </template>
+            </div>
         </div>
 
         <div class="card">
@@ -125,6 +129,22 @@ export default {
         padding: 1rem;
     }
 
+    .account-grid {
+        display: grid;
+        grid-template-columns: 1fr min-content;
+
+        .currency {
+            justify-self: end;
+        }
+        a {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        > * {
+            font-size: 1.5rem;
+        }
+    }
     .card-container {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -153,9 +173,6 @@ export default {
                 text-align: right;
             }
         }
-
     }
-    
-}
-    
+}  
 </style>

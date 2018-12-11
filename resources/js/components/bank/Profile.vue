@@ -1,15 +1,15 @@
 <template>
     <div class="container">
-        <h2>Profile Page</h2>
+        <h2>Profile Page<button v-on:click="showProfileModal" class="btn-icon"><edit></edit></button></h2>
         <ul>
             <li>
-                Name: {{name}}
+                Name: {{user.name}}
             </li>
             <li>
-                Email: {{email}}
+                Email: {{user.email}}
             </li>
             <li>
-                Portal Pin: {{pin}}
+                Portal Pin: {{user.pin}}
             </li>
             <li>
                 Member Since: {{memberSince}}
@@ -20,9 +20,12 @@
 
 <script>
 import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
+import Pencil from 'icons/pencil';
 
 export default {
-    components: {},
+    components: {
+        'edit': Pencil
+    },
     props: {},
     data() {
         return {
@@ -30,13 +33,20 @@ export default {
         };
     },
     computed: {
-        ...mapState('user', ['name', 'email', 'pin']),
+        ...mapState(['user']),
         ...mapGetters('user', ['memberSince'])
     },
     methods: {
-        // ...mapMutations(),
+        ...mapMutations('app', ['showModal', 'hideModal']),
         // ...mapActions(),
-        
+        showProfileModal() {
+            this.showModal({
+                modalId: 'profile-modal',
+                payload: {
+                    user: this.user
+                }
+            });
+        }
     },
     created() {},
     mounted() {},

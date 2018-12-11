@@ -10,8 +10,8 @@
         <label for="name">Name:</label>
         <input id="name" type="text" placeholder="Account holder's name" v-model="name"/>
         <label for="year">Birth Month:</label>
-        <datepicker :format="'MMM yyyy'" :minimumView="'month'" :maximumView="'month'" v-model="birthdate" :use-utc="true"></datepicker>
-        <label for="name">Sex:</label>
+        <datepicker id="year" :format="'MMM yyyy'" :minimumView="'month'" :maximumView="'month'" v-model="birthdate" :use-utc="true"></datepicker>
+        <label>Sex:</label>
         <div><toggle-button
             v-model="isMale"
             :labels="{checked: 'Male', unchecked: 'Female'}"
@@ -19,8 +19,8 @@
             :width="75"
             :height="30"/>
         </div>
-        <label for="name">Pin:</label>
-        <input id="name" type="text" placeholder="4+ character pin" v-model="pin"/>
+        <label for="pin">Pin:</label>
+        <input id="pin" type="text" placeholder="4+ character pin" v-model="pin"/>
     </form>
 
 </modal>

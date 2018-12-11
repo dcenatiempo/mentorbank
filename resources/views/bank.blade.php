@@ -23,5 +23,6 @@
 <transaction-modal></transaction-modal>
 <account-modal></account-modal>
 <interest-modal></interest-modal>
+<profile-modal></profile-modal>
 
 @endsection

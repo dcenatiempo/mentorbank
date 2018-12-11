@@ -61,6 +61,7 @@ Vue.component('account-category-modal', require('@modals/AccountCategoryModal.vu
 Vue.component('transaction-modal', require('@modals/TransactionModal.vue'));
 Vue.component('account-modal', require('@modals/AccountModal.vue'));
 Vue.component('interest-modal', require('@modals/InterestModal.vue'));
+Vue.component('profile-modal', require('@modals/ProfileModal.vue'));
 Vue.component('add-transaction-btn', require('@reusable/AddTransactionBtn.vue'));
 
 const app = new Vue({

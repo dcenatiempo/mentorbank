@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Resources\User as UserResource;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -14,7 +15,12 @@ class UserController extends Controller
     }
 
     function update (Request $request) {
-        return "TODO: update user";
+        $user = $request->user();
+        $banker = $user->banker();
+
+        $banker->update($request->all());
+
+        return new UserResource($user);
     }
 
     function delete (Request $request) {

@@ -34681,7 +34681,8 @@ var state = {
     type: '', // none, banker, accountHolder
     name: '',
     email: '',
-    birthDate: null,
+    pin: '',
+    // birthdate: null,
     createdAt: { date: null }
 };
 
@@ -34717,6 +34718,16 @@ var actions = {
     getUser: function getUser(context, payload) {
         context.commit('setUserLoading', true);
         axios.get('/api/user').then(function (response) {
+            context.commit('setUserLoading', false);
+            context.commit('setUser', response.data.data);
+        }).catch(function (error) {
+            console.log(error);
+        });
+    },
+    updateUser: function updateUser(context, payload) {
+        context.commit('setUserLoading', true);
+        axios.patch('/api/user', payload).then(function (response) {
+            context.commit('setUserLoading', false);
             context.commit('setUser', response.data.data);
         }).catch(function (error) {
             console.log(error);

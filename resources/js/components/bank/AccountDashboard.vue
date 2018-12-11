@@ -176,6 +176,25 @@ export default {
         padding: 1rem;
     }
 
+    .category-grid {
+        display: grid;
+        grid-template-columns: minmax(auto, max-content) max-content minmax(80px, 1fr);
+        font-size: 1.6em;
+        justify-items: end;
+        align-items: center;
+        grid-column-gap: 8%;
+
+        .cat-name {
+            max-width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            justify-self: start;
+            text-align: left;
+            padding: 0;
+        }
+    }
+
     .card-container {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));

@@ -88,7 +88,7 @@ export default {
     .category-grid {
         display: grid;
         grid-template-columns: minmax(auto, max-content) max-content minmax(80px, 1fr);
-        font-size: 1.8em;
+        font-size: 1.6em;
         justify-items: end;
         align-items: center;
         grid-column-gap: 8%;
@@ -99,7 +99,8 @@ export default {
             overflow: hidden;
             text-overflow: ellipsis;
             justify-self: start;
-            text-align: left
+            text-align: left;
+            padding: 0;
         }
     }
 

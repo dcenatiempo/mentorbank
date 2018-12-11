@@ -91,7 +91,7 @@ export default {
         font-size: 1.8em;
         justify-items: end;
         align-items: center;
-        grid-column-gap: .5rem;
+        grid-column-gap: 8%;
 
         .cat-name {
             max-width: 100%;

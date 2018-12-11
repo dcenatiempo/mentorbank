@@ -3904,7 +3904,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
 
 
 
@@ -9214,7 +9213,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n#dashboard {\n  display: grid;\n  grid-gap: 1rem;\n}\n#dashboard .row {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-line-pack: center;\n        align-content: center;\n}\n#dashboard .category-grid {\n    display: grid;\n    grid-template-columns: minmax(auto, -webkit-max-content) -webkit-max-content minmax(80px, 1fr);\n    grid-template-columns: minmax(auto, max-content) max-content minmax(80px, 1fr);\n    font-size: 1.8em;\n    justify-items: end;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    grid-column-gap: .5rem;\n}\n#dashboard .category-grid .cat-name {\n      max-width: 100%;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n      justify-self: start;\n      text-align: left;\n}\n#dashboard .top-section {\n    background: white;\n    grid-column: 1 / end;\n    padding: 1rem;\n}\n#dashboard .card-container {\n    display: grid;\n    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));\n    grid-gap: 1rem;\n}\n#dashboard .card-container .card {\n      padding: 1rem;\n      background: white;\n}\n#dashboard .card-container .card .card-header {\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-pack: justify;\n            -ms-flex-pack: justify;\n                justify-content: space-between;\n}\n", ""]);
+exports.push([module.i, "\n#dashboard {\n  display: grid;\n  grid-gap: 1rem;\n}\n#dashboard .row {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-line-pack: center;\n        align-content: center;\n}\n#dashboard .top-section {\n    background: white;\n    grid-column: 1 / end;\n    padding: 1rem;\n}\n#dashboard .card-container {\n    display: grid;\n    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));\n    grid-gap: 1rem;\n}\n#dashboard .card-container .card {\n      padding: 1rem;\n      background: white;\n}\n#dashboard .card-container .card .card-header {\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-pack: justify;\n            -ms-flex-pack: justify;\n                justify-content: space-between;\n}\n", ""]);
 
 // exports
 
@@ -9289,7 +9288,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.dialog {\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  position: absolute;\n  top: 16px;\n  min-width: 288px;\n  max-width: 400px;\n  padding: 0;\n  margin-bottom: 1rem;\n  background: white;\n  border: none;\n  border-radius: 5px;\n  -webkit-box-shadow: 0 0 5px 5px rgba(100, 100, 100, 0.3);\n          box-shadow: 0 0 5px 5px rgba(100, 100, 100, 0.3);\n  left: 50%;\n  -webkit-transform: translateX(-50%);\n          transform: translateX(-50%);\n  z-index: 100;\n}\n.dialog header {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-flow: row nowrap;\n            flex-flow: row nowrap;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n    border-bottom: 1px solid #e6e9f0;\n    padding: 16px;\n}\n.dialog header .title {\n      text-transform: capitalize;\n      font-size: 1.2rem;\n}\n.dialog .content {\n    padding: 16px;\n    min-height: 100px;\n}\n.dialog footer {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-flow: row nowrap;\n            flex-flow: row nowrap;\n    -ms-flex-pack: distribute;\n        justify-content: space-around;\n    border-top: 1px solid #e6e9f0;\n    padding: 16px;\n}\n", ""]);
+exports.push([module.i, "\n.dialog {\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  position: absolute;\n  top: 16px;\n  min-width: 288px;\n  max-width: 400px;\n  padding: 0;\n  margin-bottom: 1rem;\n  background: white;\n  border: none;\n  border-radius: 5px;\n  -webkit-box-shadow: 0 0 5px 5px rgba(100, 100, 100, 0.3);\n          box-shadow: 0 0 5px 5px rgba(100, 100, 100, 0.3);\n  left: 50%;\n  -webkit-transform: translateX(-50%);\n          transform: translateX(-50%);\n  z-index: 100;\n}\n.dialog header {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-flow: row nowrap;\n            flex-flow: row nowrap;\n    -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n            justify-content: space-between;\n    border-top-left-radius: 5px;\n    border-top-right-radius: 5px;\n    border-bottom: 1px solid #e6e9f0;\n    padding: 16px;\n}\n.dialog header .title {\n      text-transform: capitalize;\n      font-size: 1.2rem;\n}\n.dialog .content {\n    padding: 16px;\n    min-height: 100px;\n}\n.dialog footer {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n        -ms-flex-flow: row nowrap;\n            flex-flow: row nowrap;\n    -ms-flex-pack: distribute;\n        justify-content: space-around;\n    border-top: 1px solid #e6e9f0;\n    padding: 16px;\n}\n", ""]);
 
 // exports
 
@@ -9574,7 +9573,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n#dashboard {\n  display: grid;\n  grid-gap: 1rem;\n}\n#dashboard .row {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-line-pack: center;\n        align-content: center;\n}\n#dashboard .category-grid {\n    display: grid;\n    grid-template-columns: minmax(auto, -webkit-max-content) -webkit-max-content minmax(80px, 1fr);\n    grid-template-columns: minmax(auto, max-content) max-content minmax(80px, 1fr);\n    font-size: 1.8em;\n    justify-items: end;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    grid-column-gap: .5rem;\n}\n#dashboard .category-grid .cat-name {\n      max-width: 100%;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n      justify-self: start;\n      text-align: left;\n}\n#dashboard .top-section {\n    background: white;\n    grid-column: 1 / end;\n    padding: 1rem;\n}\n#dashboard .card-container {\n    display: grid;\n    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));\n    grid-gap: 1rem;\n}\n#dashboard .card-container .card {\n      padding: 1rem;\n      background: white;\n}\n#dashboard .card-container .card .card-header {\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-pack: justify;\n            -ms-flex-pack: justify;\n                justify-content: space-between;\n}\n", ""]);
+exports.push([module.i, "\n#dashboard {\n  display: grid;\n  grid-gap: 1rem;\n}\n#dashboard .row {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-line-pack: center;\n        align-content: center;\n}\n#dashboard .category-grid {\n    display: grid;\n    grid-template-columns: minmax(auto, -webkit-max-content) -webkit-max-content minmax(80px, 1fr);\n    grid-template-columns: minmax(auto, max-content) max-content minmax(80px, 1fr);\n    font-size: 1.8em;\n    justify-items: end;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    grid-column-gap: 8%;\n}\n#dashboard .category-grid .cat-name {\n      max-width: 100%;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n      justify-self: start;\n      text-align: left;\n}\n#dashboard .top-section {\n    background: white;\n    grid-column: 1 / end;\n    padding: 1rem;\n}\n#dashboard .card-container {\n    display: grid;\n    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));\n    grid-gap: 1rem;\n}\n#dashboard .card-container .card {\n      padding: 1rem;\n      background: white;\n}\n#dashboard .card-container .card .card-header {\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-pack: justify;\n            -ms-flex-pack: justify;\n                justify-content: space-between;\n}\n", ""]);
 
 // exports
 
@@ -28042,45 +28041,43 @@ var render = function() {
       )
     ]),
     _vm._v(" "),
+    _c("div", { staticClass: "top-section" }, [
+      _c(
+        "h2",
+        [
+          _vm._v("Balance: "),
+          _c("currency", { attrs: { amount: _vm.currentAccount.balance } })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("h2", [
+        _vm._v(
+          "Interest Rate: " +
+            _vm._s(_vm.currentAccount.interestRate) +
+            "% per " +
+            _vm._s(_vm.currentAccount.rateInterval)
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _vm.wOrM
+          ? _c("span", [_vm._v("Paid " + _vm._s(_vm.frequencyFullDescription))])
+          : _vm._e(),
+        _vm._v(" "),
+        _c(
+          "button",
+          { staticClass: "btn-icon", on: { click: _vm.showInterestModal } },
+          [_c("edit")],
+          1
+        )
+      ])
+    ]),
+    _vm._v(" "),
     _c(
       "section",
       { staticClass: "card-container" },
       [
-        _c("div", { staticClass: "card" }, [
-          _c(
-            "h2",
-            [
-              _vm._v("Balance: "),
-              _c("currency", { attrs: { amount: _vm.currentAccount.balance } })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("h2", [
-            _vm._v(
-              "Interest Rate: " +
-                _vm._s(_vm.currentAccount.interestRate) +
-                "% per " +
-                _vm._s(_vm.currentAccount.rateInterval)
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row" }, [
-            _vm.wOrM
-              ? _c("span", [
-                  _vm._v("Paid " + _vm._s(_vm.frequencyFullDescription))
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _c(
-              "button",
-              { staticClass: "btn-icon", on: { click: _vm.showInterestModal } },
-              [_c("edit")],
-              1
-            )
-          ])
-        ]),
-        _vm._v(" "),
         _c("subscribed-categories"),
         _vm._v(" "),
         _c("recent-transactions", {

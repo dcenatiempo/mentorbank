@@ -89,6 +89,8 @@ export default {
             display: flex;
             flex-flow: row nowrap;
             justify-content: space-between;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
             border-bottom: 1px solid $lightgray;
             padding: 16px;
 

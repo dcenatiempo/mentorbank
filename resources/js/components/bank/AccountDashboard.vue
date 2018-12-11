@@ -6,17 +6,16 @@
         <button v-on:click="showAccountModal" class="btn-icon"><edit></edit></button>
     </h1>
 
-    <section class="card-container">
-
-        <div class="card">
-            <h2>Balance: <currency :amount="currentAccount.balance"></currency></h2>
-            <h2>Interest Rate: {{currentAccount.interestRate}}% per {{currentAccount.rateInterval}}</h2>
-            <div class="row">
-                <span v-if="wOrM">Paid {{frequencyFullDescription}}</span>
-                <button v-on:click="showInterestModal" class="btn-icon"><edit></edit></button>
-            </div>
-            
+    <div class="top-section">
+        <h2>Balance: <currency :amount="currentAccount.balance"></currency></h2>
+        <h2>Interest Rate: {{currentAccount.interestRate}}% per {{currentAccount.rateInterval}}</h2>
+        <div class="row">
+            <span v-if="wOrM">Paid {{frequencyFullDescription}}</span>
+            <button v-on:click="showInterestModal" class="btn-icon"><edit></edit></button>
         </div>
+    </div>
+
+    <section class="card-container">
 
         <subscribed-categories></subscribed-categories>
 
@@ -169,23 +168,6 @@ export default {
     .row {
         display: flex;
         align-content: center;
-    }
-    .category-grid {
-        display: grid;
-        grid-template-columns: minmax(auto, max-content) max-content minmax(80px, 1fr);
-        font-size: 1.8em;
-        justify-items: end;
-        align-items: center;
-        grid-column-gap: .5rem;
-
-        .cat-name {
-            max-width: 100%;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            justify-self: start;
-            text-align: left
-        }
     }
 
     .top-section {

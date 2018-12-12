@@ -3904,6 +3904,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
 
 
 
@@ -4000,7 +4001,21 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 return i + "rd";
             }
             return i + "th";
-        }
+        },
+        moment: function (_moment) {
+            function moment(_x) {
+                return _moment.apply(this, arguments);
+            }
+
+            moment.toString = function () {
+                return _moment.toString();
+            };
+
+            return moment;
+        }(function (d) {
+            if (!d) return '?';
+            return moment.utc(d.date).local().fromNow();
+        })
     }),
     created: function created() {
         this.setCurrentById(this.$route.params.accountId);
@@ -4144,6 +4159,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -4167,7 +4187,14 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         return {};
     },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('user', ['name']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])(['bank', 'accounts', 'categories', 'transactions'])),
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('user', ['name']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])(['bank', 'accounts', 'categories', 'transactions']), {
+        // ...mapGetters()
+        totalDeposits: function totalDeposits() {
+            return this.accounts.accountList.reduce(function (total, account) {
+                return total + account.balance;
+            }, 0);
+        }
+    }),
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapMutations */])('app', ['showModal', 'hideModal']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapMutations */])('accounts', ['unSetCurrent']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])('categories', ['fetchAllCategories']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])('transactions', ['fetchAllTransactions']), {
         moment: function (_moment) {
             function moment(_x) {
@@ -28208,7 +28235,21 @@ var render = function() {
           [_c("edit")],
           1
         )
-      ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        [
+          _vm._v("Accrued Interest: "),
+          _c("currency", {
+            attrs: { amount: _vm.currentAccount.interestAccrued }
+          }),
+          _vm._v(
+            " due " + _vm._s(_vm.moment(_vm.currentAccount.nextDistribution))
+          )
+        ],
+        1
+      )
     ]),
     _vm._v(" "),
     _c(
@@ -31107,6 +31148,26 @@ var render = function() {
       ],
       1
     ),
+    _vm._v(" "),
+    _c("div", { staticClass: "top-section" }, [
+      _c(
+        "div",
+        [
+          _vm._v("Total Deposits: "),
+          _c("currency", { attrs: { amount: _vm.totalDeposits } })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        [
+          _vm._v("Total Accrued Interest: "),
+          _c("currency", { attrs: { amount: _vm.bank.totalAccruedInterest } })
+        ],
+        1
+      )
+    ]),
     _vm._v(" "),
     _c(
       "section",
@@ -54299,8 +54360,11 @@ var state = {
     loading: true,
     id: null,
     name: '',
-    created_at: '',
-    updated_at: ''
+    totalAccruedInterest: 0,
+    createdAt: '',
+    updatedAt: ''
+    // deletedAt: '',
+    // inviteCode: ,,
 };
 
 var getters = {};

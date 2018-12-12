@@ -14,6 +14,10 @@ class SubscribedCategory extends Model
 {
     protected $guarded = [ ];
 
+    protected $casts = [
+        'balance' => 'float'
+    ];
+
     // Many to one
     public function account() { return $this->belongsTo('App\Account'); }
     public function category() { return $this->belongsTo('App\Category'); }

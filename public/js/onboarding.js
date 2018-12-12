@@ -40035,8 +40035,11 @@ var state = {
     loading: true,
     id: null,
     name: '',
-    created_at: '',
-    updated_at: ''
+    totalAccruedInterest: 0,
+    createdAt: '',
+    updatedAt: ''
+    // deletedAt: '',
+    // inviteCode: ,,
 };
 
 var getters = {};

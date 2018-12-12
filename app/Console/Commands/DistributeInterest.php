@@ -76,7 +76,7 @@ class DistributeInterest extends Command
                 Log::debug('Processing account: ' . $account->id);
 
                 // Is today distribution day?
-                $shouldDistribute = $today->toDateString() == $account->next_distribution->toDateString();
+                $shouldDistribute = $today->toDateString() >= $account->next_distribution->toDateString();
 
                 if ($shouldDistribute) {
                     Log::debug('$shouldDistribute == true');

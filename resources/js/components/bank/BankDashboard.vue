@@ -3,6 +3,11 @@
 
     <h1 class="top-section"><router-link to="/bank/settings">{{bank.name}}</router-link> Dashboard</h1>
 
+    <div class="top-section">
+        <div>Total Deposits: <currency :amount="totalDeposits"/></div>
+        <div>Total Accrued Interest: <currency :amount="bank.totalAccruedInterest"/></div>
+    </div>
+
     <section class="card-container">
         <div class="card">
             <h2 class="card-header">
@@ -71,8 +76,13 @@ export default {
     },
     computed: {
         ...mapState('user', ['name']),
-        ...mapState(['bank', 'accounts', 'categories', 'transactions'])
+        ...mapState(['bank', 'accounts', 'categories', 'transactions']),
         // ...mapGetters()
+        totalDeposits() {
+            return this.accounts.accountList.reduce((total, account) => 
+                total + account.balance
+            , 0);
+        }
     },
     methods: {
         ...mapMutations('app', ['showModal', 'hideModal']),

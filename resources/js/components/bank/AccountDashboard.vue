@@ -13,6 +13,7 @@
             <span v-if="wOrM">Paid {{frequencyFullDescription}}</span>
             <button v-on:click="showInterestModal" class="btn-icon"><edit></edit></button>
         </div>
+        <div>Accrued Interest: <currency :amount="currentAccount.interestAccrued" /> due {{moment(currentAccount.nextDistribution)}}</div>
     </div>
 
     <section class="card-container">
@@ -147,7 +148,11 @@ export default {
                 return i + "rd";
             }
             return i + "th";
-        }
+        },
+        moment(d) {
+            if (!d) return '?';
+            return moment.utc(d.date).local().fromNow();
+        },
     },
     created() {
         this.setCurrentById(this.$route.params.accountId);

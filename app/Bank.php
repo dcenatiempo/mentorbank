@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\SubscribedCategory;
 
 class Bank extends Model
 {
@@ -12,6 +13,7 @@ class Bank extends Model
     public function accountHolders() { return $this->hasMany('App\AccountHolder'); }
     public function categories()     { return $this->hasMany('App\Category'); }
     public function transactions()   { return $this->hasManyThrough('App\Transaction', 'App\Account'); }
+    public function interestTransactions()   { return $this->hasManyThrough('App\InterestTransaction', 'App\Account'); }
 
     public function getAllCategories() {
         $globalCats = Category::getGlobalCategories()
@@ -35,5 +37,13 @@ class Bank extends Model
         return $this->getAllCategories()->filter(function ($cat) {
             return $cat['force_subscribe'] == true;
         });
+    }
+
+    public function getTotalAccruedInterest() {
+        $interest = SubscribedCategory::where('category_id', 1)
+            ->whereIn('account_id', $this->accounts()->pluck('id')->toArray());
+        $interest = $interest->pluck('balance')->sum();
+
+        return round($interest, 2);    
     }
 }

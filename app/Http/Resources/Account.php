@@ -39,6 +39,7 @@ class Account extends JsonResource
             'frequency' => $this->frequency,
             'goalBalance' => $this->goal_balance,
             'interestRate' => $this->interest_rate,
+            'interestAccrued' => $this->getAccruedInterest(),
             'lastDistribution' => $this->last_distribution,
             'lowBalanceAlert' => $this->low_balance_alert,
             'monthlyTransactions' => $this->monthly_transactions,

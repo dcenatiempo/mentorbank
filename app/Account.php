@@ -127,4 +127,10 @@ class Account extends Model
         
         return $nextDistribution;
     }
+
+    public function getAccruedInterest() {
+        $interest = $this->subscribedCategories()->where('category_id', 1)->first()->balance;
+        
+        return round($interest, 2);;
+    }
 }

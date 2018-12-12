@@ -25,7 +25,8 @@ class Bank extends JsonResource
 
             // data (alphabetical)
             'inviteCode' => $this->invite_code,
-            'name' => $this->name
+            'name' => $this->name,
+            'totalAccruedInterest' => $this->getTotalAccruedInterest()
         ];
     }
 }

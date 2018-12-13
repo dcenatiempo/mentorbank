@@ -1,3 +1,11 @@
+const toSpinalCase = function(obj) {
+    let newObj = {}
+    for (let key in obj) {
+        let newKey = key.replace(/([A-Z])/g, (g) => `_${g[0].toLowerCase()}`);
+        newObj[newKey] = obj[key];
+    }
+    return newObj;
+}
 const currentAccountDefault = {
     accountHolder: {
         accountHolderId: null,
@@ -177,18 +185,15 @@ const actions = {
             });
         });
     },
-    updateAccount(context, {accountId, data}) {
+    updateAccount(context, payload) {
         return new Promise((resolve, reject) => {
+            payload = toSpinalCase(payload);
             // context.commit('setAccountsLoading', true);
-            axios.patch(`/api/account/${accountId}`, {
-                'interest_rate': Number(data.interestRate),
-                'rate_interval': data.rateInterval,
-                'frequency': data.frequency,
-                'distribution_day': parseInt(data.distributionDay)
-            }).then((response) => {
-                context.commit('updateAccount', response.data.data);
-                context.commit('setCurrentByObj', response.data.data);
-                context.commit('setAccountsLoading', false);
+            axios.patch(`/api/account/${payload.id}`, payload)
+                .then((response) => {
+                    context.commit('updateAccount', response.data.data);
+                    context.commit('setCurrentByObj', response.data.data);
+                    context.commit('setAccountsLoading', false);
                 resolve();
             })
             .catch((error) => {

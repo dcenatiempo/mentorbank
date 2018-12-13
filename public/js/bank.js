@@ -3975,7 +3975,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 modalId: 'account-modal',
                 payload: {
                     mode: "edit",
-                    accountHolder: this.currentAccount.accountHolder
+                    accountHolder: this.currentAccount.accountHolder,
+                    account: {
+                        view: this.currentAccount.view,
+                        id: this.currentAccount.id
+                    }
                 }
             });
         },
@@ -4821,7 +4825,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             return this.vpWidth < 500;
         }
     }),
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapMutations */])('app', ['setSize', 'setIsLoggedIn']), {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapMutations */])('app', ['setSize', 'setIsLoggedIn', 'setIsPortal']), {
         resizeFinished: function resizeFinished() {
             this.setSize({ width: window.innerWidth, height: window.innerHeight });
         },
@@ -4841,6 +4845,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         };
 
         this.setIsLoggedIn(this.loggedIn);
+        this.setIsPortal(this.portal);
     },
 
     watch: {}
@@ -5054,8 +5059,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_js_toggle_button_src_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_js_toggle_button_src_Button__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_multiselect__ = __webpack_require__("./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_multiselect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue_multiselect__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Modal_vue__ = __webpack_require__("./resources/js/components/modals/Modal.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__Modal_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_v_money__ = __webpack_require__("./node_modules/v-money/dist/v-money.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_v_money___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_v_money__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Modal_vue__ = __webpack_require__("./resources/js/components/modals/Modal.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__Modal_vue__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -5126,6 +5133,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+
 
 
 
@@ -5135,15 +5147,17 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     components: {
-        Modal: __WEBPACK_IMPORTED_MODULE_3__Modal_vue___default.a,
+        Modal: __WEBPACK_IMPORTED_MODULE_4__Modal_vue___default.a,
         Multiselect: __WEBPACK_IMPORTED_MODULE_2_vue_multiselect___default.a,
-        ToggleButton: __WEBPACK_IMPORTED_MODULE_1_vue_js_toggle_button_src_Button___default.a
+        ToggleButton: __WEBPACK_IMPORTED_MODULE_1_vue_js_toggle_button_src_Button___default.a,
+        Money: __WEBPACK_IMPORTED_MODULE_3_v_money__["Money"]
     },
     props: {},
     data: function data() {
         return {
             id: 'account-category-modal',
             mode: '',
+            simple: false,
             name: '',
             balance: 0,
             goalBalance: 0,
@@ -5226,6 +5240,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             if (!_payload) return;
 
             this.mode = _payload.mode ? _payload.mode : 'edit';
+            this.simple = _payload.simple ? _payload.simple : false;
             if (_payload.category && _payload.subscribedCategory) {
                 this.name = _payload.category.name;
                 this.balance = _payload.subscribedCategory.balance;
@@ -5248,8 +5263,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuejs_datepicker__ = __webpack_require__("./node_modules/vuejs-datepicker/dist/vuejs-datepicker.esm.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_js_toggle_button_src_Button__ = __webpack_require__("./node_modules/vue-js-toggle-button/src/Button.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_js_toggle_button_src_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue_js_toggle_button_src_Button__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Modal_vue__ = __webpack_require__("./resources/js/components/modals/Modal.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__Modal_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_multiselect__ = __webpack_require__("./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_multiselect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_vue_multiselect__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Modal_vue__ = __webpack_require__("./resources/js/components/modals/Modal.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__Modal_vue__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -5280,6 +5297,20 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -5289,9 +5320,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     components: {
-        'modal': __WEBPACK_IMPORTED_MODULE_3__Modal_vue___default.a,
+        'modal': __WEBPACK_IMPORTED_MODULE_4__Modal_vue___default.a,
         Datepicker: __WEBPACK_IMPORTED_MODULE_1_vuejs_datepicker__["a" /* default */],
-        ToggleButton: __WEBPACK_IMPORTED_MODULE_2_vue_js_toggle_button_src_Button___default.a
+        ToggleButton: __WEBPACK_IMPORTED_MODULE_2_vue_js_toggle_button_src_Button___default.a,
+        Multiselect: __WEBPACK_IMPORTED_MODULE_3_vue_multiselect___default.a
     },
     props: {},
     data: function data() {
@@ -5301,7 +5333,21 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             name: '',
             isMale: true,
             birthdate: moment().subtract(5, 'year').format("YYYY-MM-DD"),
-            pin: ''
+            pin: '',
+            accountHolderId: null,
+            accountId: null,
+            view: {},
+            oldView: {},
+            viewOptions: [{
+                label: 'Simple',
+                value: 0
+            }, {
+                label: 'Intermediate',
+                value: 1
+            }, {
+                label: 'Advanced',
+                value: 2
+            }]
         };
     },
 
@@ -5322,7 +5368,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             return payload ? payload : null;
         }
     }),
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapMutations */])('app', ['hideModal']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])('accounts', ['createAccount', 'updateAccountHolder']), {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapMutations */])('app', ['hideModal']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])('accounts', ['createAccount', 'updateAccountHolder', 'updateAccount']), {
         closeModal: function closeModal() {
             this.hideModal(this.id);
             this.reset();
@@ -5341,10 +5387,17 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 sex: this.isMale ? 'm' : 'f',
                 pin: this.pin
             };
+            var account = {
+                view: this.view.value,
+                id: this.accountId
+            };
 
             if ('edit' == this.mode) {
-                accountHolder.id = this.acccountHolderId;
+                accountHolder.id = this.accountHolderId;
                 this.updateAccountHolder(accountHolder).then(function () {
+                    return vm.closeModal();
+                }).catch(function () {});
+                this.updateAccount(account).then(function () {
                     return vm.closeModal();
                 }).catch(function () {});
             } else if ('add' == this.mode) {
@@ -5363,13 +5416,21 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             if (!_payload) return;
 
             this.mode = _payload.mode ? _payload.mode : 'add';
+            if (_payload.account) {
+                var view = this.viewOptions.find(function (item) {
+                    return item.value === _payload.account.view;
+                });
+                this.view = view;
+                this.oldView = view;
+                this.accountId = _payload.account.id;
+            }
 
             if (_payload.accountHolder) {
                 this.name = _payload.accountHolder.name;
                 this.isMale = 'm' == _payload.accountHolder.sex ? true : false;
                 this.birthdate = moment.utc(_payload.accountHolder.birthdate).format('YYYY-MM-DD');
                 this.pin = _payload.accountHolder.pin;
-                this.acccountHolderId = _payload.accountHolder.id;
+                this.accountHolderId = _payload.accountHolder.id;
             }
         }
     }
@@ -5752,13 +5813,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
             var f = this.frequency;
             var payload = {
-                accountId: this.accountId,
-                data: {
-                    interestRate: this.interestRate,
-                    rateInterval: this.rateInterval,
-                    frequency: 'P' + f.time + f.unit,
-                    distributionDay: this.distributionDay
-                }
+                id: this.accountId,
+                interestRate: Number(this.interestRate),
+                rateInterval: this.rateInterval,
+                frequency: 'P' + f.time + f.unit,
+                distributionDay: parseInt(this.distributionDay)
             };
             this.updateAccount(payload).then(function () {
                 _this.closeModal();
@@ -6950,6 +7009,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -6968,7 +7031,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     },
 
     computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('categories', ['categoryList']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('accounts', ['currentAccount']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapGetters */])('accounts', { 'subedCats': 'accountSubedCats' })),
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapMutations */])('app', ['showModal', 'hideModal']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])('categories', ['fetchAllCategories']), {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapMutations */])('app', ['showModal', 'hideModal', 'isPortal']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])('categories', ['fetchAllCategories']), {
         showCategoryModal: function showCategoryModal() {
             this.showModal({
                 modalId: 'category-modal',
@@ -6983,6 +7046,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 modalId: 'account-category-modal',
                 payload: {
                     mode: "edit",
+                    simple: this.isPortal ? true : false,
                     subscribedCategory: subCat,
                     category: this.categoryList.find(function (cat) {
                         return cat.id == subCat.categoryId;
@@ -28031,9 +28095,36 @@ var render = function() {
                 _vm.pin = $event.target.value
               }
             }
-          })
+          }),
+          _vm._v(" "),
+          true
+            ? [
+                _c("label", { attrs: { for: "view" } }, [
+                  _vm._v("Account View:")
+                ]),
+                _vm._v(" "),
+                _c("multiselect", {
+                  attrs: {
+                    value: _vm.view,
+                    options: _vm.viewOptions,
+                    "track-by": "value",
+                    label: "label",
+                    placeholder: "select a view",
+                    "allow-empty": false,
+                    deselectLabel: ""
+                  },
+                  model: {
+                    value: _vm.view,
+                    callback: function($$v) {
+                      _vm.view = $$v
+                    },
+                    expression: "view"
+                  }
+                })
+              ]
+            : _vm._e()
         ],
-        1
+        2
       )
     ]
   )
@@ -30324,33 +30415,37 @@ var render = function() {
       }
     },
     [
-      _c("label", [_vm._v("Notifications")]),
-      _vm._v(" "),
-      _c(
-        "div",
-        [
-          _c("toggle-button", {
-            attrs: {
-              labels: { checked: "On", unchecked: "Off" },
-              color: {
-                checked: "#41b883",
-                unchecked: "rgb(160, 165, 175)",
-                disabled: "#CCCCCC"
-              },
-              width: 70,
-              height: 30
-            },
-            model: {
-              value: _vm.notifications,
-              callback: function($$v) {
-                _vm.notifications = $$v
-              },
-              expression: "notifications"
-            }
-          })
-        ],
-        1
-      ),
+      !_vm.simple
+        ? [
+            _c("label", [_vm._v("Notifications")]),
+            _vm._v(" "),
+            _c(
+              "div",
+              [
+                _c("toggle-button", {
+                  attrs: {
+                    labels: { checked: "On", unchecked: "Off" },
+                    color: {
+                      checked: "#41b883",
+                      unchecked: "rgb(160, 165, 175)",
+                      disabled: "#CCCCCC"
+                    },
+                    width: 70,
+                    height: 30
+                  },
+                  model: {
+                    value: _vm.notifications,
+                    callback: function($$v) {
+                      _vm.notifications = $$v
+                    },
+                    expression: "notifications"
+                  }
+                })
+              ],
+              1
+            )
+          ]
+        : _vm._e(),
       _vm._v(" "),
       _c("label", [_vm._v("Goal Balance")]),
       _vm._v(" "),
@@ -30374,29 +30469,33 @@ var render = function() {
         )
       ),
       _vm._v(" "),
-      _c("label", [_vm._v("Low Balance Alert")]),
-      _vm._v(" "),
-      _c(
-        "money",
-        _vm._b(
-          {
-            attrs: { disabled: !_vm.notifications },
-            on: { input: _vm.handleMoneyChange },
-            model: {
-              value: _vm.lowBalanceAlert,
-              callback: function($$v) {
-                _vm.lowBalanceAlert = $$v
-              },
-              expression: "lowBalanceAlert"
-            }
-          },
-          "money",
-          _vm.moneyConfig,
-          false
-        )
-      )
+      !_vm.simple
+        ? [
+            _c("label", [_vm._v("Low Balance Alert")]),
+            _vm._v(" "),
+            _c(
+              "money",
+              _vm._b(
+                {
+                  attrs: { disabled: !_vm.notifications },
+                  on: { input: _vm.handleMoneyChange },
+                  model: {
+                    value: _vm.lowBalanceAlert,
+                    callback: function($$v) {
+                      _vm.lowBalanceAlert = $$v
+                    },
+                    expression: "lowBalanceAlert"
+                  }
+                },
+                "money",
+                _vm.moneyConfig,
+                false
+              )
+            )
+          ]
+        : _vm._e()
     ],
-    1
+    2
   )
 }
 var staticRenderFns = []
@@ -30505,11 +30604,13 @@ var render = function() {
   return _c("div", { staticClass: "card" }, [
     _c("h2", { staticClass: "card-header" }, [
       _vm._v("Categories"),
-      _c(
-        "button",
-        { staticClass: "btn-icon", on: { click: _vm.showCategoryModal } },
-        [_vm._v("+")]
-      )
+      !_vm.isPortal
+        ? _c(
+            "button",
+            { staticClass: "btn-icon", on: { click: _vm.showCategoryModal } },
+            [_vm._v("+")]
+          )
+        : _vm._e()
     ]),
     _vm._v(" "),
     _c(
@@ -30518,19 +30619,25 @@ var render = function() {
       [
         _vm._l(_vm.subedCats, function(category) {
           return [
-            _c(
-              "button",
-              {
-                key: "sc1-" + category.id,
-                staticClass: "cat-name btn-link",
-                on: {
-                  click: function($event) {
-                    _vm.showAccountCategoryModal(category)
-                  }
-                }
-              },
-              [_vm._v(_vm._s(_vm.getCategoryName(category.categoryId)))]
-            ),
+            _vm.isPortal && 0 == _vm.currentAccount.view
+              ? _c(
+                  "span",
+                  { key: "sc1-" + category.id, staticClass: "cat-name" },
+                  [_vm._v(_vm._s(_vm.getCategoryName(category.categoryId)))]
+                )
+              : _c(
+                  "button",
+                  {
+                    key: "sc1-" + category.id,
+                    staticClass: "cat-name btn-link",
+                    on: {
+                      click: function($event) {
+                        _vm.showAccountCategoryModal(category)
+                      }
+                    }
+                  },
+                  [_vm._v(_vm._s(_vm.getCategoryName(category.categoryId)))]
+                ),
             _vm._v(" "),
             _c("currency", {
               key: "sc2-" + category.id,
@@ -54035,6 +54142,16 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+var toSpinalCase = function toSpinalCase(obj) {
+    var newObj = {};
+    for (var key in obj) {
+        var newKey = key.replace(/([A-Z])/g, function (g) {
+            return '_' + g[0].toLowerCase();
+        });
+        newObj[newKey] = obj[key];
+    }
+    return newObj;
+};
 var currentAccountDefault = {
     accountHolder: {
         accountHolderId: null,
@@ -54235,18 +54352,11 @@ var actions = {
             });
         });
     },
-    updateAccount: function updateAccount(context, _ref3) {
-        var accountId = _ref3.accountId,
-            data = _ref3.data;
-
+    updateAccount: function updateAccount(context, payload) {
         return new Promise(function (resolve, reject) {
+            payload = toSpinalCase(payload);
             // context.commit('setAccountsLoading', true);
-            axios.patch('/api/account/' + accountId, {
-                'interest_rate': Number(data.interestRate),
-                'rate_interval': data.rateInterval,
-                'frequency': data.frequency,
-                'distribution_day': parseInt(data.distributionDay)
-            }).then(function (response) {
+            axios.patch('/api/account/' + payload.id, payload).then(function (response) {
                 context.commit('updateAccount', response.data.data);
                 context.commit('setCurrentByObj', response.data.data);
                 context.commit('setAccountsLoading', false);
@@ -54293,7 +54403,8 @@ var state = {
     showModals: {},
     modalPayload: {},
     isTouchDevice: false,
-    isLoggedIn: false
+    isLoggedIn: false,
+    isPortal: false
 };
 
 var getters = {
@@ -54335,6 +54446,9 @@ var mutations = {
     },
     setIsLoggedIn: function setIsLoggedIn(state, payload) {
         state.isLoggedIn = payload;
+    },
+    setIsPortal: function setIsPortal(state, payload) {
+        state.isPortal = payload;
     }
 };
 

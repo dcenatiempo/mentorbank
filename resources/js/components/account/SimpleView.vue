@@ -6,14 +6,7 @@
             <h2>Balance: <currency :amount="currentAccount.balance"></currency></h2>            
         </div>
 
-        <div class="card">
-            <h2 class="card-header">Categories</h2>
-            <template v-for="category in subedCats">
-                <div :key="'c-'+category.id">
-                    <h3>{{getCategoryName(category.categoryId)}} <currency :amount="category.balance"></currency></h3>
-                </div>
-            </template>
-        </div>
+        <subscribed-categories></subscribed-categories>
 
     </section> 
 
@@ -21,10 +14,12 @@
 
 <script>
 import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
+import SubscribedCategories from '@reusable/SubscribedCategories';
 import Currency from '@reusable/Currency';
 
 export default {
     components: {
+        SubscribedCategories,
         Currency,
     },
     data() {

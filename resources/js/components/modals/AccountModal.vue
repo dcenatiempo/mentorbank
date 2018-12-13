@@ -21,6 +21,19 @@
         </div>
         <label for="pin">Pin:</label>
         <input id="pin" type="text" placeholder="4+ character pin" v-model="pin"/>
+        <template v-if="true">
+            <label for="view">Account View:</label>
+            <multiselect
+                :value="view"
+                v-model="view"
+                :options="viewOptions"
+                track-by="value"
+                label="label"
+                placeholder="select a view"
+                :allow-empty="false"
+                deselectLabel="">
+            </multiselect>
+        </template>
     </form>
 
 </modal>
@@ -30,6 +43,7 @@
 import {mapState, mapActions, mapMutations} from 'vuex';
 import Datepicker from 'vuejs-datepicker';
 import ToggleButton from 'vue-js-toggle-button/src/Button';
+import Multiselect from 'vue-multiselect';
 
 import Modal from './Modal.vue';
 
@@ -37,7 +51,8 @@ export default {
     components: {
         'modal': Modal,
         Datepicker,
-        ToggleButton
+        ToggleButton,
+        Multiselect
     },
     props: {},
     data() {
@@ -47,7 +62,23 @@ export default {
             name: '',
             isMale: true,
             birthdate: moment().subtract(5, 'year').format("YYYY-MM-DD"),
-            pin: ''
+            pin: '',
+            accountHolderId: null,
+            accountId: null,
+            view: {},
+            oldView: {},
+            viewOptions: [
+                {
+                    label: 'Simple',
+                    value: 0
+                }, {
+                    label: 'Intermediate',
+                    value: 1 
+                }, {
+                    label: 'Advanced',
+                    value: 2
+                }
+            ]
         };
     },
     computed: {
@@ -70,7 +101,7 @@ export default {
     },
     methods: {
         ...mapMutations('app', ['hideModal']),
-        ...mapActions('accounts', ['createAccount', 'updateAccountHolder']),
+        ...mapActions('accounts', ['createAccount', 'updateAccountHolder', 'updateAccount']),
         closeModal() {
             this.hideModal(this.id);
             this.reset();
@@ -87,12 +118,19 @@ export default {
                 name: this.name,
                 birthdate: moment.utc(this.birthdate).format("YYYY-MM-DD"),
                 sex: this.isMale ? 'm' : 'f',
-                pin: this.pin
+                pin: this.pin,
             }
+            let account = {
+                view: this.view.value,
+                id: this.accountId
+            };
 
             if ('edit' == this.mode) {
-                accountHolder.id = this.acccountHolderId;
+                accountHolder.id = this.accountHolderId;
                 this.updateAccountHolder(accountHolder)
+                    .then( () => vm.closeModal())
+                    .catch( () => {});
+                this.updateAccount(account)
                     .then( () => vm.closeModal())
                     .catch( () => {});
 
@@ -111,13 +149,19 @@ export default {
             if (!payload) return;
 
             this.mode = payload.mode ? payload.mode : 'add';
+            if (payload.account) {
+                let view = this.viewOptions.find(item => item.value === payload.account.view);
+                this.view = view;
+                this.oldView = view;
+                this.accountId = payload.account.id;
+            }
 
             if (payload.accountHolder) {
                 this.name = payload.accountHolder.name;
                 this.isMale = 'm' == payload.accountHolder.sex ? true : false;
                 this.birthdate = moment.utc(payload.accountHolder.birthdate).format('YYYY-MM-DD');
                 this.pin = payload.accountHolder.pin;
-                this.acccountHolderId = payload.accountHolder.id;
+                this.accountHolderId = payload.accountHolder.id;
             }
         },
     }

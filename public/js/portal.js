@@ -2282,7 +2282,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             return this.vpWidth < 500;
         }
     }),
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapMutations */])('app', ['setSize', 'setIsLoggedIn']), {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapMutations */])('app', ['setSize', 'setIsLoggedIn', 'setIsPortal']), {
         resizeFinished: function resizeFinished() {
             this.setSize({ width: window.innerWidth, height: window.innerHeight });
         },
@@ -2302,6 +2302,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         };
 
         this.setIsLoggedIn(this.loggedIn);
+        this.setIsPortal(this.portal);
     },
 
     watch: {}
@@ -34633,6 +34634,16 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+var toSpinalCase = function toSpinalCase(obj) {
+    var newObj = {};
+    for (var key in obj) {
+        var newKey = key.replace(/([A-Z])/g, function (g) {
+            return '_' + g[0].toLowerCase();
+        });
+        newObj[newKey] = obj[key];
+    }
+    return newObj;
+};
 var currentAccountDefault = {
     accountHolder: {
         accountHolderId: null,
@@ -34833,18 +34844,11 @@ var actions = {
             });
         });
     },
-    updateAccount: function updateAccount(context, _ref3) {
-        var accountId = _ref3.accountId,
-            data = _ref3.data;
-
+    updateAccount: function updateAccount(context, payload) {
         return new Promise(function (resolve, reject) {
+            payload = toSpinalCase(payload);
             // context.commit('setAccountsLoading', true);
-            axios.patch('/api/account/' + accountId, {
-                'interest_rate': Number(data.interestRate),
-                'rate_interval': data.rateInterval,
-                'frequency': data.frequency,
-                'distribution_day': parseInt(data.distributionDay)
-            }).then(function (response) {
+            axios.patch('/api/account/' + payload.id, payload).then(function (response) {
                 context.commit('updateAccount', response.data.data);
                 context.commit('setCurrentByObj', response.data.data);
                 context.commit('setAccountsLoading', false);
@@ -34891,7 +34895,8 @@ var state = {
     showModals: {},
     modalPayload: {},
     isTouchDevice: false,
-    isLoggedIn: false
+    isLoggedIn: false,
+    isPortal: false
 };
 
 var getters = {
@@ -34933,6 +34938,9 @@ var mutations = {
     },
     setIsLoggedIn: function setIsLoggedIn(state, payload) {
         state.isLoggedIn = payload;
+    },
+    setIsPortal: function setIsPortal(state, payload) {
+        state.isPortal = payload;
     }
 };
 

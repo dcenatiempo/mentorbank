@@ -7,34 +7,16 @@
             <h2>Interest Rate: {{currentAccount.interestRate}}% per {{currentAccount.rateInterval}}</h2>
             <div class="row">
                 <span v-if="wOrM">Paid {{frequencyFullDescription}}</span>
-                <button v-on:click="showInterestModal" class="btn-icon"><edit></edit></button>
             </div>
             
         </div>
 
-        <div class="card">
-            <h2 class="card-header">Categories<button v-on:click="showCategoryModal" class="btn-icon">+</button></h2>
-            <template v-for="category in subedCats">
-                <div :key="'c-'+category.id">
-                    <h3>{{getCategoryName(category.categoryId)}} <currency :amount="category.balance"></currency></h3>
-                </div>
-            </template>
-        </div>
+        <subscribed-categories></subscribed-categories>
 
         <recent-transactions
             :transaction-list="currentAccount.transactions"
             context="account"></recent-transactions>
 
-       <div class="card">
-            <h2 class="card-header">Recurring Transactions</h2>
-            <p>Coming Soon!</p>
-        </div>
-
-        <!--
-        <div class="card">
-            <h2 class="card-header">Recurring Transactions</h2>
-        </div>
-        -->
     </section> 
 
 </template>
@@ -42,6 +24,7 @@
 <script>
 import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
 import Currency from '@reusable/Currency';
+import SubscribedCategories from '@reusable/SubscribedCategories';
 import RecentTransactions from '@reusable/RecentTransactions';
 import Pencil from 'icons/pencil';
 
@@ -49,6 +32,7 @@ export default {
     components: {
         Currency,
         RecentTransactions,
+        SubscribedCategories,
         'edit': Pencil
     },
     props: {

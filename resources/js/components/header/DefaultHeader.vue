@@ -130,7 +130,7 @@ export default {
         }
     },
     methods: {
-        ...mapMutations('app', ['setSize', 'setIsLoggedIn']),
+        ...mapMutations('app', ['setSize', 'setIsLoggedIn', 'setIsPortal']),
         resizeFinished() {
             this.setSize({width: window.innerWidth, height: window.innerHeight});
         },
@@ -151,6 +151,7 @@ export default {
         };
 
         this.setIsLoggedIn(this.loggedIn);
+        this.setIsPortal(this.portal);
     },
     watch: {}
 }

@@ -122,7 +122,11 @@ export default {
                 modalId: 'account-modal',
                 payload: {
                     mode: "edit",
-                    accountHolder: this.currentAccount.accountHolder
+                    accountHolder: this.currentAccount.accountHolder,
+                    account: {
+                        view: this.currentAccount.view,
+                        id: this.currentAccount.id
+                     }
                 }
             });
         },

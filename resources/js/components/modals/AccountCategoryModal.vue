@@ -8,14 +8,16 @@
         @handle-modal-cancel="closeModal"
         :disabled="disabled">
     
-    <label>Notifications</label>
-    <div><toggle-button
-            v-model="notifications"
-            :labels="{checked: 'On', unchecked: 'Off'}"
-            :color="{checked: '#41b883', unchecked: 'rgb(160, 165, 175)', disabled: '#CCCCCC'}"
-            :width="70"
-            :height="30"/>
-            </div>
+    <template v-if="!simple">
+        <label>Notifications</label>
+        <div><toggle-button
+                v-model="notifications"
+                :labels="{checked: 'On', unchecked: 'Off'}"
+                :color="{checked: '#41b883', unchecked: 'rgb(160, 165, 175)', disabled: '#CCCCCC'}"
+                :width="70"
+                :height="30"/>
+        </div>
+     </template>
             
     <label>Goal Balance</label>
     <money
@@ -24,12 +26,14 @@
             @input="handleMoneyChange"
             :disabled="false"></money>
     
-    <label>Low Balance Alert</label>
-    <money
-            v-bind="moneyConfig"
-            v-model="lowBalanceAlert"
-            @input="handleMoneyChange"
-            :disabled="!notifications"></money>
+    <template v-if="!simple">
+        <label>Low Balance Alert</label>
+        <money
+                v-bind="moneyConfig"
+                v-model="lowBalanceAlert"
+                @input="handleMoneyChange"
+                :disabled="!notifications"></money>
+    </template>
 
     <!-- <div class="row">
         <label>Account Holders</label>
@@ -70,6 +74,7 @@
 import {mapState, mapGetters, mapMutations, mapActions} from 'vuex';
 import ToggleButton from 'vue-js-toggle-button/src/Button';
 import Multiselect from 'vue-multiselect';
+import {Money} from 'v-money';
 
 import Modal from './Modal.vue';
 
@@ -77,13 +82,15 @@ export default {
     components: {
         Modal,
         Multiselect,
-        ToggleButton
+        ToggleButton,
+        Money
     },
     props: {},
     data() {
         return {
             id: 'account-category-modal',
             mode: '',
+            simple: false,
             name: '',
             balance: 0,
             goalBalance: 0,
@@ -168,6 +175,7 @@ export default {
             if (!payload) return;
 
             this.mode = payload.mode ? payload.mode : 'edit';
+            this.simple = payload.simple ? payload.simple : false;
             if (payload.category && payload.subscribedCategory) {
                 this.name = payload.category.name;
                 this.balance = payload.subscribedCategory.balance;

@@ -150,13 +150,11 @@ export default {
         saveInterest() {
             let f = this.frequency;
             let payload = {
-                accountId: this.accountId,
-                data: {
-                    interestRate: this.interestRate,
-                    rateInterval: this.rateInterval,
-                    frequency: `P${f.time}${f.unit}`,
-                    distributionDay: this.distributionDay
-                }
+                id: this.accountId,
+                interestRate: Number(this.interestRate),
+                rateInterval: this.rateInterval,
+                frequency: `P${f.time}${f.unit}`,
+                distributionDay: parseInt(this.distributionDay)
             }
             this.updateAccount(payload)
             .then( () => {

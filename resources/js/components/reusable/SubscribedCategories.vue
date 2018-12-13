@@ -1,10 +1,14 @@
 <template>
 
     <div class="card">
-        <h2 class="card-header">Categories<button v-on:click="showCategoryModal" class="btn-icon">+</button></h2>
+        <h2 class="card-header">Categories<button v-if="!isPortal" v-on:click="showCategoryModal" class="btn-icon">+</button></h2>
         <div class="category-grid">
             <template v-for="category in subedCats">
-            <button :key="'sc1-'+category.id" v-on:click="showAccountCategoryModal(category)" class="cat-name btn-link">{{getCategoryName(category.categoryId)}}</button>
+
+            
+            <span v-if="isPortal && 0 == currentAccount.view" :key="'sc1-'+category.id" class="cat-name">{{getCategoryName(category.categoryId)}}</span>
+            <button v-else :key="'sc1-'+category.id" v-on:click="showAccountCategoryModal(category)" class="cat-name btn-link">{{getCategoryName(category.categoryId)}}</button>
+
             <currency :key="'sc2-'+category.id" :amount="category.balance"></currency>
             <goal-meter :key="'sc3-'+category.id" :goal="category.goalBalance" :balance="category.balance"></goal-meter>
             </template>
@@ -36,7 +40,7 @@ export default {
         ...mapGetters('accounts', { 'subedCats': 'accountSubedCats'}),
     },
     methods: {
-        ...mapMutations('app', ['showModal', 'hideModal']),
+        ...mapMutations('app', ['showModal', 'hideModal', 'isPortal']),
         ...mapActions('categories', ['fetchAllCategories']),
         showCategoryModal() {
             this.showModal({
@@ -52,6 +56,7 @@ export default {
                 modalId: 'account-category-modal',
                 payload: {
                     mode: "edit",
+                    simple: this.isPortal ? true : false,
                     subscribedCategory: subCat,
                     category: this.categoryList.find(cat => cat.id == subCat.categoryId)
                 }

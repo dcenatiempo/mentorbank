@@ -6,40 +6,33 @@ import Overlay from '@reusable/Overlay.vue';
 
 export default {
     store,
-
     components: {
         DefaultHeader,
         DefaultFooter,
         Overlay
     },
-
     data() {
         return {
         };
     },
-
     created() {},
-
     mounted() {
         let vm = this;
 
         if (this.isLoggedIn)
-            this.getUser();
+            this.fetchUser();
 
         // check to if device is a touch device
         window.addEventListener('touchstart', function onFirstTouch() {
             vm.setTouchDevice();
             window.removeEventListener('touchstart', onFirstTouch, false);
         }, false);
-
     },
-
     methods: {
-        ...mapActions('user', ['getUser']),
+        ...mapActions('user', ['fetchUser']),
         ...mapMutations('app', ['setTouchDevice']),
     },
-
     computed: {
         ...mapState('app', ['isLoggedIn']),
     }
-}
+};

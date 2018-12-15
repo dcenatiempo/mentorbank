@@ -1,7 +1,7 @@
 require('./bootstrap');
 
 import GlobalMixin from './GlobalMixin';
-import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
+import {mapState, mapActions, mapMutations} from 'vuex';
 
 Vue.component('account-header', require('@components/header/AccountHeader.vue'));
 Vue.component('bank-portal', require('@components/bank/BankPortal.vue'));
@@ -19,12 +19,8 @@ const app = new Vue({
         ...mapActions('bank', ['fetchBank']),
     },
     created() {
-        let vm = this;
         this.fetchBank();
-        this.fetchAllBankAccounts();//.then( () => {
-        //     if (vm.$route.params.accountId)
-        //         vm.setCurrentById(vm.$route.params.accountId);
-        // });
+        this.fetchAllBankAccounts();
     },
 
 });

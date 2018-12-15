@@ -4168,6 +4168,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
 
 
 
@@ -4191,7 +4194,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         return {};
     },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('user', ['name']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])(['bank', 'accounts', 'categories', 'transactions']), {
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('user', ['name']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])(['bank', 'accounts', 'categories', 'transactions']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('app', ['planType']), {
         // ...mapGetters()
         totalDeposits: function totalDeposits() {
             return this.accounts.accountList.reduce(function (total, account) {
@@ -4556,6 +4559,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4566,7 +4575,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         return {};
     },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('bank', ['name']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapGetters */])('user', ['memberSince'])),
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('bank', ['name', 'planType', 'expires']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapGetters */])('bank', ['openSince'])),
     methods: {
         // ...mapMutations(),
         // ...mapActions(),
@@ -5213,8 +5222,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             var accountId = this.payload.subscribedCategory.accountId;
             var subscribedCategory = {
                 id: this.payload.subscribedCategory.id,
-                goal_balance: this.goalBalance,
-                low_balance_alert: this.lowBalanceAlert,
+                goalBalance: this.goalBalance,
+                lowBalanceAlert: this.lowBalanceAlert,
                 notifications: this.notifications
             };
 
@@ -6238,7 +6247,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 accountId: this.currentAccount.id,
                 type: this.transactionType,
                 memo: this.memo,
-                net_amount: this.netAmount,
+                netAmount: this.netAmount,
                 split: split,
                 date: moment.now()
             };
@@ -6324,7 +6333,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     },
 
     computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["e" /* mapState */])(['accounts']), {
-        // ...mapGetters(),
         accountList: function accountList() {
             return this.accounts.accountList.map(function (item) {
                 return {
@@ -6335,7 +6343,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         }
     }),
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["d" /* mapMutations */])('accounts', ['setCurrentById']), {
-        // ...mapActions(),
         onSelect: function onSelect(value) {
             var accountId = value ? value.accountId : null;
             this.setCurrentById(accountId);
@@ -7275,7 +7282,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     },
 
     computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["e" /* mapState */])(['accounts']), {
-        // ...mapGetters()
         accountList: function accountList() {
             return this.accounts.accountList.map(function (item) {
                 return {
@@ -7286,8 +7292,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         }
     }),
     methods: {
-        // ...mapMutations(),
-        // ...mapActions(),
         onSelect: function onSelect(value) {
             this.$emit('select', value);
         },
@@ -7331,9 +7335,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
 
 
 
@@ -7364,7 +7365,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             });
         },
         deleteCat: function deleteCat() {
-            // alert(`deleting ${this.rowData.name} category (id: ${this.rowData.id})`);
             this.deleteCategory(this.rowData.id);
         }
     }),
@@ -7475,7 +7475,6 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     },
 
     computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])(['categories']), {
-        // ...mapGetters()
         shouldShowAdd: function shouldShowAdd() {
             return this.formattedCats.length > this.split.length;
         },
@@ -7543,7 +7542,6 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
             this.$emit('split-updated', this.split);
         },
         handleCatChange: function handleCatChange(cat) {
-            console.log(cat);
             this.updateSplit();
         },
         handleMoneyChange: function handleMoneyChange(money, i) {
@@ -9309,7 +9307,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -9564,7 +9562,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -9654,7 +9652,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -9879,7 +9877,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -29775,6 +29773,22 @@ var render = function() {
     _c("ul", [
       _c("li", [
         _vm._v("\n            Name: " + _vm._s(_vm.name) + "\n        ")
+      ]),
+      _vm._v(" "),
+      _c("li", [
+        _vm._v(
+          "\n            Open Since: " + _vm._s(_vm.openSince) + "\n        "
+        )
+      ]),
+      _vm._v(" "),
+      _c("li", [
+        _vm._v(
+          "\n            Plan Type: " + _vm._s(_vm.planType) + "\n        "
+        )
+      ]),
+      _vm._v(" "),
+      _c("li", [
+        _vm._v("\n            Expires: " + _vm._s(_vm.expires) + "\n        ")
       ])
     ])
   ])
@@ -31289,14 +31303,16 @@ var render = function() {
                 _vm._v("Accounts")
               ]),
               _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn-icon",
-                  on: { click: _vm.showAccountHolderModal }
-                },
-                [_vm._v("+")]
-              )
+              "paid" == _vm.planType
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn-icon",
+                      on: { click: _vm.showAccountHolderModal }
+                    },
+                    [_vm._v("+")]
+                  )
+                : _vm._e()
             ],
             1
           ),
@@ -52081,13 +52097,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     store: __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */],
-
     components: {
         DefaultHeader: __WEBPACK_IMPORTED_MODULE_2__components_header_DefaultHeader_vue___default.a,
         DefaultFooter: __WEBPACK_IMPORTED_MODULE_3__components_footer_DefaultFooter_vue___default.a,
         Overlay: __WEBPACK_IMPORTED_MODULE_4__reusable_Overlay_vue___default.a
     },
-
     data: function data() {
         return {};
     },
@@ -52095,7 +52109,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     mounted: function mounted() {
         var vm = this;
 
-        if (this.isLoggedIn) this.getUser();
+        if (this.isLoggedIn) this.fetchUser();
 
         // check to if device is a touch device
         window.addEventListener('touchstart', function onFirstTouch() {
@@ -52104,9 +52118,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         }, false);
     },
 
-
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapActions */])('user', ['getUser']), Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["d" /* mapMutations */])('app', ['setTouchDevice'])),
-
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapActions */])('user', ['fetchUser']), Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["d" /* mapMutations */])('app', ['setTouchDevice'])),
     computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["e" /* mapState */])('app', ['isLoggedIn']))
 });
 
@@ -54101,6 +54113,34 @@ module.exports = Component.exports
 
 /***/ }),
 
+/***/ "./resources/js/helpers.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return toSpinalCase; });
+/* unused harmony export myAlert */
+var toSpinalCase = function toSpinalCase(obj) {
+    var newObj = {};
+    for (var key in obj) {
+        var newKey = key.replace(/([A-Z])/g, function (g) {
+            return "_" + g[0].toLowerCase();
+        });
+        newObj[newKey] = obj[key];
+    }
+    return newObj;
+};
+
+var myAlert = function myAlert(message) {
+    alert(message);
+};
+
+/* unused harmony default export */ var _unused_webpack_default_export = ({
+    toSpinalCase: toSpinalCase,
+    myAlert: myAlert
+});
+
+/***/ }),
+
 /***/ "./resources/js/store/index.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -54142,16 +54182,9 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var toSpinalCase = function toSpinalCase(obj) {
-    var newObj = {};
-    for (var key in obj) {
-        var newKey = key.replace(/([A-Z])/g, function (g) {
-            return '_' + g[0].toLowerCase();
-        });
-        newObj[newKey] = obj[key];
-    }
-    return newObj;
-};
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_js__ = __webpack_require__("./resources/js/helpers.js");
+
+
 var currentAccountDefault = {
     accountHolder: {
         accountHolderId: null,
@@ -54206,8 +54239,6 @@ var getters = {
     }
 };
 
-// direct mutations
-// store.commit('mutationName', payload)
 var mutations = {
     setAccounts: function setAccounts(state, accountList) {
         state.accountList = accountList;
@@ -54310,72 +54341,75 @@ var mutations = {
     }
 };
 
-// async mutations
-// store.dispatch('actionName', payload)
 var actions = {
     fetchAllBankAccounts: function fetchAllBankAccounts(context) {
-        return new Promise(function (resolve, reject) {
-            context.commit('setAccountsLoading', true);
-            axios.get('/api/account').then(function (response) {
-                context.commit('setAccounts', response.data.data);
-                context.commit('setAccountsLoading', false);
-                resolve();
-            }).catch(function (error) {
-                console.log(error);
-                reject(error);
-            });
+        context.commit('setAccountsLoading', true);
+
+        axios.get('/api/account').then(function (response) {
+            context.commit('setAccounts', response.data.data);
+            context.commit('setAccountsLoading', false);
+            resolve();
+        }).catch(function (err) {
+            console.log(err);
+            context.commit('setAccountsLoading', false);
+            return Promise.reject(err);
         });
     },
     fetchBankAccount: function fetchBankAccount(context, accountId) {
-        return new Promise(function (resolve, reject) {
-            context.commit('setAccountsLoading', true);
-            axios.get('/api/account/' + accountId).then(function (response) {
-                context.commit('setAccounts', [response.data.data]);
-                context.commit('setCurrentByObj', response.data.data);
-                context.commit('setAccountsLoading', false);
-                resolve();
-            }).catch(function (error) {
-                console.log(error);
-                reject(error);
-            });
+        context.commit('setAccountsLoading', true);
+
+        axios.get('/api/account/' + accountId).then(function (response) {
+            context.commit('setAccounts', [response.data.data]);
+            context.commit('setCurrentByObj', response.data.data);
+            context.commit('setAccountsLoading', false);
+            return Promise.resolve();
+        }).catch(function (err) {
+            console.log(err);
+            context.commit('setAccountsLoading', false);
+            return Promise.reject(err);
         });
     },
     createAccount: function createAccount(context, payload) {
-        return new Promise(function (resolve, reject) {
-            context.commit('setAccountsLoading', true);
-            axios.post('/api/account', payload).then(function (response) {
-                context.commit('addAccount', response.data.data);
-                context.commit('setAccountsLoading', false);
-                resolve();
-            }).catch(function (error) {
-                reject(error);
-            });
+        payload = Object(__WEBPACK_IMPORTED_MODULE_0__helpers_js__["a" /* toSpinalCase */])(payload);
+        context.commit('setAccountsLoading', true);
+
+        axios.post('/api/account', payload).then(function (response) {
+            context.commit('addAccount', response.data.data);
+            context.commit('setAccountsLoading', false);
+            return Promise.resolve();
+        }).catch(function (err) {
+            console.log(err);
+            context.commit('setAccountsLoading', false);
+            return Promise.reject(err);
         });
     },
     updateAccount: function updateAccount(context, payload) {
-        return new Promise(function (resolve, reject) {
-            payload = toSpinalCase(payload);
-            // context.commit('setAccountsLoading', true);
-            axios.patch('/api/account/' + payload.id, payload).then(function (response) {
-                context.commit('updateAccount', response.data.data);
-                context.commit('setCurrentByObj', response.data.data);
-                context.commit('setAccountsLoading', false);
-                resolve();
-            }).catch(function (error) {
-                reject(error);
-            });
+        payload = Object(__WEBPACK_IMPORTED_MODULE_0__helpers_js__["a" /* toSpinalCase */])(payload);
+        context.commit('setAccountsLoading', true);
+
+        axios.patch('/api/account/' + payload.id, payload).then(function (response) {
+            context.commit('updateAccount', response.data.data);
+            context.commit('setCurrentByObj', response.data.data);
+            context.commit('setAccountsLoading', false);
+            return Promise.resolve();
+        }).catch(function (err) {
+            console.log(err);
+            context.commit('setAccountsLoading', false);
+            return Promise.reject(err);
         });
     },
-    updateAccountHolder: function updateAccountHolder(context, data) {
-        return new Promise(function (resolve, reject) {
-            context.commit('setAccountsLoading', true);
-            axios.put('/api/account-holder/' + data.id, data).then(function (response) {
-                context.commit('updateAccountHolder', response.data.data);
-                context.commit('setAccountsLoading', false);
-                resolve();
-            }).catch(function (error) {
-                reject(error);
-            });
+    updateAccountHolder: function updateAccountHolder(context, payload) {
+        payload = Object(__WEBPACK_IMPORTED_MODULE_0__helpers_js__["a" /* toSpinalCase */])(payload);
+        context.commit('setAccountsLoading', true);
+
+        axios.put('/api/account-holder/' + data.id, payload).then(function (response) {
+            context.commit('updateAccountHolder', response.data.data);
+            context.commit('setAccountsLoading', false);
+            return Promise.resolve();
+        }).catch(function (err) {
+            console.log(err);
+            context.commit('setAccountsLoading', false);
+            return Promise.reject(err);
         });
     }
 };
@@ -54400,11 +54434,12 @@ var state = {
     loading: false,
     vpWidth: window.innerWidth,
     vpHeight: window.innerHeight,
+    isTouchDevice: false,
     showModals: {},
     modalPayload: {},
-    isTouchDevice: false,
     isLoggedIn: false,
-    isPortal: false
+    isPortal: false,
+    planType: 'free' // free, paid
 };
 
 var getters = {
@@ -54417,8 +54452,6 @@ var getters = {
     }
 };
 
-// direct mutations
-// store.commit('mutationName', payload)
 var mutations = {
     registerModal: function registerModal(state, modalId) {
         state.showModals = Object.assign({}, state.showModals, _defineProperty({}, modalId, false));
@@ -54449,11 +54482,12 @@ var mutations = {
     },
     setIsPortal: function setIsPortal(state, payload) {
         state.isPortal = payload;
+    },
+    setPlanType: function setPlanType(state, payload) {
+        state.planType = payload;
     }
 };
 
-// async mutations
-// store.dispatch('actionName', payload)
 var actions = {};
 
 /* harmony default export */ __webpack_exports__["a"] = ({
@@ -54470,18 +54504,27 @@ var actions = {};
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_js__ = __webpack_require__("./resources/js/helpers.js");
+
+
 var state = {
     loading: true,
     id: null,
     name: '',
     totalAccruedInterest: 0,
     createdAt: '',
-    updatedAt: ''
+    updatedAt: '',
+    planType: 'free',
+    expires: 'never'
     // deletedAt: '',
     // inviteCode: ,,
 };
 
-var getters = {};
+var getters = {
+    openSince: function openSince(state) {
+        return moment.utc(state.createdAt.date).fromNow();
+    }
+};
 
 // direct mutations
 // store.commit('mutationName', payload)
@@ -54501,6 +54544,7 @@ var actions = {
         context.commit('setBankLoading', true);
         axios.get('/api/bank').then(function (response) {
             context.commit('setBank', response.data.data);
+            context.commit('app/setPlanType', context.state.planType, { root: true });
         }).catch(function (error) {
             console.log(error);
         });
@@ -54535,7 +54579,10 @@ var actions = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_js__ = __webpack_require__("./resources/js/helpers.js");
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+
 
 var state = {
     loading: false,
@@ -54551,8 +54598,6 @@ var getters = {
     }
 };
 
-// direct mutations
-// store.commit('mutationName', payload)
 var mutations = {
     setCategories: function setCategories(state, payload) {
         state.categoryList = payload;
@@ -54581,17 +54626,18 @@ var mutations = {
     }
 };
 
-// async mutations
-// store.dispatch('actionName', payload)
 var actions = {
     fetchAllCategories: function fetchAllCategories(context) {
         context.commit('setCategoryLoading', true);
+
         axios.get('/api/bank/category').then(function (response) {
             context.commit('setCategories', response.data.data);
             context.commit('setCategoryLoading', false);
+            return Promise.resolve();
         }).catch(function (error) {
             console.log(error);
             context.commit('setCategoryLoading', false);
+            return Promise.reject();
         });
     },
 
@@ -54609,15 +54655,15 @@ var actions = {
     //     });
     // },
     fetchBankSubscribedCats: function fetchBankSubscribedCats(context, subscribedIds) {
-        return new Promise(function (resolve, reject) {
-            context.commit('setCategoryLoading', true);
-            axios.get('/api/bank/subscribed-category').then(function (response) {
-                context.commit('accounts/setSubscribedCats', response.data, { root: true });
-                context.commit('setCategoryLoading', false);
-                resolve();
-            }).catch(function (err) {
-                reject(err);
-            });
+        context.commit('setCategoryLoading', true);
+
+        axios.get('/api/bank/subscribed-category').then(function (response) {
+            context.commit('accounts/setSubscribedCats', response.data, { root: true });
+            context.commit('setCategoryLoading', false);
+            return Promise.resolve();
+        }).catch(function (err) {
+            context.commit('setCategoryLoading', false);
+            return Promise.reject(err);
         });
     },
     createCategory: function createCategory(context, _ref) {
@@ -54625,29 +54671,23 @@ var actions = {
             forceSubscribe = _ref.forceSubscribe,
             subscribedIds = _ref.subscribedIds;
 
-        return new Promise(function (resolve, reject) {
-            context.commit('setCategoryLoading', true);
-            axios.post('/api/bank/category', {
-                name: name,
-                'force_subscribe': forceSubscribe,
-                'subscribed': subscribedIds
-            }).then(function (response) {
+        var payload = Object(__WEBPACK_IMPORTED_MODULE_0__helpers_js__["a" /* toSpinalCase */])({ name: name, forceSubscribe: forceSubscribe, subscribedIds: subscribedIds });
+        context.commit('setCategoryLoading', true);
 
-                // append new category to vuex state
-                context.commit('addCategory', response.data.data);
+        axios.post('/api/bank/category', payload).then(function (response) {
 
-                // fetch updated subscribed categories
-                if (subscribedIds && subscribedIds.length > 0) {
-                    context.dispatch('fetchBankSubscribedCats', subscribedIds);
-                }
+            // append new category to vuex state
+            context.commit('addCategory', response.data.data);
 
-                context.commit('setCategoryLoading', false);
-                resolve();
-            }).catch(function (err) {
-                console.error(err);
-                context.commit('setCategoryLoading', false);
-                reject();
-            });
+            // fetch updated subscribed categories
+            if (subscribedIds && subscribedIds.length > 0) context.dispatch('fetchBankSubscribedCats', subscribedIds);
+
+            context.commit('setCategoryLoading', false);
+            return Promise.resolve();
+        }).catch(function (err) {
+            console.error(err);
+            context.commit('setCategoryLoading', false);
+            return Promise.reject();
         });
     },
     updateCategory: function updateCategory(context, _ref2) {
@@ -54656,57 +54696,61 @@ var actions = {
             forceSubscribe = _ref2.forceSubscribe,
             subscribedIds = _ref2.subscribedIds;
 
-        return new Promise(function (resolve, reject) {
-            context.commit('setCategoryLoading', true);
-            axios.put('/api/bank/category/' + id, {
-                name: name,
-                'force_subscribe': forceSubscribe,
-                'subscribed': subscribedIds
-            }).then(function (response) {
+        var payload = Object(__WEBPACK_IMPORTED_MODULE_0__helpers_js__["a" /* toSpinalCase */])({ name: name, forceSubscribe: forceSubscribe, subscribedIds: subscribedIds });
+        context.commit('setCategoryLoading', true);
 
-                // append new category to vuex state
-                context.commit('updateCategory', response.data.data);
+        axios.put('/api/bank/category/' + id, payload).then(function (response) {
 
-                // fetch updated subscribed categories
-                context.dispatch('fetchBankSubscribedCats', subscribedIds);
+            // append new category to vuex state
+            context.commit('updateCategory', response.data.data);
 
-                // fetch updated transactions
-                context.dispatch('transactions/fetchAllTransactions', null, { root: true });
+            // fetch updated subscribed categories
+            context.dispatch('fetchBankSubscribedCats', subscribedIds);
 
-                context.commit('setCategoryLoading', false);
-                resolve();
-            }).catch(function (err) {
-                console.error(err);
-                context.commit('setCategoryLoading', false);
-                reject();
-            });
+            // fetch updated transactions
+            context.dispatch('transactions/fetchAllTransactions', null, { root: true });
+
+            context.commit('setCategoryLoading', false);
+            return Promise.resolve();
+        }).catch(function (err) {
+            console.error(err);
+            context.commit('setCategoryLoading', false);
+            return Promise.reject();
         });
     },
     deleteCategory: function deleteCategory(context, id) {
-        return new Promise(function (resolve, reject) {
-            context.commit('setCategoryLoading', true);
-            axios.delete('/api/bank/category/' + id).then(function (response) {
-                context.commit('deleteCategory', id);
+        context.commit('setCategoryLoading', true);
 
-                // fetch updated transactions
-                if (response.data.refetchTransactions == true) {
-                    context.dispatch('transactions/fetchAllTransactions', null, { root: true });
-                }
-            });
+        axios.delete('/api/bank/category/' + id).then(function (response) {
+            context.commit('deleteCategory', id);
+
+            // fetch updated transactions
+            if (response.data.refetchTransactions == true) context.dispatch('transactions/fetchAllTransactions', null, { root: true });
+
+            context.commit('setCategoryLoading', false);
+            return Promise.resolve();
+        }).catch(function (err) {
+            console.error(err);
+            context.commit('setCategoryLoading', false);
+            return Promise.reject();
         });
     },
     updateSubscribedCategory: function updateSubscribedCategory(context, _ref3) {
         var accountId = _ref3.accountId,
             subscribedCategory = _ref3.subscribedCategory;
 
-        return new Promise(function (resolve, reject) {
-            var id = subscribedCategory.id;
-            axios.put('/api/account/' + accountId + '/subscribed-category/' + id, subscribedCategory).then(function (response) {
-                context.commit('accounts/setSubscribedCat', response.data.data, { root: true });
-                resolve();
-            }).catch(function (err) {
-                reject();
-            });
+        var id = subscribedCategory.id;
+        var payload = Object(__WEBPACK_IMPORTED_MODULE_0__helpers_js__["a" /* toSpinalCase */])(subscribedCategory);
+        context.commit('setCategoryLoading', true);
+
+        axios.put('/api/account/' + accountId + '/subscribed-category/' + id, payload).then(function (response) {
+            context.commit('accounts/setSubscribedCat', response.data.data, { root: true });
+            context.commit('setCategoryLoading', false);
+            return Promise.resolve();
+        }).catch(function (err) {
+            console.error(err);
+            context.commit('setCategoryLoading', false);
+            return Promise.reject();
         });
     }
 };
@@ -54725,6 +54769,9 @@ var actions = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_js__ = __webpack_require__("./resources/js/helpers.js");
+
+
 var state = {
     loading: false,
     hasBeenLoaded: false,
@@ -54733,8 +54780,6 @@ var state = {
 
 var getters = {};
 
-// direct mutations
-// store.commit('mutationName', payload)
 var mutations = {
     setTransactions: function setTransactions(state, payload) {
         state.transactionList = payload;
@@ -54750,8 +54795,6 @@ var mutations = {
     }
 };
 
-// async mutations
-// store.dispatch('actionName', payload)
 var actions = {
     fetchAllTransactions: function fetchAllTransactions(context, payload) {
         context.commit('setHasBeenLoaded', true);
@@ -54759,32 +54802,35 @@ var actions = {
         axios.get('/api/bank/transaction').then(function (response) {
             context.commit('setTransactions', response.data.data);
             context.commit('setTransactionLoading', false);
-        }).catch(function (error) {
-            console.log(error);
+        }).catch(function (err) {
+            console.error(err);
+            context.commit('setTransactionLoading', false);
+            return Promise.reject(err);
         });
     },
     saveTransaction: function saveTransaction(context, transaction) {
-        return new Promise(function (resolve, reject) {
-            context.commit('setTransactionLoading', true);
-            axios.post('/api/account/' + transaction.accountId + '/transaction', transaction).then(function (result) {
-                context.commit('addTransaction', result.data.data);
-                context.commit('accounts/addTransaction', result.data.data, { root: true });
-                context.commit('accounts/changeAccountBalance', {
-                    accountId: result.data.data.accountId,
-                    type: result.data.data.type,
-                    amount: result.data.data.netAmount
-                }, { root: true });
-                context.commit('accounts/changeAccountCategoryBalance', {
-                    accountId: result.data.data.accountId,
-                    type: result.data.data.type,
-                    split: result.data.data.split
-                }, { root: true });
-                context.commit('setTransactionLoading', false);
-                resolve();
-            }).catch(function (err) {
-                console.error(err);
-                reject(err);
-            });
+        var payload = Object(__WEBPACK_IMPORTED_MODULE_0__helpers_js__["a" /* toSpinalCase */])(transaction);
+        context.commit('setTransactionLoading', true);
+
+        axios.post('/api/account/' + transaction.accountId + '/transaction', payload).then(function (result) {
+            context.commit('addTransaction', result.data.data);
+            context.commit('accounts/addTransaction', result.data.data, { root: true });
+            context.commit('accounts/changeAccountBalance', {
+                accountId: result.data.data.accountId,
+                type: result.data.data.type,
+                amount: result.data.data.netAmount
+            }, { root: true });
+            context.commit('accounts/changeAccountCategoryBalance', {
+                accountId: result.data.data.accountId,
+                type: result.data.data.type,
+                split: result.data.data.split
+            }, { root: true });
+            context.commit('setTransactionLoading', false);
+            return Promise.resolve();
+        }).catch(function (err) {
+            console.error(err);
+            context.commit('setTransactionLoading', false);
+            return Promise.reject(err);
         });
     }
 };
@@ -54803,6 +54849,9 @@ var actions = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_js__ = __webpack_require__("./resources/js/helpers.js");
+
+
 var state = {
     loading: true,
     id: null,
@@ -54826,30 +54875,25 @@ var getters = {
     }
 };
 
-// direct mutations
-// store.commit('mutationName', payload)
 var mutations = {
     setUser: function setUser(state, payload) {
         state = Object.assign(state, payload, { loading: false });
     },
     setUserLoading: function setUserLoading(state, payload) {
         state.loading = payload;
-    },
-    setType: function setType(state, payload) {
-        state.type = payload;
     }
 };
 
-// async mutations
-// store.dispatch('actionName', payload)
 var actions = {
-    getUser: function getUser(context, payload) {
+    fetchUser: function fetchUser(context, payload) {
         context.commit('setUserLoading', true);
         axios.get('/api/user').then(function (response) {
             context.commit('setUserLoading', false);
             context.commit('setUser', response.data.data);
+            return Promise.resolve();
         }).catch(function (error) {
             console.log(error);
+            return Promise.reject();
         });
     },
     updateUser: function updateUser(context, payload) {

@@ -1,3 +1,5 @@
+import {toSpinalCase} from '../../helpers.js';
+
 const state = {
     loading: false,
     templateList: [],
@@ -17,13 +19,9 @@ const state = {
 const getters = {
 };
 
-// direct mutations
-// store.commit('mutationName', payload)
 const mutations = {
 };
 
-// async mutations
-// store.dispatch('actionName', payload)
 const actions = {
 };
 

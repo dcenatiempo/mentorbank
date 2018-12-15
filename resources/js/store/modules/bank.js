@@ -1,3 +1,5 @@
+import {toSpinalCase} from '../../helpers.js';
+
 const state = {
     loading: true,
     id: null,
@@ -5,12 +7,15 @@ const state = {
     totalAccruedInterest: 0,
     createdAt: '',
     updatedAt: '',
+    planType: 'free',
+    expires: 'never',
     // deletedAt: '',
     // inviteCode: ,,
 };
 
 
 const getters = {
+    openSince: state => moment.utc(state.createdAt.date).fromNow()
 };
 
 // direct mutations
@@ -31,7 +36,8 @@ const actions = {
         context.commit('setBankLoading', true);
         axios.get('/api/bank')
         .then(function (response) {
-            context.commit('setBank', response.data.data)
+            context.commit('setBank', response.data.data);
+            context.commit('app/setPlanType', context.state.planType, {root: true});
         })
         .catch(function (error) {
             console.log(error);

@@ -163,8 +163,8 @@ export default {
                 accountId: this.currentAccount.id,
                 type: this.transactionType,
                 memo: this.memo,
-                net_amount: this.netAmount,
-                split: split,
+                netAmount: this.netAmount,
+                split,
                 date: moment.now()
             }
             this.saveTransaction(transaction)

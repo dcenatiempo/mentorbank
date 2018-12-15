@@ -1,3 +1,5 @@
+import {toSpinalCase} from '../../helpers.js';
+
 const state = {
     loading: false,
     hasBeenLoaded: false,
@@ -7,8 +9,6 @@ const state = {
 const getters = {
 };
 
-// direct mutations
-// store.commit('mutationName', payload)
 const mutations = {
     setTransactions(state, payload) {
         state.transactionList = payload;
@@ -24,25 +24,25 @@ const mutations = {
     }
 };
 
-// async mutations
-// store.dispatch('actionName', payload)
 const actions = {
     fetchAllTransactions(context, payload) {
         context.commit('setHasBeenLoaded', true);
         context.commit('setTransactionLoading', true);
         axios.get('/api/bank/transaction')
-        .then(function (response) {
+        .then( response => {
             context.commit('setTransactions', response.data.data)
             context.commit('setTransactionLoading', false);
-        })
-        .catch(function (error) {
-            console.log(error);
+        }).catch( err => {
+            console.error(err);
+            context.commit('setTransactionLoading', false);
+            return Promise.reject(err);
         });
     },
     saveTransaction(context, transaction) {
-        return new Promise( (resolve, reject) => {
-            context.commit('setTransactionLoading', true);
-            axios.post(`/api/account/${transaction.accountId}/transaction`, transaction)
+        let payload = toSpinalCase(transaction);
+        context.commit('setTransactionLoading', true);
+
+        axios.post(`/api/account/${transaction.accountId}/transaction`, payload)
             .then( result => {
                 context.commit('addTransaction', result.data.data);
                 context.commit('accounts/addTransaction', result.data.data, {root: true});
@@ -61,12 +61,12 @@ const actions = {
                     },
                     {root: true});
                 context.commit('setTransactionLoading', false);
-                resolve();
+                return Promise.resolve();
             }).catch( err => {
                 console.error(err);
-                reject(err);
-            })
-        });
+                context.commit('setTransactionLoading', false);
+                return Promise.reject(err);
+            });
     },
 };
 

@@ -1,10 +1,10 @@
 {
-    "/js/bank.js": "/js/bank.js?id=e8a9afff5b2ac83b66bd",
-    "/js/account.js": "/js/account.js?id=d4893a59a2e54c684b8d",
-    "/js/onboarding.js": "/js/onboarding.js?id=19988c23a9f4456f0445",
-    "/js/portal.js": "/js/portal.js?id=beb6b42eef10b6c83e11",
-    "/js/welcome.js": "/js/welcome.js?id=8e19c16b2494fb3befb3",
-    "/js/app.js": "/js/app.js?id=eaa2759e0ff947a737e1",
+    "/js/bank.js": "/js/bank.js?id=4d36f9c6e6dbd926e671",
+    "/js/account.js": "/js/account.js?id=7b968335a3e4864d2c44",
+    "/js/onboarding.js": "/js/onboarding.js?id=df7421232a10c87c4bc8",
+    "/js/portal.js": "/js/portal.js?id=0b6a029033d2c09c179c",
+    "/js/app.js": "/js/app.js?id=b319db4f0ae6e7d6f64f",
     "/css/app.css": "/css/app.css?id=fea10b58777088671a82",
-    "/js/auth.js": "/js/auth.js?id=11b4207c5d26ce1ee9d4"
+    "/js/welcome.js": "/js/welcome.js?id=ede3a732e629b86bbafc",
+    "/js/auth.js": "/js/auth.js?id=8cec0a9e37160eb3867f"
 }

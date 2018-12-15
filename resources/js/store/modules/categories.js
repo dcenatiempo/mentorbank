@@ -1,16 +1,15 @@
+import {toSpinalCase} from '../../helpers.js';
+
 const state = {
     loading: false,
     categoryList: [],
     currentSubscribedCats: []
 };
 
-
 const getters = {
     getCategoryNames: state => state.categoryList.map( item => item.name ),
 };
 
-// direct mutations
-// store.commit('mutationName', payload)
 const mutations = {
     setCategories(state, payload) {
         state.categoryList = payload;
@@ -35,20 +34,21 @@ const mutations = {
     }
 };
 
-// async mutations
-// store.dispatch('actionName', payload)
 const actions = {
     fetchAllCategories(context) {
         context.commit('setCategoryLoading', true);
+
         axios.get('/api/bank/category')
-        .then( response => {
-            context.commit('setCategories', response.data.data)
-            context.commit('setCategoryLoading', false);
-        })
-        .catch( error => {
-            console.log(error);
-            context.commit('setCategoryLoading', false);
-        });
+            .then( response => {
+                context.commit('setCategories', response.data.data)
+                context.commit('setCategoryLoading', false);
+                return Promise.resolve();
+            })
+            .catch( error => {
+                console.log(error);
+                context.commit('setCategoryLoading', false);
+                return Promise.reject();
+            });
     },
     // fetchAccountSubscribedCats(context, id) {
     //     return new Promise( (resolve, reject) => {
@@ -64,52 +64,46 @@ const actions = {
     //     });
     // },
     fetchBankSubscribedCats(context, subscribedIds) {
-        return new Promise( (resolve, reject) => {
-            context.commit('setCategoryLoading', true);
-            axios.get(`/api/bank/subscribed-category`)
+        context.commit('setCategoryLoading', true);
+
+        axios.get(`/api/bank/subscribed-category`)
             .then( response => {
                 context.commit('accounts/setSubscribedCats', response.data, {root: true});
                 context.commit('setCategoryLoading', false);
-                resolve();
+                return Promise.resolve();
             }).catch( err => {
-                reject(err);
-            })
-        });
+                context.commit('setCategoryLoading', false);
+                return Promise.reject(err);
+            });
     },
     createCategory(context, {name, forceSubscribe, subscribedIds}) {
-        return new Promise( (resolve, reject) => {
-            context.commit('setCategoryLoading', true);
-            axios.post(`/api/bank/category`, {
-                name,
-                'force_subscribe': forceSubscribe,
-                'subscribed': subscribedIds
-            }).then( response => {
+        let payload = toSpinalCase({name, forceSubscribe, subscribedIds});
+        context.commit('setCategoryLoading', true);
+
+        axios.post(`/api/bank/category`, payload)
+            .then( response => {
                 
                 // append new category to vuex state
                 context.commit('addCategory', response.data.data);
                 
                 // fetch updated subscribed categories
-                if (subscribedIds && subscribedIds.length > 0) {
+                if (subscribedIds && subscribedIds.length > 0)
                     context.dispatch('fetchBankSubscribedCats', subscribedIds);
-                }
 
                 context.commit('setCategoryLoading', false);
-                resolve();
+                return Promise.resolve();
             }).catch( err => {
                 console.error(err);
                 context.commit('setCategoryLoading', false);
-                reject();
+                return Promise.reject();
             });
-        });
     },
     updateCategory(context, {id, name, forceSubscribe, subscribedIds}) {
-        return new Promise( (resolve, reject) => {
-            context.commit('setCategoryLoading', true);
-            axios.put(`/api/bank/category/${id}`, {
-                name,
-                'force_subscribe': forceSubscribe,
-                'subscribed': subscribedIds
-            }).then( response => {
+        let payload = toSpinalCase({name, forceSubscribe, subscribedIds});
+        context.commit('setCategoryLoading', true);
+
+        axios.put(`/api/bank/category/${id}`, payload)
+            .then( response => {
                 
                 // append new category to vuex state
                 context.commit('updateCategory', response.data.data);
@@ -121,39 +115,47 @@ const actions = {
                 context.dispatch('transactions/fetchAllTransactions', null, {root: true} );
 
                 context.commit('setCategoryLoading', false);
-                resolve();
+                return Promise.resolve();
             }).catch( err => {
                 console.error(err);
                 context.commit('setCategoryLoading', false);
-                reject();
+                return Promise.reject();
             });
-        });
     },
     deleteCategory(context, id) {
-        return new Promise( (resolve, reject) => {
-            context.commit('setCategoryLoading', true);
-            axios.delete(`/api/bank/category/${id}`)
+        context.commit('setCategoryLoading', true);
+
+        axios.delete(`/api/bank/category/${id}`)
             .then( response => {
                 context.commit('deleteCategory', id);
 
                 // fetch updated transactions
-                if (response.data.refetchTransactions == true) {
+                if (response.data.refetchTransactions == true)
                     context.dispatch('transactions/fetchAllTransactions', null, {root: true});
-                }
+
+                context.commit('setCategoryLoading', false);
+                return Promise.resolve();
+            }).catch( err => {
+                console.error(err);
+                context.commit('setCategoryLoading', false);
+                return Promise.reject();
             });
-        })
     },
     updateSubscribedCategory(context, {accountId, subscribedCategory}) {
-        return new Promise( (resolve, reject) => {
-            let id = subscribedCategory.id;
-            axios.put(`/api/account/${accountId}/subscribed-category/${id}`, subscribedCategory)
-                .then( response => {
-                    context.commit('accounts/setSubscribedCat', response.data.data, {root: true});
-                    resolve();
-                }).catch( err => {
-                    reject();
-                });
-        });
+        let id = subscribedCategory.id;
+        let payload = toSpinalCase(subscribedCategory);
+        context.commit('setCategoryLoading', true);
+
+        axios.put(`/api/account/${accountId}/subscribed-category/${id}`, payload)
+            .then( response => {
+                context.commit('accounts/setSubscribedCat', response.data.data, {root: true});
+                context.commit('setCategoryLoading', false);
+                return Promise.resolve();
+            }).catch( err => {
+                console.error(err);
+                context.commit('setCategoryLoading', false);
+                return Promise.reject();
+            });
     }
 };
 

@@ -36,11 +36,10 @@ class BankCategoryController extends Controller
     {
         $bank = $request->user()->banker->bank;
         $name = $request->input('name');
-        $forceSubscribe = $request->input('force_subscribe');
-        $subscribed = !$forceSubscribe
-            ? $request->input('subscribed')
-            : $bank->accounts->pluck('id');
 
+        $forceSubscribe = $request->input('force_subscribe');
+
+        // Create Category
         $category = Category::create([
             'name' => $name,
             'bank_id' => $bank->id,
@@ -48,6 +47,9 @@ class BankCategoryController extends Controller
         ]);
 
         // Create SubscribedCategory for users, if any
+        $subscribed = !$forceSubscribe
+            ? $request->input('subscribed_ids')
+            : $bank->accounts->pluck('id');
         if ($subscribed) {
             foreach($subscribed as $id) {
                 SubscribedCategory::create([
@@ -82,7 +84,7 @@ class BankCategoryController extends Controller
     {
         $name = $request->input('name');
         $forceSubscribe = $request->input('force_subscribe');
-        // $subscribed = collect($request->input('subscribed'));
+        $subscribedIds = collect($request->input('subscribed_ids'));
 
         $category->update([
             'name' => $name,
@@ -92,11 +94,11 @@ class BankCategoryController extends Controller
         // update/delete subscribed categories
         $oldSubscribed = $category->subscribedCategories->pluck('account_id');
         $newSubscribed = !$forceSubscribe
-            ? collect($request->input('subscribed'))
+            ? $subscribedIds
             : $request->user()->banker->bank->accounts->pluck('id');
 
-        $toDelete = $oldSubscribed->diff($newSubscribed);
         $toAdd = $newSubscribed->diff($oldSubscribed);
+        $toDelete = $oldSubscribed->diff($newSubscribed);
 
         if ($toAdd) {
             foreach($toAdd as $id) {

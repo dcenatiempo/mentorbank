@@ -5,9 +5,15 @@
             <li>
                 Name: {{name}}
             </li>
-            <!-- <li>
-                Member Since: {{memberSince}}
-            </li> -->
+            <li>
+                Open Since: {{openSince}}
+            </li>
+            <li>
+                Plan Type: {{planType}}
+            </li>
+            <li>
+                Expires: {{expires}}
+            </li>
         </ul>
     </div>
 </template>
@@ -24,8 +30,8 @@ export default {
         };
     },
     computed: {
-        ...mapState('bank', ['name']),
-        ...mapGetters('user', ['memberSince'])
+        ...mapState('bank', ['name', 'planType', 'expires']),
+        ...mapGetters('bank', ['openSince'],)
     },
     methods: {
         // ...mapMutations(),

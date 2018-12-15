@@ -1,3 +1,5 @@
+import {toSpinalCase} from '../../helpers.js';
+
 const state = {
     loading: true,
     id: null,
@@ -6,7 +8,7 @@ const state = {
     email: '',
     pin: '',
     // birthdate: null,
-    createdAt: {date: null}
+    createdAt: {date: null},
 };
 
 
@@ -16,8 +18,6 @@ const getters = {
     memberSince: state => moment.utc(state.createdAt.date).fromNow()
 };
 
-// direct mutations
-// store.commit('mutationName', payload)
 const mutations = {
     setUser (state, payload) {
         state = Object.assign( state, payload, {loading: false} );
@@ -25,23 +25,20 @@ const mutations = {
     setUserLoading (state, payload) {
         state.loading = payload;
     },
-    setType (state, payload) {
-        state.type = payload;
-    }
 };
 
-// async mutations
-// store.dispatch('actionName', payload)
 const actions = {
-    getUser (context, payload) {
+    fetchUser (context, payload) {
         context.commit('setUserLoading',true);
         axios.get('/api/user')
             .then(function (response) {
                 context.commit('setUserLoading',false);
                 context.commit('setUser', response.data.data);
+                return Promise.resolve();
             })
             .catch(function (error) {
                 console.log(error);
+                return Promise.reject();
             });
     },
     updateUser (context, payload) {

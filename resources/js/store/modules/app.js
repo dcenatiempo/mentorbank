@@ -2,13 +2,13 @@ const state = {
     loading: false,
     vpWidth: window.innerWidth,
     vpHeight: window.innerHeight,
+    isTouchDevice: false,
     showModals: {},
     modalPayload: {},
-    isTouchDevice: false,
     isLoggedIn: false,
-    isPortal: false
+    isPortal: false,
+    planType: 'free', // free, paid
 };
-
 
 const getters = {
     showOverlay(state) {
@@ -20,8 +20,6 @@ const getters = {
     }
 };
 
-// direct mutations
-// store.commit('mutationName', payload)
 const mutations = {
     registerModal(state, modalId) {
         state.showModals = Object.assign({}, state.showModals, {[modalId]: false});
@@ -46,12 +44,12 @@ const mutations = {
     },
     setIsPortal(state, payload) {
         state.isPortal = payload;
+    },
+    setPlanType(state, payload) {
+        state.planType = payload;
     }
-
 };
 
-// async mutations
-// store.dispatch('actionName', payload)
 const actions = {};
 
 export default {

@@ -81,7 +81,6 @@ export default {
     },
     computed: {
         ...mapState(['categories']),
-        // ...mapGetters()
         shouldShowAdd() {
             return this.formattedCats.length > this.split.length;
         },
@@ -142,7 +141,6 @@ export default {
             this.$emit('split-updated', this.split);
         },
         handleCatChange(cat) {
-            console.log(cat);
             this.updateSplit();
         },
         handleMoneyChange(money, i) {

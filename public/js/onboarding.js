@@ -2523,78 +2523,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/components/onboarding/AccountHolderProfile.vue":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
-//
-//
-//
-//
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    components: {},
-    props: {},
-    data: function data() {
-        return {};
-    },
-
-    computed: {
-        // ...mapState(),
-        // ...mapGetters()
-    },
-    methods: {
-        // ...mapMutations(),
-        // ...mapActions(),
-
-    },
-    created: function created() {},
-    mounted: function mounted() {},
-
-    watch: {}
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/components/onboarding/BankerProfile.vue":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
-var _computed$props$data$;
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-//
-//
-//
-//
-//
-//
-//
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = (_computed$props$data$ = {
-    computed: {},
-    props: {},
-    data: function data() {
-        return {};
-    }
-}, _defineProperty(_computed$props$data$, 'computed', _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])(['user', 'bank']))), _defineProperty(_computed$props$data$, 'methods', _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])('bank', ['fetchBank']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])('accounts', ['fetchAllBankAccounts']))), _defineProperty(_computed$props$data$, 'created', function created() {
-    this.fetchBank();
-    this.fetchAllBankAccounts();
-}), _defineProperty(_computed$props$data$, 'mounted', function mounted() {}), _defineProperty(_computed$props$data$, 'watch', {}), _computed$props$data$);
-
-/***/ }),
-
 /***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/components/onboarding/NewBank.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2749,12 +2677,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__NewUser_vue__ = __webpack_require__("./resources/js/components/onboarding/NewUser.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__NewUser_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__NewUser_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__BankerProfile_vue__ = __webpack_require__("./resources/js/components/onboarding/BankerProfile.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__BankerProfile_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__BankerProfile_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AccountHolderProfile_vue__ = __webpack_require__("./resources/js/components/onboarding/AccountHolderProfile.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AccountHolderProfile_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__AccountHolderProfile_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__NewBank_vue__ = __webpack_require__("./resources/js/components/onboarding/NewBank.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__NewBank_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__NewBank_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__NewBank_vue__ = __webpack_require__("./resources/js/components/onboarding/NewBank.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__NewBank_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__NewBank_vue__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -2765,9 +2689,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-
-
 
 
 
@@ -2776,9 +2697,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /* harmony default export */ __webpack_exports__["default"] = ({
     components: {
         'new-user': __WEBPACK_IMPORTED_MODULE_1__NewUser_vue___default.a,
-        'new-bank': __WEBPACK_IMPORTED_MODULE_4__NewBank_vue___default.a,
-        'banker-profile': __WEBPACK_IMPORTED_MODULE_2__BankerProfile_vue___default.a,
-        'account-holder-profile': __WEBPACK_IMPORTED_MODULE_3__AccountHolderProfile_vue___default.a
+        'new-bank': __WEBPACK_IMPORTED_MODULE_2__NewBank_vue___default.a
     },
     props: {},
     data: function data() {
@@ -2951,21 +2870,6 @@ exports.push([module.i, "\nfooter {\n    display: -webkit-box;\n    display: -ms
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-214929b7\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/components/onboarding/BankerProfile.vue":
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
-
-// exports
-
-
-/***/ }),
-
 /***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-29dd09e8\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/components/header/HeaderNavigation.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3041,21 +2945,6 @@ exports.push([module.i, "\nbutton[data-v-619a5c7c] {\n    position: fixed;\n    
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6ffd7949\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/components/onboarding/AccountHolderProfile.vue":
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
-
-// exports
-
-
-/***/ }),
-
 /***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7e62f906\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/components/header/PortalLogout.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3079,7 +2968,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -20981,31 +20870,6 @@ if (false) {
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-214929b7\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/components/onboarding/BankerProfile.vue":
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("h1", [_vm._v("Welcome " + _vm._s(_vm.user.name))]),
-    _vm._v(" "),
-    _c("h2", [_vm._v(_vm._s(_vm.bank.name))])
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-214929b7", module.exports)
-  }
-}
-
-/***/ }),
-
 /***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-29dd09e8\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/components/header/HeaderNavigation.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21467,27 +21331,6 @@ if (false) {
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-6ffd7949\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/components/onboarding/AccountHolderProfile.vue":
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("h1", [_vm._v("Welcome Account Holder")])
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-6ffd7949", module.exports)
-  }
-}
-
-/***/ }),
-
 /***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-7e38f231\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./node_modules/vue-material-design-icons/Account.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21720,9 +21563,7 @@ var render = function() {
         ? _c("new-user", { staticClass: "card" })
         : _vm.type == "banker"
           ? _c("new-bank", { staticClass: "card" })
-          : _vm.type == "account_holder"
-            ? _c("account-holder-profile")
-            : _vm._e()
+          : _vm._e()
     ],
     1
   )
@@ -24835,33 +24676,6 @@ if(false) {
 
 /***/ }),
 
-/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-214929b7\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/components/onboarding/BankerProfile.vue":
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-214929b7\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/components/onboarding/BankerProfile.vue");
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("045e2dd5", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-214929b7\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./BankerProfile.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-214929b7\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./BankerProfile.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-
 /***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-29dd09e8\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/components/header/HeaderNavigation.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24987,33 +24801,6 @@ if(false) {
  if(!content.locals) {
    module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-619a5c7c\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./BackBtn.vue", function() {
      var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-619a5c7c\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./BackBtn.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-
-/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6ffd7949\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/components/onboarding/AccountHolderProfile.vue":
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6ffd7949\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/components/onboarding/AccountHolderProfile.vue");
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("3af64964", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6ffd7949\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AccountHolderProfile.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6ffd7949\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AccountHolderProfile.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -38872,13 +38659,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     store: __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */],
-
     components: {
         DefaultHeader: __WEBPACK_IMPORTED_MODULE_2__components_header_DefaultHeader_vue___default.a,
         DefaultFooter: __WEBPACK_IMPORTED_MODULE_3__components_footer_DefaultFooter_vue___default.a,
         Overlay: __WEBPACK_IMPORTED_MODULE_4__reusable_Overlay_vue___default.a
     },
-
     data: function data() {
         return {};
     },
@@ -38886,7 +38671,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     mounted: function mounted() {
         var vm = this;
 
-        if (this.isLoggedIn) this.getUser();
+        if (this.isLoggedIn) this.fetchUser();
 
         // check to if device is a touch device
         window.addEventListener('touchstart', function onFirstTouch() {
@@ -38895,9 +38680,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         }, false);
     },
 
-
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapActions */])('user', ['getUser']), Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["d" /* mapMutations */])('app', ['setTouchDevice'])),
-
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapActions */])('user', ['fetchUser']), Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["d" /* mapMutations */])('app', ['setTouchDevice'])),
     computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["e" /* mapState */])('app', ['isLoggedIn']))
 });
 
@@ -39267,110 +39050,6 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ "./resources/js/components/onboarding/AccountHolderProfile.vue":
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6ffd7949\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/components/onboarding/AccountHolderProfile.vue")
-}
-var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
-/* script */
-var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/components/onboarding/AccountHolderProfile.vue")
-/* template */
-var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-6ffd7949\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/components/onboarding/AccountHolderProfile.vue")
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = injectStyle
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/js/components/onboarding/AccountHolderProfile.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-6ffd7949", Component.options)
-  } else {
-    hotAPI.reload("data-v-6ffd7949", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-
-/***/ "./resources/js/components/onboarding/BankerProfile.vue":
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-214929b7\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/components/onboarding/BankerProfile.vue")
-}
-var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
-/* script */
-var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/components/onboarding/BankerProfile.vue")
-/* template */
-var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-214929b7\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/components/onboarding/BankerProfile.vue")
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = injectStyle
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/js/components/onboarding/BankerProfile.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-214929b7", Component.options)
-  } else {
-    hotAPI.reload("data-v-214929b7", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-
 /***/ "./resources/js/components/onboarding/NewBank.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -39631,32 +39310,58 @@ module.exports = Component.exports
 
 /***/ }),
 
+/***/ "./resources/js/helpers.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return toSpinalCase; });
+/* unused harmony export myAlert */
+var toSpinalCase = function toSpinalCase(obj) {
+    var newObj = {};
+    for (var key in obj) {
+        var newKey = key.replace(/([A-Z])/g, function (g) {
+            return "_" + g[0].toLowerCase();
+        });
+        newObj[newKey] = obj[key];
+    }
+    return newObj;
+};
+
+var myAlert = function myAlert(message) {
+    alert(message);
+};
+
+/* unused harmony default export */ var _unused_webpack_default_export = ({
+    toSpinalCase: toSpinalCase,
+    myAlert: myAlert
+});
+
+/***/ }),
+
 /***/ "./resources/js/onboarding.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__GlobalMixin__ = __webpack_require__("./resources/js/GlobalMixin.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_router__ = __webpack_require__("./node_modules/vue-router/dist/vue-router.esm.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_onboarding_Onboarding_vue__ = __webpack_require__("./resources/js/components/onboarding/Onboarding.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_onboarding_Onboarding_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_onboarding_Onboarding_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__("./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_onboarding_Onboarding_vue__ = __webpack_require__("./resources/js/components/onboarding/Onboarding.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_onboarding_Onboarding_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_onboarding_Onboarding_vue__);
 __webpack_require__("./resources/js/bootstrap.js");
 
 
 
 
-
-Vue.use(__WEBPACK_IMPORTED_MODULE_2_vue_router__["a" /* default */]);
-
+Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]);
 
 
-var router = new __WEBPACK_IMPORTED_MODULE_2_vue_router__["a" /* default */]({
+
+var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
     mode: 'history',
     routes: [{
         path: '/onboarding',
         name: 'onboarding',
-        component: __WEBPACK_IMPORTED_MODULE_3__components_onboarding_Onboarding_vue___default.a
+        component: __WEBPACK_IMPORTED_MODULE_2__components_onboarding_Onboarding_vue___default.a
     }]
 });
 
@@ -39711,16 +39416,9 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var toSpinalCase = function toSpinalCase(obj) {
-    var newObj = {};
-    for (var key in obj) {
-        var newKey = key.replace(/([A-Z])/g, function (g) {
-            return '_' + g[0].toLowerCase();
-        });
-        newObj[newKey] = obj[key];
-    }
-    return newObj;
-};
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_js__ = __webpack_require__("./resources/js/helpers.js");
+
+
 var currentAccountDefault = {
     accountHolder: {
         accountHolderId: null,
@@ -39775,8 +39473,6 @@ var getters = {
     }
 };
 
-// direct mutations
-// store.commit('mutationName', payload)
 var mutations = {
     setAccounts: function setAccounts(state, accountList) {
         state.accountList = accountList;
@@ -39879,72 +39575,75 @@ var mutations = {
     }
 };
 
-// async mutations
-// store.dispatch('actionName', payload)
 var actions = {
     fetchAllBankAccounts: function fetchAllBankAccounts(context) {
-        return new Promise(function (resolve, reject) {
-            context.commit('setAccountsLoading', true);
-            axios.get('/api/account').then(function (response) {
-                context.commit('setAccounts', response.data.data);
-                context.commit('setAccountsLoading', false);
-                resolve();
-            }).catch(function (error) {
-                console.log(error);
-                reject(error);
-            });
+        context.commit('setAccountsLoading', true);
+
+        axios.get('/api/account').then(function (response) {
+            context.commit('setAccounts', response.data.data);
+            context.commit('setAccountsLoading', false);
+            resolve();
+        }).catch(function (err) {
+            console.log(err);
+            context.commit('setAccountsLoading', false);
+            return Promise.reject(err);
         });
     },
     fetchBankAccount: function fetchBankAccount(context, accountId) {
-        return new Promise(function (resolve, reject) {
-            context.commit('setAccountsLoading', true);
-            axios.get('/api/account/' + accountId).then(function (response) {
-                context.commit('setAccounts', [response.data.data]);
-                context.commit('setCurrentByObj', response.data.data);
-                context.commit('setAccountsLoading', false);
-                resolve();
-            }).catch(function (error) {
-                console.log(error);
-                reject(error);
-            });
+        context.commit('setAccountsLoading', true);
+
+        axios.get('/api/account/' + accountId).then(function (response) {
+            context.commit('setAccounts', [response.data.data]);
+            context.commit('setCurrentByObj', response.data.data);
+            context.commit('setAccountsLoading', false);
+            return Promise.resolve();
+        }).catch(function (err) {
+            console.log(err);
+            context.commit('setAccountsLoading', false);
+            return Promise.reject(err);
         });
     },
     createAccount: function createAccount(context, payload) {
-        return new Promise(function (resolve, reject) {
-            context.commit('setAccountsLoading', true);
-            axios.post('/api/account', payload).then(function (response) {
-                context.commit('addAccount', response.data.data);
-                context.commit('setAccountsLoading', false);
-                resolve();
-            }).catch(function (error) {
-                reject(error);
-            });
+        payload = Object(__WEBPACK_IMPORTED_MODULE_0__helpers_js__["a" /* toSpinalCase */])(payload);
+        context.commit('setAccountsLoading', true);
+
+        axios.post('/api/account', payload).then(function (response) {
+            context.commit('addAccount', response.data.data);
+            context.commit('setAccountsLoading', false);
+            return Promise.resolve();
+        }).catch(function (err) {
+            console.log(err);
+            context.commit('setAccountsLoading', false);
+            return Promise.reject(err);
         });
     },
     updateAccount: function updateAccount(context, payload) {
-        return new Promise(function (resolve, reject) {
-            payload = toSpinalCase(payload);
-            // context.commit('setAccountsLoading', true);
-            axios.patch('/api/account/' + payload.id, payload).then(function (response) {
-                context.commit('updateAccount', response.data.data);
-                context.commit('setCurrentByObj', response.data.data);
-                context.commit('setAccountsLoading', false);
-                resolve();
-            }).catch(function (error) {
-                reject(error);
-            });
+        payload = Object(__WEBPACK_IMPORTED_MODULE_0__helpers_js__["a" /* toSpinalCase */])(payload);
+        context.commit('setAccountsLoading', true);
+
+        axios.patch('/api/account/' + payload.id, payload).then(function (response) {
+            context.commit('updateAccount', response.data.data);
+            context.commit('setCurrentByObj', response.data.data);
+            context.commit('setAccountsLoading', false);
+            return Promise.resolve();
+        }).catch(function (err) {
+            console.log(err);
+            context.commit('setAccountsLoading', false);
+            return Promise.reject(err);
         });
     },
-    updateAccountHolder: function updateAccountHolder(context, data) {
-        return new Promise(function (resolve, reject) {
-            context.commit('setAccountsLoading', true);
-            axios.put('/api/account-holder/' + data.id, data).then(function (response) {
-                context.commit('updateAccountHolder', response.data.data);
-                context.commit('setAccountsLoading', false);
-                resolve();
-            }).catch(function (error) {
-                reject(error);
-            });
+    updateAccountHolder: function updateAccountHolder(context, payload) {
+        payload = Object(__WEBPACK_IMPORTED_MODULE_0__helpers_js__["a" /* toSpinalCase */])(payload);
+        context.commit('setAccountsLoading', true);
+
+        axios.put('/api/account-holder/' + data.id, payload).then(function (response) {
+            context.commit('updateAccountHolder', response.data.data);
+            context.commit('setAccountsLoading', false);
+            return Promise.resolve();
+        }).catch(function (err) {
+            console.log(err);
+            context.commit('setAccountsLoading', false);
+            return Promise.reject(err);
         });
     }
 };
@@ -39969,11 +39668,12 @@ var state = {
     loading: false,
     vpWidth: window.innerWidth,
     vpHeight: window.innerHeight,
+    isTouchDevice: false,
     showModals: {},
     modalPayload: {},
-    isTouchDevice: false,
     isLoggedIn: false,
-    isPortal: false
+    isPortal: false,
+    planType: 'free' // free, paid
 };
 
 var getters = {
@@ -39986,8 +39686,6 @@ var getters = {
     }
 };
 
-// direct mutations
-// store.commit('mutationName', payload)
 var mutations = {
     registerModal: function registerModal(state, modalId) {
         state.showModals = Object.assign({}, state.showModals, _defineProperty({}, modalId, false));
@@ -40018,11 +39716,12 @@ var mutations = {
     },
     setIsPortal: function setIsPortal(state, payload) {
         state.isPortal = payload;
+    },
+    setPlanType: function setPlanType(state, payload) {
+        state.planType = payload;
     }
 };
 
-// async mutations
-// store.dispatch('actionName', payload)
 var actions = {};
 
 /* harmony default export */ __webpack_exports__["a"] = ({
@@ -40039,18 +39738,27 @@ var actions = {};
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_js__ = __webpack_require__("./resources/js/helpers.js");
+
+
 var state = {
     loading: true,
     id: null,
     name: '',
     totalAccruedInterest: 0,
     createdAt: '',
-    updatedAt: ''
+    updatedAt: '',
+    planType: 'free',
+    expires: 'never'
     // deletedAt: '',
     // inviteCode: ,,
 };
 
-var getters = {};
+var getters = {
+    openSince: function openSince(state) {
+        return moment.utc(state.createdAt.date).fromNow();
+    }
+};
 
 // direct mutations
 // store.commit('mutationName', payload)
@@ -40070,6 +39778,7 @@ var actions = {
         context.commit('setBankLoading', true);
         axios.get('/api/bank').then(function (response) {
             context.commit('setBank', response.data.data);
+            context.commit('app/setPlanType', context.state.planType, { root: true });
         }).catch(function (error) {
             console.log(error);
         });
@@ -40104,7 +39813,10 @@ var actions = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_js__ = __webpack_require__("./resources/js/helpers.js");
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+
 
 var state = {
     loading: false,
@@ -40120,8 +39832,6 @@ var getters = {
     }
 };
 
-// direct mutations
-// store.commit('mutationName', payload)
 var mutations = {
     setCategories: function setCategories(state, payload) {
         state.categoryList = payload;
@@ -40150,17 +39860,18 @@ var mutations = {
     }
 };
 
-// async mutations
-// store.dispatch('actionName', payload)
 var actions = {
     fetchAllCategories: function fetchAllCategories(context) {
         context.commit('setCategoryLoading', true);
+
         axios.get('/api/bank/category').then(function (response) {
             context.commit('setCategories', response.data.data);
             context.commit('setCategoryLoading', false);
+            return Promise.resolve();
         }).catch(function (error) {
             console.log(error);
             context.commit('setCategoryLoading', false);
+            return Promise.reject();
         });
     },
 
@@ -40178,15 +39889,15 @@ var actions = {
     //     });
     // },
     fetchBankSubscribedCats: function fetchBankSubscribedCats(context, subscribedIds) {
-        return new Promise(function (resolve, reject) {
-            context.commit('setCategoryLoading', true);
-            axios.get('/api/bank/subscribed-category').then(function (response) {
-                context.commit('accounts/setSubscribedCats', response.data, { root: true });
-                context.commit('setCategoryLoading', false);
-                resolve();
-            }).catch(function (err) {
-                reject(err);
-            });
+        context.commit('setCategoryLoading', true);
+
+        axios.get('/api/bank/subscribed-category').then(function (response) {
+            context.commit('accounts/setSubscribedCats', response.data, { root: true });
+            context.commit('setCategoryLoading', false);
+            return Promise.resolve();
+        }).catch(function (err) {
+            context.commit('setCategoryLoading', false);
+            return Promise.reject(err);
         });
     },
     createCategory: function createCategory(context, _ref) {
@@ -40194,29 +39905,23 @@ var actions = {
             forceSubscribe = _ref.forceSubscribe,
             subscribedIds = _ref.subscribedIds;
 
-        return new Promise(function (resolve, reject) {
-            context.commit('setCategoryLoading', true);
-            axios.post('/api/bank/category', {
-                name: name,
-                'force_subscribe': forceSubscribe,
-                'subscribed': subscribedIds
-            }).then(function (response) {
+        var payload = Object(__WEBPACK_IMPORTED_MODULE_0__helpers_js__["a" /* toSpinalCase */])({ name: name, forceSubscribe: forceSubscribe, subscribedIds: subscribedIds });
+        context.commit('setCategoryLoading', true);
 
-                // append new category to vuex state
-                context.commit('addCategory', response.data.data);
+        axios.post('/api/bank/category', payload).then(function (response) {
 
-                // fetch updated subscribed categories
-                if (subscribedIds && subscribedIds.length > 0) {
-                    context.dispatch('fetchBankSubscribedCats', subscribedIds);
-                }
+            // append new category to vuex state
+            context.commit('addCategory', response.data.data);
 
-                context.commit('setCategoryLoading', false);
-                resolve();
-            }).catch(function (err) {
-                console.error(err);
-                context.commit('setCategoryLoading', false);
-                reject();
-            });
+            // fetch updated subscribed categories
+            if (subscribedIds && subscribedIds.length > 0) context.dispatch('fetchBankSubscribedCats', subscribedIds);
+
+            context.commit('setCategoryLoading', false);
+            return Promise.resolve();
+        }).catch(function (err) {
+            console.error(err);
+            context.commit('setCategoryLoading', false);
+            return Promise.reject();
         });
     },
     updateCategory: function updateCategory(context, _ref2) {
@@ -40225,57 +39930,61 @@ var actions = {
             forceSubscribe = _ref2.forceSubscribe,
             subscribedIds = _ref2.subscribedIds;
 
-        return new Promise(function (resolve, reject) {
-            context.commit('setCategoryLoading', true);
-            axios.put('/api/bank/category/' + id, {
-                name: name,
-                'force_subscribe': forceSubscribe,
-                'subscribed': subscribedIds
-            }).then(function (response) {
+        var payload = Object(__WEBPACK_IMPORTED_MODULE_0__helpers_js__["a" /* toSpinalCase */])({ name: name, forceSubscribe: forceSubscribe, subscribedIds: subscribedIds });
+        context.commit('setCategoryLoading', true);
 
-                // append new category to vuex state
-                context.commit('updateCategory', response.data.data);
+        axios.put('/api/bank/category/' + id, payload).then(function (response) {
 
-                // fetch updated subscribed categories
-                context.dispatch('fetchBankSubscribedCats', subscribedIds);
+            // append new category to vuex state
+            context.commit('updateCategory', response.data.data);
 
-                // fetch updated transactions
-                context.dispatch('transactions/fetchAllTransactions', null, { root: true });
+            // fetch updated subscribed categories
+            context.dispatch('fetchBankSubscribedCats', subscribedIds);
 
-                context.commit('setCategoryLoading', false);
-                resolve();
-            }).catch(function (err) {
-                console.error(err);
-                context.commit('setCategoryLoading', false);
-                reject();
-            });
+            // fetch updated transactions
+            context.dispatch('transactions/fetchAllTransactions', null, { root: true });
+
+            context.commit('setCategoryLoading', false);
+            return Promise.resolve();
+        }).catch(function (err) {
+            console.error(err);
+            context.commit('setCategoryLoading', false);
+            return Promise.reject();
         });
     },
     deleteCategory: function deleteCategory(context, id) {
-        return new Promise(function (resolve, reject) {
-            context.commit('setCategoryLoading', true);
-            axios.delete('/api/bank/category/' + id).then(function (response) {
-                context.commit('deleteCategory', id);
+        context.commit('setCategoryLoading', true);
 
-                // fetch updated transactions
-                if (response.data.refetchTransactions == true) {
-                    context.dispatch('transactions/fetchAllTransactions', null, { root: true });
-                }
-            });
+        axios.delete('/api/bank/category/' + id).then(function (response) {
+            context.commit('deleteCategory', id);
+
+            // fetch updated transactions
+            if (response.data.refetchTransactions == true) context.dispatch('transactions/fetchAllTransactions', null, { root: true });
+
+            context.commit('setCategoryLoading', false);
+            return Promise.resolve();
+        }).catch(function (err) {
+            console.error(err);
+            context.commit('setCategoryLoading', false);
+            return Promise.reject();
         });
     },
     updateSubscribedCategory: function updateSubscribedCategory(context, _ref3) {
         var accountId = _ref3.accountId,
             subscribedCategory = _ref3.subscribedCategory;
 
-        return new Promise(function (resolve, reject) {
-            var id = subscribedCategory.id;
-            axios.put('/api/account/' + accountId + '/subscribed-category/' + id, subscribedCategory).then(function (response) {
-                context.commit('accounts/setSubscribedCat', response.data.data, { root: true });
-                resolve();
-            }).catch(function (err) {
-                reject();
-            });
+        var id = subscribedCategory.id;
+        var payload = Object(__WEBPACK_IMPORTED_MODULE_0__helpers_js__["a" /* toSpinalCase */])(subscribedCategory);
+        context.commit('setCategoryLoading', true);
+
+        axios.put('/api/account/' + accountId + '/subscribed-category/' + id, payload).then(function (response) {
+            context.commit('accounts/setSubscribedCat', response.data.data, { root: true });
+            context.commit('setCategoryLoading', false);
+            return Promise.resolve();
+        }).catch(function (err) {
+            console.error(err);
+            context.commit('setCategoryLoading', false);
+            return Promise.reject();
         });
     }
 };
@@ -40294,6 +40003,9 @@ var actions = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_js__ = __webpack_require__("./resources/js/helpers.js");
+
+
 var state = {
     loading: false,
     hasBeenLoaded: false,
@@ -40302,8 +40014,6 @@ var state = {
 
 var getters = {};
 
-// direct mutations
-// store.commit('mutationName', payload)
 var mutations = {
     setTransactions: function setTransactions(state, payload) {
         state.transactionList = payload;
@@ -40319,8 +40029,6 @@ var mutations = {
     }
 };
 
-// async mutations
-// store.dispatch('actionName', payload)
 var actions = {
     fetchAllTransactions: function fetchAllTransactions(context, payload) {
         context.commit('setHasBeenLoaded', true);
@@ -40328,32 +40036,35 @@ var actions = {
         axios.get('/api/bank/transaction').then(function (response) {
             context.commit('setTransactions', response.data.data);
             context.commit('setTransactionLoading', false);
-        }).catch(function (error) {
-            console.log(error);
+        }).catch(function (err) {
+            console.error(err);
+            context.commit('setTransactionLoading', false);
+            return Promise.reject(err);
         });
     },
     saveTransaction: function saveTransaction(context, transaction) {
-        return new Promise(function (resolve, reject) {
-            context.commit('setTransactionLoading', true);
-            axios.post('/api/account/' + transaction.accountId + '/transaction', transaction).then(function (result) {
-                context.commit('addTransaction', result.data.data);
-                context.commit('accounts/addTransaction', result.data.data, { root: true });
-                context.commit('accounts/changeAccountBalance', {
-                    accountId: result.data.data.accountId,
-                    type: result.data.data.type,
-                    amount: result.data.data.netAmount
-                }, { root: true });
-                context.commit('accounts/changeAccountCategoryBalance', {
-                    accountId: result.data.data.accountId,
-                    type: result.data.data.type,
-                    split: result.data.data.split
-                }, { root: true });
-                context.commit('setTransactionLoading', false);
-                resolve();
-            }).catch(function (err) {
-                console.error(err);
-                reject(err);
-            });
+        var payload = Object(__WEBPACK_IMPORTED_MODULE_0__helpers_js__["a" /* toSpinalCase */])(transaction);
+        context.commit('setTransactionLoading', true);
+
+        axios.post('/api/account/' + transaction.accountId + '/transaction', payload).then(function (result) {
+            context.commit('addTransaction', result.data.data);
+            context.commit('accounts/addTransaction', result.data.data, { root: true });
+            context.commit('accounts/changeAccountBalance', {
+                accountId: result.data.data.accountId,
+                type: result.data.data.type,
+                amount: result.data.data.netAmount
+            }, { root: true });
+            context.commit('accounts/changeAccountCategoryBalance', {
+                accountId: result.data.data.accountId,
+                type: result.data.data.type,
+                split: result.data.data.split
+            }, { root: true });
+            context.commit('setTransactionLoading', false);
+            return Promise.resolve();
+        }).catch(function (err) {
+            console.error(err);
+            context.commit('setTransactionLoading', false);
+            return Promise.reject(err);
         });
     }
 };
@@ -40372,6 +40083,9 @@ var actions = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_js__ = __webpack_require__("./resources/js/helpers.js");
+
+
 var state = {
     loading: true,
     id: null,
@@ -40395,30 +40109,25 @@ var getters = {
     }
 };
 
-// direct mutations
-// store.commit('mutationName', payload)
 var mutations = {
     setUser: function setUser(state, payload) {
         state = Object.assign(state, payload, { loading: false });
     },
     setUserLoading: function setUserLoading(state, payload) {
         state.loading = payload;
-    },
-    setType: function setType(state, payload) {
-        state.type = payload;
     }
 };
 
-// async mutations
-// store.dispatch('actionName', payload)
 var actions = {
-    getUser: function getUser(context, payload) {
+    fetchUser: function fetchUser(context, payload) {
         context.commit('setUserLoading', true);
         axios.get('/api/user').then(function (response) {
             context.commit('setUserLoading', false);
             context.commit('setUser', response.data.data);
+            return Promise.resolve();
         }).catch(function (error) {
             console.log(error);
+            return Promise.reject();
         });
     },
     updateUser: function updateUser(context, payload) {

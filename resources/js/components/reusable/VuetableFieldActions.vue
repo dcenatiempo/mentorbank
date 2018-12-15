@@ -1,14 +1,11 @@
 <template>
-
     <th v-if="isHeader">
         Actions
     </th>
-
     <td v-else-if="!rowData.isGlobal">
         <button v-on:click="showCategoryModal" class="btn-icon"><edit></edit></button>
         <button v-on:click="deleteCat" class="btn-icon"><delete></delete></button>
     </td>
-
 </template>
 
 <script>
@@ -47,7 +44,6 @@ export default {
             });
         },
         deleteCat() {
-            // alert(`deleting ${this.rowData.name} category (id: ${this.rowData.id})`);
             this.deleteCategory(this.rowData.id);
         }
         

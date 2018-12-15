@@ -12,7 +12,10 @@
         <div class="card">
             <h2 class="card-header">
                 <router-link to="/bank/accounts">Accounts</router-link>
-                <button v-on:click="showAccountHolderModal" class="btn-icon">+</button>
+                <button
+                    v-if="'paid' == planType"
+                    v-on:click="showAccountHolderModal"
+                    class="btn-icon">+</button>
             </h2>
             <div v-if="accounts.loading"
                 class="loader"></div>
@@ -77,6 +80,7 @@ export default {
     computed: {
         ...mapState('user', ['name']),
         ...mapState(['bank', 'accounts', 'categories', 'transactions']),
+        ...mapState('app', ['planType']),
         // ...mapGetters()
         totalDeposits() {
             return this.accounts.accountList.reduce((total, account) => 

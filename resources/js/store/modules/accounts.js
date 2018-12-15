@@ -1,11 +1,5 @@
-const toSpinalCase = function(obj) {
-    let newObj = {}
-    for (let key in obj) {
-        let newKey = key.replace(/([A-Z])/g, (g) => `_${g[0].toLowerCase()}`);
-        newObj[newKey] = obj[key];
-    }
-    return newObj;
-}
+import {toSpinalCase} from '../../helpers.js';
+
 const currentAccountDefault = {
     accountHolder: {
         accountHolderId: null,
@@ -30,7 +24,6 @@ const state = {
     currentAccount: currentAccountDefault
 };
 
-
 const getters = {
     accountSubedCats: state => state.currentAccount.subscribedCategories.filter(cat => cat.categoryId !== 1),
     accountInterestCat: state => state.currentAccount.subscribedCategories.find(cat => cat.categoryId === 1),
@@ -39,8 +32,6 @@ const getters = {
     accountListCount: state => state.accountList.length,
 };
 
-// direct mutations
-// store.commit('mutationName', payload)
 const mutations = {
     setAccounts(state, accountList) {
         state.accountList = accountList;
@@ -137,83 +128,86 @@ const mutations = {
     }
 };
 
-// async mutations
-// store.dispatch('actionName', payload)
 const actions = {
     fetchAllBankAccounts(context) {
-        return new Promise((resolve, reject) => {
-            context.commit('setAccountsLoading', true);
-            axios.get('/api/account')
-            .then((response) => {
+        context.commit('setAccountsLoading', true);
+
+        axios.get('/api/account')
+            .then( response => {
                 context.commit('setAccounts', response.data.data)
                 context.commit('setAccountsLoading', false);
                 resolve()
             })
-            .catch((error) => {
-                console.log(error);
-                reject(error);
+            .catch( err => {
+                console.log(err);
+                context.commit('setAccountsLoading', false);
+                return Promise.reject(err);
             });
-        });
     },
     fetchBankAccount(context, accountId) {
-        return new Promise((resolve, reject) => {
-            context.commit('setAccountsLoading', true);
-            axios.get(`/api/account/${accountId}`)
-            .then((response) => {
+        context.commit('setAccountsLoading', true);
+
+        axios.get(`/api/account/${accountId}`)
+            .then( response => {
                 context.commit('setAccounts', [response.data.data]);
                 context.commit('setCurrentByObj', response.data.data);
                 context.commit('setAccountsLoading', false);
-                resolve()
+                return Promise.resolve()
             })
-            .catch((error) => {
-                console.log(error);
-                reject(error);
+            .catch( err => {
+                console.log(err);
+                context.commit('setAccountsLoading', false);
+                return Promise.reject(err);
             });
-        });
     },
     createAccount(context, payload) {
-        return new Promise((resolve, reject) => {
-            context.commit('setAccountsLoading', true);
-            axios.post('/api/account', payload)
-            .then((response) => {
+        payload = toSpinalCase(payload);
+        context.commit('setAccountsLoading', true);
+
+        axios.post('/api/account', payload)
+            .then( response => {
                 context.commit('addAccount', response.data.data);
                 context.commit('setAccountsLoading', false);
-                resolve();
+                return Promise.resolve();
             })
-            .catch((error) => {
-                reject(error);
+            .catch( err => {
+                console.log(err);
+                context.commit('setAccountsLoading', false);
+                return Promise.reject(err);
             });
-        });
     },
     updateAccount(context, payload) {
-        return new Promise((resolve, reject) => {
-            payload = toSpinalCase(payload);
-            // context.commit('setAccountsLoading', true);
-            axios.patch(`/api/account/${payload.id}`, payload)
-                .then((response) => {
+        payload = toSpinalCase(payload);
+        context.commit('setAccountsLoading', true);
+
+        axios.patch(`/api/account/${payload.id}`, payload)
+                .then( response => {
                     context.commit('updateAccount', response.data.data);
                     context.commit('setCurrentByObj', response.data.data);
                     context.commit('setAccountsLoading', false);
-                resolve();
+                return Promise.resolve();
             })
-            .catch((error) => {
-                reject(error);
+            .catch( err => {
+                console.log(err);
+                context.commit('setAccountsLoading', false);
+                return Promise.reject(err);
             });
-        });
     },
-    updateAccountHolder(context, data) {
-        return new Promise((resolve, reject) => {
-            context.commit('setAccountsLoading', true);
-            axios.put(`/api/account-holder/${data.id}`, data)
-            .then((response) => {
+    updateAccountHolder(context, payload) {
+        payload = toSpinalCase(payload);
+        context.commit('setAccountsLoading', true);
+
+        axios.put(`/api/account-holder/${data.id}`, payload)
+            .then( response => {
                 context.commit('updateAccountHolder', response.data.data);
                 context.commit('setAccountsLoading', false);
-                resolve();
+                return Promise.resolve();
             })
-            .catch((error) => {
-                reject(error);
+            .catch( err => {
+                console.log(err);
+                context.commit('setAccountsLoading', false);
+                return Promise.reject(err);
             });
-        });
     },
 };
 

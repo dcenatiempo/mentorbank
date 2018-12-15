@@ -26,7 +26,9 @@ class Bank extends JsonResource
             // data (alphabetical)
             'inviteCode' => $this->invite_code,
             'name' => $this->name,
-            'totalAccruedInterest' => $this->getTotalAccruedInterest()
+            'totalAccruedInterest' => $this->getTotalAccruedInterest(),
+            'planType' => 'paid',
+            'expires' => 'never',
         ];
     }
 }

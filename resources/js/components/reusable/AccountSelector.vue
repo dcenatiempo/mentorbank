@@ -29,7 +29,6 @@ export default {
     },
     computed: {
         ...mapState(['accounts']),
-        // ...mapGetters(),
         accountList() {
             return this.accounts.accountList.map(item => (
                 {
@@ -42,7 +41,6 @@ export default {
     },
     methods: {
         ...mapMutations('accounts', ['setCurrentById']),
-        // ...mapActions(),
         onSelect(value) {
             let accountId = value ? value.accountId : null;
             this.setCurrentById(accountId);

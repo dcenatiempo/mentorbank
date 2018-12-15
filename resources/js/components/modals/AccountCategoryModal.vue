@@ -147,8 +147,8 @@ export default {
             let accountId = this.payload.subscribedCategory.accountId;
             let subscribedCategory = {
                 id: this.payload.subscribedCategory.id,
-                goal_balance: this.goalBalance,
-                low_balance_alert: this.lowBalanceAlert,
+                goalBalance: this.goalBalance,
+                lowBalanceAlert: this.lowBalanceAlert,
                 notifications: this.notifications
             };
 

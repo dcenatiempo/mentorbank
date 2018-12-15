@@ -26,7 +26,6 @@ export default {
     },
     computed: {
         ...mapState(['accounts']),
-        // ...mapGetters()
         accountList() {
             return this.accounts.accountList.map(item => (
                 {
@@ -38,8 +37,6 @@ export default {
 
     },
     methods: {
-        // ...mapMutations(),
-        // ...mapActions(),
         onSelect(value) {
             this.$emit('select', value);
         },

@@ -1,7 +1,6 @@
 require('./bootstrap');
 
 import GlobalMixin from './GlobalMixin';
-import {mapState, mapGetters, mapActions, mapMutations} from 'vuex';
 
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
@@ -23,9 +22,6 @@ const app = new Vue({
     el: '#onboarding',
     router: router,
     mixins  : [ GlobalMixin ],
-    computed: {
-    },
-    created() {
-    },
-
+    computed: {},
+    created() {},
 });

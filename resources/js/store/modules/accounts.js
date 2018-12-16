@@ -197,7 +197,7 @@ const actions = {
         payload = toSpinalCase(payload);
         context.commit('setAccountsLoading', true);
 
-        axios.put(`/api/account-holder/${data.id}`, payload)
+        axios.put(`/api/account-holder/${payload.id}`, payload)
             .then( response => {
                 context.commit('updateAccountHolder', response.data.data);
                 context.commit('setAccountsLoading', false);

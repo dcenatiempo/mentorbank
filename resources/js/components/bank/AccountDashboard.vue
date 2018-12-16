@@ -160,7 +160,7 @@ export default {
         },
     },
     created() {
-        if (accountListCount > 0)
+        if (this.accountListCount > 0)
             this.setCurrentById(this.$route.params.accountId);
     },
     mounted() {

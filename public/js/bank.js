@@ -4022,7 +4022,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         })
     }),
     created: function created() {
-        if (accountListCount > 0) this.setCurrentById(this.$route.params.accountId);
+        if (this.accountListCount > 0) this.setCurrentById(this.$route.params.accountId);
     },
     mounted: function mounted() {},
 

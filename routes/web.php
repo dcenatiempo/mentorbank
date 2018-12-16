@@ -28,6 +28,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/bank/{any}', 'ViewController@bank')->where(['any' => '.*']);
         Route::get('/account', 'ViewController@account');
         Route::get('/account/{any}', 'ViewController@account')->where(['any' => '.*']);
+        Route::get('/subscription', 'ViewController@subscription');
+        Route::get('/subscription/{any}', 'ViewController@subscription')->where(['any' => '.*']);
 
         Route::prefix('api')->group(function () {
             

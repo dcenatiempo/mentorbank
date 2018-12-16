@@ -136,7 +136,7 @@ const actions = {
             .then( response => {
                 context.commit('setAccounts', response.data.data)
                 context.commit('setAccountsLoading', false);
-                resolve()
+                return Promise.resolve()
             })
             .catch( err => {
                 console.log(err);

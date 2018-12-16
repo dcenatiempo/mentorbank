@@ -2,7 +2,10 @@
     <div class="container">
         <h2>
             Category Page
-            <button v-on:click="showCategoryModal" class="btn-icon">+</button>
+            <button
+                v-if="canAddCats"
+                v-on:click="showCategoryModal"
+                class="btn-icon">+</button>
         </h2>
         <vuetable ref="vuetable"
             :fields="columns"
@@ -60,7 +63,11 @@ export default {
     },
     computed: {
         ...mapState('categories', ['categoryList', 'loading']),
-        ...mapGetters('accounts', ['accountListCount'])
+        ...mapGetters('accounts', ['accountListCount']),
+        ...mapState('bank', ['planType']),
+        canAddCats() {
+            return 'paid' == this.planType || this.categoryList.length < 5;
+        }
     },
     methods: {
         ...mapActions('categories', ['fetchAllCategories']),

@@ -25,6 +25,9 @@ const mutations = {
     setUserLoading (state, payload) {
         state.loading = payload;
     },
+    setType (state, payload) {
+        state.type = payload;
+    },
 };
 
 const actions = {

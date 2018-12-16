@@ -11,9 +11,17 @@
             <li>
                 Plan Type: {{planType}}
             </li>
-            <li>
-                Expires: {{expires}}
-            </li>
+            <template v-if="planType != 'free'">
+                <li>
+                    Expires: {{planExpires ? planExpires.date : 'Never'}}
+                </li>
+                <li v-if="planExpires">
+                    Auto-renew: {{autoRenew ? 'Yes' : 'No'}}
+                </li>
+                <li v-if="inGracePeriod">
+                    {{30 - inGracePeriod}} days left in grace period!
+                </li>
+            </template>
         </ul>
     </div>
 </template>
@@ -30,13 +38,20 @@ export default {
         };
     },
     computed: {
-        ...mapState('bank', ['name', 'planType', 'expires']),
-        ...mapGetters('bank', ['openSince'],)
+        ...mapState('bank', ['name', 'planType', 'planExpires', 'autoRenew']),
+        ...mapGetters('bank', ['openSince']),
+        inGracePeriod() {
+            let expires = moment.utc(this.planExpires);
+            let now = moment.utc();
+            if (expires > now) return false;
+            let dif = now.diff(expires, 'days');
+            if (dif > 30) return false;
+            return dif;
+        }
     },
     methods: {
         // ...mapMutations(),
         // ...mapActions(),
-        
     },
     created() {},
     mounted() {},

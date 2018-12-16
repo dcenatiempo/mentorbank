@@ -7,7 +7,6 @@ const state = {
     modalPayload: {},
     isLoggedIn: false,
     isPortal: false,
-    planType: 'free', // free, paid
 };
 
 const getters = {

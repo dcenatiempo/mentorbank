@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\SubscribedCategory;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class Bank extends Model
 {
@@ -14,6 +16,8 @@ class Bank extends Model
     public function categories()     { return $this->hasMany('App\Category'); }
     public function transactions()   { return $this->hasManyThrough('App\Transaction', 'App\Account'); }
     public function interestTransactions()   { return $this->hasManyThrough('App\InterestTransaction', 'App\Account'); }
+
+    protected $dates = ['plan_expires'];
 
     public function getAllCategories() {
         $globalCats = Category::getGlobalCategories()
@@ -45,5 +49,54 @@ class Bank extends Model
         $interest = $interest->pluck('balance')->sum();
 
         return round($interest, 2);    
+    }
+
+    public function shouldDowngrade() {
+        // is the account holder on a free plan or past grace period
+        if ('free' == $this->plan_type || $this->isPastGracePeriod()) {
+        
+            // does the account holder have more than 1 account or 3 categories
+            $numAccounts = count($this->accounts);
+            if ($numAccounts > 1) {
+                return true;
+            }
+               
+            $numCats = count($this->categories);
+            if ($numCats > 3) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private function isPastGracePeriod() {
+        if (!$this->plan_expires) {
+            return false;
+        }
+        $expires = $this->plan_expires;
+        $now = Carbon::create();
+        if ($expires > $now) {
+            return false;
+        }
+
+        $dif = $now->diff($expires)->days;
+        if ($dif < 30) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private function isExpired() {
+        if (!$this->plan_expires) {
+            return false;
+        }
+        $expires = $this->plan_expires;
+        $now = Carbon::create();
+        if ($expires > $now) {
+            return false;
+        }
+        return true;
     }
 }

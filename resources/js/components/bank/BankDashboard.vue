@@ -32,7 +32,13 @@
         </div>
 
         <div class="card">
-            <h2 class="card-header"><router-link to="/bank/categories">Categories</router-link><button v-on:click="showCategoryModal" class="btn-icon">+</button></h2>
+            <h2 class="card-header">
+                <router-link to="/bank/categories">Categories</router-link>
+                <button
+                    v-if="canAddCats"
+                    v-on:click="showCategoryModal"
+                    class="btn-icon">+</button>
+            </h2>
             <template v-for="category in categories.categoryList">
                 <div :key="'c-'+category.id">
                     <h3>{{category.name}}</h3>
@@ -66,7 +72,7 @@ export default {
     components: {
         Currency,
         RecentTransactions,
-        'transfer': BankTransfer,
+    'transfer': BankTransfer,
         'deposit': BankTransferIn,
         'withdrawal': BankTransferOut,
         'edit': Pencil
@@ -80,12 +86,15 @@ export default {
     computed: {
         ...mapState('user', ['name']),
         ...mapState(['bank', 'accounts', 'categories', 'transactions']),
-        ...mapState('app', ['planType']),
+        ...mapState('bank', ['planType']),
         // ...mapGetters()
         totalDeposits() {
             return this.accounts.accountList.reduce((total, account) => 
                 total + account.balance
             , 0);
+        },
+        canAddCats() {
+            return 'paid' == this.planType || this.categories.categoryList.length < 5;
         }
     },
     methods: {

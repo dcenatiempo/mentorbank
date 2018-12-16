@@ -71,6 +71,7 @@ const app = new Vue({
     computed: {
         ...mapState('user',['type', 'loading']),
         ...mapState(['accounts']),
+        ...mapState('bank',['downgradeBank']),
     },
     methods: {
         ...mapActions('accounts', ['fetchAllBankAccounts']),
@@ -85,5 +86,10 @@ const app = new Vue({
                 vm.setCurrentById(vm.$route.params.accountId);
         });
     },
-
+    watch: {
+        downgradeBank(val) {
+            if (false === val) return;
+            // alert('your paid account has expired')
+        }
+    }
 });

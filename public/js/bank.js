@@ -4171,6 +4171,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4194,12 +4200,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         return {};
     },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('user', ['name']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])(['bank', 'accounts', 'categories', 'transactions']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('app', ['planType']), {
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('user', ['name']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])(['bank', 'accounts', 'categories', 'transactions']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('bank', ['planType']), {
         // ...mapGetters()
         totalDeposits: function totalDeposits() {
             return this.accounts.accountList.reduce(function (total, account) {
                 return total + account.balance;
             }, 0);
+        },
+        canAddCats: function canAddCats() {
+            return 'paid' == this.planType || this.categories.categoryList.length < 5;
         }
     }),
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapMutations */])('app', ['showModal', 'hideModal']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapMutations */])('accounts', ['unSetCurrent']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])('categories', ['fetchAllCategories']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])('transactions', ['fetchAllTransactions']), {
@@ -4404,6 +4413,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
 
 
 
@@ -4449,7 +4461,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         };
     },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('categories', ['categoryList', 'loading']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapGetters */])('accounts', ['accountListCount'])),
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('categories', ['categoryList', 'loading']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapGetters */])('accounts', ['accountListCount']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('bank', ['planType']), {
+        canAddCats: function canAddCats() {
+            return 'paid' == this.planType || this.categoryList.length < 5;
+        }
+    }),
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])('categories', ['fetchAllCategories']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapMutations */])('app', ['showModal', 'hideModal']), {
         formatBool: function formatBool(val) {
             return val === true ? '✔' : '';
@@ -4565,6 +4581,14 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4575,11 +4599,19 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         return {};
     },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('bank', ['name', 'planType', 'expires']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapGetters */])('bank', ['openSince'])),
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('bank', ['name', 'planType', 'planExpires', 'autoRenew']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapGetters */])('bank', ['openSince']), {
+        inGracePeriod: function inGracePeriod() {
+            var expires = moment.utc(this.planExpires);
+            var now = moment.utc();
+            if (expires > now) return false;
+            var dif = now.diff(expires, 'days');
+            if (dif > 30) return false;
+            return dif;
+        }
+    }),
     methods: {
         // ...mapMutations(),
         // ...mapActions(),
-
     },
     created: function created() {},
     mounted: function mounted() {},
@@ -9652,7 +9684,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -27541,11 +27573,13 @@ var render = function() {
     [
       _c("h2", [
         _vm._v("\n        Category Page\n        "),
-        _c(
-          "button",
-          { staticClass: "btn-icon", on: { click: _vm.showCategoryModal } },
-          [_vm._v("+")]
-        )
+        _vm.canAddCats
+          ? _c(
+              "button",
+              { staticClass: "btn-icon", on: { click: _vm.showCategoryModal } },
+              [_vm._v("+")]
+            )
+          : _vm._e()
       ]),
       _vm._v(" "),
       _c("vuetable", {
@@ -29770,27 +29804,59 @@ var render = function() {
   return _c("div", { staticClass: "container" }, [
     _c("h2", [_vm._v("Bank Settings")]),
     _vm._v(" "),
-    _c("ul", [
-      _c("li", [
-        _vm._v("\n            Name: " + _vm._s(_vm.name) + "\n        ")
-      ]),
-      _vm._v(" "),
-      _c("li", [
-        _vm._v(
-          "\n            Open Since: " + _vm._s(_vm.openSince) + "\n        "
-        )
-      ]),
-      _vm._v(" "),
-      _c("li", [
-        _vm._v(
-          "\n            Plan Type: " + _vm._s(_vm.planType) + "\n        "
-        )
-      ]),
-      _vm._v(" "),
-      _c("li", [
-        _vm._v("\n            Expires: " + _vm._s(_vm.expires) + "\n        ")
-      ])
-    ])
+    _c(
+      "ul",
+      [
+        _c("li", [
+          _vm._v("\n            Name: " + _vm._s(_vm.name) + "\n        ")
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _vm._v(
+            "\n            Open Since: " + _vm._s(_vm.openSince) + "\n        "
+          )
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _vm._v(
+            "\n            Plan Type: " + _vm._s(_vm.planType) + "\n        "
+          )
+        ]),
+        _vm._v(" "),
+        _vm.planType != "free"
+          ? [
+              _c("li", [
+                _vm._v(
+                  "\n                Expires: " +
+                    _vm._s(_vm.planExpires ? _vm.planExpires.date : "Never") +
+                    "\n            "
+                )
+              ]),
+              _vm._v(" "),
+              _vm.planExpires
+                ? _c("li", [
+                    _vm._v(
+                      "\n                Auto-renew: " +
+                        _vm._s(_vm.autoRenew ? "Yes" : "No") +
+                        "\n            "
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.inGracePeriod
+                ? _c("li", [
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(30 - _vm.inGracePeriod) +
+                        " days left in grace period!\n            "
+                    )
+                  ])
+                : _vm._e()
+            ]
+          : _vm._e()
+      ],
+      2
+    )
   ])
 }
 var staticRenderFns = []
@@ -31356,14 +31422,17 @@ var render = function() {
                 _c("router-link", { attrs: { to: "/bank/categories" } }, [
                   _vm._v("Categories")
                 ]),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn-icon",
-                    on: { click: _vm.showCategoryModal }
-                  },
-                  [_vm._v("+")]
-                )
+                _vm._v(" "),
+                _vm.canAddCats
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn-icon",
+                        on: { click: _vm.showCategoryModal }
+                      },
+                      [_vm._v("+")]
+                    )
+                  : _vm._e()
               ],
               1
             ),
@@ -52220,7 +52289,7 @@ var app = new Vue({
     el: '#bank',
     router: router,
     mixins: [__WEBPACK_IMPORTED_MODULE_0__GlobalMixin__["a" /* default */]],
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["e" /* mapState */])('user', ['type', 'loading']), Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["e" /* mapState */])(['accounts'])),
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["e" /* mapState */])('user', ['type', 'loading']), Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["e" /* mapState */])(['accounts']), Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["e" /* mapState */])('bank', ['downgradeBank'])),
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapActions */])('accounts', ['fetchAllBankAccounts']), Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["d" /* mapMutations */])('accounts', ['setCurrentById']), Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapActions */])('bank', ['fetchBank'])),
     created: function created() {
         var vm = this;
@@ -52228,6 +52297,13 @@ var app = new Vue({
         this.fetchAllBankAccounts().then(function () {
             if (vm.$route.params.accountId) vm.setCurrentById(vm.$route.params.accountId);
         });
+    },
+
+    watch: {
+        downgradeBank: function downgradeBank(val) {
+            if (false === val) return;
+            // alert('your paid account has expired')
+        }
     }
 });
 
@@ -54348,7 +54424,7 @@ var actions = {
         axios.get('/api/account').then(function (response) {
             context.commit('setAccounts', response.data.data);
             context.commit('setAccountsLoading', false);
-            resolve();
+            return Promise.resolve();
         }).catch(function (err) {
             console.log(err);
             context.commit('setAccountsLoading', false);
@@ -54438,8 +54514,7 @@ var state = {
     showModals: {},
     modalPayload: {},
     isLoggedIn: false,
-    isPortal: false,
-    planType: 'free' // free, paid
+    isPortal: false
 };
 
 var getters = {
@@ -54514,8 +54589,9 @@ var state = {
     totalAccruedInterest: 0,
     createdAt: '',
     updatedAt: '',
-    planType: 'free',
-    expires: 'never'
+    planType: 'free', // paid
+    planExpires: null, // date
+    autoRenew: null // bool,
     // deletedAt: '',
     // inviteCode: ,,
 };
@@ -54523,11 +54599,35 @@ var state = {
 var getters = {
     openSince: function openSince(state) {
         return moment.utc(state.createdAt.date).fromNow();
+    },
+    isInGracePeriod: function isInGracePeriod(state) {
+        if (!state.planExpires) {
+            return false;
+        }
+        if ('free' == state.planType) return false;
+
+        var expires = moment.utc(state.planExpires.date);
+        var now = moment.utc();
+        if (expires > now) return false;
+
+        var dif = now.diff(expires, 'days');
+        if (dif > 30) return false;
+        return true;
+    },
+    isExpired: function isExpired(state) {
+        if (!state.planExpires) {
+            return false;
+        }
+        if ('free' == state.planType) return false;
+
+        var expires = moment.utc(state.planExpires.date);
+        var now = moment.utc();
+        if (expires > now) return false;
+
+        return true;
     }
 };
 
-// direct mutations
-// store.commit('mutationName', payload)
 var mutations = {
     setBank: function setBank(state, payload) {
         state = Object.assign(state, payload, { loading: false });
@@ -54537,30 +54637,25 @@ var mutations = {
     }
 };
 
-// async mutations
-// store.dispatch('actionName', payload)
 var actions = {
     fetchBank: function fetchBank(context) {
         context.commit('setBankLoading', true);
         axios.get('/api/bank').then(function (response) {
             context.commit('setBank', response.data.data);
-            context.commit('app/setPlanType', context.state.planType, { root: true });
+            context.commit('setBankLoading', false);
         }).catch(function (error) {
             console.log(error);
         });
     },
     createBank: function createBank(context, name) {
-        return new Promise(function (resolve, reject) {
-            context.commit('setBankLoading', true);
+        context.commit('setBankLoading', true);
 
-            axios.post('/api/bank', {
-                name: name
-            }).then(function (response) {
-                context.commit('setBank', response.data.data);
-                resolve();
-            }).catch(function (error) {
-                reject(error);
-            });
+        axios.post('/api/bank', { name: name }).then(function (response) {
+            context.commit('setBank', response.data.data);
+            context.commit('setBankLoading', false);
+            return Promise.resolve();
+        }).catch(function (err) {
+            return Promise.reject(err);
         });
     }
 };
@@ -54881,6 +54976,9 @@ var mutations = {
     },
     setUserLoading: function setUserLoading(state, payload) {
         state.loading = payload;
+    },
+    setType: function setType(state, payload) {
+        state.type = payload;
     }
 };
 

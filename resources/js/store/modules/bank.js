@@ -7,58 +7,82 @@ const state = {
     totalAccruedInterest: 0,
     createdAt: '',
     updatedAt: '',
-    planType: 'free',
-    expires: 'never',
+    planType: 'free', // paid
+    planExpires: null, // date
+    autoRenew: null, // bool,
     // deletedAt: '',
     // inviteCode: ,,
 };
 
 
 const getters = {
-    openSince: state => moment.utc(state.createdAt.date).fromNow()
+    openSince: state => moment.utc(state.createdAt.date).fromNow(),
+    isInGracePeriod: state => {
+        if (!state.planExpires) {
+            return false
+        }
+        if ('free' == state.planType)
+        return false;
+
+        let expires = moment.utc(state.planExpires.date);
+        let now = moment.utc();
+        if (expires > now)
+            return false;
+
+        let dif = now.diff(expires, 'days');
+        if (dif > 30)
+            return false;
+        return true
+    },
+    isExpired: state => {
+        if (!state.planExpires) {
+            return false
+        }
+        if ('free' == state.planType)
+        return false;
+
+        let expires = moment.utc(state.planExpires.date);
+        let now = moment.utc();
+        if (expires > now)
+            return false;
+        
+        return true;
+    },
 };
 
-// direct mutations
-// store.commit('mutationName', payload)
 const mutations = {
     setBank (state, payload) {
         state = Object.assign( state, payload, {loading: false} );
     },
     setBankLoading (state, payload) {
         state.loading = payload;
-    }
+    },
 };
 
-// async mutations
-// store.dispatch('actionName', payload)
 const actions = {
     fetchBank (context) {
         context.commit('setBankLoading', true);
         axios.get('/api/bank')
         .then(function (response) {
             context.commit('setBank', response.data.data);
-            context.commit('app/setPlanType', context.state.planType, {root: true});
+            context.commit('setBankLoading', false);
         })
         .catch(function (error) {
             console.log(error);
         });
     },
     createBank (context, name) {
-        return new Promise((resolve, reject) => {
-            context.commit('setBankLoading', true);
-        
-            axios.post('/api/bank', {
-                name: name
-            })
-            .then(function (response) {
+        context.commit('setBankLoading', true);
+    
+        axios.post('/api/bank', {name})
+            .then( response => {
                 context.commit('setBank', response.data.data)
-                resolve();
+                context.commit('setBankLoading', false);
+                return Promise.resolve();
             })
-            .catch(function (error) {
-                reject(error);
+            .catch( err => {
+                return Promise.reject(err);
             });
-        })
-        
     }
 };
 

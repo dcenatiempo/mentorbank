@@ -38207,7 +38207,7 @@ var actions = {
         axios.get('/api/account').then(function (response) {
             context.commit('setAccounts', response.data.data);
             context.commit('setAccountsLoading', false);
-            resolve();
+            return Promise.resolve();
         }).catch(function (err) {
             console.log(err);
             context.commit('setAccountsLoading', false);
@@ -38297,8 +38297,7 @@ var state = {
     showModals: {},
     modalPayload: {},
     isLoggedIn: false,
-    isPortal: false,
-    planType: 'free' // free, paid
+    isPortal: false
 };
 
 var getters = {
@@ -38373,8 +38372,9 @@ var state = {
     totalAccruedInterest: 0,
     createdAt: '',
     updatedAt: '',
-    planType: 'free',
-    expires: 'never'
+    planType: 'free', // paid
+    planExpires: null, // date
+    autoRenew: null // bool,
     // deletedAt: '',
     // inviteCode: ,,
 };
@@ -38382,11 +38382,35 @@ var state = {
 var getters = {
     openSince: function openSince(state) {
         return moment.utc(state.createdAt.date).fromNow();
+    },
+    isInGracePeriod: function isInGracePeriod(state) {
+        if (!state.planExpires) {
+            return false;
+        }
+        if ('free' == state.planType) return false;
+
+        var expires = moment.utc(state.planExpires.date);
+        var now = moment.utc();
+        if (expires > now) return false;
+
+        var dif = now.diff(expires, 'days');
+        if (dif > 30) return false;
+        return true;
+    },
+    isExpired: function isExpired(state) {
+        if (!state.planExpires) {
+            return false;
+        }
+        if ('free' == state.planType) return false;
+
+        var expires = moment.utc(state.planExpires.date);
+        var now = moment.utc();
+        if (expires > now) return false;
+
+        return true;
     }
 };
 
-// direct mutations
-// store.commit('mutationName', payload)
 var mutations = {
     setBank: function setBank(state, payload) {
         state = Object.assign(state, payload, { loading: false });
@@ -38396,30 +38420,25 @@ var mutations = {
     }
 };
 
-// async mutations
-// store.dispatch('actionName', payload)
 var actions = {
     fetchBank: function fetchBank(context) {
         context.commit('setBankLoading', true);
         axios.get('/api/bank').then(function (response) {
             context.commit('setBank', response.data.data);
-            context.commit('app/setPlanType', context.state.planType, { root: true });
+            context.commit('setBankLoading', false);
         }).catch(function (error) {
             console.log(error);
         });
     },
     createBank: function createBank(context, name) {
-        return new Promise(function (resolve, reject) {
-            context.commit('setBankLoading', true);
+        context.commit('setBankLoading', true);
 
-            axios.post('/api/bank', {
-                name: name
-            }).then(function (response) {
-                context.commit('setBank', response.data.data);
-                resolve();
-            }).catch(function (error) {
-                reject(error);
-            });
+        axios.post('/api/bank', { name: name }).then(function (response) {
+            context.commit('setBank', response.data.data);
+            context.commit('setBankLoading', false);
+            return Promise.resolve();
+        }).catch(function (err) {
+            return Promise.reject(err);
         });
     }
 };
@@ -38740,6 +38759,9 @@ var mutations = {
     },
     setUserLoading: function setUserLoading(state, payload) {
         state.loading = payload;
+    },
+    setType: function setType(state, payload) {
+        state.type = payload;
     }
 };
 

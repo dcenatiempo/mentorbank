@@ -17,6 +17,9 @@ class ViewController extends Controller
         if ($this->shouldOnboard($request->user())) {
             return redirect('/onboarding');
         }
+        if ($this->shouldDowngrade($request->user())) {
+            return redirect('/subscription');
+        }
         if ($request->session()->exists('portal')) {
             if ($request->session()->exists('account_id')) {
                 return redirect('/account');
@@ -28,15 +31,17 @@ class ViewController extends Controller
 
     public function portal(Request $request)
     {
-        // if ($this->shouldOnboard($request->user())) {
-        //     return redirect('/onboarding');
-        // } else {
-            $request->session()->put('portal', true);
-            $request->session()->put('account_id', null);
-            return view('portal', [
-                'pageId' => 'portal'
-            ]);
-        // }
+        if ($this->shouldOnboard($request->user())) {
+            return redirect('/onboarding');
+        }
+        if ($this->shouldDowngrade($request->user())) {
+            return redirect('/subscription');
+        }
+        $request->session()->put('portal', true);
+        $request->session()->put('account_id', null);
+        return view('portal', [
+            'pageId' => 'portal'
+        ]);
     }
 
     /**
@@ -50,6 +55,9 @@ class ViewController extends Controller
             return view('onboarding', [
                 'pageId' => 'onboarding'
             ]);
+        }
+        if ($this->shouldDowngrade($request->user())) {
+            return redirect('/subscription');
         }
         if ($request->session()->exists('portal')) {
             return redirect('/portal');
@@ -71,6 +79,9 @@ class ViewController extends Controller
         if ($this->shouldOnboard($request->user())) {
             return redirect('/onboarding');
         }
+        if ($this->shouldDowngrade($request->user())) {
+            return redirect('/subscription');
+        }
         return view('bank', [
             'pageId' => 'bank'
         ]);
@@ -86,6 +97,9 @@ class ViewController extends Controller
         if ($this->shouldOnboard($request->user())) {
             return redirect('/onboarding');
         }
+        if ($this->shouldDowngrade($request->user())) {
+            return redirect('/subscription');
+        }
         if (!$request->session()->exists('portal')) {
             return redirect('/home');
         } else {
@@ -96,6 +110,17 @@ class ViewController extends Controller
         }
         return view('account', [
             'pageId' => 'account'
+        ]);
+    }
+
+    public function subscription(Request $request)
+    {
+        if ($this->shouldOnboard($request->user())) {
+            return redirect('/onboarding');
+        }
+        return view('subscription', [
+            'pageId' => 'subscription',
+            'downgrade' => $this->shouldDowngrade($request->user()) ? 'true' : 'false'
         ]);
     }
 
@@ -113,4 +138,16 @@ class ViewController extends Controller
         }
     }
 
+    private function shouldDowngrade($user) {
+        $banker = $user->banker;
+        if (!$banker) {
+            return false;
+        }
+        $bank = $banker->bank;
+        if (!$bank) {
+            return false;
+        }
+        
+        return $bank->shouldDowngrade();
+    }
 }

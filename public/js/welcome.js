@@ -34252,7 +34252,7 @@ var actions = {
         payload = Object(__WEBPACK_IMPORTED_MODULE_0__helpers_js__["a" /* toSpinalCase */])(payload);
         context.commit('setAccountsLoading', true);
 
-        axios.put('/api/account-holder/' + data.id, payload).then(function (response) {
+        axios.put('/api/account-holder/' + payload.id, payload).then(function (response) {
             context.commit('updateAccountHolder', response.data.data);
             context.commit('setAccountsLoading', false);
             return Promise.resolve();

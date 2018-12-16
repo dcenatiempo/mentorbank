@@ -159,7 +159,10 @@ export default {
             return moment.utc(d.date).local().fromNow();
         },
     },
-    created() {},
+    created() {
+        if (accountListCount > 0)
+            this.setCurrentById(this.$route.params.accountId);
+    },
     mounted() {
         
     },

@@ -3926,7 +3926,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         return {};
     },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('accounts', ['currentAccount']), {
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('accounts', ['currentAccount']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapGetters */])('accounts', ['accountListCount']), {
         wOrM: function wOrM() {
             if (!this.currentAccount.frequency) return null;
             return this.currentAccount.frequency[2];
@@ -4021,12 +4021,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             return moment.utc(d.date).local().fromNow();
         })
     }),
-    created: function created() {
-        this.setCurrentById(this.$route.params.accountId);
-    },
+    created: function created() {},
     mounted: function mounted() {},
 
-    watch: {}
+    watch: {
+        accountListCount: function accountListCount(val) {
+            if (0 == val) return;
+            this.setCurrentById(this.$route.params.accountId);
+        }
+    }
 });
 
 /***/ }),

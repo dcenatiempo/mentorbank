@@ -62,6 +62,7 @@ export default {
     },
     computed: {
         ...mapState('accounts', ['currentAccount']),
+        ...mapGetters('accounts', ['accountListCount']),
         wOrM() {
             if (!this.currentAccount.frequency) return null;
             return this.currentAccount.frequency[2];
@@ -158,13 +159,15 @@ export default {
             return moment.utc(d.date).local().fromNow();
         },
     },
-    created() {
-        this.setCurrentById(this.$route.params.accountId);
-    },
+    created() {},
     mounted() {
         
     },
     watch: {
+        accountListCount(val) {
+            if (0 == val) return;
+            this.setCurrentById(this.$route.params.accountId);
+        }
     }
 }
 </script>

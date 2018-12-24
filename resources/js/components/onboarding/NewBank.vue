@@ -3,7 +3,7 @@
     <h1>{{bank.name}}</h1>
     <h2>You don't have any accounts, lets set one up!</h2>
     <form v-on:submit.prevent>
-        <label for="name">Name:</label>
+        <label for="name">Child's Name:</label>
         <input id="name" type="text" placeholder="Enter account holder's name" v-model="name"/>
         <label for="year">Birth Month:</label>
         <datepicker :format="'MMM yyyy'" :minimumView="'month'" :maximumView="'month'" v-model="birthdate" :use-utc="true"></datepicker>

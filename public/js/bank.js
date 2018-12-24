@@ -4182,6 +4182,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
 
 
 
@@ -4213,7 +4216,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             }, 0);
         },
         canAddCats: function canAddCats() {
-            return 'paid' == this.planType || this.categories.categoryList.length < 5;
+            // Remove this when stripe implemented //
+            return true; ////////////////////////////
+            /////////////////////////////////////////
+            // return 'paid' == this.planType || this.categories.categoryList.length < 5;
         }
     }),
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapMutations */])('app', ['showModal', 'hideModal']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapMutations */])('accounts', ['unSetCurrent']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])('categories', ['fetchAllCategories']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])('transactions', ['fetchAllTransactions']), {
@@ -4468,7 +4474,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
     computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('categories', ['categoryList', 'loading']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapGetters */])('accounts', ['accountListCount']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('bank', ['planType']), {
         canAddCats: function canAddCats() {
-            return 'paid' == this.planType || this.categoryList.length < 5;
+            // Remove this when stripe implemented //
+            return true; ////////////////////////////
+            /////////////////////////////////////////
+            //return 'paid' == this.planType || this.categoryList.length < 5;
         }
     }),
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])('categories', ['fetchAllCategories']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapMutations */])('app', ['showModal', 'hideModal']), {
@@ -6174,6 +6183,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
 
 
 
@@ -6218,7 +6228,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         };
     },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('app', ['modalPayload']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('accounts', ['currentAccount']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapGetters */])('accounts', { 'subedCats': 'accountSubedCats' }), {
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('app', ['modalPayload']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('accounts', ['currentAccount', 'accountList']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapGetters */])('accounts', { 'subedCats': 'accountSubedCats' }), {
         // ...mapState({ 'subedCats': state => state.accounts.currentAccount.subscribedCategories}),
         mode: function mode() {
             var payload = this.modalPayload[this.id];
@@ -7074,8 +7084,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         return {};
     },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('categories', ['categoryList']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('accounts', ['currentAccount']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapGetters */])('accounts', { 'subedCats': 'accountSubedCats' })),
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapMutations */])('app', ['showModal', 'hideModal', 'isPortal']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])('categories', ['fetchAllCategories']), {
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('app', ['isPortal']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('categories', ['categoryList']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('accounts', ['currentAccount']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapGetters */])('accounts', { 'subedCats': 'accountSubedCats' })),
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapMutations */])('app', ['showModal', 'hideModal']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])('categories', ['fetchAllCategories']), {
         showCategoryModal: function showCategoryModal() {
             this.showModal({
                 modalId: 'category-modal',
@@ -30992,10 +31002,18 @@ var render = function() {
       _vm._v(" "),
       _vm.singleAccountMode
         ? _c("h3", [_vm._v(_vm._s(_vm.currentAccount.accountHolder.name))])
-        : _c("account-selector", {
-            ref: "accountSelector",
-            on: { select: _vm.onUpdateAccount }
-          }),
+        : _vm.accountList.length <= 1
+          ? _c("h3", [
+              _vm._v(
+                _vm._s(
+                  _vm.accountList[0] && _vm.accountList[0].accountHolder.name
+                )
+              )
+            ])
+          : _c("account-selector", {
+              ref: "accountSelector",
+              on: { select: _vm.onUpdateAccount }
+            }),
       _vm._v(" "),
       _c("div", { staticClass: "grid-row" }, [
         _c("label", [_vm._v("Type")]),
@@ -31374,16 +31392,14 @@ var render = function() {
                 _vm._v("Accounts")
               ]),
               _vm._v(" "),
-              "paid" == _vm.planType
-                ? _c(
-                    "button",
-                    {
-                      staticClass: "btn-icon",
-                      on: { click: _vm.showAccountHolderModal }
-                    },
-                    [_vm._v("+")]
-                  )
-                : _vm._e()
+              _c(
+                "button",
+                {
+                  staticClass: "btn-icon",
+                  on: { click: _vm.showAccountHolderModal }
+                },
+                [_vm._v("+")]
+              )
             ],
             1
           ),

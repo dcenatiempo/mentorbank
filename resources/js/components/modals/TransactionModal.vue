@@ -12,6 +12,7 @@
     
     <label>Account</label>
     <h3 v-if="singleAccountMode">{{currentAccount.accountHolder.name}}</h3>
+    <h3 v-else-if="accountList.length <= 1">{{accountList[0] && accountList[0].accountHolder.name}}</h3>
     <account-selector v-else ref="accountSelector" @select="onUpdateAccount"></account-selector>
 
     <div class="grid-row">
@@ -96,7 +97,7 @@ export default {
     },
     computed: {
         ...mapState('app', ['modalPayload']),
-        ...mapState('accounts', ['currentAccount']),
+        ...mapState('accounts', ['currentAccount', 'accountList']),
         ...mapGetters('accounts', { 'subedCats': 'accountSubedCats'}),
         // ...mapState({ 'subedCats': state => state.accounts.currentAccount.subscribedCategories}),
         mode() {

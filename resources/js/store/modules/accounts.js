@@ -48,18 +48,18 @@ const mutations = {
                 return updatedAccount;
             else
                 return account;
-        })
+        });
     },
     updateAccountHolder(state, updatedAccountHolder) {
         state.accountList = state.accountList.map(account => {
             if (account.accountHolder.id == updatedAccountHolder.id)
                 account.accountHolder = updatedAccountHolder;
             return account;
-        })
+        });
     },
     setCurrentById(state, id) {
-         let account = state.accountList.find( item => item.id == id);
-         state.currentAccount = account ? account : currentAccountDefault;
+        let account = state.accountList.find( item => item.id == id);
+        state.currentAccount = account ? account : currentAccountDefault;
     },
     setCurrentByObj(state, account) {
         state.currentAccount = account;
@@ -84,7 +84,7 @@ const mutations = {
             if (!(item.categoryId in splitMap)) {
                 splitMap[item.categoryId] = 0;
             }
-            splitMap[item.categoryId] += item.amount
+            splitMap[item.categoryId] += item.amount;
         });
 
         state.accountList = state.accountList.map( account => {
@@ -94,10 +94,10 @@ const mutations = {
                         cat.balance += splitMap[cat.categoryId];
                     }
                     return cat;
-                })
+                });
             }
             return account;
-        })
+        });
     },
     setSubscribedCats(state, mappedCats) {
         state.accountList = state.accountList.map( account => {
@@ -134,9 +134,9 @@ const actions = {
 
         axios.get('/api/account')
             .then( response => {
-                context.commit('setAccounts', response.data.data)
+                context.commit('setAccounts', response.data.data);
                 context.commit('setAccountsLoading', false);
-                return Promise.resolve()
+                return Promise.resolve();
             })
             .catch( err => {
                 console.log(err);
@@ -152,7 +152,7 @@ const actions = {
                 context.commit('setAccounts', [response.data.data]);
                 context.commit('setCurrentByObj', response.data.data);
                 context.commit('setAccountsLoading', false);
-                return Promise.resolve()
+                return Promise.resolve();
             })
             .catch( err => {
                 console.log(err);
@@ -181,10 +181,10 @@ const actions = {
         context.commit('setAccountsLoading', true);
 
         axios.patch(`/api/account/${payload.id}`, payload)
-                .then( response => {
-                    context.commit('updateAccount', response.data.data);
-                    context.commit('setCurrentByObj', response.data.data);
-                    context.commit('setAccountsLoading', false);
+            .then( response => {
+                context.commit('updateAccount', response.data.data);
+                context.commit('setCurrentByObj', response.data.data);
+                context.commit('setAccountsLoading', false);
                 return Promise.resolve();
             })
             .catch( err => {

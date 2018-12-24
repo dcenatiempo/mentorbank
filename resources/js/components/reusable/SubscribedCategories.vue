@@ -35,12 +35,13 @@ export default {
         };
     },
     computed: {
+        ...mapState('app', ['isPortal']),
         ...mapState('categories', ['categoryList']),
         ...mapState('accounts', ['currentAccount']),
         ...mapGetters('accounts', { 'subedCats': 'accountSubedCats'}),
     },
     methods: {
-        ...mapMutations('app', ['showModal', 'hideModal', 'isPortal']),
+        ...mapMutations('app', ['showModal', 'hideModal']),
         ...mapActions('categories', ['fetchAllCategories']),
         showCategoryModal() {
             this.showModal({

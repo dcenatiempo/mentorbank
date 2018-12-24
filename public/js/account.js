@@ -3987,8 +3987,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         return {};
     },
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('categories', ['categoryList']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('accounts', ['currentAccount']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapGetters */])('accounts', { 'subedCats': 'accountSubedCats' })),
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapMutations */])('app', ['showModal', 'hideModal', 'isPortal']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])('categories', ['fetchAllCategories']), {
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('app', ['isPortal']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('categories', ['categoryList']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('accounts', ['currentAccount']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapGetters */])('accounts', { 'subedCats': 'accountSubedCats' })),
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapMutations */])('app', ['showModal', 'hideModal']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])('categories', ['fetchAllCategories']), {
         showCategoryModal: function showCategoryModal() {
             this.showModal({
                 modalId: 'category-modal',

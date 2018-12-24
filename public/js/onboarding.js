@@ -20507,7 +20507,7 @@ var render = function() {
         }
       },
       [
-        _c("label", { attrs: { for: "name" } }, [_vm._v("Name:")]),
+        _c("label", { attrs: { for: "name" } }, [_vm._v("Child's Name:")]),
         _vm._v(" "),
         _c("input", {
           directives: [

@@ -139,6 +139,9 @@ class ViewController extends Controller
     }
 
     private function shouldDowngrade($user) {
+        // remove this when stripe implemented //
+        return false; ///////////////////////////
+        /////////////////////////////////////////
         $banker = $user->banker;
         if (!$banker) {
             return false;

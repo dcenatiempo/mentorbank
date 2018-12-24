@@ -13,9 +13,12 @@
             <h2 class="card-header">
                 <router-link to="/bank/accounts">Accounts</router-link>
                 <button
-                    v-if="'paid' == planType"
                     v-on:click="showAccountHolderModal"
                     class="btn-icon">+</button>
+                <!-- <button
+                    v-if="'paid' == planType"
+                    v-on:click="showAccountHolderModal"
+                    class="btn-icon">+</button> -->
             </h2>
             <div v-if="accounts.loading"
                 class="loader"></div>
@@ -94,7 +97,10 @@ export default {
             , 0);
         },
         canAddCats() {
-            return 'paid' == this.planType || this.categories.categoryList.length < 5;
+            // Remove this when stripe implemented //
+            return true; ////////////////////////////
+            /////////////////////////////////////////
+            // return 'paid' == this.planType || this.categories.categoryList.length < 5;
         }
     },
     methods: {

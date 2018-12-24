@@ -66,7 +66,10 @@ export default {
         ...mapGetters('accounts', ['accountListCount']),
         ...mapState('bank', ['planType']),
         canAddCats() {
-            return 'paid' == this.planType || this.categoryList.length < 5;
+            // Remove this when stripe implemented //
+            return true; ////////////////////////////
+            /////////////////////////////////////////
+            //return 'paid' == this.planType || this.categoryList.length < 5;
         }
     },
     methods: {

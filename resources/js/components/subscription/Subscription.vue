@@ -1,10 +1,14 @@
 <template>
     <div class="container">
         <div v-if="downgrade">
-            Your subscription is expired. your bank needs to be downgraded
+            <p>Your subscription is expired.</p>
+            <p>You are past the grace period</p>
+            <p>You have exceeded the free limit</p>
+            <p>Your bank needs to be downgraded</p>
         </div>
         <div v-else-if="'free' == planType">
-            Would you like a subscription?
+            <p>Would you like a subscription?</p>
+            <p>This will allow you to have multiple accounts &amp; add more categories</p>
         </div>
         <div v-else-if="isInGracePeriod">
             Your subscription has expired, please renew!
